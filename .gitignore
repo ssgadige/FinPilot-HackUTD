@@ -9,6 +9,7 @@ data/*.sqlite*
 data/demo-credentials.json
 data/seed-manifest.json
 __pycache__/
+.venv/
 *.pyc
 *.log
 .DS_Store
