@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+coverage/
+.env
+.env.*
+!.env.example
+data/*.sqlite*
+data/demo-credentials.json
+data/seed-manifest.json
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

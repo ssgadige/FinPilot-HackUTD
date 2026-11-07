@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentResult",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "status",
+    "headline",
+    "findings",
+    "evidence_ids",
+    "assumptions",
+    "missing_data",
+    "proposed_actions",
+    "snapshot_version"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "enum": [
+        "coordinator",
+        "data-integrity",
+        "cash-collision",
+        "subscription-detective",
+        "deal-scout",
+        "debt-readiness",
+        "goal-allocator",
+        "stress-test",
+        "plan-repair",
+        "chat"
+      ]
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "needs_information",
+        "failed",
+        "skipped"
+      ]
+    },
+    "headline": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "severity",
+          "summary",
+          "evidence_ids",
+          "amount_cents"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "info",
+              "opportunity",
+              "warning",
+              "urgent"
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "amount_cents": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_data": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "proposed_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "description",
+          "requires_confirmation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "save_plan",
+              "review_subscription",
+              "adjust_goal",
+              "review_payment"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "requires_confirmation": {
+            "const": true
+          }
+        }
+      }
+    },
+    "snapshot_version": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "selected_specialists": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "data-integrity",
+          "cash-collision",
+          "subscription-detective",
+          "deal-scout",
+          "debt-readiness",
+          "goal-allocator",
+          "stress-test",
+          "plan-repair"
+        ]
+      }
+    }
+  }
+}
