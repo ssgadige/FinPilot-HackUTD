@@ -11,7 +11,7 @@ This commit is the **implementation handoff**, not a finished banking applicatio
 ## Start here
 
 1. Read [Team start](docs/TEAM_START.md).
-2. Follow [Downloads and setup](docs/SETUP.md). Logins and provider configuration can happen later.
+2. Share [Teammate installation README](TEAM_SETUP_README.md), then follow [Downloads and setup](docs/SETUP.md). Logins and provider configuration can happen later.
 3. Read [Product and UI](docs/PRODUCT.md), [Architecture](docs/ARCHITECTURE.md), and [14-hour plan](docs/BUILD_PLAN.md).
 4. Pick a work lane from [Task board](docs/TASK_BOARD.md). Each task has its own README.
 5. Review [API contracts](docs/API.md), [Agent design](docs/AGENTS.md), and [Security](docs/SECURITY.md) before implementation.
@@ -25,7 +25,7 @@ One overview for bank accounts, cards, loans, savings, investment snapshots, sub
 - Ten fictional people; 30 months of distinct history; separate application and simulated-institution credentials.
 - Banks and credit unions → PNC, Bank of America, Chase, Capital One, Ally; cards → Amex and Discover; investments → Fidelity and Vanguard; loans → Demo Auto Finance and Demo Mortgage; digital wallets → PayPal. All institution labels refer to simulations.
 - Account linking is a local simulator with consent, credential validation, account selection, sync, and disconnect. Never enter a real bank password.
-- Local SQLite database for one demo server. Cloud/serverless hosting needs persistent database storage; do not assume an ephemeral filesystem is durable.
+- Docker Compose is the agreed runtime target: one Next.js app container, SQLite on a persistent volume, and a local Mailpit service. Docker application files are still to be implemented; see TEAM_SETUP_README.md.
 - Real Nemotron inference and SMTP email are integration targets. Without configuration show explicit unavailable states, not fake successful calls.
 - Deals use an allowlisted public offer adapter plus clearly labeled fixture fallback. Prices and eligibility must be verified before claiming live savings.
 - No real transfers, bill payments, cancellations, investment trades, lender decisions, credit-score guarantees, or production-security claims.

@@ -1,5 +1,7 @@
 # Downloads and setup checklist
 
+Start with [Teammate installation README](../TEAM_SETUP_README.md). Docker Compose is now the agreed runtime target; provider logins remain deferred.
+
 Do the repository work first. Provider logins and paid services are deferred; no purchase is required by this plan.
 
 ## Required on all three computers
@@ -9,14 +11,15 @@ Do the repository work first. Provider logins and paid services are deferred; no
 | Git | https://git-scm.com/downloads | `git --version` | Branches and PRs |
 | VS Code | https://code.visualstudio.com/download | Open repository folder | Editor |
 | Node.js 22 LTS, at least 22.13 | https://nodejs.org/en/download | `node --version`, `npm --version` | Planned Next.js runtime |
+| Docker Desktop + Compose | https://www.docker.com/products/docker-desktop/ | `docker info`, `docker compose version` | Shared container runtime |
 | Python 3.11+ | https://www.python.org/downloads/ | Windows: `py --version`; macOS/Linux: `python3 --version` | Dependency-free seed tools |
 | Chrome/Edge/Firefox | Official vendor | Open localhost after app implementation | UI testing |
 
-VS Code extensions: official Codex extension (if not already present), ESLint, Prettier; GitHub Pull Requests optional. Install from official marketplace. No Docker, GPU driver, CUDA toolkit, local Nemotron download, or Jira desktop app is required for hosted inference.
+VS Code extensions: official Codex extension (if not already present), ESLint, Prettier; GitHub Pull Requests optional. Install from official marketplace. Docker is required for our agreed application runtime. A GPU driver, CUDA toolkit, local Nemotron download, or Jira desktop app is not required for hosted inference.
 
 ## Backend developer: local email inbox
 
-Use Mailpit from https://mailpit.axllent.org/docs/install/ . On Windows download the matching official release; macOS can use Homebrew; Docker is optional. Start `mailpit`; local SMTP defaults to port 1025 and web inbox to http://localhost:8025 . Bind to localhost. This captures messages for fictional `example.test` addresses. It does not deliver email to real mailboxes and is not production 2FA.
+Use Mailpit from https://mailpit.axllent.org/docs/install/ . Run Mailpit as a Compose service when the runtime files are implemented. A standalone binary is optional for early development. Local SMTP defaults to port 1025 and web inbox to http://localhost:8025; bind the inbox to localhost. Inside Compose use SMTP_HOST=mailpit rather than localhost. This captures messages for fictional `example.test` addresses. It does not deliver email to real mailboxes and is not production 2FA.
 
 Optional DB Browser for SQLite: https://sqlitebrowser.org/dl/ . Optional GitHub CLI: https://cli.github.com/ . Neither is needed to run the supplied scripts.
 
@@ -48,7 +51,7 @@ Once FP-01 supplies package.json: `npm ci`, `npm run dev`, `npm run lint`, `npm 
 | Jira / Atlassian | Existing site and project or new team project; connect Atlassian | Team lead | Import CSV after site/project selection |
 | NVIDIA hosted API | API key, accessible Nemotron model ID, quota | C | Real tool-call smoke test; never infer model availability from its name |
 | Email provider | SMTP credentials and verified sender; test recipient consent | B | Needed only for real delivery; Mailpit for local fictional accounts |
-| Hosting | Persistent Node server + persistent SQLite volume + HTTPS | B | Optional; local laptop demo is the baseline |
+| Hosting | Docker Compose app + persistent SQLite volume + Mailpit; HTTPS for public access | B | Required runtime target; local Compose demo first, public hosting optional |
 | Deal sources | Explicit allowlisted public provider URLs | C | No login or subscription purchase; verified offer metadata |
 
 Neither Bank of America, Chase, nor any other real institution needs a login. The simulated linking experience uses the seed credentials. Never collect a teammate's real banking details.
