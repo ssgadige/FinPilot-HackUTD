@@ -1,10 +1,10 @@
-# FinPilot — teammate installation README
+# Installation and runtime setup
 
-Use **Visual Studio Code (VS Code)** for this project. The full Visual Studio IDE is not required.
+Development environment: Visual Studio Code (VS Code).
 
-This is the setup checklist for our three-person, 14-hour hackathon build. Install the desktop tools now; account logins, API keys and deployment configuration can be completed together later. The repository currently contains the implementation plan, contracts, prompts and working data generator. The web app and Docker application image are still to be built.
+The following dependencies support local development and the Docker runtime. Application and Docker runtime implementation is tracked in GitHub Issues. Provider credentials are configured separately from source control.
 
-## 1. Our agreed stack
+## 1. Technology stack
 
 | Part | Tool | What it does | Separate download? |
 |---|---|---|---|
@@ -15,15 +15,15 @@ This is the setup checklist for our three-person, 14-hour hackathon build. Insta
 | Database | SQLite | Stores users, connected demo accounts, history, plans and agent runs | Embedded in app; no database server to install |
 | Database viewer | DB Browser for SQLite | Inspect tables and run development queries | Recommended for everyone; especially backend owner |
 | Agents and chatbot | NVIDIA Nemotron hosted API | All specialist agents, coordinator and basic chat | API account/key later; no local model download |
-| Containers | Docker Desktop + Docker Compose | Run our app and local email service consistently | Yes on Windows/macOS; Linux Engine + Compose is an alternative |
+| Containers | Docker Desktop + Docker Compose | Run the application and local email service consistently | Yes on Windows/macOS; Linux Engine + Compose is an alternative |
 | Email testing | Mailpit container | Receives test login-verification emails | Downloaded as a Docker image later |
 | Demo data | Python 3.11+ | Generates and validates 30 months of synthetic records | Yes for running the supplied scripts locally |
 
 One Next.js application handles the frontend and backend. One SQLite database handles the project data. Docker runs the application; Nemotron inference stays on the hosted NVIDIA service. No GPU/CUDA setup is needed for this chosen approach. Database files must be kept in persistent Docker storage.
 
-## 2. Install these on each teammate's laptop
+## 2. Install these on development machines
 
-Install in this order. Keep existing compatible installations.
+Install in this order. Existing compatible installations can be retained.
 
 | Install | Official download | Check in terminal |
 |---|---|---|
@@ -34,11 +34,11 @@ Install in this order. Keep existing compatible installations.
 | Docker Desktop | https://www.docker.com/products/docker-desktop/ | `docker --version`, `docker compose version`, `docker info` |
 | DB Browser for SQLite | https://sqlitebrowser.org/dl/ | Open the application |
 
-Use the same Node major version across the team. Node 22 is our project baseline; choose the latest available 22.x patch. Reopen VS Code after installing tools so its terminal sees PATH updates. npm comes with Node.js. Docker Desktop includes Compose; no separate Compose download is needed on Desktop installations.
+Use the same Node major version across the team. Node 22 is the project baseline; choose the latest available 22.x patch. Reopen VS Code after installing tools so its terminal sees PATH updates. npm comes with Node.js. Docker Desktop includes Compose; no separate Compose download is needed on Desktop installations.
 
 ### Windows Docker setup
 
-1. Check the current [Docker Windows requirements](https://docs.docker.com/desktop/setup/install/windows-install/) for your Windows edition/version.
+1. Check the current [Docker Windows requirements](https://docs.docker.com/desktop/setup/install/windows-install/) for ythe Windows edition/version.
 2. Use the WSL 2 backend and Linux containers for this application.
 3. Check WSL with `wsl --version` and `wsl --status` in PowerShell.
 4. If WSL is missing, follow the [Microsoft WSL installation guide](https://learn.microsoft.com/en-us/windows/wsl/install); run `wsl --install` from an administrator PowerShell when required, then restart if prompted. Use `wsl --update` if an installed WSL needs updating.
@@ -53,7 +53,7 @@ Install the official Codex extension, ESLint and Prettier. Docker/container tool
 
 ## 3. Clone and open the repository
 
-After your GitHub account is invited to the private repository:
+After ythe GitHub account is invited to the private repository:
 
 ```bash
 git clone https://github.com/ssgadige/FinPilot-HackUTD.git
@@ -63,13 +63,13 @@ code .
 
 If `code` is unavailable, open VS Code → File → Open Folder and select this folder. If cloning says Repository not found, check the signed-in GitHub account and repository access first.
 
-Before coding, create your task branch, for example:
+Before coding, create ythe task branch, for example:
 
 ```bash
 git switch -c feat/FP-01-app-shell
 ```
 
-Choose your actual task from [the task board](docs/TASK_BOARD.md). A owns frontend, B owns backend/security/data, C owns Nemotron agents. Each task has its own README.
+Choose ythe actual task from [the task board](docs/TASK_BOARD.md). A owns frontend, B owns backend/security/data, C owns Nemotron agents. Each task has its own README.
 
 ## 4. Run the data starter now
 
@@ -97,7 +97,7 @@ Generated files:
 - `data/demo-credentials.json`: fictional application and institution passwords for local testing.
 - `data/seed-manifest.json`: record counts and seed metadata.
 
-These are gitignored. Do not commit them. Re-running the seed refuses to overwrite existing data; `--reset` is only for intentionally replacing your disposable local demo data. Each reset generates new demo passwords. Every laptop gets its own independent database and credentials. Avoid editing the SQLite file manually while the app is writing to it; use app APIs for normal development.
+These are gitignored. Do not commit them. Re-running the seed refuses to overwrite existing data; `--reset` is only for intentionally replacing ythe disposable local demo data. Each reset generates new demo passwords. Every laptop gets its own independent database and credentials. Avoid editing the SQLite file manually while the app is writing to it; use app APIs for normal development.
 
 ## 5. Frontend/backend packages — installed once through the repository
 
@@ -124,7 +124,7 @@ The planned app URL is http://localhost:3000 . These commands cannot start the a
 
 ## 6. Docker runtime plan
 
-The team will add `Dockerfile`, `compose.yaml` and `.dockerignore` as part of the backend/integration work. This README does not claim those runtime files already exist.
+Implementation includes `Dockerfile`, `compose.yaml` and `.dockerignore` as part of the backend/integration work. This README does not claim those runtime files already exist.
 
 | Component | Container/service | Storage/network requirement |
 |---|---|---|
@@ -146,14 +146,14 @@ docker compose logs --tail=100 app
 docker compose down
 ```
 
-`docker compose down` stops the stack while preserving named volumes by default. Do not use `down -v` unless deliberately discarding the demo database. The container seed command will be documented by B after the runtime exists; the current host-generated database is not automatically copied into a named volume.
+`docker compose down` stops the stack while preserving named volumes by default. Do not use `down -v` unless deliberately discarding the demo database. The container seed command is tracked in workstream B after the runtime exists; the current host-generated database is not automatically copied into a named volume.
 
 Docker packages the runtime; public hosting still needs a Docker-capable machine and HTTPS. For the hackathon, run Compose on the demo laptop first. Public server/account configuration comes later.
 
 ## 7. Accounts and environment settings — later
 
-- GitHub: each teammate uses their own account; verify repository access.
-- NVIDIA: agent owner obtains an API key and accessible Nemotron model supporting our tool-call workflow. Confirm quota with a real smoke test. Do not put keys in chat, source code or frontend environment variables.
+- GitHub: each contributor uses their own account; verify repository access.
+- NVIDIA: agent owner obtains an API key and accessible Nemotron model supporting the tool-call workflow. Confirm quota with a real smoke test. Do not put keys in chat, source code or frontend environment variables.
 - Email: Mailpit needs no real email account. The fictional `example.test` logins use this local SMTP inbox. Real email delivery later needs a verified sender and SMTP credentials.
 - Jira: browser account and Atlassian connection later; no desktop installation.
 
@@ -166,7 +166,7 @@ Copy `.env.example` to a local ignored environment file. Store `NVIDIA_API_KEY`,
 - [ ] Docker Desktop engine is running; Compose works.
 - [ ] DB Browser opens the seeded SQLite file.
 - [ ] Seed validation and five tests pass.
-- [ ] Read your task README and shared API contracts.
+- [ ] Read ythe task README and shared API contracts.
 - [ ] Later: GitHub access, NVIDIA credentials and email configuration verified.
 - [ ] After implementation: app starts in Compose and database survives stop/start.
 

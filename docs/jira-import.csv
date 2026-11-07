@@ -1,828 +1,804 @@
-Task ID,Summary,Issue Type,Description,Priority,Labels,Owner lane,Estimate hours,Dependencies,Status
-FP-01,[FP-01] App scaffold and shared UI,Task,"# FP-01 — App scaffold and shared UI
+"Task ID","Summary","Issue Type","Description","Priority","Labels","Owner lane","Estimate hours","Dependencies","Status"
+"FP-01","[FP-01] App scaffold and shared UI","Task","# FP-01 — App scaffold and shared UI
 
-- Owner lane: A
-- Estimate: 1 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: None
-- Branch: `feat/fp-01-app-scaffold-and-shared-ui`
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 1 hour |
+| Dependencies | None |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Create Next.js TypeScript scaffold without overwriting planning files; add shared shell, navigation, cards, forms, tables and chart wrapper. Commit lockfile and dev/build/lint/test scripts.
 
-## Files and boundaries
-src/app, src/components, package.json, lockfile. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-01; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app, src/components, package.json, lockfile
 
 ## Acceptance criteria
 - [ ] App starts on localhost.
-- [ ] all navigation sections reachable.
-- [ ] keyboard focus and mobile navigation work.
-- [ ] build/lint pass..
+- [ ] All navigation sections reachable.
+- [ ] Keyboard focus and mobile navigation work.
+- [ ] Build/lint pass.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-01-app-scaffold-and-shared-ui`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-01/README.md",High,lane-a,A,1,None,Backlog
-FP-02,[FP-02] Login and email verification screens,Task,"# FP-02 — Login and email verification screens
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: A
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-10 API contract
-- Branch: `feat/fp-02-login-and-email-verification-screens`
+[Issue #1](https://github.com/ssgadige/FinPilot-HackUTD/issues/1)
+","High","lane-a","A","1","None","Backlog"
+"FP-02","[FP-02] Login and email verification screens","Task","# FP-02 — Login and email verification screens
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 1.5 hours |
+| Dependencies | FP-01; FP-10 API contract |
+| Priority | P0 |
+
+## Scope
 Implement password login, pending email-code challenge, resend timer, errors and logout. Connect to B endpoints; no frontend auth bypass.
 
-## Files and boundaries
-src/app/login, src/components/auth. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-02; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/login, src/components/auth
 
 ## Acceptance criteria
 - [ ] No financial page accessible before verification.
-- [ ] wrong/expired codes show errors.
-- [ ] logout returns to login.
-- [ ] network failure is useful..
+- [ ] Wrong/expired codes show errors.
+- [ ] Logout returns to login.
+- [ ] Network failure is useful.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-02-login-and-email-verification-screens`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-02/README.md",High,lane-a,A,1.5,FP-01; FP-10 API contract,Backlog
-FP-03,[FP-03] Institution catalog and simulated linking,Task,"# FP-03 — Institution catalog and simulated linking
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: A
-- Estimate: 2 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-11 API
-- Branch: `feat/fp-03-institution-catalog-and-simulated-linking`
+[Issue #2](https://github.com/ssgadige/FinPilot-HackUTD/issues/2)
+","High","lane-a","A","1.5","FP-01; FP-10 API contract","Backlog"
+"FP-03","[FP-03] Institution catalog and simulated linking","Task","# FP-03 — Institution catalog and simulated linking
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 2 hours |
+| Dependencies | FP-01; FP-11 API |
+| Priority | P0 |
+
+## Scope
 Build category cards and provider grid; simulator warning, fake credentials form, consent, account selection, connected status, sync/disconnect. Clear secrets from form memory after submit.
 
-## Files and boundaries
-src/app/institutions, src/components/connections. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-03; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/institutions, src/components/connections
 
 ## Acceptance criteria
 - [ ] PNC/BoA/Chase discoverable by category.
-- [ ] link only selected accounts.
-- [ ] invalid fake login fails.
-- [ ] reconnect does not duplicate.
-- [ ] disconnect updates dashboard..
+- [ ] Link only selected accounts.
+- [ ] Invalid fake login fails.
+- [ ] Reconnect does not duplicate.
+- [ ] Disconnect updates dashboard.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-03-institution-catalog-and-simulated-linking`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-03/README.md",High,lane-a,A,2,FP-01; FP-11 API,Backlog
-FP-04,[FP-04] Overview transactions and cash calendar,Task,"# FP-04 — Overview transactions and cash calendar
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: A
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-12 API
-- Branch: `feat/fp-04-overview-transactions-and-cash-calendar`
+[Issue #3](https://github.com/ssgadige/FinPilot-HackUTD/issues/3)
+","High","lane-a","A","2","FP-01; FP-11 API","Backlog"
+"FP-04","[FP-04] Overview transactions and cash calendar","Task","# FP-04 — Overview transactions and cash calendar
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 1.5 hours |
+| Dependencies | FP-01; FP-12 API |
+| Priority | P0 |
+
+## Scope
 Render liquid cash/debt/net worth, three explained indicators, forecast, bills and 30-month searchable/paginated history. Investments shown separately from liquid cash.
 
-## Files and boundaries
-src/app/overview, src/app/transactions, src/app/cash. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-04; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/overview, src/app/transactions, src/app/cash
 
 ## Acceptance criteria
 - [ ] Filters and pagination work.
-- [ ] transfer exclusions match tools.
-- [ ] empty/disconnected state helpful.
-- [ ] account evidence drawer opens scoped records..
+- [ ] Transfer exclusions match tools.
+- [ ] Empty/disconnected state helpful.
+- [ ] Account evidence drawer opens scoped records.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-04-overview-transactions-and-cash-calendar`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-04/README.md",High,lane-a,A,1.5,FP-01; FP-12 API,Backlog
-FP-05,[FP-05] Subscription manager and offer comparison,Task,"# FP-05 — Subscription manager and offer comparison
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: A
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-13; FP-19
-- Branch: `feat/fp-05-subscription-manager-and-offer-comparison`
+[Issue #4](https://github.com/ssgadige/FinPilot-HackUTD/issues/4)
+","High","lane-a","A","1.5","FP-01; FP-12 API","Backlog"
+"FP-05","[FP-05] Subscription manager and offer comparison","Task","# FP-05 — Subscription manager and offer comparison
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 1.5 hours |
+| Dependencies | FP-01; FP-13; FP-19 |
+| Priority | P0 |
+
+## Scope
 Show recurring candidates, confidence, price changes, preference confirmation and comparable offers. Distinguish fixture/live, promotional/renewal prices, annual upfront charges and intention vs confirmed change.
 
-## Files and boundaries
-src/app/subscriptions. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-05; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/subscriptions
 
 ## Acceptance criteria
 - [ ] User can confirm preferences and save proposed action.
-- [ ] sample offer badge visible.
-- [ ] no fabricated unused claim.
-- [ ] no cancellation/purchase performed..
+- [ ] Sample offer badge visible.
+- [ ] No fabricated unused claim.
+- [ ] No cancellation/purchase performed.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-05-subscription-manager-and-offer-comparison`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-05/README.md",High,lane-a,A,1.5,FP-01; FP-13; FP-19,Backlog
-FP-06,[FP-06] Debt goals assets and scenario UI,Task,"# FP-06 — Debt goals assets and scenario UI
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: A
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-13/14/20/21
-- Branch: `feat/fp-06-debt-goals-assets-and-scenario-ui`
+[Issue #5](https://github.com/ssgadige/FinPilot-HackUTD/issues/5)
+","High","lane-a","A","1.5","FP-01; FP-13; FP-19","Backlog"
+"FP-06","[FP-06] Debt goals assets and scenario UI","Task","# FP-06 — Debt goals assets and scenario UI
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 1.5 hours |
+| Dependencies | FP-01; FP-13/14/20/21 |
+| Priority | P0 |
+
+## Scope
 Implement debt table/payment comparisons, goal create/edit, savings/CD/IRA/brokerage snapshots and scenario form/results. Connect accepted plan and version conflicts.
 
-## Files and boundaries
-src/app/debts, src/app/goals, src/app/assets, src/app/scenarios. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-06; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/debts, src/app/goals, src/app/assets, src/app/scenarios
 
 ## Acceptance criteria
 - [ ] Create goal changes API.
-- [ ] compare plan and scenario.
+- [ ] Compare plan and scenario.
 - [ ] CD maturity visible.
-- [ ] unsupported credit score prediction absent.
-- [ ] handle 409 stale acceptance..
+- [ ] Unsupported credit score prediction absent.
+- [ ] Handle 409 stale acceptance.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-06-debt-goals-assets-and-scenario-ui`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-06/README.md",High,lane-a,A,1.5,FP-01; FP-13/14/20/21,Backlog
-FP-07,[FP-07] Agent workspace and basic chatbot,Task,"# FP-07 — Agent workspace and basic chatbot
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: A
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-15/23
-- Branch: `feat/fp-07-agent-workspace-and-basic-chatbot`
+[Issue #6](https://github.com/ssgadige/FinPilot-HackUTD/issues/6)
+","High","lane-a","A","1.5","FP-01; FP-13/14/20/21","Backlog"
+"FP-07","[FP-07] Agent workspace and basic chatbot","Task","# FP-07 — Agent workspace and basic chatbot
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 1.5 hours |
+| Dependencies | FP-01; FP-15/23 |
+| Priority | P0 |
+
+## Scope
 Display nine agent roles, true run events/tool activity, findings and evidence; poll status. Add basic Nemotron chat side panel with request-checkup and explain-finding interactions.
 
-## Files and boundaries
-src/app/agents, src/components/chat. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-07; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/agents, src/components/chat
 
 ## Acceptance criteria
 - [ ] No fake typing/agent completion.
-- [ ] failures/skips/stale results labeled.
-- [ ] chat response from real endpoint.
-- [ ] evidence opens correctly..
+- [ ] Failures/skips/stale results labeled.
+- [ ] Chat response from real endpoint.
+- [ ] Evidence opens correctly.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-07-agent-workspace-and-basic-chatbot`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-07/README.md",High,lane-a,A,1.5,FP-01; FP-15/23,Backlog
-FP-08,[FP-08] Frontend integration accessibility and demo polish,Task,"# FP-08 — Frontend integration accessibility and demo polish
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: A
-- Estimate: 3.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-02..07; B/C integration
-- Branch: `feat/fp-08-frontend-integration-accessibility-and-demo-polish`
+[Issue #7](https://github.com/ssgadige/FinPilot-HackUTD/issues/7)
+","High","lane-a","A","1.5","FP-01; FP-15/23","Backlog"
+"FP-08","[FP-08] Frontend integration accessibility and demo polish","Task","# FP-08 — Frontend integration accessibility and demo polish
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 3.5 hours |
+| Dependencies | FP-02..07; B/C integration |
+| Priority | P0 |
+
+## Scope
 Integrate all pages with real APIs, remove unintended response fixtures, fix error/loading/empty states, verify keyboard/responsive UI and rehearse demo.
 
-## Files and boundaries
-UI and end-to-end tests. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-08; include commands/evidence and unresolved limitations.
+## Implementation area
+UI and end-to-end tests
 
 ## Acceptance criteria
 - [ ] Two user journeys complete.
-- [ ] no cross-user cached UI.
-- [ ] demo simulator labels clear.
-- [ ] no dead primary action.
-- [ ] build passes.
-- [ ] screenshots captured..
+- [ ] No cross-user cached UI.
+- [ ] Demo simulator labels clear.
+- [ ] No dead primary action.
+- [ ] Build passes.
+- [ ] Screenshots captured.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-08-frontend-integration-accessibility-and-demo-polish`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-08/README.md",High,lane-a,A,3.5,FP-02..07; B/C integration,Backlog
-FP-09,[FP-09] Database adapter and validated seed,Task,"# FP-09 — Database adapter and validated seed
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-- Owner lane: B
-- Estimate: 1 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: None
-- Branch: `feat/fp-09-database-adapter-and-validated-seed`
+[Issue #8](https://github.com/ssgadige/FinPilot-HackUTD/issues/8)
+","High","lane-a","A","3.5","FP-02..07; B/C integration","Backlog"
+"FP-09","[FP-09] Database adapter and validated seed","Task","# FP-09 — Database adapter and validated seed
 
-## Purpose and scope
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 1 hour |
+| Dependencies | None |
+| Priority | P0 |
+
+## Scope
 Review supplied schema/generator; add SQLite adapter, transactions, migration/bootstrap command, session-scoped query helpers and ledger access. Preserve generated local secret files outside git.
 
-## Files and boundaries
-src/server/db, data/schema.sql, scripts. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-09; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/db, data/schema.sql, scripts
 
 ## Acceptance criteria
 - [ ] 10 users and 30-month history validate.
-- [ ] current balances reconcile.
-- [ ] query helpers enforce ownership/connection selection.
-- [ ] one-command setup documented..
+- [ ] Current balances reconcile.
+- [ ] Query helpers enforce ownership/connection selection.
+- [ ] One-command setup documented.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-09-database-adapter-and-validated-seed`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-09/README.md",High,lane-b,B,1,None,Backlog
-FP-10,[FP-10] Password email challenge and sessions,Task,"# FP-10 — Password email challenge and sessions
+[Issue #9](https://github.com/ssgadige/FinPilot-HackUTD/issues/9)
+","High","lane-b","B","1","None","Backlog"
+"FP-10","[FP-10] Password email challenge and sessions","Task","# FP-10 — Password email challenge and sessions
 
-- Owner lane: B
-- Estimate: 2 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-09
-- Branch: `feat/fp-10-password-email-challenge-and-sessions`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 2 hours |
+| Dependencies | FP-09 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Implement scrypt verification, random HMAC-protected email codes, Mailpit SMTP, throttling, pending cookie, authenticated session, CSRF/origin controls and logout.
 
-## Files and boundaries
-src/server/auth, src/app/api/v1/auth. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-10; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/auth, src/app/api/v1/auth
 
 ## Acceptance criteria
 - [ ] Wrong/expired/replayed OTP tests.
-- [ ] no session before verification.
-- [ ] cooldown and attempt limits.
-- [ ] logout revokes.
-- [ ] no secrets in responses/logs..
+- [ ] No session before verification.
+- [ ] Cooldown and attempt limits.
+- [ ] Logout revokes.
+- [ ] No secrets in responses/logs.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-10-password-email-challenge-and-sessions`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-10/README.md",High,lane-b,B,2,FP-09,Backlog
-FP-11,[FP-11] Simulated institution connection backend,Task,"# FP-11 — Simulated institution connection backend
+[Issue #10](https://github.com/ssgadige/FinPilot-HackUTD/issues/10)
+","High","lane-b","B","2","FP-09","Backlog"
+"FP-11","[FP-11] Simulated institution connection backend","Task","# FP-11 — Simulated institution connection backend
 
-- Owner lane: B
-- Estimate: 2 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-09/10
-- Branch: `feat/fp-11-simulated-institution-connection-backend`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 2 hours |
+| Dependencies | FP-09/10 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Implement fake-login preview token, owned-account selection/consent, connection/sync/revoke, idempotency and server-scoped account visibility. No bank network requests.
 
-## Files and boundaries
-src/server/simulator, src/app/api/v1/connections. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-11; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/simulator, src/app/api/v1/connections
 
 ## Acceptance criteria
 - [ ] Wrong institution/user rejected.
-- [ ] cannot link another person’s account.
-- [ ] only selected accounts visible.
-- [ ] repeated sync safe.
-- [ ] disconnect makes history and related evidence inaccessible..
+- [ ] Cannot link another person’s account.
+- [ ] Only selected accounts visible.
+- [ ] Repeated sync safe.
+- [ ] Disconnect makes history and related evidence inaccessible.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-11-simulated-institution-connection-backend`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-11/README.md",High,lane-b,B,2,FP-09/10,Backlog
-FP-12,[FP-12] Scoped finance read APIs and aggregates,Task,"# FP-12 — Scoped finance read APIs and aggregates
+[Issue #11](https://github.com/ssgadige/FinPilot-HackUTD/issues/11)
+","High","lane-b","B","2","FP-09/10","Backlog"
+"FP-12","[FP-12] Scoped finance read APIs and aggregates","Task","# FP-12 — Scoped finance read APIs and aggregates
 
-- Owner lane: B
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-09/10/11
-- Branch: `feat/fp-12-scoped-finance-read-apis-and-aggregates`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 1.5 hours |
+| Dependencies | FP-09/10/11 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Implement filters/pagination and SQL aggregates excluding paired owned-account transfers from cash flow. Mask last four, handle absent linked data and separate assets/liabilities.
 
-## Files and boundaries
-src/app/api/v1/accounts, transactions, overview, forecast. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-12; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/api/v1/accounts, transactions, overview, forecast
 
 ## Acceptance criteria
 - [ ] 30 months queryable.
-- [ ] no leaked hashes/secrets.
-- [ ] all object identifiers ownership tested.
-- [ ] overview matches ledger and indicator definitions..
+- [ ] No leaked hashes/secrets.
+- [ ] All object identifiers ownership tested.
+- [ ] Overview matches ledger and indicator definitions.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-12-scoped-finance-read-apis-and-aggregates`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-12/README.md",High,lane-b,B,1.5,FP-09/10/11,Backlog
-FP-13,[FP-13] Calculation tool library,Task,"# FP-13 — Calculation tool library
+[Issue #12](https://github.com/ssgadige/FinPilot-HackUTD/issues/12)
+","High","lane-b","B","1.5","FP-09/10/11","Backlog"
+"FP-13","[FP-13] Calculation tool library","Task","# FP-13 — Calculation tool library
 
-- Owner lane: B
-- Estimate: 1 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-09; contracts/types.ts
-- Branch: `feat/fp-13-calculation-tool-library`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 1 hour |
+| Dependencies | FP-09; contracts/types.ts |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Build pure integer-cent cash forecast, recurring detection/normalization, amortization, utilization and bounded stress calculations; provide stable evidence IDs and assumptions.
 
-## Files and boundaries
-src/server/tools/finance. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-13; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/tools/finance
 
 ## Acceptance criteria
 - [ ] Known payment/interest examples verified.
-- [ ] no double-counted transfers or savings.
-- [ ] zero/missing income handled.
-- [ ] tools reject invalid ranges..
+- [ ] No double-counted transfers or savings.
+- [ ] Zero/missing income handled.
+- [ ] Tools reject invalid ranges.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-13-calculation-tool-library`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-13/README.md",High,lane-b,B,1,FP-09; contracts/types.ts,Backlog
-FP-14,[FP-14] Goals subscriptions plans and versioning APIs,Task,"# FP-14 — Goals subscriptions plans and versioning APIs
+[Issue #13](https://github.com/ssgadige/FinPilot-HackUTD/issues/13)
+","High","lane-b","B","1","FP-09; contracts/types.ts","Backlog"
+"FP-14","[FP-14] Goals subscriptions plans and versioning APIs","Task","# FP-14 — Goals subscriptions plans and versioning APIs
 
-- Owner lane: B
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-09/10/13
-- Branch: `feat/fp-14-goals-subscriptions-plans-and-versioning-apis`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 1.5 hours |
+| Dependencies | FP-09/10/13 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Implement scoped CRUD, preference/actions, proposal persistence, optimistic version acceptance and explicit confirmation. Atomic accepted-plan update; no real financial transactions.
 
-## Files and boundaries
-src/app/api/v1/goals, subscriptions, plans, scenarios. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-14; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/api/v1/goals, subscriptions, plans, scenarios
 
 ## Acceptance criteria
 - [ ] Two simultaneous accepts return one success/one conflict.
-- [ ] action intention not realized savings.
-- [ ] accepted plan preserved on failed revision.
-- [ ] ownership verified..
+- [ ] Action intention not realized savings.
+- [ ] Accepted plan preserved on failed revision.
+- [ ] Ownership verified.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-14-goals-subscriptions-plans-and-versioning-apis`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-14/README.md",High,lane-b,B,1.5,FP-09/10/13,Backlog
-FP-15,[FP-15] Agent run events chat routes and change trigger,Task,"# FP-15 — Agent run events chat routes and change trigger
+[Issue #14](https://github.com/ssgadige/FinPilot-HackUTD/issues/14)
+","High","lane-b","B","1.5","FP-09/10/13","Backlog"
+"FP-15","[FP-15] Agent run events chat routes and change trigger","Task","# FP-15 — Agent run events chat routes and change trigger
 
-- Owner lane: B
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-10/12/14; C runtime
-- Branch: `feat/fp-15-agent-run-events-chat-routes-and-change-trigger`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 1.5 hours |
+| Dependencies | FP-10/12/14; C runtime |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Connect C runner to authenticated routes, polling events, persisted run steps and request budgets. Demo event is idempotent/user-scoped, increments snapshot and triggers proposed repair.
 
-## Files and boundaries
-src/app/api/v1/runs, chat, demo/events. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-15; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/api/v1/runs, chat, demo/events
 
 ## Acceptance criteria
 - [ ] Checkup returns 202 and status.
-- [ ] cancellation stops new calls.
-- [ ] duplicate event not applied twice.
-- [ ] chatbot cannot supply user identity.
-- [ ] stale snapshot visible..
+- [ ] Cancellation stops new calls.
+- [ ] Duplicate event not applied twice.
+- [ ] Chatbot cannot supply user identity.
+- [ ] Stale snapshot visible.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-15-agent-run-events-chat-routes-and-change-trigger`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-15/README.md",High,lane-b,B,1.5,FP-10/12/14; C runtime,Backlog
-FP-16,[FP-16] Backend security and integration verification,Task,"# FP-16 — Backend security and integration verification
+[Issue #15](https://github.com/ssgadige/FinPilot-HackUTD/issues/15)
+","High","lane-b","B","1.5","FP-10/12/14; C runtime","Backlog"
+"FP-16","[FP-16] Backend security and integration verification","Task","# FP-16 — Backend security and integration verification
 
-- Owner lane: B
-- Estimate: 3.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-10..15
-- Branch: `feat/fp-16-backend-security-and-integration-verification`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 3.5 hours |
+| Dependencies | FP-10..15 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Run mandatory SECURITY.md checks, end-to-end session/link/run/plan flows, provider missing/error cases; verify lockfile/build and local persistent data.
 
-## Files and boundaries
-tests, backend fixes, docs/SETUP.md. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-16; include commands/evidence and unresolved limitations.
+## Implementation area
+tests, backend fixes, docs/SETUP.md
 
 ## Acceptance criteria
 - [ ] Auth/ownership/CSRF tests pass.
-- [ ] secrets absent from client/logs/git.
-- [ ] provider failures honest.
-- [ ] reset/reseed documented.
-- [ ] local demo reproducible..
+- [ ] Secrets absent from client/logs/git.
+- [ ] Provider failures honest.
+- [ ] Reset/reseed documented.
+- [ ] Local demo reproducible.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-16-backend-security-and-integration-verification`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-16/README.md",High,lane-b,B,3.5,FP-10..15,Backlog
-FP-17,[FP-17] Nemotron adapter and actual tool-call smoke test,Task,"# FP-17 — Nemotron adapter and actual tool-call smoke test
+[Issue #16](https://github.com/ssgadige/FinPilot-HackUTD/issues/16)
+","High","lane-b","B","3.5","FP-10..15","Backlog"
+"FP-17","[FP-17] Nemotron adapter and actual tool-call smoke test","Task","# FP-17 — Nemotron adapter and actual tool-call smoke test
 
-- Owner lane: C
-- Estimate: 1 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: NVIDIA key/model available later
-- Branch: `feat/fp-17-nemotron-adapter-and-actual-tool-call-smoke-test`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 1 hour |
+| Dependencies | NVIDIA key/model available later |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Build server-only configurable Nemotron adapter. Select model accessible to team, test a real allowed tool call and model consumption of returned value. Record model/config/latency without secrets.
 
-## Files and boundaries
-src/server/nemotron, scripts/smoke-nemotron. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-17; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/nemotron, scripts/smoke-nemotron
 
 ## Acceptance criteria
 - [ ] Real provider tool round trip succeeds.
-- [ ] no fixture substituted.
-- [ ] timeout/error path explicit.
-- [ ] use supported model-specific protocol..
+- [ ] No fixture substituted.
+- [ ] Timeout/error path explicit.
+- [ ] Use supported model-specific protocol.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-17-nemotron-adapter-and-actual-tool-call-smoke-test`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-17/README.md",High,lane-c,C,1,NVIDIA key/model available later,Backlog
-FP-18,[FP-18] Bounded agent runtime integrity and cash agents,Task,"# FP-18 — Bounded agent runtime integrity and cash agents
+[Issue #17](https://github.com/ssgadige/FinPilot-HackUTD/issues/17)
+","High","lane-c","C","1","NVIDIA key/model available later","Backlog"
+"FP-18","[FP-18] Bounded agent runtime integrity and cash agents","Task","# FP-18 — Bounded agent runtime integrity and cash agents
 
-- Owner lane: C
-- Estimate: 2 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-17; FP-13 contract
-- Branch: `feat/fp-18-bounded-agent-runtime-integrity-and-cash-agents`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 2 hours |
+| Dependencies | FP-17; FP-13 contract |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Implement shared validated tool loop, role allowlists, result validation, events and budgets. Wire Data Integrity and Cash Collision prompts to real tools.
 
-## Files and boundaries
-src/server/agents/runtime, integrity, cash. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-18; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/agents/runtime, integrity, cash
 
 ## Acceptance criteria
 - [ ] Actual tool trace.
-- [ ] integrity catches transfer/data issues.
-- [ ] cash identifies a dated collision from tools.
-- [ ] malformed result retry bounded.
-- [ ] ownership context immutable..
+- [ ] Integrity catches transfer/data issues.
+- [ ] Cash identifies a dated collision from tools.
+- [ ] Malformed result retry bounded.
+- [ ] Ownership context immutable.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-18-bounded-agent-runtime-integrity-and-cash-agents`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-18/README.md",High,lane-c,C,2,FP-17; FP-13 contract,Backlog
-FP-19,[FP-19] Subscription and deal scout agents with source adapter,Task,"# FP-19 — Subscription and deal scout agents with source adapter
+[Issue #18](https://github.com/ssgadige/FinPilot-HackUTD/issues/18)
+","High","lane-c","C","2","FP-17; FP-13 contract","Backlog"
+"FP-19","[FP-19] Subscription and deal scout agents with source adapter","Task","# FP-19 — Subscription and deal scout agents with source adapter
 
-- Owner lane: C
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-17/18; merchant and offer tools
-- Branch: `feat/fp-19-subscription-and-deal-scout-agents-with-source-adapter`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 1.5 hours |
+| Dependencies | FP-17/18; merchant and offer tools |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Wire recurring candidates and preferences into Subscription Detective, then Deal Scout. Implement one allowlisted external public offer retrieval with provenance; labeled fixture fallback; comparable cost tool.
 
-## Files and boundaries
-src/server/agents/subscriptions, deals, src/server/offers. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-19; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/agents/subscriptions, deals, src/server/offers
 
 ## Acceptance criteria
 - [ ] Price/terms evidence attached.
-- [ ] annual upfront/promo eligibility handled.
-- [ ] unverified/no comparable offer returns uncertainty.
-- [ ] failed fetch never labeled live.
-- [ ] no arbitrary URL or purchase tool..
+- [ ] Annual upfront/promo eligibility handled.
+- [ ] Unverified/no comparable offer returns uncertainty.
+- [ ] Failed fetch never labeled live.
+- [ ] No arbitrary URL or purchase tool.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-19-subscription-and-deal-scout-agents-with-source-adapter`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-19/README.md",High,lane-c,C,1.5,FP-17/18; merchant and offer tools,Backlog
-FP-20,[FP-20] Debt readiness and goal negotiation agents,Task,"# FP-20 — Debt readiness and goal negotiation agents
+[Issue #19](https://github.com/ssgadige/FinPilot-HackUTD/issues/19)
+","High","lane-c","C","1.5","FP-17/18; merchant and offer tools","Backlog"
+"FP-20","[FP-20] Debt readiness and goal negotiation agents","Task","# FP-20 — Debt readiness and goal negotiation agents
 
-- Owner lane: C
-- Estimate: 2 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-18; FP-13/14
-- Branch: `feat/fp-20-debt-readiness-and-goal-negotiation-agents`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 2 hours |
+| Dependencies | FP-18; FP-13/14 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Wire payoff/utilization tools and shared budget constraints. Generate competing goal/debt allocations with reserved bills/buffer and only confirmed cost changes.
 
-## Files and boundaries
-src/server/agents/debt, goals. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-20; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/agents/debt, goals
 
 ## Acceptance criteria
 - [ ] Distinct alternatives with calculated totals.
-- [ ] same money not allocated twice.
-- [ ] no invented credit score or approval.
-- [ ] missing APR/limit flagged..
+- [ ] Same money not allocated twice.
+- [ ] No invented credit score or approval.
+- [ ] Missing APR/limit flagged.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-20-debt-readiness-and-goal-negotiation-agents`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-20/README.md",High,lane-c,C,2,FP-18; FP-13/14,Backlog
-FP-21,[FP-21] Stress-test specialist and comparisons,Task,"# FP-21 — Stress-test specialist and comparisons
+[Issue #20](https://github.com/ssgadige/FinPilot-HackUTD/issues/20)
+","High","lane-c","C","2","FP-18; FP-13/14","Backlog"
+"FP-21","[FP-21] Stress-test specialist and comparisons","Task","# FP-21 — Stress-test specialist and comparisons
 
-- Owner lane: C
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-20; FP-13
-- Branch: `feat/fp-21-stress-test-specialist-and-comparisons`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 1.5 hours |
+| Dependencies | FP-20; FP-13 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Run fixed delayed-income, surprise-expense and reduced-income scenarios on candidate plans; compare first shortfall, minimum balance and goal changes.
 
-## Files and boundaries
-src/server/agents/stress. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-21; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/agents/stress
 
 ## Acceptance criteria
 - [ ] Baseline preserved.
-- [ ] deterministic calculations and explicit assumptions.
-- [ ] result identifies failure date or no failure within tested horizon.
-- [ ] no probability claim..
+- [ ] Deterministic calculations and explicit assumptions.
+- [ ] Result identifies failure date or no failure within tested horizon.
+- [ ] No probability claim.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-21-stress-test-specialist-and-comparisons`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-21/README.md",High,lane-c,C,1.5,FP-20; FP-13,Backlog
-FP-22,[FP-22] Event-driven plan repair specialist,Task,"# FP-22 — Event-driven plan repair specialist
+[Issue #21](https://github.com/ssgadige/FinPilot-HackUTD/issues/21)
+","High","lane-c","C","1.5","FP-20; FP-13","Backlog"
+"FP-22","[FP-22] Event-driven plan repair specialist","Task","# FP-22 — Event-driven plan repair specialist
 
-- Owner lane: C
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-20/21; FP-15 event contract
-- Branch: `feat/fp-22-event-driven-plan-repair-specialist`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 1.5 hours |
+| Dependencies | FP-20/21; FP-15 event contract |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Consume changed-data event and current plan snapshot; rerun affected tools/roles and produce new proposed version/diff without accepting it automatically.
 
-## Files and boundaries
-src/server/agents/repair. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-22; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/agents/repair
 
 ## Acceptance criteria
 - [ ] Injected expense triggers real run.
-- [ ] idempotent event.
-- [ ] previous accepted plan retained.
-- [ ] revision has before/after evidence and requires confirmation..
+- [ ] Idempotent event.
+- [ ] Previous accepted plan retained.
+- [ ] Revision has before/after evidence and requires confirmation.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-22-event-driven-plan-repair-specialist`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-22/README.md",High,lane-c,C,1.5,FP-20/21; FP-15 event contract,Backlog
-FP-23,[FP-23] Coordinator evidence gate and basic chat role,Task,"# FP-23 — Coordinator evidence gate and basic chat role
+[Issue #22](https://github.com/ssgadige/FinPilot-HackUTD/issues/22)
+","High","lane-c","C","1.5","FP-20/21; FP-15 event contract","Backlog"
+"FP-23","[FP-23] Coordinator evidence gate and basic chat role","Task","# FP-23 — Coordinator evidence gate and basic chat role
 
-- Owner lane: C
-- Estimate: 1 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-18..22; FP-15
-- Branch: `feat/fp-23-coordinator-evidence-gate-and-basic-chat-role`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 1 hour |
+| Dependencies | FP-18..22; FP-15 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Constrained routing/DAG, merge conflict handling and deterministic evidence ownership/numeric checks. Basic Nemotron chat reads findings and requests runs; no extra chatbot features.
 
-## Files and boundaries
-src/server/agents/coordinator, evidence, chat. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-23; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/agents/coordinator, evidence, chat
 
 ## Acceptance criteria
 - [ ] Dependency handoff visible.
-- [ ] irrelevant specialist skipped with reason.
-- [ ] unknown evidence rejected.
-- [ ] chat grounded to same user.
-- [ ] global call budget honored..
+- [ ] Irrelevant specialist skipped with reason.
+- [ ] Unknown evidence rejected.
+- [ ] Chat grounded to same user.
+- [ ] Global call budget honored.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-23-coordinator-evidence-gate-and-basic-chat-role`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-23/README.md",High,lane-c,C,1,FP-18..22; FP-15,Backlog
-FP-24,[FP-24] Agent integration sponsor evidence and rehearsal,Task,"# FP-24 — Agent integration sponsor evidence and rehearsal
+[Issue #23](https://github.com/ssgadige/FinPilot-HackUTD/issues/23)
+","High","lane-c","C","1","FP-18..22; FP-15","Backlog"
+"FP-24","[FP-24] Agent integration sponsor evidence and rehearsal","Task","# FP-24 — Agent integration sponsor evidence and rehearsal
 
-- Owner lane: C
-- Estimate: 3.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-17..23; A/B integration
-- Branch: `feat/fp-24-agent-integration-sponsor-evidence-and-rehearsal`
+| Field | Value |
+|---|---|
+| Workstream | C |
+| Estimate | 3.5 hours |
+| Dependencies | FP-17..23; A/B integration |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Validate real run across seeded personas, partial failures, changed snapshot and repair; tune latency/budgets; capture sanitized tool trace and explain external integration.
 
-## Files and boundaries
-tests, docs/DEMO.md, agent fixes. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-24; include commands/evidence and unresolved limitations.
+## Implementation area
+tests, docs/DEMO.md, agent fixes
 
 ## Acceptance criteria
 - [ ] Eight specialists + coordinator genuinely wired or limitations disclosed.
-- [ ] live inference trace retained.
-- [ ] fixture data labeled.
-- [ ] three-minute rehearsal succeeds and backup is labeled replay..
+- [ ] Live inference trace retained.
+- [ ] Fixture data labeled.
+- [ ] Three-minute rehearsal succeeds and backup is labeled replay.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-24-agent-integration-sponsor-evidence-and-rehearsal`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
-Repository task: https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/tasks/FP-24/README.md",High,lane-c,C,3.5,FP-17..23; A/B integration,Backlog
+[Issue #24](https://github.com/ssgadige/FinPilot-HackUTD/issues/24)
+","High","lane-c","C","3.5","FP-17..23; A/B integration","Backlog"

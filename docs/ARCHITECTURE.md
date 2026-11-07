@@ -1,6 +1,6 @@
 # Architecture and ownership
 
-One TypeScript Next.js App Router application; React UI; Node server routes; SQLite with parameterized queries; Node crypto password verification; SMTP delivery; server-side Nemotron HTTP adapter. Deploy the scoped application through Docker Compose: one app container, a named volume for SQLite at /app/data, and a Mailpit service for local email. Nemotron remains hosted externally. The Dockerfile/Compose files are implementation work; see ../TEAM_SETUP_README.md. Public hosting requires a Docker-capable server, persistent storage and HTTPS. No microservices or heavy agent framework needed.
+One TypeScript Next.js App Router application; React UI; Node server routes; SQLite with parameterized queries; Node crypto password verification; SMTP delivery; server-side Nemotron HTTP adapter. Deploy the scoped application through Docker Compose: one app container, a named volume for SQLite at /app/data, and a Mailpit service for local email. Nemotron remains hosted externally. The Dockerfile/Compose files are implementation work; see ../SETUP.md. Public hosting requires a Docker-capable server, persistent storage and HTTPS. No microservices or heavy agent framework needed.
 
 ```mermaid
 flowchart TD

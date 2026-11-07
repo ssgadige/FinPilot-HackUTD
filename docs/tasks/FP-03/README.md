@@ -1,33 +1,35 @@
 # FP-03 — Institution catalog and simulated linking
 
-- Owner lane: A
-- Estimate: 2 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-11 API
-- Branch: `feat/fp-03-institution-catalog-and-simulated-linking`
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 2 hours |
+| Dependencies | FP-01; FP-11 API |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Build category cards and provider grid; simulator warning, fake credentials form, consent, account selection, connected status, sync/disconnect. Clear secrets from form memory after submit.
 
-## Files and boundaries
-src/app/institutions, src/components/connections. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-03; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/institutions, src/components/connections
 
 ## Acceptance criteria
 - [ ] PNC/BoA/Chase discoverable by category.
-- [ ] link only selected accounts.
-- [ ] invalid fake login fails.
-- [ ] reconnect does not duplicate.
-- [ ] disconnect updates dashboard..
+- [ ] Link only selected accounts.
+- [ ] Invalid fake login fails.
+- [ ] Reconnect does not duplicate.
+- [ ] Disconnect updates dashboard.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-03-institution-catalog-and-simulated-linking`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
+
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
+
+[Issue #3](https://github.com/ssgadige/FinPilot-HackUTD/issues/3)

@@ -1,32 +1,31 @@
 # FP-13 — Calculation tool library
 
-- Owner lane: B
-- Estimate: 1 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-09; contracts/types.ts
-- Branch: `feat/fp-13-calculation-tool-library`
+| Field | Value |
+|---|---|
+| Workstream | B |
+| Estimate | 1 hour |
+| Dependencies | FP-09; contracts/types.ts |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Build pure integer-cent cash forecast, recurring detection/normalization, amortization, utilization and bounded stress calculations; provide stable evidence IDs and assumptions.
 
-## Files and boundaries
-src/server/tools/finance. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-13; include commands/evidence and unresolved limitations.
+## Implementation area
+src/server/tools/finance
 
 ## Acceptance criteria
 - [ ] Known payment/interest examples verified.
-- [ ] no double-counted transfers or savings.
-- [ ] zero/missing income handled.
-- [ ] tools reject invalid ranges..
+- [ ] No double-counted transfers or savings.
+- [ ] Zero/missing income handled.
+- [ ] Tools reject invalid ranges.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Pull request requirements
+- Branch: `feat/fp-13-calculation-tool-library`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
+
+[Issue #13](https://github.com/ssgadige/FinPilot-HackUTD/issues/13)

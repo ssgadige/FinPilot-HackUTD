@@ -1,32 +1,34 @@
 # FP-05 — Subscription manager and offer comparison
 
-- Owner lane: A
-- Estimate: 1.5 person-hours
-- Priority: P0 (scoped prototype)
-- Status: Backlog
-- Dependencies: FP-01; FP-13; FP-19
-- Branch: `feat/fp-05-subscription-manager-and-offer-comparison`
+| Field | Value |
+|---|---|
+| Workstream | A |
+| Estimate | 1.5 hours |
+| Dependencies | FP-01; FP-13; FP-19 |
+| Priority | P0 |
 
-## Purpose and scope
+## Scope
 Show recurring candidates, confidence, price changes, preference confirmation and comparable offers. Distinguish fixture/live, promotional/renewal prices, annual upfront charges and intention vs confirmed change.
 
-## Files and boundaries
-src/app/subscriptions. Read docs/API.md, contracts/types.ts, docs/SECURITY.md and docs/AGENTS.md before work. Coordinate shared files instead of overwriting another lane's implementation.
-
-## Steps
-1. Confirm dependency contracts; use clearly labeled contract fixtures only while endpoints are being built.
-2. Implement this scope with authenticated user isolation, honest source modes and useful failure states.
-3. Connect to the corresponding API/tool/UI and verify the acceptance criteria.
-4. Open a small PR referencing FP-05; include commands/evidence and unresolved limitations.
+## Implementation area
+src/app/subscriptions
 
 ## Acceptance criteria
 - [ ] User can confirm preferences and save proposed action.
-- [ ] sample offer badge visible.
-- [ ] no fabricated unused claim.
-- [ ] no cancellation/purchase performed..
+- [ ] Sample offer badge visible.
+- [ ] No fabricated unused claim.
+- [ ] No cancellation/purchase performed.
 
-## Verification and handoff
-Attach the relevant automated check output or a short reproducible manual journey. Security/math tasks require behavioral tests. Mark Done only after reviewer verification. Never commit generated credentials, database files, real financial data or API keys. Missing provider access is Blocked, not Done.
+## Interface requirements
+Implement the screen requirements in [UI design specification](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/UI_DESIGN.md). Use the shared banking visual system, responsive layouts, readable financial tables, accessible forms and complete loading/empty/error states. Include desktop and mobile screenshots in the PR.
 
-## Out of scope
-Unrelated chatbot enhancements, real bank authentication/money movement, production compliance claims, and features not needed for the scoped acceptance criteria.
+## Pull request requirements
+- Branch: `feat/fp-05-subscription-manager-and-offer-comparison`.
+- Reference this issue and include the acceptance-check evidence.
+- Request review before merging to `main`.
+- Coordinate API/schema changes and preserve user authorization, source labels, and server-only secrets.
+
+## References
+[API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
+
+[Issue #5](https://github.com/ssgadige/FinPilot-HackUTD/issues/5)

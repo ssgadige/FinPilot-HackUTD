@@ -25,7 +25,7 @@ Each task README contains tighter ownership, dependencies and acceptance criteri
 
 ## Cut order if behind
 
-1. Public hosting (local demo first), animations, exports, custom logos.
+1. Public hosting (local Docker Compose demo first), animations, exports, custom logos.
 2. Streaming responses/SSE; use polling.
 3. Deep investment/retirement/CD planning; retain snapshots/maturity data.
 4. Complex live offer parsing; keep one real allowlisted source plus labeled comparable sample offers.

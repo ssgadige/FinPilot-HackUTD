@@ -1,38 +1,52 @@
-# FinPilot — HackUTD
+# FinPilot
 
-**Your finances connected. Your agents working together. Your next move explained.**
+A financial health navigator built for HackUTD. FinPilot brings accounts, debts, subscriptions and goals into one dashboard, with NVIDIA Nemotron agents that detect conflicts, compare options and propose changes to a financial plan.
 
-Independent hackathon prototype for the PNC 360° Financial Health Navigator and NVIDIA Nemotron challenges. Not an official PNC product. No code, requirements, or institutional SSO from the Assessment Helper capstone belongs here.
+## Development
 
-## Repository status
+- [Project board](https://github.com/users/ssgadige/projects/1)
+- [Implementation issues](https://github.com/ssgadige/FinPilot-HackUTD/issues)
+- [Installation](SETUP.md)
+- [Contributing and pull requests](CONTRIBUTING.md)
+- [Task index](docs/TASK_BOARD.md)
 
-This commit is the **implementation handoff**, not a finished banking application. It contains the product specification, 14-hour / three-person backlog, individual task READMEs, agent contracts and prompts, database schema, runnable synthetic-data generator, validation checks, and setup instructions. The application, authentication endpoints, Nemotron runtime, and UI are tasks to implement. Nothing in this repository claims those features already work.
+## Features
 
-## Start here
+- Institution catalog with simulated account linking, consent and account selection.
+- Account summaries, transaction history, cash forecasts and financial indicators.
+- Subscription detection, sourced offer comparisons and cost-saving proposals.
+- Debt scenarios, savings goals and coordinated financial plans.
+- Eight specialist agents, a coordinator and a Nemotron chat interface.
+- Stress tests and proposed plan revisions when financial data changes.
 
-1. Read [Team start](docs/TEAM_START.md).
-2. Share [Teammate installation README](TEAM_SETUP_README.md), then follow [Downloads and setup](docs/SETUP.md). Logins and provider configuration can happen later.
-3. Read [Product and UI](docs/PRODUCT.md), [Architecture](docs/ARCHITECTURE.md), and [14-hour plan](docs/BUILD_PLAN.md).
-4. Pick a work lane from [Task board](docs/TASK_BOARD.md). Each task has its own README.
-5. Review [API contracts](docs/API.md), [Agent design](docs/AGENTS.md), and [Security](docs/SECURITY.md) before implementation.
+## Stack
 
-## Product
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js, React, TypeScript |
+| Backend | Next.js server routes, Node.js |
+| Database | SQLite |
+| AI | NVIDIA Nemotron hosted API |
+| Runtime | Docker Compose |
+| Development email | Mailpit |
 
-One overview for bank accounts, cards, loans, savings, investment snapshots, subscriptions, bills, and goals. Eight specialist agents collaborate through a coordinator; a basic Nemotron chat interface explains findings and requests new runs. A subscription saving becomes a proposed goal allocation, survives a stress test, and gets revised when new spending arrives.
+## Documentation
 
-## Build boundary
+| Document | Contents |
+|---|---|
+| [Product specification](docs/PRODUCT.md) | Application sections and behavior |
+| [UI specification](docs/UI_DESIGN.md) | Visual system and screen requirements |
+| [Architecture](docs/ARCHITECTURE.md) | Components, data flow and ownership |
+| [API contract](docs/API.md) | Routes, payloads and error behavior |
+| [Agent design](docs/AGENTS.md) | Roles, dependencies and tool execution |
+| [Security](docs/SECURITY.md) | Authentication, authorization and data handling |
+| [Build plan](docs/BUILD_PLAN.md) | Delivery sequence and workstreams |
 
-- Ten fictional people; 30 months of distinct history; separate application and simulated-institution credentials.
-- Banks and credit unions → PNC, Bank of America, Chase, Capital One, Ally; cards → Amex and Discover; investments → Fidelity and Vanguard; loans → Demo Auto Finance and Demo Mortgage; digital wallets → PayPal. All institution labels refer to simulations.
-- Account linking is a local simulator with consent, credential validation, account selection, sync, and disconnect. Never enter a real bank password.
-- Docker Compose is the agreed runtime target: one Next.js app container, SQLite on a persistent volume, and a local Mailpit service. Docker application files are still to be implemented; see TEAM_SETUP_README.md.
-- Real Nemotron inference and SMTP email are integration targets. Without configuration show explicit unavailable states, not fake successful calls.
-- Deals use an allowlisted public offer adapter plus clearly labeled fixture fallback. Prices and eligibility must be verified before claiming live savings.
-- No real transfers, bill payments, cancellations, investment trades, lender decisions, credit-score guarantees, or production-security claims.
+## Current status
 
-## Reproducible data starter
+Product specifications, issue backlog, contracts, agent prompts, SQL schema and synthetic-data scripts are available. The web application, authentication routes, agent runtime and Docker application files are pending implementation.
 
-Python 3.11+; no third-party packages:
+Run the data checks with Python 3.11 or newer:
 
 ```bash
 python scripts/seed_demo.py
@@ -40,26 +54,6 @@ python scripts/validate_seed.py
 python -m unittest discover -s tests -v
 ```
 
-Generated database: `data/finpilot-demo.sqlite`. Generated credentials: `data/demo-credentials.json`. Both are local and gitignored. Never seed a production database. Re-running refuses to overwrite unless you explicitly use `--reset`.
+The dataset contains 10 fictional profiles and 30 months of history. Generated credentials and database files are excluded from version control.
 
-## Team lanes
-
-| Lane | Focus | Planned effort |
-|---|---|---|
-| A | UI, dashboard, institution linking screens, subscriptions, goals, chat | 14 hours |
-| B | Database, authentication, simulator, finance tools, API, security | 14 hours |
-| C | Nemotron, specialist agents, orchestration, offer integration, demo | 14 hours |
-
-These are placeholders, not assigned GitHub identities. Map names later. Board statuses: Backlog → Ready → In progress → Review → Done; add Blocked when necessary. A task is Done only when its acceptance checks pass.
-
-## Repository map
-
-- `docs/tasks/*/README.md`: 24 implementation tickets, ready for Jira/GitHub.
-- `docs/jira-import.csv`: import-ready task descriptions; map fields in Jira before import.
-- `contracts/`: shared TypeScript types and JSON result schema.
-- `src/server/agents/`: eight specialist prompts, coordinator and chat prompts.
-- `scripts/`: seed generation, data checks, ticket export.
-- `data/schema.sql`: application and simulated-bank schema.
-- `.github/`: issue/PR templates and seed validation workflow.
-
-See [Demo script](docs/DEMO.md) and [sources](docs/SOURCES.md). Repo creation and planning do not imply any external service is configured.
+FinPilot is an independent hackathon prototype. Institution connections and financial records are simulated. It is not affiliated with PNC or any listed institution and does not execute real financial transactions.
