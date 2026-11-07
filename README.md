@@ -44,7 +44,7 @@ A financial health navigator built for HackUTD. FinPilot brings accounts, debts,
 
 ## Current status
 
-Product specifications, issue backlog, contracts, agent prompts, SQL schema and synthetic-data scripts are available. The web application, authentication routes, agent runtime and Docker application files are pending implementation.
+Backend APIs, authentication, simulated linking, finance calculations and backend tests are implemented on the task branch. Frontend development is paused pending design. Specialist agent runtime and offer adapters remain separate integration dependencies; unavailable integrations return explicit errors. See SETUP.md and docs/BACKEND_VERIFICATION.md.
 
 Run the data checks with Python 3.11 or newer:
 
