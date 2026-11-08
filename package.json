@@ -21,7 +21,8 @@
     "test:backend": "tsx --test tests/backend/*.test.ts",
     "setup": "node scripts/setup.mjs",
     "db:setup": "node scripts/setup.mjs",
-    "db:migrate": "tsx scripts/bootstrap.ts"
+    "db:migrate": "tsx scripts/bootstrap.ts",
+    "test:agents": "tsx --test tests/agent-runtime.test.ts tests/nemotron.test.ts tests/subscriptions.test.ts"
   },
   "dependencies": {
     "lucide-react": "1.70.0",

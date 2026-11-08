@@ -6,6 +6,8 @@ import { ApiFailure,fail } from './errors';
 import { Simulator } from './simulator';
 import { Finance } from './finance';
 import { Planning } from './planning';
+import { Runs } from './runs';
+import { Chat } from './chat';
 import { date } from './tools/finance';
 import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 const key=z.string().min(1).max(128);
@@ -21,7 +23,8 @@ const scenarios=z.discriminatedUnion('kind',[
  z.strictObject({kind:z.literal('delayed_income'),delay_days:z.number().int().min(1).max(60),plan_id:text.optional()}),
  z.strictObject({kind:z.literal('income_drop'),income_drop_pct:z.number().int().min(1).max(100),plan_id:text.optional()})
 ]);
-export interface Services {store:Store;auth:Auth;simulator?:Simulator;finance?:Finance;planning?:Planning;}
+const demo=z.discriminatedUnion('kind',[z.strictObject({kind:z.literal('surprise_expense'),amount_cents:money,idempotency_key:key}),z.strictObject({kind:z.literal('delayed_income'),days:z.number().int().min(1).max(60),idempotency_key:key})]);
+export interface Services {store:Store;auth:Auth;simulator?:Simulator;finance?:Finance;planning?:Planning;runs?:Runs;chat?:Chat;demoMode?:boolean;}
 export function createApi(s:Services) {
   return async function handle(request:Request):Promise<Response> {
     const requestId=randomUUID();
@@ -140,6 +143,30 @@ export function createApi(s:Services) {
         return json({...result,evidence_ids:[s.finance!.persistCalculation(uid,result,result)],hypothetical:true},201);
       }
 
+      if(['runs','demo'].includes(resource)&&!s.runs)fail(503,'runtime_unavailable','Run service unavailable');
+      if(resource==='chat'&&!s.chat)fail(503,'nemotron_unavailable','Chat unavailable');
+      if(resource==='runs') {
+        if(!id&&method==='POST') {
+          s.auth.throttle(`run:${uid}`,10,3600000);
+          const b=await body(z.strictObject({intent:z.enum(['checkup','plan_repair','subscriptions','debt','goals']),goal_id:text.optional(),idempotency_key:key}));if(b.goal_id)s.planning!.goal(uid,b.goal_id);
+          // Include validated goal identity in the server-controlled intent; never accept user identity from the body.
+          const r=s.runs!.enqueue(uid,b.goal_id?`${b.intent}:goal:${b.goal_id}`:b.intent,b.idempotency_key);return json({run_id:r.id,status:r.status,snapshot_version:r.snapshot_version},202);
+        }
+        if(id&&!action&&method==='GET')return json(s.runs!.get(uid,id));
+        if(id&&action==='events'&&method==='GET')return json(s.runs!.events(uid,id,url.searchParams.get('cursor')||undefined));
+        if(id&&action==='cancel'&&method==='POST')return json(s.runs!.cancel(uid,id));
+      }
+      if(resource==='demo'&&id==='events'&&path.length===2&&method==='POST') {
+        if(!s.demoMode)fail(403,'demo_disabled','Demo mode is disabled');
+        const b=await body(demo);return json(s.planning!.demoEvent(uid,b,(intent,key)=>s.runs!.enqueue(uid,intent,key,true)),201);
+      }
+      if(resource==='chat'&&path.length===1&&method==='POST') {
+        s.auth.throttle(`chat:${uid}`,10,60000);
+        const b=await body(z.strictObject({message:z.string().trim().min(1).max(4000),conversation_id:key.optional()}));
+        // Reject common pasted credentials before any model call or persistence.
+        if(/(?:Bearer\s+\S+|(?:password|passwd|otp|verification code|api[_ -]?key|session[_ -]?token)\s*[:=]\s*\S+|\b\d{6}\b)/i.test(b.message))fail(400,'sensitive_input','Remove credentials and verification codes before chatting');
+        return json(await s.chat!.send(uid,b.message,b.conversation_id));
+      }
       fail(404,'not_found','Route not found');
     } catch(error) {
       const e=error instanceof ApiFailure?error:new ApiFailure(500,'internal_error','Request could not be completed');

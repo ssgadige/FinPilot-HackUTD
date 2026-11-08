@@ -9,6 +9,8 @@ export const VISIBLE = `EXISTS (SELECT 1 FROM connection_accounts ca JOIN connec
  AND ca.user_id=a.user_id AND c.user_id=? AND c.status='active')`;
 export class Store {
   readonly db: DatabaseSync;
+  private depth=0;
+  private savepoint=0;
   constructor(path: string) {
     this.db = new DatabaseSync(path);
     this.db.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;');
@@ -19,9 +21,11 @@ export class Store {
   one<T extends Row = Row>(sql: string, ...args: SQLInputValue[]): T | undefined { return this.db.prepare(sql).get(...args) as T | undefined; }
   exec(sql: string, ...args: SQLInputValue[]) { return this.db.prepare(sql).run(...args); }
   atomic<T>(fn: () => T): T {
-    this.db.exec('BEGIN IMMEDIATE');
-    try { const result = fn(); this.db.exec('COMMIT'); return result; }
-    catch (error) { this.db.exec('ROLLBACK'); throw error; }
+    const nested=this.depth>0,name='fp_'+this.savepoint++;
+    this.db.exec(nested?'SAVEPOINT '+name:'BEGIN IMMEDIATE');this.depth++;
+    try { const result=fn();this.db.exec(nested?'RELEASE '+name:'COMMIT');return result; }
+    catch(error) {this.db.exec(nested?'ROLLBACK TO '+name:'ROLLBACK');if(nested)this.db.exec('RELEASE '+name);throw error;}
+    finally {this.depth--;}
   }
   private migrate() {
     this.db.exec(`CREATE TABLE IF NOT EXISTS backend_migrations(version INTEGER PRIMARY KEY);
