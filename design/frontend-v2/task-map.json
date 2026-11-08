@@ -1,0 +1,482 @@
+[
+  {
+    "id": "FP-01",
+    "title": "[FP-01] App scaffold and shared UI",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-46",
+    "screens": [
+      {
+        "key": "shell",
+        "id": "3:825",
+        "name": "Your financial command center"
+      },
+      {
+        "key": "components",
+        "id": "3:932",
+        "name": "Shared interaction patterns"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-02",
+    "title": "[FP-02] Login and email verification screens",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-163",
+    "screens": [
+      {
+        "key": "login",
+        "id": "3:1032",
+        "name": "Welcome back"
+      },
+      {
+        "key": "verify",
+        "id": "3:1116",
+        "name": "Check your email"
+      },
+      {
+        "key": "verify-error",
+        "id": "3:1198",
+        "name": "That code has expired"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-03",
+    "title": "[FP-03] Institution catalog and simulated linking",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-310",
+    "screens": [
+      {
+        "key": "institutions",
+        "id": "3:1274",
+        "name": "Connect your financial picture"
+      },
+      {
+        "key": "provider-categories",
+        "id": "3:1381",
+        "name": "More financial institutions"
+      },
+      {
+        "key": "link-login",
+        "id": "3:1484",
+        "name": "Connect Chase"
+      },
+      {
+        "key": "consent",
+        "id": "3:1563",
+        "name": "Choose the accounts to connect"
+      },
+      {
+        "key": "connected",
+        "id": "3:1657",
+        "name": "Your accounts are connected"
+      },
+      {
+        "key": "syncing",
+        "id": "5:96",
+        "name": "Bringing your records together"
+      },
+      {
+        "key": "connection-error",
+        "id": "5:193",
+        "name": "The connection needs another try"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-04",
+    "title": "[FP-04] Overview transactions and cash calendar",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-479",
+    "screens": [
+      {
+        "key": "overview",
+        "id": "3:208",
+        "name": "A clearer next move starts here"
+      },
+      {
+        "key": "accounts",
+        "id": "3:321",
+        "name": "Accounts with context"
+      },
+      {
+        "key": "transactions",
+        "id": "3:421",
+        "name": "Every transaction, in its place"
+      },
+      {
+        "key": "transaction-detail",
+        "id": "3:529",
+        "name": "Transaction evidence"
+      },
+      {
+        "key": "cash-calendar",
+        "id": "3:614",
+        "name": "Your month, before it happens"
+      },
+      {
+        "key": "cash-collision",
+        "id": "3:721",
+        "name": "The timing conflict, explained"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-05",
+    "title": "[FP-05] Subscription manager and offer comparison",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-652",
+    "screens": [
+      {
+        "key": "subscriptions",
+        "id": "3:1746",
+        "name": "Your recurring costs, made visible"
+      },
+      {
+        "key": "subscription-preferences",
+        "id": "3:1850",
+        "name": "Tell us what you want to keep"
+      },
+      {
+        "key": "offers",
+        "id": "3:1946",
+        "name": "Compare the full cost"
+      },
+      {
+        "key": "offer-detail",
+        "id": "3:2042",
+        "name": "Is the annual option worth it?"
+      },
+      {
+        "key": "subscription-confirm",
+        "id": "3:2140",
+        "name": "Review your subscription action"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-06",
+    "title": "[FP-06] Debt goals assets and scenario UI",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1038",
+    "screens": [
+      {
+        "key": "debt-planner",
+        "id": "3:2228",
+        "name": "Give every payment a purpose"
+      },
+      {
+        "key": "loan-calculator",
+        "id": "3:2337",
+        "name": "Payoff calculator"
+      },
+      {
+        "key": "savings-calculator",
+        "id": "3:2461",
+        "name": "Make the goal concrete"
+      },
+      {
+        "key": "goals",
+        "id": "3:2571",
+        "name": "Your priorities, coordinated"
+      },
+      {
+        "key": "goal-editor",
+        "id": "3:2664",
+        "name": "Set a goal that fits your life"
+      },
+      {
+        "key": "plan-compare",
+        "id": "3:2767",
+        "name": "Choose your next move"
+      },
+      {
+        "key": "accept-plan",
+        "id": "3:2863",
+        "name": "Review before accepting"
+      },
+      {
+        "key": "assets",
+        "id": "3:2953",
+        "name": "Assets, with their limitations"
+      },
+      {
+        "key": "scenario-lab",
+        "id": "3:3070",
+        "name": "Rehearse the unexpected"
+      },
+      {
+        "key": "stress-result",
+        "id": "3:3182",
+        "name": "This plan needs more breathing room"
+      },
+      {
+        "key": "plan-repair",
+        "id": "3:3290",
+        "name": "Your situation changed. Your plan can adapt."
+      },
+      {
+        "key": "loan-result",
+        "id": "5:603",
+        "name": "Your payoff result, line by line"
+      },
+      {
+        "key": "savings-result",
+        "id": "5:699",
+        "name": "A savings contribution you can verify"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-07",
+    "title": "[FP-07] Agent workspace and basic chatbot",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1175",
+    "screens": [
+      {
+        "key": "agent-running",
+        "id": "3:3386",
+        "name": "Your financial team is at work"
+      },
+      {
+        "key": "agent-results",
+        "id": "3:3494",
+        "name": "A plan, backed by evidence"
+      },
+      {
+        "key": "finding-evidence",
+        "id": "3:3604",
+        "name": "Why this finding exists"
+      },
+      {
+        "key": "chat",
+        "id": "3:3691",
+        "name": "Ask about your next move"
+      },
+      {
+        "key": "agent-partial",
+        "id": "3:3775",
+        "name": "Some results are ready"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-08",
+    "title": "[FP-08] Frontend integration accessibility and demo polish",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1270",
+    "screens": [
+      {
+        "key": "settings",
+        "id": "3:3855",
+        "name": "Your workspace, your access"
+      },
+      {
+        "key": "disconnect",
+        "id": "3:3948",
+        "name": "Disconnect Chase?"
+      },
+      {
+        "key": "empty-state",
+        "id": "3:4021",
+        "name": "Start with your first connection"
+      },
+      {
+        "key": "responsive",
+        "id": "3:4097",
+        "name": "The same decisions, on a smaller screen"
+      },
+      {
+        "key": "mobile-overview",
+        "id": "7:42",
+        "name": "Your financial picture"
+      },
+      {
+        "key": "mobile-agents",
+        "id": "7:78",
+        "name": "Your financial team"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "FP-09",
+    "title": "[FP-09] Database adapter and validated seed",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1330",
+    "screens": [],
+    "dependencies": [
+      "accounts",
+      "transactions"
+    ]
+  },
+  {
+    "id": "FP-10",
+    "title": "[FP-10] Password email challenge and sessions",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1382",
+    "screens": [],
+    "dependencies": [
+      "login",
+      "verify",
+      "verify-error",
+      "settings"
+    ]
+  },
+  {
+    "id": "FP-11",
+    "title": "[FP-11] Simulated institution connection backend",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1439",
+    "screens": [],
+    "dependencies": [
+      "link-login",
+      "consent",
+      "connected",
+      "disconnect"
+    ]
+  },
+  {
+    "id": "FP-12",
+    "title": "[FP-12] Scoped finance read APIs and aggregates",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1496",
+    "screens": [],
+    "dependencies": [
+      "overview",
+      "accounts",
+      "transactions",
+      "cash-calendar",
+      "assets"
+    ]
+  },
+  {
+    "id": "FP-13",
+    "title": "[FP-13] Calculation tool library",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1551",
+    "screens": [],
+    "dependencies": [
+      "cash-calendar",
+      "loan-calculator",
+      "savings-calculator",
+      "offers",
+      "scenario-lab"
+    ]
+  },
+  {
+    "id": "FP-14",
+    "title": "[FP-14] Goals subscriptions plans and versioning APIs",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1606",
+    "screens": [],
+    "dependencies": [
+      "goal-editor",
+      "subscription-confirm",
+      "accept-plan",
+      "plan-repair"
+    ]
+  },
+  {
+    "id": "FP-15",
+    "title": "[FP-15] Agent run events chat routes and change trigger",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1660",
+    "screens": [],
+    "dependencies": [
+      "agent-running",
+      "agent-partial",
+      "chat",
+      "plan-repair"
+    ]
+  },
+  {
+    "id": "FP-16",
+    "title": "[FP-16] Backend security and integration verification",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1717",
+    "screens": [],
+    "dependencies": [
+      "login",
+      "verify-error",
+      "disconnect",
+      "empty-state"
+    ]
+  },
+  {
+    "id": "FP-17",
+    "title": "[FP-17] Nemotron adapter and actual tool-call smoke test",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1774",
+    "screens": [],
+    "dependencies": [
+      "agent-running",
+      "chat"
+    ]
+  },
+  {
+    "id": "FP-18",
+    "title": "[FP-18] Bounded agent runtime integrity and cash agents",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1826",
+    "screens": [],
+    "dependencies": [
+      "cash-collision",
+      "finding-evidence"
+    ]
+  },
+  {
+    "id": "FP-19",
+    "title": "[FP-19] Subscription and deal scout agents with source adapter",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1881",
+    "screens": [],
+    "dependencies": [
+      "subscriptions",
+      "subscription-preferences",
+      "offers",
+      "offer-detail"
+    ]
+  },
+  {
+    "id": "FP-20",
+    "title": "[FP-20] Debt readiness and goal negotiation agents",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1938",
+    "screens": [],
+    "dependencies": [
+      "debt-planner",
+      "goals",
+      "plan-compare"
+    ]
+  },
+  {
+    "id": "FP-21",
+    "title": "[FP-21] Stress-test specialist and comparisons",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-1991",
+    "screens": [],
+    "dependencies": [
+      "scenario-lab",
+      "stress-result"
+    ]
+  },
+  {
+    "id": "FP-22",
+    "title": "[FP-22] Event-driven plan repair specialist",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-2043",
+    "screens": [],
+    "dependencies": [
+      "plan-repair"
+    ]
+  },
+  {
+    "id": "FP-23",
+    "title": "[FP-23] Coordinator evidence gate and basic chat role",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-2094",
+    "screens": [],
+    "dependencies": [
+      "agent-results",
+      "finding-evidence",
+      "chat"
+    ]
+  },
+  {
+    "id": "FP-24",
+    "title": "[FP-24] Agent integration sponsor evidence and rehearsal",
+    "handoffUrl": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=4-2150",
+    "screens": [],
+    "dependencies": [
+      "overview",
+      "agent-results",
+      "scenario-lab",
+      "plan-repair"
+    ]
+  }
+]
