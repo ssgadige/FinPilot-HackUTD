@@ -1,0 +1,10 @@
+import './init_env.mjs';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
+if(existsSync('.env.local')) process.loadEnvFile('.env.local');
+const database=resolve(process.env.DATABASE_PATH || './data/finpilot-demo.sqlite');
+if(!existsSync(database)) execFileSync('python3',['scripts/seed_demo.py','--database',database],{stdio:'inherit'});
+else console.log('Existing database preserved; applying migrations only.');
+execFileSync(process.execPath,['--import','tsx','scripts/bootstrap.ts'],{stdio:'inherit',env:{...process.env,DATABASE_PATH:database}});
+console.log('Backend database ready. Use npm run dev and a local Mailpit inbox.');
