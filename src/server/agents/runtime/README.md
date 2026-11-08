@@ -49,15 +49,11 @@ clones and recursively freezes it. Every tool invocation loads a fresh authorize
 snapshot and verifies user, snapshot version, selected accounts, active consent,
 transaction ownership and scheduled-item ownership before calculation.
 
-FP-13 and the authenticated data layer are absent in this checkout. The
-`SnapshotLoader` interface is the backend connection point: implement it using
-scoped parameterized queries and recheck consent on every read. It must return
-only selected accounts and their scoped child rows, without credentials or
-unnecessary personal fields. The included deterministic snapshot tools make these
-two agents runnable now; they are not a replacement for FP-13's broader finance
-library. No direct database access, application routes, login bypass or fake
-production provider has been added. Production wiring must supply this loader;
-the fixture loader exists only in the smoke script and tests.
+The authenticated data layer and FP-13 calculations are now present upstream.
+`SnapshotLoader` remains the server connection point. The new
+[BackendAgentBridge](../integration/backend.ts) projects consent-scoped, selected
+application records into integrity/cash and subscription snapshots. It rechecks
+snapshot ownership and disconnects on every read. Application agent HTTP routes now call these services after verified authentication; see [run integration](../../runs/README.md).
 
 Supply one shared `RunBudget` for all agents in a checkup, the same cancellation
 signal, and a trusted server tool registry. Third concurrent specialists fail with
@@ -128,3 +124,28 @@ and produces fresh alternatives from its own tools. Missing APR/minimum/card lim
 forces needs_information; numerical score and affirmative approval claims are
 rejected. Existing currency, ownership and budget checks are preserved. See
 [planning assumptions and acceptance evidence](../planning/README.md).
+
+## FP-21 extension
+
+`stress-test` uses the role-specific `createStressTools` registry in
+`../stress/tools.ts`, with a same-context Goal Allocator dependency. Its similarly
+named forecast/comparison tools are not interchangeable with other roles' tools.
+It reports independent fixed shocks, dated constraint failures and goal funding
+changes within an explicit horizon; probability and resilience-guarantee claims
+are rejected. See [stress assumptions and live evidence](../stress/README.md).
+
+## FP-22–24 extensions
+
+Repair, coordinator and chat share the same bounded runtime and explicit role tool
+allowlists. Optional evidence/output hooks support owner and numerical validation;
+`offeredTools` can only narrow a role's allowlist. `serverToolOutputs` retains
+private tool material for validated follow-up chat; do not expose it wholesale.
+See [coordinator/evidence/chat](../coordinator/README.md) and
+[repair](../repair/README.md).
+
+For the explicitly supported Nemotron 3.5 model, runtime calls request
+`reasoning_effort: none` to keep seeded ledger inference within the response
+budget. Other models receive no unsupported override. Transfer tools retain all
+unmatched groups and aggregate counts; large histories show only five matched
+examples with an explicit omitted count. This bounds context without hiding
+unmatched transfer anomalies.

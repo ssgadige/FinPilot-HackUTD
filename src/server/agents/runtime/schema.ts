@@ -1,7 +1,12 @@
-import { readFileSync } from 'node:fs';
+import contract from '../../../../contracts/agent-result.schema.json' with {type:'json'};
+interface Schema {
+  const?:unknown;enum?:unknown[];type?:string|string[];minimum?:number;uniqueItems?:boolean;
+  items?:Schema;required?:string[];additionalProperties?:boolean;properties?:Record<string,Schema>;
+  [key:string]:unknown;
+}
 // Small validator for the exact JSON Schema vocabulary in the frozen result contract.
-export const resultSchema = JSON.parse(readFileSync(new URL('../../../../contracts/agent-result.schema.json', import.meta.url), 'utf8'));
-export function matches(value: unknown, schema: any): boolean {
+export const resultSchema = contract as Schema & {properties:Record<string,Schema>};
+export function matches(value: unknown, schema: Schema): boolean {
   if (schema.const !== undefined && value !== schema.const) return false;
   if (schema.enum && !schema.enum.includes(value)) return false;
   const types = Array.isArray(schema.type) ? schema.type : schema.type ? [schema.type] : [];
@@ -11,7 +16,8 @@ export function matches(value: unknown, schema: any): boolean {
   if (typeof value === 'number' && schema.minimum !== undefined && value < schema.minimum) return false;
   if (Array.isArray(value)) {
     if (value.length > 100 || (schema.uniqueItems && new Set(value.map(v => JSON.stringify(v))).size !== value.length)) return false;
-    if (schema.items && !value.every(v => matches(v, schema.items))) return false;
+    const itemSchema=schema.items;
+    if (itemSchema && !value.every(v => matches(v, itemSchema))) return false;
   } else if (value && typeof value === 'object') {
     const obj = value as Record<string, unknown>;
     if (schema.required?.some((k: string) => !Object.hasOwn(obj, k))) return false;
