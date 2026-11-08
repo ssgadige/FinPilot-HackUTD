@@ -1,12 +1,18 @@
 import "server-only";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getServices } from "../services";
+import { ApiFailure } from "../errors";
 
-/**
- * FP-10 integration blocker: no trusted session validator exists on this branch.
- * Fail closed. Do not replace this with cookie presence, GET /me from the
- * browser, an environment switch, or a test identity. FP-10 must validate the
- * opaque cookie against its session store, verification state and expiry.
- */
-export async function requireVerifiedSession(): Promise<never> {
-  redirect("/login?reason=unavailable");
+/** Finance pages use the same verified, unexpired session store as the APIs. */
+export async function requireVerifiedSession() {
+  try {
+    const auth = getServices().auth;
+    const session = auth.session((await cookies()).get("fp_session")?.value || "");
+    return auth.profile(session.user_id);
+  } catch (error) {
+    redirect(error instanceof ApiFailure && error.status === 401
+      ? "/login?reason=session-expired" : "/login?reason=unavailable");
+  }
 }
+
