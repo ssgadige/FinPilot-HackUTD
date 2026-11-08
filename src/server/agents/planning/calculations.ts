@@ -52,7 +52,7 @@ export function missingDebtData(s: PlanningSnapshot): string[] {
     ...(d.kind==='credit_card' && !d.creditLimitCents?[`Credit limit missing/zero for ${d.id}; utilization is unknown.`]:[]),
   ])];
 }
-export function reserveBudget(s: PlanningSnapshot) {
+export function reservedObligations(s: PlanningSnapshot) {
   const adjusted=s.bills.map(b=>{
     const change=s.costChanges.find(c=>c.billId===b.id && c.accepted && c.effectiveDate<=b.dueDate);
     return {...b,amountCents:change?.newCents??b.amountCents};
@@ -61,6 +61,10 @@ export function reserveBudget(s: PlanningSnapshot) {
   const coverage=new Map(s.debts.map(d=>[d.id,Math.min(minimum(d),sum(adjusted.filter(b=>b.debtId===d.id).map(b=>b.amountCents)))]));
   const obligations=[...adjusted.map(b=>({accountId:b.accountId,date:b.dueDate,amountCents:b.amountCents})),
     ...s.debts.map(d=>({accountId:d.paymentAccountId,date:d.dueDate,amountCents:minimum(d)-coverage.get(d.id)!}))];
+  return {adjusted,coverage,obligations,minimum};
+}
+export function reserveBudget(s: PlanningSnapshot) {
+  const {adjusted,coverage,obligations,minimum}=reservedObligations(s);
   const accounts=s.accounts.filter(a=>liquid(a.kind)).map(a=>{
     const payments=sum(obligations.filter(o=>o.accountId===a.id).map(o=>o.amountCents));
     const earmarked=sum(s.goals.filter(g=>g.accountId===a.id).map(g=>g.savedCents));

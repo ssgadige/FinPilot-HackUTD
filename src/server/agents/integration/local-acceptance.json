@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-11-08T13:10:28.332095+00:00",
+  "validation_mode": "local_tests_with_mocked_inference",
+  "new_provider_calls": 0,
+  "financial_source_mode": "fixture",
+  "checks": {
+    "typecheck": "passed",
+    "agent_tests": {
+      "passed": 78,
+      "failed": 0
+    },
+    "backend_tests": {
+      "passed": 24,
+      "failed": 0
+    },
+    "ui_tests": {
+      "passed": 51,
+      "failed": 0
+    },
+    "production_build": "passed",
+    "new_FP22_FP24_files_lint": "passed",
+    "historical_replay": "passed"
+  },
+  "repository_lint": {
+    "status": "failed",
+    "errors": 105,
+    "warnings": 1,
+    "reason": "Explicit any types in existing runtime, backend, smoke scripts and tests; unused subscription history binding."
+  },
+  "historical_live_evidence": "Retained specialist traces are historical, not a fresh integrated run.",
+  "live_integrated_rehearsal": "not_verified_user_requested_local_tests_only",
+  "three_minute_application_rehearsal": "not_verified",
+  "all_tasks_fully_accepted": false,
+  "pending": [
+    "FP-07 agent workspace",
+    "Explicit application goal funding and debt payment account/date mappings",
+    "Fresh live coordinator/chat integration and measured three-minute rehearsal"
+  ],
+  "application_agent_routes": "implemented_and_locally_verified_FP15",
+  "application_plan_repair": "conservative_monthly_revision_with_missing_metadata_disclosed"
+}

@@ -20,6 +20,10 @@ export const allowlists = {
   'deal-scout': ['get_subscription_preferences', 'fetch_allowlisted_offers', 'compare_offer_costs'],
   'debt-readiness': ['get_debt_summary', 'simulate_debt_payoff', 'calculate_utilization'],
   'goal-allocator': ['get_goals', 'allocate_budget', 'compare_plans'],
+  'stress-test': ['stress_test_plan', 'forecast_cash', 'compare_plans'],
+  'plan-repair': ['get_plan_version','get_changed_events','forecast_cash','propose_plan_revision'],
+  'coordinator': ['route_specialists','read_run_findings','compare_plans'],
+  'chat': ['read_overview','read_findings','request_checkup','read_plan'],
 } as const;
 export type Role = keyof typeof allowlists;
 export type SnapshotLoader = (context: Context, signal: AbortSignal) => Promise<Snapshot>;
@@ -60,11 +64,13 @@ export function createTools(load: SnapshotLoader): Record<string, BoundTool> {
       }
       if (name === 'find_transfer_pairs') {
         const groups = Map.groupBy(s.transactions.filter(t => t.transferGroup), t => t.transferGroup!);
-        data = { transfers: [...groups].map(([group, rows]) => {
+        const transfers = [...groups].map(([group, rows]) => {
           const normalized = rows.map(t => liabilities.has(s.accounts.find(a => a.id === t.accountId)!.kind) ? -t.deltaCents : t.deltaCents);
           return { group, matched: rows.length === 2 && rows[0].accountId !== rows[1].accountId && Math.abs(Date.parse(rows[0].date) - Date.parse(rows[1].date)) <= 3 * 86400000 && sum(normalized) === 0,
             amount_cents: Math.abs(rows[0].deltaCents), counted_as_income_or_spending: false };
-        }) };
+        });
+        const visible=transfers.length<=20?transfers:[...transfers.filter(t=>!t.matched),...transfers.filter(t=>t.matched).slice(0,5)];
+        data={transfers:visible,transfer_group_count:transfers.length,matched_group_count:transfers.filter(t=>t.matched).length,unmatched_group_count:transfers.filter(t=>!t.matched).length,omitted_matched_examples:transfers.length-visible.length};
       }
       const horizon = new Date(s.asOf); horizon.setUTCDate(horizon.getUTCDate() + 30);
       const schedule = s.scheduled.filter(t => t.date > s.asOf && t.date <= horizon.toISOString().slice(0, 10) && liquid.has(s.accounts.find(a => a.id === t.accountId)!.kind));
