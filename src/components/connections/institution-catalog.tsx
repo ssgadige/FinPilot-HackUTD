@@ -26,9 +26,11 @@ import { Badge } from "@/components/ui/badge";
 import { FormField } from "@/components/ui/form-field";
 import { DataState } from "@/components/ui/data-state";
 import { DecisionControls } from "@/components/decision-controls";
+import { SavedConnections } from "./saved-connections";
 import { ProviderLinkDialog } from "./provider-link-dialog";
 import "./connections.css";
 
+const emptyProviders: Institution[] = [];
 const categories = [
   {
     id: "banks",
@@ -237,21 +239,7 @@ export function InstitutionCatalog() {
                 after institution email verification.
               </p>
             </Card>
-            <Card>
-              <h2>Connection status unavailable</h2>
-              <p className="muted">
-                A connection-listing and status contract has not been supplied.
-                Existing connections and their sync times cannot be confirmed
-                here.
-              </p>
-            </Card>
-            <Card>
-              <h2>Institution verification required</h2>
-              <p className="muted">
-                The institution verify/resend integration is pending. No account
-                selection or access is granted by this catalog.
-              </p>
-            </Card>
+            {state.status === "authenticated" && <SavedConnections providers={catalog.kind==="ready"?catalog.providers:emptyProviders} csrfToken={state.session.csrfToken} onReconnect={setSelected} refreshKey={selected?.id||""}/>}
             <DecisionControls />
           </div>
         </div>

@@ -2,13 +2,15 @@ import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { Store } from './db';
 import { Auth,equal,hash } from './auth';
-import { ApiFailure,fail } from './errors';
+import { ApiFailure,isApiFailure,fail } from './errors';
+import type { AccountsResponse } from '../../contracts/types';
 import { Simulator } from './simulator';
 import { Finance } from './finance';
 import { Planning } from './planning';
 import { date } from './tools/finance';
 import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 import type { Runs } from './runs';
+import { subscriptionSummary } from './subscription-summary';
 import { sanitizeConversationText } from './agents/chat/memory';
 const key=z.string().min(1).max(128);
 const login=z.strictObject({email:z.email().max(254),password:z.string().min(1).max(256)});
@@ -106,7 +108,20 @@ export function createApi(s:Services) {
         if(!id&&method==='GET')return json({items:s.simulator.list(uid)});
         if(id==='preview'&&path.length===2&&method==='POST') {
           s.auth.throttle(`simulator:${uid}`,10);
-          const b=await body(z.strictObject({institution_id:text,demo_username:text,demo_password:z.string().min(1).max(256)}));return json(s.simulator.preview(uid,b.institution_id,b.demo_username,b.demo_password));
+          const b=await body(z.strictObject({institution_id:text,demo_username:text,demo_password:z.string().min(1).max(256)}));
+          const {binding,...challenge}=await s.simulator.begin(s.auth,uid,session.token_hash,b.institution_id,b.demo_username,b.demo_password);
+          cookie('fp_link_pending',binding,300);return json(challenge,202);
+        }
+        if(id==='verify'&&path.length===2&&method==='POST') {
+          s.auth.throttle(`institution-verify:${uid}`,30);
+          const b=await body(z.strictObject({challenge_id:key,code:z.string().regex(/^\d{6}$/)}));
+          const result=s.simulator.verify(s.auth,uid,session.token_hash,b.challenge_id,cookies.fp_link_pending||'',b.code);
+          cookie('fp_link_pending','',0);return json(result);
+        }
+        if(id==='resend'&&path.length===2&&method==='POST') {
+          const b=await body(z.strictObject({challenge_id:key}));
+          await s.simulator.resend(s.auth,uid,session.token_hash,b.challenge_id,cookies.fp_link_pending||'');
+          cookie('fp_link_pending',cookies.fp_link_pending||'',300);return json({message:'Verification delivery requested'},202);
         }
         if(!id&&method==='POST') {
           const b=await body(z.strictObject({preview_token:key,account_ids:z.array(text).min(1).max(20).refine(a=>new Set(a).size===a.length),consent_version:text,idempotency_key:key}));return json(s.simulator.connect(uid,b),201);
@@ -115,7 +130,12 @@ export function createApi(s:Services) {
         if(id&&!action&&method==='DELETE') {await body(z.strictObject({confirmation:confirmed}));return json(s.simulator.revoke(uid,id));}
       }
       if(['accounts','transactions','overview','forecast','debts','evidence','calculations'].includes(resource)&&!s.finance)fail(503,'service_unavailable','Finance service is not configured');
-      if(resource==='accounts'&&path.length===1&&method==='GET')return json({items:s.finance!.accounts(uid,url.searchParams.get('institution_id')||undefined),snapshot_version:s.store.user(uid).snapshot_version,source_mode:'fixture',as_of:s.finance!.asOf()});
+      if(resource==='accounts'&&path.length===1&&method==='GET')return json(s.store.atomic(()=>({
+        items:s.finance!.accounts(uid,url.searchParams.get('institution_id')||undefined),
+        snapshot_version:s.store.user(uid).snapshot_version,
+        source_mode:'fixture',
+        as_of:s.finance!.asOf(),
+      } satisfies AccountsResponse)));
       if(resource==='transactions'&&path.length===1&&method==='GET') {
         const q=z.strictObject({account_id:text.optional(),from:day.optional(),to:day.optional(),category:text.optional(),q:z.string().max(100).optional(),cursor:z.string().max(500).optional(),limit:z.coerce.number().int().min(1).max(200).default(50)}).safeParse(Object.fromEntries(url.searchParams));
         if(!q.success||q.data.from&&q.data.to&&q.data.from>q.data.to)fail(400,'invalid_input','Invalid transaction query');
@@ -137,7 +157,7 @@ export function createApi(s:Services) {
         if(id&&!action&&method==='PATCH')return json(s.planning!.updateGoal(uid,id,await body(goalPatch)));
       }
       if(resource==='subscriptions') {
-        if(!id&&method==='GET')return json({items:s.store.scoped('subscriptions',uid)});
+        if(!id&&method==='GET')return json(await subscriptionSummary(s.store,uid));
         if(id&&!action&&method==='PATCH')return json(s.planning!.preferences(uid,id,await body(z.strictObject({usage_confirmed:z.enum(['used','unused','unknown']).optional(),preferences:z.record(z.string().max(50),z.union([z.string().max(200),z.boolean()])).refine(p=>Object.keys(p).length<=20).optional(),confirmation:confirmed}))));
         if(id&&action==='offers'&&method==='GET')return json(await s.planning!.listOffers(uid,id));
       }
@@ -164,7 +184,7 @@ export function createApi(s:Services) {
 
       fail(404,'not_found','Route not found');
     } catch(error) {
-      const e=error instanceof ApiFailure?error:new ApiFailure(500,'internal_error','Request could not be completed');
+      const e=isApiFailure(error)?error:new ApiFailure(500,'internal_error','Request could not be completed');
       return json({error:{code:e.code,message:e.message,request_id:requestId}},e.status);
     }
   };

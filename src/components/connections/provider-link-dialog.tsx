@@ -30,6 +30,7 @@ export function ProviderLinkDialog({
   const [problem, setProblem] = useState<ConnectionProblem | null>(null);
   const [pending, setPending] = useState<{
     maskedRecipient: string | null;
+    challengeId: string;
   } | null>(null);
   const [validation, setValidation] = useState("");
   const [retryAt, setRetryAt] = useState(0);
@@ -147,6 +148,10 @@ export function ProviderLinkDialog({
           <InstitutionVerification
             providerName={provider.name}
             maskedRecipient={pending.maskedRecipient}
+            challengeId={pending.challengeId}
+            providerId={provider.id}
+            csrfToken={csrfToken}
+            onStartAgain={() => setPending(null)}
           />
         ) : (
           <form

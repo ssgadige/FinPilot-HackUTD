@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-export function MessageComposer({ busy, blocked, onSend }: {
-  busy: boolean; blocked: boolean; onSend: (text: string) => void;
+import type { CoachDraft } from "./coach-panel";
+export function MessageComposer({ busy, blocked, onSend, draft }: {
+  busy: boolean; blocked: boolean; onSend: (text: string) => void; draft?: CoachDraft;
 }) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(draft?.text ?? "");
   const input = useRef<HTMLTextAreaElement>(null);
   const wasBusy = useRef(false);
   useEffect(() => {

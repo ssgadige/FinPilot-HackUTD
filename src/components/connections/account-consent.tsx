@@ -14,7 +14,7 @@ import { DataState } from "@/components/ui/data-state";
 import { ConnectionManager } from "./connection-manager";
 import "./connections.css";
 
-/** Prepared post-OTP component. The catalog cannot reach this until FP-11 is integrated. */
+/** Reachable only after server-confirmed institution email verification. */
 type ConsentProps = {
   preview: VerifiedInstitutionPreview;
   csrfToken: string | null;

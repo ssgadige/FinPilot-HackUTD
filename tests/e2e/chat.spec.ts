@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+test.use({ baseURL: "http://127.0.0.1:3100" });
 const reply={reply:"Your current findings are available for review. This response is a browser test fixture, not live inference.",evidence_ids:["calc-test-owned"],requested_run_id:null,conversation_id:"test-conversation",source_mode:"fixture",inference_source_mode:"cached"};
 test.beforeEach(async({page})=>{
   await page.route("**/api/v1/me",route=>route.fulfill({headers:{"X-CSRF-Token":"test-csrf"},json:{id:"test-user",display_name:"Test fixture person",email:"test@example.test"}}));

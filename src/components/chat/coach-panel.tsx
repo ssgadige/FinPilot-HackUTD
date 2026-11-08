@@ -14,14 +14,16 @@ import { runsApi, type RunStatus } from "@/lib/runs-api";
 import "./chat.css";
 
 const suggestions = ["Explain my financial overview.", "What bills are coming up?", "Explain my latest checkup findings."];
-export function CoachPanel() {
+export type CoachDraft = { id: number; text: string };
+export function CoachPanel({ draft, onInspectRun }: { draft?: CoachDraft; onInspectRun?: (id: string) => void } = {}) {
   const { state, clearSession } = useAuth();
   if (state.status !== "authenticated") return <Card><p role="status">Sign in to use your financial coach.</p><Link href="/login">Sign in</Link></Card>;
   // Unmount the entire private transcript immediately on user change or logout.
-  return <UserCoach key={state.session.profile.id} csrfToken={state.session.csrfToken} onExpired={clearSession} />;
+  return <UserCoach key={state.session.profile.id} csrfToken={state.session.csrfToken} onExpired={clearSession} draft={draft} onInspectRun={onInspectRun} />;
 }
-function UserCoach({ csrfToken, onExpired }: { csrfToken: string | null; onExpired: () => void }) {
+function UserCoach({ csrfToken, onExpired, draft, onInspectRun }: { csrfToken: string | null; onExpired: () => void; draft?: CoachDraft; onInspectRun?: (id: string) => void }) {
   const [messages, setMessages] = useState<CoachMessage[]>([]);
+  const [sentDraftId, setSentDraftId] = useState<number>();
   const [conversationId, setConversationId] = useState<string>();
   const [memory,setMemory]=useState<ChatContext>();
   const [busy, setBusy] = useState(false);
@@ -142,7 +144,8 @@ function UserCoach({ csrfToken, onExpired }: { csrfToken: string | null; onExpir
             {problem.kind === "csrf" ? <p>Refresh the page to renew your session protection.</p> :
               <p>No automatic retry was made. If you requested a checkup, confirm its activity before requesting another.</p>}
           </div>}
-          <MessageComposer busy={busy} blocked={blocked||starting} onSend={text => void send(text)} />
+          {draft && draft.id !== sentDraftId && <p className="coach-context-note">A specialist finding is ready in your message. Review it, then send to request an explanation.</p>}
+          <MessageComposer key={draft?.id ?? "message"} busy={busy} blocked={blocked||starting} draft={draft} onSend={text => { setSentDraftId(draft?.id); void send(text); }} />
         </Card>
         <Card>
           <h2>Financial checkup</h2>
@@ -151,10 +154,10 @@ function UserCoach({ csrfToken, onExpired }: { csrfToken: string | null; onExpir
           {startProblem&&<div role="alert" className="coach-error"><p>{startProblem.message}</p><p>A retry uses the same request key, so an already queued checkup is not duplicated.</p></div>}
           {knownRuns.length>1&&<div className="coach-evidence-links" aria-label="Recent run references">{knownRuns.map((id,index)=><Button key={id} variant="ghost" onClick={()=>selectRun(id)}>View run {index+1}{id===activeRun?' (selected)':''}</Button>)}</div>}
         </Card>
-        {activeRun&&<div ref={runArea}><RunCard key={activeRun} id={activeRun} csrfToken={csrfToken} onExpired={onExpired} onState={runState} onStale={staleRun} onEvidence={openEvidence}/></div>}
+        {activeRun&&<div ref={runArea}>{onInspectRun && <Button variant="secondary" onClick={() => onInspectRun(activeRun)}>Open specialist dashboard</Button>}<RunCard key={activeRun} id={activeRun} csrfToken={csrfToken} onExpired={onExpired} onState={runState} onStale={staleRun} onEvidence={openEvidence}/></div>}
       </div>
       <aside className="coach-inspector" aria-label="Coach scope and controls">
-        <Card><h2>Basic chat scope</h2><p>Read your current overview, explain saved findings and clarify your next question.</p></Card>
+        <Card><p className="eyebrow">YOUR FINANCIAL COACH</p><h2>Start with a question</h2><p>Read your current overview, explain saved findings and clarify your next question.</p><div className="coach-workflow-links"><Link href="/cash-and-bills">Cash &amp; upcoming bills</Link><Link href="/subscriptions">Recurring costs &amp; offers</Link><Link href="/goals-and-plans">Goals &amp; proposed plans</Link></div></Card>
         <Card><h2>You stay in control</h2><p>A message does not authorize money movement or replace explicit plan acceptance.</p></Card>
         <Card><h2>Conversation context</h2><p>Ask follow-up questions using up to three recent exchanges in this verified session. Financial facts are checked again for every reply.</p>
           <p className="small">Context expires after 15 minutes of inactivity and clears on logout or server restart. A changed financial snapshot starts fresh context.</p>
