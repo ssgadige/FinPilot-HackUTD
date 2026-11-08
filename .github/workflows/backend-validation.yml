@@ -17,8 +17,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: npm ci
-      - run: npm run test:backend
-      - run: npm run test:agents
-      - run: npm test
-      - run: npm run typecheck
-      - run: npm run build
+      - run: npm run verify:backend

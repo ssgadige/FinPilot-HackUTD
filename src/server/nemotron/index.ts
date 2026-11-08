@@ -41,6 +41,14 @@ export function readConfig(env: Record<string,string|undefined> = process.env): 
   return { apiKey: env.NVIDIA_API_KEY.trim(), baseUrl: baseUrl.replace(/\/$/, ''), model, timeoutMs };
 }
 
+async function bounded<T>(work:()=>Promise<T>,signal:AbortSignal):Promise<T> {
+  signal.throwIfAborted();
+  return new Promise<T>((resolve,reject)=>{
+    const stop=()=>reject(new Error('NEMOTRON_INTERRUPTED'));
+    signal.addEventListener('abort',stop,{once:true});
+    Promise.resolve().then(()=>{signal.throwIfAborted();return work();}).then(resolve,reject).finally(()=>signal.removeEventListener('abort',stop));
+  });
+}
 // Returns only public assistant content and structured tool calls, never reasoning.
 // Callers own role allowlists, argument validation, authorization and total run budgets.
 export async function complete(config: Config, messages: Message[], tools: Tool[] = [],
@@ -56,14 +64,14 @@ export async function complete(config: Config, messages: Message[], tools: Tool[
     if (config.reasoningEffort !== undefined &&
       (config.model !== 'nvidia/nemotron-3.5-super-vl-120b-a12b' || !['none', 'low', 'high'].includes(config.reasoningEffort)))
       throw new NemotronError('NEMOTRON_CONFIG', 503);
-    const response = await transport(`${config.baseUrl}/chat/completions`, {
+    const response = await bounded(()=>transport(`${config.baseUrl}/chat/completions`, {
       method: 'POST', redirect: 'error', signal: combined,
       headers: { Authorization: `Bearer ${config.apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ model: config.model, messages, stream: false,
         max_tokens: maxTokens, temperature: 0,
         ...(config.reasoningEffort ? { reasoning_effort: config.reasoningEffort } : {}),
         ...(tools.length ? { tools, tool_choice: toolChoice, parallel_tool_calls: false } : {}) }),
-    });
+    }),combined);
     if (response.status !== 200) {
       await response.body?.cancel();
       throw new NemotronError('NEMOTRON_PROVIDER_ERROR', 502);
@@ -73,7 +81,7 @@ export async function complete(config: Config, messages: Message[], tools: Tool[
     if (!reader) throw new NemotronError('NEMOTRON_INVALID_RESPONSE', 502);
     const chunks: Uint8Array[] = []; let size = 0;
     while (true) {
-      const { done, value } = await reader.read(); if (done) break;
+      const { done, value } = await bounded(()=>reader.read(),combined); if (done) break;
       size += value.byteLength;
       if (size > 1_048_576) { await reader.cancel(); throw new NemotronError('NEMOTRON_INVALID_RESPONSE', 502); }
       chunks.push(value);

@@ -35,7 +35,7 @@ export function createApi(s:Services) {
     };
     const cookies=Object.fromEntries((request.headers.get('cookie')||'').split(';').map(c=>c.trim().split('=')));
     const body=async<T>(schema:z.ZodType<T>):Promise<T>=> {
-      if(!request.headers.get('content-type')?.startsWith('application/json')) fail(400,'invalid_input','JSON body required');
+      if(!/^application\/json(?:\s*;.*)?$/i.test(request.headers.get('content-type')||'')) fail(400,'invalid_input','JSON body required');
       if(Number(request.headers.get('content-length')||0)>16384) fail(400,'invalid_input','Body too large');
       const reader=request.body?.getReader();if(!reader) fail(400,'invalid_input','JSON body required');
       const parts:Uint8Array[]=[];let length=0;
@@ -46,6 +46,8 @@ export function createApi(s:Services) {
     try {
       const url=new URL(request.url);const path=url.pathname.replace(/^\/api\/v1\/?/,'').split('/').filter(Boolean);const [resource,id,action]=path;
       if(path.length>3) fail(404,'not_found','Route not found');
+      const queryFields:Record<string,string[]>={institutions:['category'],accounts:['institution_id'],transactions:['account_id','from','to','category','q','cursor','limit'],forecast:['days'],runs:action==='events'?['cursor']:[]};
+      if([...url.searchParams.keys()].some(name=>!(queryFields[resource]??[]).includes(name)))fail(400,'invalid_input','Unexpected query fields');
       const method=request.method;
       if(!['GET','POST','PATCH','DELETE'].includes(method)) fail(405,'method_not_allowed','Method not allowed');
       const unsafe=method!=='GET';if(unsafe)s.auth.protect(request);

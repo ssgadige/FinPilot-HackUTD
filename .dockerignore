@@ -10,3 +10,4 @@ data/seed-manifest.json
 __pycache__
 *.log
 *.tsbuildinfo
+artifacts/backend

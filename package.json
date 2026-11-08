@@ -22,7 +22,10 @@
     "setup": "node scripts/setup.mjs",
     "db:setup": "node scripts/setup.mjs",
     "db:migrate": "tsx scripts/bootstrap.ts",
-    "test:agents": "tsx --test tests/agent-runtime.test.ts tests/nemotron.test.ts tests/subscriptions.test.ts"
+    "test:agents": "tsx --test tests/agent-runtime.test.ts tests/nemotron.test.ts tests/subscriptions.test.ts",
+    "verify:backend": "node scripts/verify-backend.mjs",
+    "test:http": "tsx scripts/smoke-backend.ts",
+    "smoke:nemotron": "node --env-file-if-exists=.env.local --import tsx scripts/smoke-nemotron.ts"
   },
   "dependencies": {
     "lucide-react": "1.70.0",
@@ -48,6 +51,7 @@
     "eslint-config-next": "16.4.5",
     "jsdom": "31.0.0",
     "typescript": "6.0.3",
+    "vite": "8.3.6",
     "vitest": "5.1.0",
     "tsx": "^4.20.0",
     "@types/nodemailer": "^7.0.0"
