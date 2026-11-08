@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-11-08T13:10:28.332095+00:00",
+  "tasks": [
+    "FP-15",
+    "FP-16"
+  ],
+  "status": "passed_local_acceptance",
+  "validation_mode": "real_authenticated_handlers_sqlite_and_deterministic_tools_with_mocked_inference",
+  "new_external_provider_calls": 0,
+  "financial_source_mode": "fixture",
+  "checks": {
+    "backend_tests": {
+      "passed": 24,
+      "failed": 0
+    },
+    "agent_tests": {
+      "passed": 78,
+      "failed": 0
+    },
+    "ui_tests": {
+      "passed": 51,
+      "failed": 0
+    },
+    "typecheck": "passed",
+    "production_build": "passed",
+    "new_and_modified_FP15_FP16_API_files_scoped_lint": "passed",
+    "dependency_lockfile_agreement": "passed",
+    "dependency_tree": "passed",
+    "configured_secret_source_browser_and_local_log_scan": "passed"
+  },
+  "acceptance_behaviors": [
+    "202 checkup and persisted owner-scoped status/steps/events/evidence",
+    "Incremental event polling",
+    "Queued and in-flight cancellation stops new calls",
+    "Client and model identity manipulation rejected",
+    "Wrong password, OTP replay/expiry/throttling and no session before verification",
+    "CSRF/origin checks, HTTPS secure cookies, idle/absolute session expiry, logout",
+    "Two-user read/mutation isolation and stale evidence rejection",
+    "Consent disconnect prevents future model calls with cached tool data",
+    "Atomic idempotent expense/delayed-income events and snapshot update",
+    "Real application-plan proposed revision preserves accepted baseline until explicit version-checked confirmation",
+    "Provider/storage failures retain baseline and never duplicate event effects",
+    "Bounded session-owned chat without raw user-chat persistence",
+    "Persistent database restart handling without silent inference replay"
+  ],
+  "limitations": [
+    "Provider inference is mocked; no fresh live NVIDIA acceptance was attempted, per user instruction.",
+    "Application repair uses a conservative monthly needs-information revision; general goal funding/payment metadata is unavailable.",
+    "FP-07 agent workspace/full browser rehearsal remains separate.",
+    "Single persistent application process required for the in-process queue.",
+    "Docker daemon/Compose runtime and historical Git objects were not verified.",
+    "Repository-wide lint still has 105 existing explicit-any errors and one unused-binding warning."
+  ]
+}

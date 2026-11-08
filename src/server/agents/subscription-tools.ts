@@ -8,7 +8,7 @@ import type { fetchOffers } from '../offers/source.ts';
 import type { OfferFetch } from '../offers/source.ts';
 export interface SubscriptionSnapshot {
   userId: string; version: number; asOf: string; sourceMode: SourceMode;
-  accounts: { id: string; userId: string; connected: boolean; kind: 'checking' | 'savings' | 'wallet' | 'credit_card' }[];
+  accounts: { id: string; userId: string; connected: boolean; kind: string }[];
   transactions: { id: string; userId: string; accountId: string; merchant: string; date: string; deltaCents: number; transferGroup?: string }[];
   subscriptions: { id: string; userId: string; accountId: string; merchant: string; category: 'music' | 'other'; preferences: Preferences }[];
 }
@@ -19,7 +19,7 @@ const merchantKey = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
 function analyze(s: SubscriptionSnapshot) {
   return s.subscriptions.map(sub => {
     const account = s.accounts.find(a => a.id === sub.accountId)!;
-    const charges = s.transactions.filter(t => t.accountId === sub.accountId && merchantKey(t.merchant) === merchantKey(sub.merchant) && !t.transferGroup && (account.kind === 'credit_card' ? t.deltaCents > 0 : t.deltaCents < 0))
+    const charges = s.transactions.filter(t => ['checking','savings','wallet','credit_card'].includes(account.kind) && t.accountId === sub.accountId && merchantKey(t.merchant) === merchantKey(sub.merchant) && !t.transferGroup && (account.kind === 'credit_card' ? t.deltaCents > 0 : t.deltaCents < 0))
       .sort((a,b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
     const intervals = charges.slice(1).map((t,i) => (Date.parse(t.date)-Date.parse(charges[i].date))/86400000);
     const monthly = intervals.length >= 2 && intervals.every(d => d >= 25 && d <= 35);
@@ -63,7 +63,7 @@ export function createSubscriptionTools(load: SubscriptionLoader, options: { fix
       signal.throwIfAborted(); const s = structuredClone(await load(ctx, signal)); signal.throwIfAborted();
       if (s.userId !== ctx.userId || s.version !== ctx.snapshotVersion || !validDate(s.asOf) || !['live','fixture','cached'].includes(s.sourceMode)) throw new Error('SNAPSHOT_SCOPE');
       const ids = new Set(s.accounts.map(a => a.id));
-      if (ids.size !== s.accounts.length || s.accounts.some(a => a.userId !== ctx.userId || !a.connected || !ctx.allowedAccountIds.includes(a.id) || !['checking','savings','wallet','credit_card'].includes(a.kind)) || ctx.allowedAccountIds.some(id => !ids.has(id))) throw new Error('ACCOUNT_SCOPE');
+      if (ids.size !== s.accounts.length || s.accounts.some(a => a.userId !== ctx.userId || !a.connected || !ctx.allowedAccountIds.includes(a.id) || !['checking','savings','wallet','credit_card','cd','brokerage','ira','auto_loan','mortgage','loan'].includes(a.kind)) || ctx.allowedAccountIds.some(id => !ids.has(id))) throw new Error('ACCOUNT_SCOPE');
       if ([...s.transactions,...s.subscriptions].some(t => t.userId !== ctx.userId || !ids.has(t.accountId) || typeof t.merchant !== 'string' || t.merchant.length > 120 || !t.merchant.trim()) ||
         s.transactions.some(t => !Number.isSafeInteger(t.deltaCents) || !validDate(t.date) || t.date > s.asOf) ||
         new Set(s.transactions.map(t=>t.id)).size !== s.transactions.length || new Set(s.subscriptions.map(t=>t.id)).size !== s.subscriptions.length) throw new Error('RECORD_SCOPE');

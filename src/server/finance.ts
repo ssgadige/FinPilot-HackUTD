@@ -1,6 +1,6 @@
 import { Store, VISIBLE, LIABILITIES } from './db';
 import { fail, found } from './errors';
-import { forecast, cashFlow, utilization } from './tools/finance';
+import { forecast, cashFlow, utilization, type IncomeShift, type Scheduled } from './tools/finance';
 import { iso, token } from './auth';
 import type { AccountSummary } from '../../contracts/types';
 export class Finance {
@@ -30,8 +30,10 @@ export class Finance {
     const cash=this.store.accounts(uid).filter(a=>['checking','savings'].includes(a.kind));
     const ids=new Set(cash.map(a=>a.id));
     const items=this.store.scoped('scheduled_items',uid).filter(s=>ids.has(s.account_id));
-    const delays=this.store.all("SELECT payload_json FROM demo_events WHERE user_id=? AND kind='delayed_income' ORDER BY rowid",uid).map(e=>JSON.parse(e.payload_json).days as number);
-    const result=forecast(cash.reduce((n,a)=>n+a.balance_cents,0),this.asOf(),days,items as any,expense,delay,drop,delays);
+    const events=this.store.all("SELECT payload_json FROM demo_events WHERE user_id=? AND kind='delayed_income' ORDER BY rowid",uid).map(e=>JSON.parse(e.payload_json));
+    const delays=events.filter(e=>!e.scheduled_item_id).map(e=>e.days as number);
+    const shifts=events.filter(e=>items.some(i=>i.id===e.scheduled_item_id&&i.account_id===e.account_id)) as IncomeShift[];
+    const result=forecast(cash.reduce((n,a)=>n+a.balance_cents,0),this.asOf(),days,items as (Scheduled & {id:string})[],expense,delay,drop,delays,shifts);
     return {...result,snapshot_version:this.store.user(uid).snapshot_version,missing_data:cash.length?[]:['No linked liquid accounts'],as_of:this.asOf()};
   }
   overview(uid:string) {

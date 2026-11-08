@@ -1,0 +1,1004 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-08T04:47:24.756Z",
+  "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "inference_source_mode": "live",
+  "financial_source_mode": "fixture",
+  "total_latency_ms": 31941,
+  "model_calls": 12,
+  "request_latency_ms": [
+    745,
+    750,
+    504,
+    7740,
+    655,
+    762,
+    1056,
+    7993,
+    887,
+    1000,
+    1531,
+    8254
+  ],
+  "debt": {
+    "result": {
+      "agent_id": "debt-readiness",
+      "status": "completed",
+      "headline": "You have $3000.00 credit card debt at 24.00% APR with 50.00% utilization. Paying it off first saves about $1491.55 in interest versus minimum-only payments, but leaves nothing toward your purchase goal.",
+      "findings": [
+        {
+          "id": "f1",
+          "severity": "warning",
+          "summary": "Credit card balance of $3000.00 at 24.00% APR; minimum payment is $100.00 due 2026-11-20. Minimum-only payoff takes 47 months and costs $1627.30 in interest.",
+          "evidence_ids": [
+            "calc-64c3eb6ff964f1d4e390381f",
+            "calc-067014f5074c733f8e5e4b0c"
+          ],
+          "amount_cents": 300000
+        },
+        {
+          "id": "f2",
+          "severity": "warning",
+          "summary": "Card utilization is 50.00% ($3000.00 balance on a $6000.00 limit). No credit-score prediction or lending approval is calculated.",
+          "evidence_ids": [
+            "calc-40266f68350e65caefd6fcdd"
+          ],
+          "amount_cents": 300000
+        },
+        {
+          "id": "f3",
+          "severity": "opportunity",
+          "summary": "Debt-first alternative: apply $2185.00 extra to the card, payoff in about 10 months (estimated 2027-08-20), total interest $135.75, saving $1491.55 versus baseline. No funds remain for the purchase goal under this alternative.",
+          "evidence_ids": [
+            "calc-067014f5074c733f8e5e4b0c"
+          ],
+          "amount_cents": 218500
+        },
+        {
+          "id": "f4",
+          "severity": "opportunity",
+          "summary": "Goal-first alternative: contribute $2185.00 to the purchase goal, keep $100.00 minimum card payments. Debt payoff remains 47 months (estimated 2030-09-20) with $1627.30 interest; no interest savings.",
+          "evidence_ids": [
+            "calc-067014f5074c733f8e5e4b0c"
+          ],
+          "amount_cents": 218500
+        },
+        {
+          "id": "f5",
+          "severity": "opportunity",
+          "summary": "Balanced alternative: split $2185.00 as $1092.50 extra debt and $1092.50 toward the goal. Estimated payoff in 25 months (2028-11-20), total interest $554.13, saving $1073.17 versus baseline.",
+          "evidence_ids": [
+            "calc-067014f5074c733f8e5e4b0c"
+          ],
+          "amount_cents": 109250
+        }
+      ],
+      "evidence_ids": [
+        "calc-64c3eb6ff964f1d4e390381f",
+        "calc-067014f5074c733f8e5e4b0c",
+        "calc-40266f68350e65caefd6fcdd"
+      ],
+      "assumptions": [
+        "All amounts are integer USD cents; currency_display values are used for dollar prose.",
+        "Only current checking/savings/wallet cash is spendable; no future income, CD maturity, or investments are counted.",
+        "Bills, required minimums, cash buffers, and already-saved goal money are reserved before discretionary allocation.",
+        "Each payoff alternative is mutually exclusive; allocations from different alternatives are not combined.",
+        "Payoff estimates use fixed nominal APR/12 and half-up monthly interest; interest accrues before payment, with no fees or new charges.",
+        "Extra debt payment is one-time in the first period; future fixed minimums are an assumption, not verified future affordability.",
+        "Payoff dates are conditional estimates under tool assumptions, not credit-score predictions or lending approvals.",
+        "No credit-score prediction, score-point gain, or lending approval is calculated.",
+        "All proposed actions require confirmation."
+      ],
+      "missing_data": [],
+      "proposed_actions": [
+        {
+          "id": "pa1",
+          "type": "save_plan",
+          "description": "Review and confirm a debt-versus-goal allocation using the $2185.00 available cash before obligations and buffer reserves.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa2",
+          "type": "review_payment",
+          "description": "Confirm the $100.00 minimum card payment due 2026-11-20 and consider an extra principal payment to reduce 24.00% APR interest.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa3",
+          "type": "adjust_goal",
+          "description": "Adjust purchase-goal timing or amount if choosing debt-first or balanced allocation, since less cash is available for the goal.",
+          "requires_confirmation": true
+        }
+      ],
+      "snapshot_version": 1
+    },
+    "evidence": [
+      {
+        "id": "calc-64c3eb6ff964f1d4e390381f",
+        "kind": "calculation",
+        "source_id": "get_debt_summary",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-067014f5074c733f8e5e4b0c",
+        "kind": "calculation",
+        "source_id": "simulate_debt_payoff",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-40266f68350e65caefd6fcdd",
+        "kind": "calculation",
+        "source_id": "calculate_utilization",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      }
+    ],
+    "events": [
+      {
+        "id": "e499e7c3-7c50-4553-961c-5832a970ad6b",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "started",
+        "at": "2026-11-08T04:46:52.817Z",
+        "message": "Agent started."
+      },
+      {
+        "id": "4cccbe7a-3d86-4b0e-9b8f-6d5a12799a5d",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_started",
+        "at": "2026-11-08T04:46:53.567Z",
+        "message": "get_debt_summary"
+      },
+      {
+        "id": "e9183531-c42d-4184-8015-6c58f9a13512",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:46:53.570Z",
+        "message": "get_debt_summary"
+      },
+      {
+        "id": "8df995cd-7127-40e5-b952-70e4f8a5e469",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_started",
+        "at": "2026-11-08T04:46:54.320Z",
+        "message": "simulate_debt_payoff"
+      },
+      {
+        "id": "a1af2192-98bd-4883-80ef-7ac11d43d1aa",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:46:54.323Z",
+        "message": "simulate_debt_payoff"
+      },
+      {
+        "id": "c5d3a8f8-d83e-4258-8073-5b997a261f3e",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_started",
+        "at": "2026-11-08T04:46:54.828Z",
+        "message": "calculate_utilization"
+      },
+      {
+        "id": "dd459dad-795c-4842-a1a0-03c4d9ca7298",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:46:54.829Z",
+        "message": "calculate_utilization"
+      },
+      {
+        "id": "f7d4771f-405f-4b5f-8ba7-b074f8d24f1b",
+        "run_id": "fp21-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "completed",
+        "at": "2026-11-08T04:47:02.572Z",
+        "message": "Validated agent result."
+      }
+    ],
+    "trace": [
+      {
+        "tool": "get_debt_summary",
+        "evidence_ids": [
+          "calc-64c3eb6ff964f1d4e390381f"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "simulate_debt_payoff",
+        "evidence_ids": [
+          "calc-067014f5074c733f8e5e4b0c"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "calculate_utilization",
+        "evidence_ids": [
+          "calc-40266f68350e65caefd6fcdd"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "result": {
+      "agent_id": "goal-allocator",
+      "status": "completed",
+      "headline": "Three mutually exclusive ways to allocate $2185.00 available cash: debt-first, goal-first, or balanced. All preserve $1000.00 buffer, $1315.00 obligations, $500.00 existing goal savings, and $100.00 minimum card payment.",
+      "findings": [
+        {
+          "id": "debt_first",
+          "severity": "opportunity",
+          "summary": "Debt-first: apply $2185.00 extra to the $3000.00 card at 24.00% APR. Payoff in about 10 months (estimated 2027-08-20), total interest $135.75, saving $1491.55 versus baseline. No funds remain for the car goal; $2500.00 still needed.",
+          "evidence_ids": [
+            "calc-022d2297797bf1de4a68e19f"
+          ],
+          "amount_cents": 0
+        },
+        {
+          "id": "goal_first",
+          "severity": "opportunity",
+          "summary": "Goal-first: contribute $2185.00 to the car goal. Saved rises to $2685.00, leaving $315.00 remaining. Card stays on $100.00 minimums; payoff in 47 months (estimated 2030-09-20) with $1627.30 interest and no interest savings.",
+          "evidence_ids": [
+            "calc-022d2297797bf1de4a68e19f"
+          ],
+          "amount_cents": 218500
+        },
+        {
+          "id": "balanced",
+          "severity": "opportunity",
+          "summary": "Balanced: split $2185.00 as $1092.50 extra debt and $1092.50 toward the car goal. Estimated payoff in 25 months (2028-11-20), total interest $554.13, saving $1073.17 versus baseline. Goal remaining $1407.50.",
+          "evidence_ids": [
+            "calc-022d2297797bf1de4a68e19f"
+          ],
+          "amount_cents": 109250
+        },
+        {
+          "id": "reserves",
+          "severity": "info",
+          "summary": "All options reserve $1315.00 obligations, $1000.00 buffer, $500.00 existing goal savings, and $100.00 minimum card payment. Projected closing cash is $1500.00 after obligations and buffer.",
+          "evidence_ids": [
+            "calc-ae2d4bca684bb663b7ff196c"
+          ],
+          "amount_cents": null
+        }
+      ],
+      "evidence_ids": [
+        "calc-022d2297797bf1de4a68e19f",
+        "calc-ae2d4bca684bb663b7ff196c"
+      ],
+      "assumptions": [
+        "All amounts are integer USD cents; currency_display values are used for dollar prose.",
+        "Only current checking/savings/wallet cash is spendable; no future income, CD maturity, or investments are counted.",
+        "Bills, required minimums, cash buffers, and already-saved goal money are reserved before discretionary allocation.",
+        "Each alternative is mutually exclusive; allocations from different alternatives are not combined.",
+        "Payoff estimates use fixed nominal APR/12 and half-up monthly interest; interest accrues before payment, with no fees or new charges.",
+        "Extra debt payment is one-time in the first period; future fixed minimums are an assumption, not verified future affordability.",
+        "Goal remaining-monthly requirements are calculations, not promises of future capacity or completion.",
+        "No credit-score prediction, score-point gain, or lending approval is calculated.",
+        "All proposed actions require confirmation."
+      ],
+      "missing_data": [],
+      "proposed_actions": [
+        {
+          "id": "pa1",
+          "type": "save_plan",
+          "description": "Review and confirm one mutually exclusive debt-versus-goal allocation using the $2185.00 available cash before obligations and buffer reserves.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa2",
+          "type": "review_payment",
+          "description": "Confirm the $100.00 minimum card payment due 2026-11-20 and consider an extra principal payment to reduce 24.00% APR interest.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa3",
+          "type": "adjust_goal",
+          "description": "Adjust purchase-goal timing or amount if choosing debt-first or balanced allocation, since less cash is available for the goal.",
+          "requires_confirmation": true
+        }
+      ],
+      "snapshot_version": 1
+    },
+    "evidence": [
+      {
+        "id": "calc-64c3eb6ff964f1d4e390381f",
+        "kind": "calculation",
+        "source_id": "get_debt_summary",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-067014f5074c733f8e5e4b0c",
+        "kind": "calculation",
+        "source_id": "simulate_debt_payoff",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-40266f68350e65caefd6fcdd",
+        "kind": "calculation",
+        "source_id": "calculate_utilization",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-f6759b2c73cd22c9421f2d5d",
+        "kind": "calculation",
+        "source_id": "get_goals",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-ae2d4bca684bb663b7ff196c",
+        "kind": "calculation",
+        "source_id": "allocate_budget",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-022d2297797bf1de4a68e19f",
+        "kind": "calculation",
+        "source_id": "compare_plans",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      }
+    ],
+    "events": [
+      {
+        "id": "d7877c8e-750b-4f36-bb31-19a5acfcba62",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "started",
+        "at": "2026-11-08T04:47:02.572Z",
+        "message": "Agent started."
+      },
+      {
+        "id": "2746efd9-7a83-4096-be86-1b844f133a89",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_started",
+        "at": "2026-11-08T04:47:03.228Z",
+        "message": "get_goals"
+      },
+      {
+        "id": "ffee24a4-f052-43ee-852d-9a9b508434be",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:47:03.230Z",
+        "message": "get_goals"
+      },
+      {
+        "id": "1c9f5aa0-1244-43d5-ab2b-7e573a86f1f5",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_started",
+        "at": "2026-11-08T04:47:03.992Z",
+        "message": "allocate_budget"
+      },
+      {
+        "id": "235cb2ef-81db-4218-9116-284262ac9231",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:47:03.994Z",
+        "message": "allocate_budget"
+      },
+      {
+        "id": "8472e512-5aff-4d96-9be2-a6a0248ca829",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_started",
+        "at": "2026-11-08T04:47:05.051Z",
+        "message": "compare_plans"
+      },
+      {
+        "id": "fc9e633b-8dbc-4448-b017-78931cd186d4",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:47:05.053Z",
+        "message": "compare_plans"
+      },
+      {
+        "id": "ba2b9ed3-6fc2-4791-89f2-a902b3bc15e2",
+        "run_id": "fp21-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "completed",
+        "at": "2026-11-08T04:47:13.046Z",
+        "message": "Validated agent result."
+      }
+    ],
+    "trace": [
+      {
+        "tool": "get_goals",
+        "evidence_ids": [
+          "calc-f6759b2c73cd22c9421f2d5d"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "allocate_budget",
+        "evidence_ids": [
+          "calc-ae2d4bca684bb663b7ff196c"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "compare_plans",
+        "evidence_ids": [
+          "calc-022d2297797bf1de4a68e19f"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      }
+    ]
+  },
+  "stress": {
+    "result": {
+      "agent_id": "stress-test",
+      "status": "completed",
+      "headline": "All three plans survive delayed income and reduced income within the 30-day horizon, but all three fail under a $3000.00 surprise expense. Debt-first suffers both a cash shortfall and buffer breach on 2026-11-20; goal_first and balanced suffer buffer breaches on 2026-11-14 without cash shortfalls. The car goal requires additional funding in every surprise-expense case.",
+      "findings": [
+        {
+          "id": "delayed_income",
+          "severity": "info",
+          "summary": "Delayed income (7 days): no failure within the 30-day horizon for debt_first, goal_first, or balanced. Worst minimum cash across plans is $2500.00 (debt_first).",
+          "evidence_ids": [
+            "calc-e33760b03f82ccc483b9b51d",
+            "calc-94fcc8a3f3b57ab607917f81"
+          ],
+          "amount_cents": 250000
+        },
+        {
+          "id": "surprise_expense",
+          "severity": "urgent",
+          "summary": "Surprise expense ($3000.00): all three plans fail. Debt-first has a cash shortfall and buffer breach on 2026-11-20 with minimum cash -$500.00. goal_first has a buffer breach on 2026-11-14 with no cash shortfall (minimum cash $1685.00). Balanced has a buffer breach on 2026-11-14 with no cash shortfall (minimum cash $592.50).",
+          "evidence_ids": [
+            "calc-e33760b03f82ccc483b9b51d",
+            "calc-94fcc8a3f3b57ab607917f81"
+          ],
+          "amount_cents": -50000
+        },
+        {
+          "id": "reduced_income",
+          "severity": "info",
+          "summary": "Reduced income (25%): no failure within the 30-day horizon for any plan. Worst minimum cash across plans is $2250.00 (debt_first).",
+          "evidence_ids": [
+            "calc-e33760b03f82ccc483b9b51d",
+            "calc-94fcc8a3f3b57ab607917f81"
+          ],
+          "amount_cents": 225000
+        },
+        {
+          "id": "goal_changes",
+          "severity": "warning",
+          "summary": "Car goal funding worsens under surprise expense for all plans. debt_first: baseline remaining $2500.00, stressed remaining $3000.00, additional funding required $500.00, existing earmarks at risk $500.00. goal_first: baseline remaining $315.00, stressed remaining $2315.00, additional funding required $2000.00, existing earmarks at risk $0.00. balanced: baseline remaining $1407.50, stressed remaining $3000.00, additional funding required $1592.50, existing earmarks at risk $500.00. No new completion date inferred.",
+          "evidence_ids": [
+            "calc-94fcc8a3f3b57ab607917f81"
+          ],
+          "amount_cents": 200000
+        }
+      ],
+      "evidence_ids": [
+        "calc-e33760b03f82ccc483b9b51d",
+        "calc-94fcc8a3f3b57ab607917f81",
+        "calc-ee9111b56f8e65e30f4cd639"
+      ],
+      "assumptions": [
+        "Deterministic independent scenarios, not probabilities, predictions or guarantees. Baseline and candidate allocations are never modified.",
+        "The tested horizon is 30 days; no failure means no failure within that horizon, not indefinite resilience.",
+        "Scheduled income marked confirmed is an explicit assumption, not guaranteed receipt. Unconfirmed income and historical income are not counted.",
+        "Expenses occur before receipts on the same day. Goal contributions are earmarked immediately; extra debt is paid on its scheduled due date.",
+        "A cash shortfall is a negative actual account balance. Buffer breach subtracts existing/new goal earmarks and the minimum cash buffer; these are distinct failures.",
+        "Scenario settings are fixed: all income delayed 7 days, an independent $3000.00 expense on day 7 in the first liquid account by ID, and an independent 25% income reduction rounded down to whole cents.",
+        "Existing goal earmarks are protected before new contributions, by priority within each account. Coverage changes are hypothetical funding at risk, not actual withdrawals or goal mutations.",
+        "Goal deadline checks use end-of-day account funding and the cash buffer. No new completion date is inferred without future contribution capacity.",
+        "All bills/minimums and accepted cost changes use the original plan assumptions once. Nonliquid assets are excluded; no automatic cross-account transfers occur.",
+        "The 25% reduction is a shock size, not a probability or likelihood."
+      ],
+      "missing_data": [],
+      "proposed_actions": [
+        {
+          "id": "pa1",
+          "type": "save_plan",
+          "description": "Review and confirm one mutually exclusive debt-versus-goal allocation before obligations and buffer reserves, given stress-test results.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa2",
+          "type": "review_payment",
+          "description": "Confirm the $100.00 minimum card payment due 2026-11-20 and consider an extra principal payment to reduce 24.00% APR interest.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa3",
+          "type": "adjust_goal",
+          "description": "Adjust purchase-goal timing or amount if choosing debt-first or balanced allocation, since less cash is available for the goal under stress.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa4",
+          "type": "review_subscription",
+          "description": "Review recurring obligations and buffer headroom given that all plans breach the buffer under a $3000.00 surprise expense.",
+          "requires_confirmation": true
+        }
+      ],
+      "snapshot_version": 1
+    },
+    "evidence": [
+      {
+        "id": "calc-64c3eb6ff964f1d4e390381f",
+        "kind": "calculation",
+        "source_id": "get_debt_summary",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-067014f5074c733f8e5e4b0c",
+        "kind": "calculation",
+        "source_id": "simulate_debt_payoff",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-40266f68350e65caefd6fcdd",
+        "kind": "calculation",
+        "source_id": "calculate_utilization",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-f6759b2c73cd22c9421f2d5d",
+        "kind": "calculation",
+        "source_id": "get_goals",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-ae2d4bca684bb663b7ff196c",
+        "kind": "calculation",
+        "source_id": "allocate_budget",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-022d2297797bf1de4a68e19f",
+        "kind": "calculation",
+        "source_id": "compare_plans",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-e33760b03f82ccc483b9b51d",
+        "kind": "calculation",
+        "source_id": "stress_test_plan",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-94fcc8a3f3b57ab607917f81",
+        "kind": "calculation",
+        "source_id": "compare_plans",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-ee9111b56f8e65e30f4cd639",
+        "kind": "calculation",
+        "source_id": "forecast_cash",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      }
+    ],
+    "events": [
+      {
+        "id": "6dad91a0-01f5-423a-b2ac-e7aab43a45d9",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "started",
+        "at": "2026-11-08T04:47:13.046Z",
+        "message": "Agent started."
+      },
+      {
+        "id": "4b109d88-b099-4118-9545-e457293159db",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "tool_started",
+        "at": "2026-11-08T04:47:13.935Z",
+        "message": "stress_test_plan"
+      },
+      {
+        "id": "fe701da4-6c5e-4b7e-96f6-a13c3c9744c9",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:47:13.961Z",
+        "message": "stress_test_plan"
+      },
+      {
+        "id": "e872036e-f12e-4e60-bccb-be91333cf1a3",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "tool_started",
+        "at": "2026-11-08T04:47:14.961Z",
+        "message": "compare_plans"
+      },
+      {
+        "id": "c85c8193-8165-400d-9d5c-5d407279e7ba",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:47:14.965Z",
+        "message": "compare_plans"
+      },
+      {
+        "id": "8e33101e-94d4-40e1-8300-002d2d10ec37",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "tool_started",
+        "at": "2026-11-08T04:47:16.496Z",
+        "message": "forecast_cash"
+      },
+      {
+        "id": "e55ca4cb-1d89-4a7d-bf14-789f0cca3595",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "tool_completed",
+        "at": "2026-11-08T04:47:16.498Z",
+        "message": "forecast_cash"
+      },
+      {
+        "id": "7fd4369a-8552-49ba-8f91-6d54f704151f",
+        "run_id": "fp21-acceptance",
+        "agent_id": "stress-test",
+        "type": "completed",
+        "at": "2026-11-08T04:47:24.753Z",
+        "message": "Validated agent result."
+      }
+    ],
+    "trace": [
+      {
+        "tool": "stress_test_plan",
+        "evidence_ids": [
+          "calc-e33760b03f82ccc483b9b51d"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "compare_plans",
+        "evidence_ids": [
+          "calc-94fcc8a3f3b57ab607917f81"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "forecast_cash",
+        "evidence_ids": [
+          "calc-ee9111b56f8e65e30f4cd639"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      }
+    ]
+  },
+  "comparison": {
+    "horizon_days": 30,
+    "baseline_preserved": true,
+    "comparisons": [
+      {
+        "plan_id": "debt_first",
+        "baseline_minimum_cash_cents": 250000,
+        "baseline_first_failure_date": null,
+        "scenarios": [
+          {
+            "scenario": "delayed_income",
+            "outcome": "no_failure_within_horizon",
+            "first_failure_date": null,
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": null,
+            "minimum_cash_cents": 250000,
+            "minimum_cash_date": "2026-11-20",
+            "minimum_cash_change_cents": 0,
+            "additional_goal_funding_required_cents": 0,
+            "goal_changes": [],
+            "currency_display": {
+              "minimum_cash_cents": "$2500.00",
+              "minimum_cash_change_cents": "$0.00",
+              "additional_goal_funding_required_cents": "$0.00"
+            }
+          },
+          {
+            "scenario": "surprise_expense",
+            "outcome": "failed_constraints",
+            "first_failure_date": "2026-11-20",
+            "first_cash_shortfall_date": "2026-11-20",
+            "first_buffer_breach_date": "2026-11-20",
+            "minimum_cash_cents": -50000,
+            "minimum_cash_date": "2026-11-20",
+            "minimum_cash_change_cents": -300000,
+            "additional_goal_funding_required_cents": 50000,
+            "goal_changes": [
+              {
+                "goal_id": "car-goal",
+                "deadline": "2027-11-07",
+                "baseline_remaining_cents": 250000,
+                "stressed_remaining_cents": 300000,
+                "additional_funding_required_cents": 50000,
+                "existing_earmarks_at_risk_cents": 50000,
+                "planned_contribution_cents": 0,
+                "funded_contribution_cents": 0,
+                "deadline_missed_within_horizon": false,
+                "deadline_missed_date": null,
+                "estimated_deadline_shift_days": null,
+                "deadline_note": "No new completion date inferred; future contribution capacity is unknown.",
+                "currency_display": {
+                  "baseline_remaining_cents": "$2500.00",
+                  "stressed_remaining_cents": "$3000.00",
+                  "additional_funding_required_cents": "$500.00",
+                  "existing_earmarks_at_risk_cents": "$500.00",
+                  "planned_contribution_cents": "$0.00",
+                  "funded_contribution_cents": "$0.00"
+                }
+              }
+            ],
+            "currency_display": {
+              "minimum_cash_cents": "-$500.00",
+              "minimum_cash_change_cents": "-$3000.00",
+              "additional_goal_funding_required_cents": "$500.00"
+            }
+          },
+          {
+            "scenario": "reduced_income",
+            "outcome": "no_failure_within_horizon",
+            "first_failure_date": null,
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": null,
+            "minimum_cash_cents": 225000,
+            "minimum_cash_date": "2026-11-20",
+            "minimum_cash_change_cents": -25000,
+            "additional_goal_funding_required_cents": 0,
+            "goal_changes": [],
+            "currency_display": {
+              "minimum_cash_cents": "$2250.00",
+              "minimum_cash_change_cents": "-$250.00",
+              "additional_goal_funding_required_cents": "$0.00"
+            }
+          }
+        ],
+        "currency_display": {
+          "baseline_minimum_cash_cents": "$2500.00"
+        }
+      },
+      {
+        "plan_id": "goal_first",
+        "baseline_minimum_cash_cents": 380000,
+        "baseline_first_failure_date": null,
+        "scenarios": [
+          {
+            "scenario": "delayed_income",
+            "outcome": "no_failure_within_horizon",
+            "first_failure_date": null,
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": null,
+            "minimum_cash_cents": 378500,
+            "minimum_cash_date": "2026-11-12",
+            "minimum_cash_change_cents": -1500,
+            "additional_goal_funding_required_cents": 0,
+            "goal_changes": [],
+            "currency_display": {
+              "minimum_cash_cents": "$3785.00",
+              "minimum_cash_change_cents": "-$15.00",
+              "additional_goal_funding_required_cents": "$0.00"
+            }
+          },
+          {
+            "scenario": "surprise_expense",
+            "outcome": "failed_constraints",
+            "first_failure_date": "2026-11-14",
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": "2026-11-14",
+            "minimum_cash_cents": 168500,
+            "minimum_cash_date": "2026-11-20",
+            "minimum_cash_change_cents": -211500,
+            "additional_goal_funding_required_cents": 200000,
+            "goal_changes": [
+              {
+                "goal_id": "car-goal",
+                "deadline": "2027-11-07",
+                "baseline_remaining_cents": 31500,
+                "stressed_remaining_cents": 231500,
+                "additional_funding_required_cents": 200000,
+                "existing_earmarks_at_risk_cents": 0,
+                "planned_contribution_cents": 218500,
+                "funded_contribution_cents": 18500,
+                "deadline_missed_within_horizon": false,
+                "deadline_missed_date": null,
+                "estimated_deadline_shift_days": null,
+                "deadline_note": "No new completion date inferred; future contribution capacity is unknown.",
+                "currency_display": {
+                  "baseline_remaining_cents": "$315.00",
+                  "stressed_remaining_cents": "$2315.00",
+                  "additional_funding_required_cents": "$2000.00",
+                  "existing_earmarks_at_risk_cents": "$0.00",
+                  "planned_contribution_cents": "$2185.00",
+                  "funded_contribution_cents": "$185.00"
+                }
+              }
+            ],
+            "currency_display": {
+              "minimum_cash_cents": "$1685.00",
+              "minimum_cash_change_cents": "-$2115.00",
+              "additional_goal_funding_required_cents": "$2000.00"
+            }
+          },
+          {
+            "scenario": "reduced_income",
+            "outcome": "no_failure_within_horizon",
+            "first_failure_date": null,
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": null,
+            "minimum_cash_cents": 380000,
+            "minimum_cash_date": "2026-11-10",
+            "minimum_cash_change_cents": 0,
+            "additional_goal_funding_required_cents": 0,
+            "goal_changes": [],
+            "currency_display": {
+              "minimum_cash_cents": "$3800.00",
+              "minimum_cash_change_cents": "$0.00",
+              "additional_goal_funding_required_cents": "$0.00"
+            }
+          }
+        ],
+        "currency_display": {
+          "baseline_minimum_cash_cents": "$3800.00"
+        }
+      },
+      {
+        "plan_id": "balanced",
+        "baseline_minimum_cash_cents": 359250,
+        "baseline_first_failure_date": null,
+        "scenarios": [
+          {
+            "scenario": "delayed_income",
+            "outcome": "no_failure_within_horizon",
+            "first_failure_date": null,
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": null,
+            "minimum_cash_cents": 359250,
+            "minimum_cash_date": "2026-11-20",
+            "minimum_cash_change_cents": 0,
+            "additional_goal_funding_required_cents": 0,
+            "goal_changes": [],
+            "currency_display": {
+              "minimum_cash_cents": "$3592.50",
+              "minimum_cash_change_cents": "$0.00",
+              "additional_goal_funding_required_cents": "$0.00"
+            }
+          },
+          {
+            "scenario": "surprise_expense",
+            "outcome": "failed_constraints",
+            "first_failure_date": "2026-11-14",
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": "2026-11-14",
+            "minimum_cash_cents": 59250,
+            "minimum_cash_date": "2026-11-20",
+            "minimum_cash_change_cents": -300000,
+            "additional_goal_funding_required_cents": 159250,
+            "goal_changes": [
+              {
+                "goal_id": "car-goal",
+                "deadline": "2027-11-07",
+                "baseline_remaining_cents": 140750,
+                "stressed_remaining_cents": 300000,
+                "additional_funding_required_cents": 159250,
+                "existing_earmarks_at_risk_cents": 50000,
+                "planned_contribution_cents": 109250,
+                "funded_contribution_cents": 0,
+                "deadline_missed_within_horizon": false,
+                "deadline_missed_date": null,
+                "estimated_deadline_shift_days": null,
+                "deadline_note": "No new completion date inferred; future contribution capacity is unknown.",
+                "currency_display": {
+                  "baseline_remaining_cents": "$1407.50",
+                  "stressed_remaining_cents": "$3000.00",
+                  "additional_funding_required_cents": "$1592.50",
+                  "existing_earmarks_at_risk_cents": "$500.00",
+                  "planned_contribution_cents": "$1092.50",
+                  "funded_contribution_cents": "$0.00"
+                }
+              }
+            ],
+            "currency_display": {
+              "minimum_cash_cents": "$592.50",
+              "minimum_cash_change_cents": "-$3000.00",
+              "additional_goal_funding_required_cents": "$1592.50"
+            }
+          },
+          {
+            "scenario": "reduced_income",
+            "outcome": "no_failure_within_horizon",
+            "first_failure_date": null,
+            "first_cash_shortfall_date": null,
+            "first_buffer_breach_date": null,
+            "minimum_cash_cents": 334250,
+            "minimum_cash_date": "2026-11-20",
+            "minimum_cash_change_cents": -25000,
+            "additional_goal_funding_required_cents": 0,
+            "goal_changes": [],
+            "currency_display": {
+              "minimum_cash_cents": "$3342.50",
+              "minimum_cash_change_cents": "-$250.00",
+              "additional_goal_funding_required_cents": "$0.00"
+            }
+          }
+        ],
+        "currency_display": {
+          "baseline_minimum_cash_cents": "$3592.50"
+        }
+      }
+    ],
+    "scenario_summaries": [
+      {
+        "scenario": "delayed_income",
+        "tested_plan_count": 3,
+        "earliest_failure_date": null,
+        "earliest_cash_shortfall_date": null,
+        "worst_minimum_cash_cents": 250000,
+        "no_failure_within_horizon": true,
+        "currency_display": {
+          "worst_minimum_cash_cents": "$2500.00"
+        }
+      },
+      {
+        "scenario": "surprise_expense",
+        "tested_plan_count": 3,
+        "earliest_failure_date": "2026-11-14",
+        "earliest_cash_shortfall_date": "2026-11-20",
+        "worst_minimum_cash_cents": -50000,
+        "no_failure_within_horizon": false,
+        "currency_display": {
+          "worst_minimum_cash_cents": "-$500.00"
+        }
+      },
+      {
+        "scenario": "reduced_income",
+        "tested_plan_count": 3,
+        "earliest_failure_date": null,
+        "earliest_cash_shortfall_date": null,
+        "worst_minimum_cash_cents": 225000,
+        "no_failure_within_horizon": true,
+        "currency_display": {
+          "worst_minimum_cash_cents": "$2250.00"
+        }
+      }
+    ],
+    "probability": null,
+    "missing_data": []
+  },
+  "dependency": "Debt Readiness → Goal Allocator → Stress-Test, with the same authenticated context and shared call budget"
+}

@@ -44,7 +44,7 @@ A financial health navigator built for HackUTD. FinPilot brings accounts, debts,
 
 ## Current status
 
-Product specifications, issue backlog, contracts, agent prompts, SQL schema and synthetic-data scripts are available. The web application, authentication routes, agent runtime and Docker application files are pending implementation.
+The web application, authentication, simulator account linking, finance backend and bounded agent services are implemented. Authenticated run, polling, cancellation, chat and demo-event APIs are implemented. The agent workspace remains pending. Tasks 15–16 connect and verify these APIs; Tasks 22–24 add durable repair, coordinator/evidence/chat services and local integration verification; full live/browser rehearsal is not yet accepted. See [verification status](src/server/agents/integration/README.md).
 
 Run the data checks with Python 3.11 or newer:
 

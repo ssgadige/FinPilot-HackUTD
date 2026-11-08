@@ -9,6 +9,7 @@ import { Finance } from './finance';
 import { Planning } from './planning';
 import { date } from './tools/finance';
 import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
+import type { Runs } from './runs';
 const key=z.string().min(1).max(128);
 const login=z.strictObject({email:z.email().max(254),password:z.string().min(1).max(256)});
 const text=z.string().trim().min(1).max(200);
@@ -22,7 +23,7 @@ const scenarios=z.discriminatedUnion('kind',[
  z.strictObject({kind:z.literal('delayed_income'),delay_days:z.number().int().min(1).max(60),plan_id:text.optional()}),
  z.strictObject({kind:z.literal('income_drop'),income_drop_pct:z.number().int().min(1).max(100),plan_id:text.optional()})
 ]);
-export interface Services {store:Store;auth:Auth;simulator?:Simulator;finance?:Finance;planning?:Planning;}
+export interface Services {store:Store;auth:Auth;simulator?:Simulator;finance?:Finance;planning?:Planning;runs?:Runs;}
 export function createApi(s:Services) {
   return async function handle(request:Request):Promise<Response> {
     const requestId=randomUUID();
@@ -75,6 +76,21 @@ export function createApi(s:Services) {
       if(resource==='me'&&path.length===1&&method==='GET') {
         if(cookies.fp_csrf&&equal(hash(cookies.fp_csrf),session.csrf_hash||''))headers.set('x-csrf-token',cookies.fp_csrf);
         return json(s.auth.profile(uid));
+      }
+      if(['runs','chat','demo'].includes(resource)) {
+        if(!s.runs)fail(503,'agents_unavailable','Agent service is not configured');
+        if(resource==='runs') {
+          if(!id&&method==='POST')return json(s.runs.start(uid,await body(z.strictObject({intent:z.enum(['cash','subscriptions','planning','stress','full']),goal_id:text.optional(),idempotency_key:key}))),202);
+          if(id&&!action&&method==='GET')return json(s.runs.view(uid,id));
+          if(id&&action==='events'&&method==='GET')return json(s.runs.events(uid,id,url.searchParams.has('cursor')?url.searchParams.get('cursor')!:undefined));
+          if(id&&action==='cancel'&&method==='POST'){if(request.body)await body(z.strictObject({}));return json(s.runs.cancel(uid,id));}
+        }
+        if(resource==='chat'&&path.length===1&&method==='POST')return json(await s.runs.message(uid,await body(z.strictObject({message:z.string().min(1).max(2000),conversation_id:key.optional()}))));
+        if(resource==='demo'&&id==='events'&&path.length===2&&method==='POST')return json(s.runs.demoEvent(uid,await body(z.discriminatedUnion('kind',[
+          z.strictObject({kind:z.literal('surprise_expense'),amount_cents:money,idempotency_key:key}),
+          z.strictObject({kind:z.literal('delayed_income'),days:z.number().int().min(1).max(60),idempotency_key:key}),
+        ]))),202);
+        fail(404,'not_found','Route not found');
       }
       if(resource==='institutions'&&path.length===1&&method==='GET') {
         const category=url.searchParams.get('category');if(category&&category.length>50)fail(400,'invalid_input','Invalid category');
@@ -153,3 +169,4 @@ export function createApi(s:Services) {
     }
   };
 }
+
