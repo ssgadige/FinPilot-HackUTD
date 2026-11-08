@@ -10,6 +10,7 @@ import { MessageList, type CoachMessage } from "./message-list";
 import { MessageComposer } from "./message-composer";
 import { AgentEvidenceDrawer } from "./evidence-drawer";
 import { RunCard } from "./run-card";
+import { CoachRobot } from "./coach-robot";
 import { runsApi, type RunStatus } from "@/lib/runs-api";
 import "./chat.css";
 
@@ -125,6 +126,7 @@ function UserCoach({ csrfToken, onExpired, draft, onInspectRun }: { csrfToken: s
     <div className="coach-layout">
       <div className="coach-main">
         <Card className="coach-conversation" aria-labelledby="coach-conversation-title">
+          <CoachRobot thinking={busy} />
           <div className="coach-section-heading">
             <h2 id="coach-conversation-title">Conversation</h2>
             <Button variant="ghost" disabled={busy || starting || messages.length === 0} onClick={newConversation}>New conversation</Button>

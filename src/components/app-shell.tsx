@@ -3,12 +3,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, type ReactNode } from "react";
-import { Bell, Menu, Navigation, PanelLeftClose, X } from "lucide-react";
+import { Bell, Menu, Navigation, PanelLeftClose, Sparkles, X } from "lucide-react";
 import { navigation } from "@/lib/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/auth-provider";
 import { LogoutButton } from "@/components/auth/logout-button";
+
+const navGroups: { label: string; hrefs: string[] }[] = [
+  {
+    label: "Money",
+    hrefs: ["/overview", "/institutions", "/accounts", "/transactions", "/cash-and-bills"],
+  },
+  {
+    label: "Planning",
+    hrefs: ["/subscriptions", "/debt-and-readiness", "/goals-and-plans", "/assets", "/scenario-lab"],
+  },
+  { label: "Intelligence", hrefs: ["/agent-workspace"] },
+  { label: "Workspace", hrefs: ["/settings"] },
+];
+
+function initials(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  return (
+    ((parts[0]?.[0] ?? "") + (parts.length > 1 ? (parts.at(-1)?.[0] ?? "") : "")).toUpperCase() ||
+    "FP"
+  );
+}
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { state } = useAuth();
@@ -22,20 +43,30 @@ export function AppShell({ children }: { children: ReactNode }) {
   function navLinks(mobile = false) {
     return (
       <nav aria-label={mobile ? "Mobile navigation" : "Primary navigation"}>
-        {navigation.map(({ href, label, icon: Icon }) => (
-          <Link
-            href={href}
-            key={href}
-            aria-current={
-              pathname === href || (pathname === "/" && href === "/overview")
-                ? "page"
-                : undefined
-            }
-            onClick={mobile ? closeNavigation : undefined}
-          >
-            <Icon size={18} aria-hidden="true" />
-            <span>{label}</span>
-          </Link>
+        {navGroups.map((group) => (
+          <div key={group.label}>
+            <p className="nav-group-label">
+              {group.label}
+            </p>
+            {navigation
+              .filter((item) => group.hrefs.includes(item.href))
+              .map(({ href, label, icon: Icon }) => (
+                <Link
+                  href={href}
+                  key={href}
+                  aria-current={
+                    pathname === href ||
+                    (pathname === "/" && href === "/overview")
+                      ? "page"
+                      : undefined
+                  }
+                  onClick={mobile ? closeNavigation : undefined}
+                >
+                  <Icon size={17} aria-hidden="true" />
+                  <span>{label}</span>
+                </Link>
+              ))}
+          </div>
         ))}
         <div className="nav-divider" />
         <Link
@@ -43,7 +74,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           aria-current={pathname === "/ui" ? "page" : undefined}
           onClick={mobile ? closeNavigation : undefined}
         >
-          <PanelLeftClose size={18} aria-hidden="true" />
+          <PanelLeftClose size={17} aria-hidden="true" />
           <span>Shared UI</span>
         </Link>
       </nav>
@@ -132,7 +163,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </strong>
           </div>
           <div className="workspace-status">
-            <Link href="/agent-workspace#coach" className="small coach-entry">Ask FinPilot</Link>
+            <Link href="/agent-workspace#coach" className="coach-entry">
+              <Sparkles size={14} aria-hidden="true" />
+              Ask FinPilot
+            </Link>
             <Badge tone="success">Simulated data</Badge>
             <span
               className="notification-status"
@@ -143,8 +177,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                 Notifications unavailable in scaffold
               </span>
             </span>
-            <span className="profile-avatar" aria-label="FinPilot profile">
-              FP
+            <span className="profile-avatar" role="img" aria-label="FinPilot profile">
+              {state.status === "authenticated"
+                ? initials(state.session.profile.display_name)
+                : "FP"}
             </span>
             <LogoutButton />
           </div>
