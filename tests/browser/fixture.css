@@ -1,0 +1,8 @@
+/* Labels isolated test dialogs; never imported by the application. */
+.connection-dialog::before {
+  content: "Automated test fixture · not live integration";
+  display: block;
+  margin-bottom: 16px;
+  color: #52677d;
+  font-size: 11px;
+}
