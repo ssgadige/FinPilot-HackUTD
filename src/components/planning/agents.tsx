@@ -101,13 +101,8 @@ export function AgentsScreen() {
       />
       <Sources />
       <Card>
-        <h2>Run service dependency</h2>
-        <p>
-          The agent runtime exists, but this checkout exposes no authenticated
-          run or chat HTTP handlers. Checkup execution, server event envelopes
-          and the teammate’s chat integration must be connected before this task
-          can be fully verified.
-        </p>
+        <h2>Financial checkup</h2>
+        <p>Review insights and activity from your financial team. AI availability may vary.</p>
         {!accounts.items.length && (
           <p>
             Connect and verify an institution before requesting a financial
@@ -141,8 +136,7 @@ export function AgentsScreen() {
               <h2>{label}</h2>
               <p>Status: Not reported</p>
               <p className="small muted">
-                No run response. A role card does not mean the agent is queued
-                or complete.
+                Ready when a checkup is available.
               </p>
             </section>
           ))}

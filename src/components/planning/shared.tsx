@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DataState } from "@/components/ui/data-state";
 import { useFinanceScope } from "@/components/finance/finance-scope";
@@ -77,14 +76,5 @@ function EvidenceReference({
   );
 }
 export function SafetyNote() {
-  return (
-    <Card>
-      <h2>Your decision, with clear limits</h2>
-      <p>
-        Saving a goal, preference, intention or plan does not move money, change
-        a merchant subscription or apply for credit. Proposed savings are not
-        confirmed funds.
-      </p>
-    </Card>
-  );
+ return <p className="small muted decision-note">You stay in control. Saving a plan never moves money or changes a subscription.</p>;
 }

@@ -300,9 +300,7 @@ export function AssetsScreen() {
           <Card>
             <h2>CD, IRA and brokerage snapshots</h2>
             <p>
-              These balances are displayed separately from spendable cash.
-              Market values, access restrictions, penalties and tax effects may
-              differ.
+              Investments and retirement funds are separate from available cash.
             </p>
             <AssetRows
               kinds={["cd", "ira", "brokerage"]}
@@ -313,12 +311,7 @@ export function AssetsScreen() {
       )}
       <Card>
         <h2>Valuation and maturity</h2>
-        <p>
-          The accounts response supplies balance snapshots and observation
-          dates. Individual valuation timestamps remain unavailable. CD maturity
-          is displayed only when supplied by the authorized account response. No
-          maturity date, yield or guaranteed future value is inferred.
-        </p>
+        <p>Balances reflect the latest recorded snapshot. CDs show their maturity date when available.</p>
       </Card>
       {evidence && (
         <EvidenceDrawer record={evidence} onClose={() => setEvidence(null)} />

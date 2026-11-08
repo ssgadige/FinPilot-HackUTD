@@ -132,21 +132,9 @@ export function TransactionsScreen({
           </Button>
         </Card>
         <Card>
-          <h2>History with context</h2>
-          <p>
-            Available history may span 30 months or a shorter period. Missing
-            months are never filled in.
-          </p>
-          <p>
-            Charges increase card debt; payments reduce it. On asset accounts,
-            positive changes increase balance and negative changes reduce it.
-            Types and pending status are supplied by the backend.
-          </p>
-          <p>
-            Transfers remain in history. Income, spending and debt summaries
-            come from backend tools; this page does not add up transaction rows.
-          </p>
-          <Link href="/overview">View backend summary totals</Link>
+          <h2>Your transaction history</h2>
+          <p>Search all available history. Transfers and card payments stay visible.</p>
+          <Link href="/overview">View financial summary</Link>
         </Card>
       </div>
       <Card>

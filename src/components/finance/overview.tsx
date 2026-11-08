@@ -58,9 +58,10 @@ function Signal({
       <h3>{definition.title}</h3>
       <p className="signal-value">
         {available
-          ? `${indicator.value}${definition.unit === "months" ? " months" : "%"}`
+          ? `${new Intl.NumberFormat("en-US", { maximumFractionDigits: definition.unit === "months" ? 1 : 2 }).format(indicator.value!)}${definition.unit === "months" ? " months" : "%"}`
           : "Unavailable"}
       </p>
+      <details className="signal-details"><summary>How it works</summary>
       <p>{definition.formula}</p>
       <p className="small">
         {available
@@ -76,6 +77,7 @@ function Signal({
           (available ? "None reported" : "Not supplied")}{" "}
         · Source: {indicator?.source_mode ?? "Unavailable"}
       </p>
+      </details>
     </Card>
   );
 }
@@ -110,25 +112,24 @@ export function OverviewScreen() {
             <MetricCard
               label="Liquid cash"
               value={usd(result.data.liquid_cash_cents)}
-              detail="Checking and savings · backend total"
+              detail="Checking and savings"
             />
             <MetricCard
               label="Total debt"
               value={usd(result.data.debt_cents)}
-              detail="Linked liabilities · backend total"
+              detail="Cards and loans"
             />
             <MetricCard
               label="Net worth"
               value={usd(result.data.net_worth_cents)}
-              detail="Assets less liabilities · backend total"
+              detail="Assets minus debt"
             />
           </div>
           <Card className="investment-card">
             <h2>Investments & restricted assets</h2>
             <p className="signal-value">{usd(result.data.investments_cents)}</p>
             <p>
-              Displayed separately from liquid cash. Investment, retirement and
-              CD balances are not spendable cash by default.
+              Investments, retirement and CDs are separate from available cash.
             </p>
           </Card>
           <section aria-labelledby="signals-title">
@@ -161,11 +162,9 @@ export function OverviewScreen() {
       <div className="finance-columns">
         <ForecastPanel onEvidence={setEvidence} compact />
         <Card>
-          <h2>Inspect your account scope</h2>
+          <h2>Your accounts</h2>
           <p>
-            Transfers stay visible in history. The backend excludes paired owned
-            transfers from income and spending, and avoids counting card
-            purchases and repayments twice.
+            Review balances and the transactions behind them.
           </p>
           <div className="finance-actions">
             {accounts.items.map((account) => (

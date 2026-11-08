@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, type ReactNode } from "react";
-import { Bell, Menu, Navigation, PanelLeftClose, X } from "lucide-react";
+import { Menu, Navigation, X } from "lucide-react";
 import { navigation } from "@/lib/navigation";
-import { Badge } from "@/components/ui/badge";
+import { ChatPopup } from "./chat-popup";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/auth-provider";
 import { LogoutButton } from "@/components/auth/logout-button";
@@ -22,7 +22,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   function navLinks(mobile = false) {
     return (
       <nav aria-label={mobile ? "Mobile navigation" : "Primary navigation"}>
-        {navigation.map(({ href, label, icon: Icon }) => (
+        {navigation.filter(item=>item.href!=="/settings").map(({ href, label, icon: Icon }) => (
           <Link
             href={href}
             key={href}
@@ -37,15 +37,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span>{label}</span>
           </Link>
         ))}
-        <div className="nav-divider" />
-        <Link
-          href="/ui"
-          aria-current={pathname === "/ui" ? "page" : undefined}
-          onClick={mobile ? closeNavigation : undefined}
-        >
-          <PanelLeftClose size={18} aria-hidden="true" />
-          <span>Shared UI</span>
-        </Link>
       </nav>
     );
   }
@@ -60,7 +51,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <Navigation size={25} aria-hidden="true" />
         finpilot<span className="brand-dot">.</span>
       </Link>
-      <p className="brand-caption">Financial command center</p>
+      <p className="brand-caption">Personal banking</p>
     </>
   );
 
@@ -74,7 +65,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {navLinks()}
         <div className="sidebar-footer">
           <span className="simulation-dot" />
-          Independent simulation<p>No real money movement</p>
+          Your financial workspace
         </div>
       </aside>
       <dialog
@@ -132,16 +123,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             </strong>
           </div>
           <div className="workspace-status">
-            <Badge tone="success">Simulated data</Badge>
-            <span
-              className="notification-status"
-              title="Notifications unavailable in scaffold"
-            >
-              <Bell size={18} aria-hidden="true" />
-              <span className="sr-only">
-                Notifications unavailable in scaffold
-              </span>
-            </span>
             <span className="profile-avatar" aria-label="FinPilot profile">
               FP
             </span>
@@ -152,12 +133,13 @@ export function AppShell({ children }: { children: ReactNode }) {
           {children}
         </main>
         <footer className="app-footer">
-          <span>FinPilot · Independent hackathon prototype</span>
+          <span>FinPilot</span>
           <span>
-            Synthetic records only. Institution connections are simulated.
+            Demo environment · Fictional financial records. No bank affiliation.
           </span>
         </footer>
       </div>
+      <ChatPopup />
     </>
   );
 }

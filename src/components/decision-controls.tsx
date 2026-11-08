@@ -1,20 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-
-export function DecisionControls() {
-  return (
-    <Card>
-      <h2>Decision controls</h2>
-      <p className="muted">
-        Inspect the source, compare an alternative, then confirm your choice.
-      </p>
-      <Button variant="secondary" disabled>
-        View supporting evidence
-      </Button>
-      <Button disabled>Ask FinPilot</Button>
-      <p className="small muted">
-        Evidence and chat are unavailable in this scaffold.
-      </p>
-    </Card>
-  );
-}
+"use client";
+import Link from "next/link";
+import {Button} from "./ui/button";
+import {Card} from "./ui/card";
+export function DecisionControls(){return <Card><h2>Need a hand?</h2><p className="muted">Review your accounts or ask a question.</p><div className="inline-actions"><Link className="button button--secondary" href="/accounts">View accounts</Link><Button onClick={()=>window.dispatchEvent(new Event("finpilot:open-chat"))}>Ask FinPilot</Button></div></Card>;}
