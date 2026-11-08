@@ -105,3 +105,12 @@ test('agent token override is bounded and default probe settings are preserved',
   }
   await assert.rejects(complete({ ...config, maxTokens: 4097 }, messages), { code: 'NEMOTRON_CONFIG' });
 });
+
+test('reasoning option is sent only for its documented model protocol', async () => {
+  const transport:typeof fetch=async(_url,options)=>{
+    assert.equal(JSON.parse(options?.body as string).reasoning_effort,'none');
+    return response({role:'assistant',content:'ok'});
+  };
+  await complete({...config,reasoningEffort:'none'},messages,[],'auto',undefined,transport);
+  await assert.rejects(complete({...config,model:'nvidia/another-nemotron',reasoningEffort:'none'},messages),{code:'NEMOTRON_CONFIG'});
+});

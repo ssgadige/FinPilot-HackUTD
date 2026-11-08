@@ -8,7 +8,7 @@ export interface Snapshot {
   transactions: { id: string; userId: string; accountId: string; date: string; deltaCents: number; transferGroup?: string }[];
   scheduled: { id: string; userId: string; accountId: string; date: string; deltaCents: number }[];
 }
-export interface ToolOutput { data: unknown; evidence: Evidence[]; assumptions: string[]; }
+export interface ToolOutput { data: unknown; evidence: Evidence[]; assumptions: string[]; needsInformation?: boolean; }
 export interface BoundTool {
   schema: Tool;
   execute(args: Record<string, unknown>, context: Context, signal: AbortSignal): Promise<ToolOutput>;
@@ -16,6 +16,8 @@ export interface BoundTool {
 export const allowlists = {
   'data-integrity': ['get_connection_status', 'reconcile_ledger', 'find_transfer_pairs'],
   'cash-collision': ['get_cash_calendar', 'forecast_cash', 'compare_cash_scenarios'],
+  'subscription-detective': ['detect_recurring', 'get_merchant_history', 'normalize_subscription_cost'],
+  'deal-scout': ['get_subscription_preferences', 'fetch_allowlisted_offers', 'compare_offer_costs'],
 } as const;
 export type Role = keyof typeof allowlists;
 export type SnapshotLoader = (context: Context, signal: AbortSignal) => Promise<Snapshot>;
@@ -28,7 +30,7 @@ function sum(values: number[]) {
   }, 0);
 }
 export function createTools(load: SnapshotLoader): Record<string, BoundTool> {
-  return Object.fromEntries(Object.values(allowlists).flat().map(name => [name, {
+  return Object.fromEntries([...allowlists['data-integrity'], ...allowlists['cash-collision']].map(name => [name, {
     schema: { type: 'function', function: { name, description: `${name}: authorized snapshot analysis. Returns deterministic cents, dates, evidence and assumptions. Use scope="snapshot". Identity is injected by the server.`,
       parameters: { type: 'object', properties: { scope: { type: 'string', enum: ['snapshot'] } }, required: ['scope'], additionalProperties: false } } },
     async execute(args: Record<string, unknown>, ctx: Context, signal: AbortSignal) {

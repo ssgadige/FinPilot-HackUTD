@@ -24,6 +24,7 @@ export interface Tool {
 export interface Config {
   apiKey: string; baseUrl: string; model: string; timeoutMs: number;
   maxTokens?: number;
+  reasoningEffort?: 'none' | 'low' | 'high';
 }
 export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
   if (!env.NVIDIA_API_KEY?.trim() || !env.NEMOTRON_MODEL?.trim())
@@ -52,11 +53,15 @@ export async function complete(config: Config, messages: Message[], tools: Tool[
     const maxTokens = config.maxTokens ?? 1024;
     if (!Number.isInteger(maxTokens) || maxTokens < 1 || maxTokens > 4096)
       throw new NemotronError('NEMOTRON_CONFIG', 503);
+    if (config.reasoningEffort !== undefined &&
+      (config.model !== 'nvidia/nemotron-3.5-super-vl-120b-a12b' || !['none', 'low', 'high'].includes(config.reasoningEffort)))
+      throw new NemotronError('NEMOTRON_CONFIG', 503);
     const response = await transport(`${config.baseUrl}/chat/completions`, {
       method: 'POST', redirect: 'error', signal: combined,
       headers: { Authorization: `Bearer ${config.apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ model: config.model, messages, stream: false,
         max_tokens: maxTokens, temperature: 0,
+        ...(config.reasoningEffort ? { reasoning_effort: config.reasoningEffort } : {}),
         ...(tools.length ? { tools, tool_choice: toolChoice, parallel_tool_calls: false } : {}) }),
     });
     if (response.status !== 200) {
