@@ -14,6 +14,7 @@ export function generateStaticParams() {
       (item) =>
         ![
           "/institutions",
+          "/credit-health",
           "/subscriptions",
           "/goals-and-plans",
           "/debt-and-readiness",

@@ -72,3 +72,19 @@ Subscription GET now reuses the existing deterministic recurring detector, addin
 The verified session injects user identity and the private session binding. Clients still send only `message` and optional `conversation_id`; `history`, role messages and session/user identity fields are rejected. The response may include `context: {mode: "session_only", retained_turns, max_turns: 6, expires_after_seconds: 900, snapshot_version, reset}`. Reset is `new_or_expired`, `continued`, `snapshot_changed` or `source_unavailable`. Older clients can ignore this additive metadata.
 
 Context is held only in server memory, bounded and expired per conversation, cleared on logout and lost at process restart. Snapshot/account-scope changes and inaccessible selected evidence discard old context; financial facts are reloaded on every turn. This does not add saved-history APIs or alter the existing assistant/evidence audit persistence.
+
+## Credit monitor and grounded coach tools
+
+All credit endpoints require a verified server session. Mutations also require the existing Origin/session-bound CSRF checks; identity is never accepted in a request body.
+
+| Route | Body | Result |
+| --- | --- | --- |
+| `GET /credit` | None | Current user's monitor availability, connection, profile or `null`, snapshot and source label |
+| `POST /credit/connect` | `{provider_id:"finpilot-demo-monitor",confirmation:true}` | Idempotent explicit consent; same credit envelope |
+| `DELETE /credit` | `{confirmation:true}` | Revokes monitor access, clears profile from response and invalidates snapshot |
+
+The ten existing synthetic personas receive distinct deterministic score/history profiles. A report is hidden until the user connects the demonstration monitor. This is not a bureau connection, FICO score or credit pull. Existing account links and credentials are unchanged. Credit changes invalidate user snapshot evidence; disconnected reports are not supplied to chat. Approval remains `{status:"unknown",probability:null}` because verified product underwriting criteria are absent.
+
+Chat retains its existing request schema and legacy `reply`. Additive `answer` contains `title`, `status`, ordered-display `findings`, `assumptions` and `missing_data`; `calculations` contains actual server tool outputs; `sources` contains exact allowlisted official lender links and retrieval status/time. The browser rejects unapproved source URLs and renders text as React text, never model HTML.
+
+Nemotron can call `calculate_loan` (integer cents, APR basis points, months), `calculate_savings` (integer cents, APY basis points, months), `read_credit_profile` and `search_offers`. Calculators use existing deterministic Decimal tools and request missing user inputs instead of inventing a rate. Defaults are disclosed. Public source lookup fetches fixed PNC/Bank of America/Chase product URLs on each tool execution, with DNS validation/pinning, bounded response/time, no redirects, and no personal data in outbound requests. It does not currently extract independently verified lender terms or rank eligibility. Unavailable pages remain unavailable; official links are not represented as verified offers. No payments, transfers, applications or cancellations are supported.

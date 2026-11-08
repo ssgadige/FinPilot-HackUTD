@@ -23,7 +23,7 @@ export const allowlists = {
   'stress-test': ['stress_test_plan', 'forecast_cash', 'compare_plans'],
   'plan-repair': ['get_plan_version','get_changed_events','forecast_cash','propose_plan_revision'],
   'coordinator': ['route_specialists','read_run_findings','compare_plans'],
-  'chat': ['read_overview','read_findings','request_checkup','read_plan'],
+  'chat': ['read_overview','read_findings','request_checkup','read_plan','calculate_loan','calculate_savings','read_credit_profile','search_offers'],
 } as const;
 export type Role = keyof typeof allowlists;
 export type SnapshotLoader = (context: Context, signal: AbortSignal) => Promise<Snapshot>;

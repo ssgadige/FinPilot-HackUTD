@@ -11,9 +11,11 @@ import {
   Sparkles,
   FlaskConical,
   Settings,
+  ShieldCheck,
 } from "lucide-react";
 
 export const navigation = [
+  {href:"/credit-health",label:"Credit health",icon:ShieldCheck,description:"Your credit score, history and application readiness.",task:"FP-06"},
   {
     href: "/overview",
     label: "Overview",

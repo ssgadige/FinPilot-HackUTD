@@ -1,5 +1,6 @@
 /** Same-origin chat adapter. Provider credentials and user identity stay on the server. */
-import type { SourceMode } from "../../contracts/types";
+import { isOfficialOfferUrl } from "./trusted-links";
+import type { Finding, SourceMode } from "../../contracts/types";
 
 export type ChatRequest = { message: string; conversation_id?: string };
 export type ChatContext = {
@@ -7,7 +8,13 @@ export type ChatContext = {
   snapshot_version: number;
   reset: "new_or_expired" | "continued" | "snapshot_changed" | "source_unavailable";
 };
+export type CoachAnswer={title:string;status:string;findings:Finding[];assumptions:string[];missing_data:string[]};
+export type OfficialSource={provider:string;url:string;category:string;availability:'retrieved'|'unavailable';retrieved_at:string|null;terms_status:string};
+export type CoachCalculation={kind:'calculate_loan'|'calculate_savings';data:Record<string,unknown>};
 export type ChatReply = {
+  answer?:CoachAnswer;
+  sources?:OfficialSource[];
+  calculations?:CoachCalculation[];
   reply: string;
   evidence_ids: string[];
   requested_run_id: string | null;
@@ -44,6 +51,7 @@ function parseReply(value: unknown): ChatReply {
       !mode(value.source_mode) || !mode(value.inference_source_mode)) {
     throw new ChatProblem("invalid-response", "The coach returned an unexpected response. No reply could be displayed.");
   }
+  const supportedEvidence=value.evidence_ids as string[];
   let context:ChatContext|undefined;
   if(value.context!==undefined){
     const c=value.context;
@@ -51,11 +59,31 @@ function parseReply(value: unknown): ChatReply {
       throw new ChatProblem("invalid-response","The coach returned unexpected conversation context.");
     context={mode:"session_only",retained_turns:c.retained_turns,max_turns:6,expires_after_seconds:900,snapshot_version:c.snapshot_version,reset:c.reset as ChatContext['reset']};
   }
+  let answer:CoachAnswer|undefined;
+  const bad=()=>{throw new ChatProblem("invalid-response","The coach returned unsupported result details.");};
+  const strings=(v:unknown):v is string[]=>Array.isArray(v)&&v.length<=100&&v.every(t=>typeof t==='string'&&t.length<=8000);
+  if(value.answer!==undefined){
+    const a=value.answer;
+    if(!object(a)||typeof a.title!=='string'||a.title.length>8000||!['completed','needs_information','failed','skipped'].includes(String(a.status))||!Array.isArray(a.findings)||a.findings.length>100||!strings(a.assumptions)||!strings(a.missing_data))return bad();
+    const findings:Finding[]=a.findings.map(f=>{
+      if(!object(f)||!id(f.id)||typeof f.summary!=='string'||f.summary.length>8000||!['urgent','warning','opportunity','info'].includes(String(f.severity))||!Array.isArray(f.evidence_ids)||!f.evidence_ids.every(e=>id(e)&&supportedEvidence.includes(e))||!(f.amount_cents===null||Number.isSafeInteger(f.amount_cents)))return bad();
+      return {id:f.id,summary:f.summary,severity:f.severity as Finding['severity'],evidence_ids:f.evidence_ids,amount_cents:f.amount_cents as number|null};
+    });
+    answer={title:a.title,status:String(a.status),findings,assumptions:a.assumptions,missing_data:a.missing_data};
+  }
+  let sources:OfficialSource[]|undefined;
+  if(value.sources!==undefined){
+    if(!Array.isArray(value.sources)||value.sources.length>8)return bad();
+    sources=value.sources.map(s=>{if(!object(s)||typeof s.url!=='string'||!isOfficialOfferUrl(s.url)||typeof s.provider!=='string'||s.provider.length>100||typeof s.category!=='string'||!['retrieved','unavailable'].includes(String(s.availability))||typeof s.terms_status!=='string'||s.terms_status.length>2000||!(s.retrieved_at===null||typeof s.retrieved_at==='string'&&Number.isFinite(Date.parse(s.retrieved_at)))||(s.availability==='retrieved'&&s.retrieved_at===null))return bad();return {provider:s.provider,url:s.url,category:s.category,availability:s.availability as OfficialSource['availability'],retrieved_at:s.retrieved_at as string|null,terms_status:s.terms_status};});
+  }
+  let calculations:CoachCalculation[]|undefined;
+  if(value.calculations!==undefined){if(!Array.isArray(value.calculations)||value.calculations.length>2)return bad();calculations=value.calculations.map(c=>{if(!object(c)||!['calculate_loan','calculate_savings'].includes(String(c.kind))||!object(c.data))return bad();return {kind:c.kind as CoachCalculation['kind'],data:c.data};});}
   return {
     reply: value.reply, conversation_id: value.conversation_id,
     evidence_ids: [...new Set(value.evidence_ids)], requested_run_id: value.requested_run_id,
     source_mode: value.source_mode, inference_source_mode: value.inference_source_mode,
     ...(context===undefined?{}:{context}),
+    ...(answer?{answer}:{}),...(sources?{sources}:{}),...(calculations?{calculations}:{}),
   };
 }
 
