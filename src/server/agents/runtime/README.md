@@ -109,3 +109,13 @@ expenses precede income conservatively. Scenarios compare baseline with income
 delayed seven days; both use the same 30-day horizon. Stale balances require review
 and cannot be assumed available for a proposed transfer. All actions remain
 suggestions requiring confirmation.
+
+## FP-19 extension
+
+The same runtime also supports `subscription-detective` and `deal-scout` using
+`createSubscriptionTools` from `../subscription-tools.ts`. Deal Scout requires
+a scoped Subscription Detective dependency. Tool-declared missing information is
+enforced in final result status and missing_data. The two new roles also validate
+dollar prose against integer-cent evidence and receive deterministic currency
+displays. Their source adapter, fixture/live configuration and current acceptance
+trace are documented in [the offers README](../../offers/README.md).

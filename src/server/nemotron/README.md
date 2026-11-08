@@ -19,7 +19,9 @@ Uses NVIDIA's documented OpenAI-compatible `/chat/completions` protocol:
 `tools`, `tool_choice`, assistant `tool_calls`, and tool messages with matching
 `tool_call_id`. No prompt-parsed XML or invented tool syntax. Non-streaming,
 temperature 0, max_tokens 1024. Reasoning content is discarded. Model-specific
-reasoning overrides are deliberately omitted; provider defaults apply.
+reasoning overrides are omitted by default; provider defaults apply. FP-19's new
+roles use the documented `reasoning_effort=none` setting specifically for the
+verified Super 3.5 model. The adapter rejects this optional override on other models.
 Reference: https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-3_5-super-vl-120b-a12b-infer
 
 ## Verification
