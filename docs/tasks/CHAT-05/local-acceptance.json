@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-11-08T16:11:30.822432+00:00",
+  "task": "CHAT-05",
+  "status": "passed_local_acceptance",
+  "branch": "feat/chat-05-session-context",
+  "inference": "mocked_only_no_live_NVIDIA_calls",
+  "bounds": {
+    "successful_exchanges": 3,
+    "messages": 6,
+    "characters_per_message": 700,
+    "serialized_context_characters": 5500,
+    "idle_expiry_seconds": 900,
+    "conversations_per_session": 5,
+    "conversations_per_process": 200
+  },
+  "checks": {
+    "backend_tests": 34,
+    "agent_tests": 78,
+    "ui_tests": 97,
+    "browser_tests": 5,
+    "typecheck": "passed",
+    "scoped_eslint": "passed",
+    "production_build": "passed",
+    "configured_secret_scan": "passed_source_browser_and_three_local_logs"
+  },
+  "verified_behaviors": [
+    "server-owned bounded context delivered to model as untrusted data",
+    "no client-supplied history or privileged roles",
+    "user/session/conversation isolation including two active sessions for one user",
+    "owned selected finding reference retention",
+    "inactivity, snapshot reset and logout during inference",
+    "failed/concurrent turns do not pollute memory",
+    "old monetary claims do not count as current evidence",
+    "earlier action requests do not grant current capabilities",
+    "UI context indicators, reset notices and old-snapshot answer hiding"
+  ],
+  "limitations": [
+    "No live model conversation-quality acceptance, per local-only preference.",
+    "Existing assistant/evidence audit records retain their prior persistence; only conversational context is volatile.",
+    "Restarting the server loses context, and owned persisted conversation IDs resume with empty memory.",
+    "Saved history, long-term preferences and action execution are deferred."
+  ]
+}

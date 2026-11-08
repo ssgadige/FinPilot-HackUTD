@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("real missing-backend login is honest, accessible and responsive", async ({
+test("real anonymous login is accessible, responsive and rejects invalid credentials", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -9,9 +9,7 @@ test("real missing-backend login is honest, accessible and responsive", async ({
   await expect(
     page.getByRole("heading", { name: "Welcome back" }),
   ).toBeVisible();
-  await expect(page.locator("main").getByRole("alert")).toContainText(
-    "Sign-in service is unavailable",
-  );
+  await expect(page.locator("main").getByRole("alert")).toHaveCount(0);
   await expect(page.getByRole("navigation")).toHaveCount(0);
   await page.keyboard.press("Tab");
   await expect(
@@ -25,7 +23,7 @@ test("real missing-backend login is honest, accessible and responsive", async ({
   await page.evaluate(() => scrollTo(0, 0));
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.screenshot({
-    path: "docs/tasks/FP-02/evidence/login-unavailable-1440.png",
+    path: "docs/tasks/FP-08/evidence/login-real-anonymous-1440.png",
     fullPage: true,
   });
   await page.setViewportSize({ width: 390, height: 844 });
@@ -35,7 +33,7 @@ test("real missing-backend login is honest, accessible and responsive", async ({
     ),
   ).toBe(true);
   await page.screenshot({
-    path: "docs/tasks/FP-02/evidence/login-unavailable-390.png",
+    path: "docs/tasks/FP-08/evidence/login-real-anonymous-390.png",
     fullPage: true,
   });
   await page.getByLabel("Email", { exact: true }).fill("test@example.test");
@@ -49,7 +47,7 @@ test("real missing-backend login is honest, accessible and responsive", async ({
   await page.getByRole("button", { name: "Continue" }).click();
   await expect(page).toHaveURL(/\/login(?:#auth-content)?$/);
   await expect(page.locator("main").getByRole("alert")).toContainText(
-    "unavailable",
+    "We could not sign you in",
   );
 });
 

@@ -1,3 +1,6 @@
+import { CoachPanel } from "../../src/components/chat/coach-panel";
+import { AgentWorkspace } from "../../src/components/chat/agent-workspace";
+import { PageHeading } from "../../src/components/page-heading";
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "../../src/components/auth/auth-provider";
@@ -11,6 +14,14 @@ import { OverviewScreen } from "../../src/components/finance/overview";
 import { TransactionsScreen } from "../../src/components/finance/transactions";
 import { CashScreen } from "../../src/components/finance/forecast";
 import { AccountsScreen } from "../../src/components/finance/accounts";
+import { SubscriptionsScreen } from "../../src/components/planning/subscriptions";
+import { GoalsScreen } from "../../src/components/planning/goals-plans";
+import {
+  DebtsScreen,
+  AssetsScreen,
+  ScenariosScreen,
+} from "../../src/components/planning/finance-pages";
+import { AgentsScreen } from "../../src/components/planning/agents";
 import {
   confirmedConnectionFixture,
   verifiedPreviewFixture,
@@ -30,6 +41,16 @@ function Fixture() {
   }, []);
   const [preview] = useState(verifiedPreviewFixture);
   const [connection] = useState(confirmedConnectionFixture);
+  const PlanningScreen = (
+    {
+      subscriptions: SubscriptionsScreen,
+      goals: GoalsScreen,
+      debts: DebtsScreen,
+      assets: AssetsScreen,
+      scenarios: ScenariosScreen,
+      agents: AgentsScreen,
+    } as Record<string, React.ComponentType>
+  )[mode];
   if (state.status !== "authenticated")
     return (
       <WorkspaceGate>
@@ -44,7 +65,13 @@ function Fixture() {
             Automated test fixture · not live integration. Session and backend
             responses are supplied only by tests.
           </p>
-          {["overview", "transactions", "cash", "accounts"].includes(mode) ? (
+          {mode === "integrated" ? <AgentWorkspace /> : mode === "coach" ? <><PageHeading title="Ask about your next move" description="A conversation connected to your financial picture." /><CoachPanel /></> : PlanningScreen ? (
+            <FinanceScope key={mode} allowEmpty>
+              <PlanningScreen />
+            </FinanceScope>
+          ) : ["overview", "transactions", "cash", "accounts"].includes(
+              mode,
+            ) ? (
             <FinanceScope>
               {mode === "overview" ? (
                 <OverviewScreen />

@@ -12,6 +12,7 @@ import { chat, type ChatFinding } from '../agents/chat';
 import { runAgent, RunBudget, type RuntimeOptions } from '../agents/runtime';
 import { EvidenceGate, scopedTool } from '../agents/evidence';
 import { addDays, integer } from '../tools/finance';
+import { SessionConversationMemory, sanitizeConversationText, MEMORY_TTL_MS, MEMORY_MAX_TURNS } from '../agents/chat/memory';
 
 export type Intent = CheckupOptions['intent'];
 export type DemoEvent = {kind:'surprise_expense';amount_cents:number;idempotency_key:string}
@@ -27,7 +28,9 @@ export interface RunOptions {config?:()=>Config;infer?:RuntimeOptions['infer'];d
 export class Runs {
   readonly bridge:BackendAgentBridge;
   private jobs=new Map<string,Job>();
-  private chats=new Set<AbortController>();
+  private chats=new Map<AbortController,{userId:string;sessionKey:string;done:Promise<void>}>();
+  private chatLocks=new Set<string>();
+  private memory:SessionConversationMemory;
   constructor(readonly store:Store,readonly auth:Auth,readonly finance:Finance,readonly planning:Planning,readonly options:RunOptions={}) {
     this.bridge=new BackendAgentBridge(store);
     // Do not silently replay provider calls or changed-data effects after a restart.
@@ -35,6 +38,17 @@ export class Runs {
       store.exec("UPDATE runs SET status='failed',error_code='interrupted' WHERE id=? AND user_id=?",run.id,run.user_id);
       this.event(run.user_id,run.id,'coordinator','failed','Run interrupted by server restart; request a new run.');
     }
+    this.memory=new SessionConversationMemory(()=>this.auth.now(),(uid,key)=>this.chatSessionActive(uid,key));
+  }
+  private chatSessionActive(uid:string,key:string){
+    if(!/^[a-f0-9]{64}$/.test(key))return false;
+    const session=this.store.one('SELECT expires_at,last_seen_at FROM sessions WHERE user_id=? AND token_hash=?',uid,key);
+    return !!session&&Date.parse(session.expires_at)>this.auth.now()&&Date.parse(session.last_seen_at)>this.auth.now()-1800000;
+  }
+  private assertChatSession(uid:string,key:string){if(!this.chatSessionActive(uid,key))fail(401,'unauthenticated','Complete password and email verification');}
+  forgetChatSession(uid:string,key:string){
+    this.memory.forgetSession(uid,key);
+    for(const [controller,chat]of this.chats)if(chat.userId===uid&&chat.sessionKey===key)controller.abort();
   }
   private config(){try{return (this.options.config??readConfig)();}catch{fail(503,'ai_unavailable','Nemotron is not configured');}}
   private row(uid:string,id:string){return found(this.store.one<RunRow>('SELECT * FROM runs WHERE id=? AND user_id=?',id,uid));}
@@ -149,7 +163,7 @@ export class Runs {
     return {run_id:id,status:'cancelled'};
   }
   async drain(){await Promise.all([...this.jobs.values()].map(j=>j.promise));}
-  async close(){for(const c of this.chats)c.abort();for(const [id,job] of this.jobs)this.cancel(job.userId,id);await this.drain();}
+  async close(){this.memory.dispose();const waiting=[...this.chats.values()].map(chat=>chat.done);for(const c of this.chats.keys())c.abort();for(const [id,job] of this.jobs)this.cancel(job.userId,id);await this.drain();await Promise.all(waiting);}
 
   demoEvent(uid:string,input:DemoEvent){
     if(this.options.demoMode!==true)fail(403,'demo_disabled','Demo events are disabled');
@@ -240,33 +254,70 @@ export class Runs {
       findings:execution.result.findings,trace:execution.trace,partial:true,proposed_plan_id:proposal.id};
   }
 
-  async message(uid:string,input:{message:string;conversation_id?:string}){
+  async message(uid:string,input:{message:string;conversation_id?:string},sessionKey:string){
     // Check ownership before provider availability, and never store raw user chat.
     const conversation=input.conversation_id?found(this.store.one('SELECT id FROM conversations WHERE id=? AND user_id=?',input.conversation_id,uid)).id:token();
     if(!input.message.trim()||input.message.length>2000||/nvapi-|\b(?:password|otp|verification code|api key|session token)\b|^\s*\d{6}\s*$/i.test(input.message))fail(400,'invalid_message','Message contains unsupported or credential fields');
-    const config=this.config();this.auth.throttle(`agent-chat:${uid}`,20,3600000);
+    this.assertChatSession(uid,sessionKey);
+    const config=this.config();
+    const secrets=[config.apiKey,this.auth.config.secret,process.env.SMTP_PASS??'',process.env.SESSION_SECRET??''];
+    const message=sanitizeConversationText(input.message,secrets);
+    if(!message||message.length>2000)fail(400,'invalid_message','Message contains unsupported or credential fields');
+    const lock=JSON.stringify([uid,sessionKey,conversation]);
+    if(this.chatLocks.has(lock))fail(429,'chat_busy','Wait for the current reply in this conversation');
+    this.auth.throttle(`agent-chat:${uid}`,20,3600000);
     if(this.chats.size>=2)fail(429,'chat_busy','Chat capacity is busy');
-    const controller=new AbortController();this.chats.add(controller);
-    const context=this.bridge.contextFor(uid,token());const budget=new RunBudget();
+    const controller=new AbortController();let finish!:()=>void;
+    const done=new Promise<void>(resolve=>{finish=resolve;});
+    this.chats.set(controller,{userId:uid,sessionKey,done});this.chatLocks.add(lock);
     try{
-      const response=await chat({context,message:input.message,config,budget,signal:controller.signal,infer:this.options.infer,
-        allowRunRequest:/^\s*(?:please\s+)?(?:run|start) (?:a )?(?:financial )?checkup[.!]?\s*$/i.test(input.message),
+      const context=this.bridge.contextFor(uid,token());const budget=new RunBudget();
+      let history=this.memory.read(uid,sessionKey,conversation,context);
+      if(history.selected_evidence_id){try{this.store.evidence(uid,history.selected_evidence_id);}catch{this.memory.forgetConversation(uid,sessionKey,conversation);history={turns:[],selected_evidence_id:null,reset:'source_unavailable'};}}
+      const selected=message.match(/\bevidence\s+(calc-[A-Za-z0-9_-]{1,180})\b/)?.[1];
+      if(selected){this.store.evidence(uid,selected);history.selected_evidence_id=selected;}
+      const response=await chat({context,message,history,config,budget,signal:controller.signal,infer:this.options.infer,
+        allowRunRequest:/^\s*(?:please\s+)?(?:run|start) (?:a )?(?:financial )?checkup[.!]?\s*$/i.test(message),
         requestRun:async(_ctx,key)=>this.start(uid,{intent:'full',idempotency_key:key}).run_id,
         load:async()=>{
+          this.assertChatSession(uid,sessionKey);controller.signal.throwIfAborted();
           await this.bridge.authorize(context);
           const findings:ChatFinding[]=this.store.all('SELECT ar.payload_json FROM agent_records ar JOIN runs r ON r.id=ar.run_id AND r.user_id=ar.user_id WHERE ar.user_id=? AND r.snapshot_version=? AND r.status=? ORDER BY ar.rowid DESC LIMIT 20',uid,context.snapshotVersion,'completed').map(r=>JSON.parse(r.payload_json));
           const plan=this.store.one("SELECT id FROM plans WHERE user_id=? AND snapshot_version=? AND status IN ('accepted','proposed') ORDER BY created_at DESC LIMIT 1",uid,context.snapshotVersion);
-          return {context,overview:{...this.finance.overview(uid),upcoming_bills:undefined},findings,plan:plan?{context,payload:this.planning.view(uid,plan.id).payload}:null};
+          const overview=this.finance.overview(uid);
+          return {context,overview:{...overview,upcoming_bills:overview.upcoming_bills.map(b=>({id:b.id,account_id:b.account_id,
+            amount_cents:b.amount_cents,day_of_month:b.day_of_month,direction:b.direction,essential:b.essential}))},
+            findings,plan:plan?{context,payload:this.planning.view(uid,plan.id).payload}:null};
         }});
-      await this.bridge.authorize(context);
+      controller.signal.throwIfAborted();this.assertChatSession(uid,sessionKey);await this.bridge.authorize(context);
       if(response.result.result.status==='failed')fail(502,'chat_failed','Nemotron chat could not complete safely');
+      const reply=sanitizeConversationText(response.reply,secrets);
+      if(!reply)fail(502,'chat_failed','Nemotron chat could not complete safely');
       this.store.atomic(()=>{
+        // A chat calculation needs a durable current-snapshot parent just like
+        // checkup evidence. Inherited findings keep their original source run.
+        this.store.exec("INSERT INTO runs(id,user_id,intent,status,snapshot_version,idempotency_key,created_at) VALUES(?,?,'chat','completed',?,?,?)",
+          context.runId,uid,context.snapshotVersion,`chat-evidence:${context.runId}`,iso());
+        const publicResult:PublicResult={role_steps:[{role:'chat',status:response.result.result.status}],findings:response.result.result.findings,
+          trace:response.result.trace,partial:response.result.result.status==='needs_information'};
+        this.store.exec('INSERT INTO run_state(run_id,user_id,context_json,request_json,result_json,model_calls) VALUES(?,?,?,?,?,?)',
+          context.runId,uid,JSON.stringify(context),'{}',JSON.stringify(publicResult),budget.calls);
+        this.store.exec('INSERT INTO agent_steps VALUES(?,?,?,?,?,?)',`${context.runId}:chat`,context.runId,uid,'chat',response.result.result.status,JSON.stringify(response.result.result));
+        for(const output of response.result.serverToolOutputs)for(const evidence of output.evidence){
+          if(this.store.one('SELECT id FROM evidence WHERE id=? AND user_id=?',evidence.id,uid))continue;
+          this.store.exec('INSERT INTO evidence VALUES(?,?,?,?,?,?,?,?)',evidence.id,uid,context.runId,evidence.kind,evidence.source_id,evidence.source_mode,
+            evidence.observed_at,JSON.stringify({source:evidence.source_id,data:output.data,assumptions:output.assumptions}));
+        }
+        for(const event of response.result.events)this.store.exec('INSERT INTO run_events VALUES(?,?,?,?,?,?,?)',event.id,context.runId,uid,event.agent_id,event.type,event.message,event.at);
         if(!input.conversation_id)this.store.exec('INSERT INTO conversations VALUES(?,?,?)',conversation,uid,iso());
-        this.store.exec('INSERT INTO chat_messages VALUES(?,?,?,?,?,?)',token(),conversation,uid,'assistant',response.reply,iso());
+        this.store.exec('INSERT INTO chat_messages VALUES(?,?,?,?,?,?)',token(),conversation,uid,'assistant',reply,iso());
         this.store.exec('DELETE FROM chat_messages WHERE conversation_id=? AND user_id=? AND id NOT IN (SELECT id FROM chat_messages WHERE conversation_id=? AND user_id=? ORDER BY rowid DESC LIMIT 20)',conversation,uid,conversation,uid);
       });
-      return {reply:response.reply,evidence_ids:response.evidence_ids,requested_run_id:response.requested_run_id,conversation_id:conversation,source_mode:'fixture',inference_source_mode:'live'};
+      this.memory.save(uid,sessionKey,conversation,context,history,message,reply,history.selected_evidence_id);
+      const saved=this.memory.read(uid,sessionKey,conversation,context);
+      return {reply,evidence_ids:response.evidence_ids,requested_run_id:response.requested_run_id,conversation_id:conversation,source_mode:'fixture',inference_source_mode:'live',
+        context:{mode:'session_only',retained_turns:saved.turns.length,max_turns:MEMORY_MAX_TURNS,expires_after_seconds:MEMORY_TTL_MS/1000,snapshot_version:context.snapshotVersion,reset:history.reset}};
     }catch(error){if(error instanceof ApiFailure)throw error;fail(502,'chat_failed','Nemotron chat could not complete safely');}
-    finally{this.chats.delete(controller);}
+    finally{this.chats.delete(controller);this.chatLocks.delete(lock);finish();}
   }
 }

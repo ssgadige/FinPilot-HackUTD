@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { authApi, asAuthProblem, AuthProblem } from "@/lib/auth-api";
 import { useAuth } from "./auth-provider";
 import { LogoutButton } from "./logout-button";
 import { PageHeading } from "@/components/page-heading";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button, buttonClass } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { DataState } from "@/components/ui/data-state";
 
@@ -231,9 +232,12 @@ export function AuthFlow({
         <Card>
           <p>Signed in as {state.session.profile.display_name}.</p>
           <p className="muted">
-            The financial workspace remains unavailable until server-side
-            session protection is integrated.
+            Open your financial workspace. The server validates your session
+            again before showing protected records.
           </p>
+          <Link href="/overview" className={buttonClass()}>
+            Open your workspace
+          </Link>
           <LogoutButton />
         </Card>
       </div>
@@ -310,8 +314,8 @@ export function AuthFlow({
           title="Financial workspace unavailable"
           headingLevel={2}
         >
-          Server session protection is not integrated yet. Financial pages
-          remain locked.
+          Your session could not be validated. The authentication service or
+          configuration may be unavailable. Financial access remains blocked.
         </DataState>
       )}
       {reason === "expired" && (

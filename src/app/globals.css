@@ -33,6 +33,9 @@ a {
   color: var(--teal);
   text-underline-offset: 4px;
 }
+.coach-entry {
+  color: var(--teal-hover);
+}
 button,
 input,
 select {
@@ -736,6 +739,9 @@ body:has(.mobile-drawer[open]) {
   }
   .workspace-status {
     gap: 12px;
+  }
+  .coach-entry {
+    display: none;
   }
   .notification-status {
     display: none;

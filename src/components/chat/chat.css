@@ -1,0 +1,64 @@
+.coach-layout { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(240px, 1fr); gap: 24px; align-items: start; }
+.coach-main, .coach-inspector { display: grid; gap: 20px; min-width: 0; }
+.coach-inspector .card { display: grid; gap: 10px; }
+.coach-inspector p { color: var(--muted); }
+.coach-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.coach-transcript { margin-top: 20px; max-height: 480px; overflow-y: auto; overscroll-behavior: contain; overflow-wrap: anywhere; }
+.coach-empty { padding: 24px 0; display: grid; gap: 12px; color: var(--muted); }
+.coach-empty h3 { color: var(--ink); }
+.coach-message { margin: 0 0 16px; padding: 16px; border-radius: var(--radius); background: var(--canvas); border: 1px solid var(--border); }
+.coach-message--assistant { background: var(--mint); }
+.coach-speaker { color: var(--teal-hover); font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.coach-message-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.coach-message-meta { display: grid; gap: 8px; margin-top: 12px; }
+.coach-message-meta code { overflow-wrap: anywhere; }
+.coach-pending { color: var(--muted); padding: 8px 0; }
+.coach-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.coach-suggestions .button { white-space: normal; text-align: left; }
+.coach-composer-title { margin-bottom: 16px; }
+.coach-composer { display: grid; gap: 8px; }
+.coach-composer label { font-weight: 600; }
+.coach-composer textarea { width: 100%; resize: vertical; min-height: 96px; max-height: 300px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; }
+.coach-composer textarea:disabled { background: var(--canvas); }
+.coach-composer-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.coach-composer-footer p { flex: 1; min-width: 180px; }
+.coach-error { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--error); border-radius: 8px; margin-bottom: 12px; color: var(--error); }
+@media (max-width: 960px) { .coach-layout { grid-template-columns: minmax(0, 1fr); } .coach-inspector { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 540px) { .coach-inspector { grid-template-columns: minmax(0, 1fr); } .coach-section-heading { flex-wrap: wrap; } .coach-composer-footer .button { width: 100%; } .coach-suggestions { flex-direction: column; } .coach-transcript { max-height: 55dvh; } }
+.coach-evidence-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.coach-stale { color: var(--warning); border-left: 3px solid var(--warning); padding-left: 10px; margin-top: 10px; }
+.coach-run { display: grid; gap: 14px; overflow-wrap: anywhere; }
+.coach-role-list, .coach-findings { list-style: none; padding: 0; display: grid; gap: 12px; margin: 0; }
+.coach-role-list li, .coach-findings li { border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.coach-role-list li > span { display: inline-block; margin-left: 12px; color: var(--muted); }
+.coach-event-list { max-height: 300px; overflow: auto; padding-left: 24px; }
+.coach-event-list li { margin: 12px 0; }
+.coach-event-list time { font-size: 12px; color: var(--muted); }
+.coach-evidence-facts { overflow-wrap: anywhere; margin: 12px 0 20px; }
+.coach-evidence-facts > div { border-left: 2px solid var(--border); padding-left: 12px; margin: 8px 0; }
+.coach-evidence-facts dt { font-weight: 600; text-transform: capitalize; }
+.coach-evidence-facts dd { margin: 4px 0 10px; }
+
+/* Shared banking workspace: quiet surfaces, one clear analysis / conversation switch. */
+.agent-workspace-switcher { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.agent-workspace-switcher .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.agent-readonly { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 8px; color: var(--muted); font-size: 12px; }
+.agent-command-center [hidden] { display: none !important; }
+.agent-command-center #coach-view > .page-heading { margin-bottom: 24px; }
+.coach-context-note { padding: 12px; margin-bottom: 12px; border-left: 3px solid var(--teal); background: var(--mint); }
+.coach-workflow-links { display: grid; gap: 0; margin-top: 6px; }
+.coach-workflow-links a { padding: 12px 0; border-top: 1px solid var(--border); font-size: 14px; font-weight: 600; text-underline-offset: 3px; }
+.coach-message--user { margin-left: 24px; background: var(--surface); border-left: 3px solid var(--ink); }
+.coach-message--assistant { margin-right: 12px; }
+.coach-conversation { min-height: 280px; }
+.coach-empty { padding: 32px 0; max-width: 56ch; }
+.coach-inspector { position: sticky; top: 24px; }
+.coach-role-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 960px) { .coach-inspector { position: static; } }
+@media (max-width: 540px) {
+  .agent-workspace-switcher .button { flex: 1; }
+  .agent-readonly { margin-left: 0; width: 100%; justify-content: center; }
+  .coach-role-list { grid-template-columns: minmax(0, 1fr); }
+  .coach-message--user { margin-left: 12px; }
+  .coach-message--assistant { margin-right: 0; }
+}

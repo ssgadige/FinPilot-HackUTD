@@ -30,7 +30,13 @@ type Scope = {
   fail: (error: unknown) => void;
 };
 const Context = createContext<Scope | null>(null);
-export function FinanceScope({ children }: { children: ReactNode }) {
+export function FinanceScope({
+  children,
+  allowEmpty = false,
+}: {
+  children: ReactNode;
+  allowEmpty?: boolean;
+}) {
   const { state: auth, clearSession } = useAuth();
   const identity =
     auth.status === "authenticated" ? auth.session.profile.id : null;
@@ -86,6 +92,8 @@ export function FinanceScope({ children }: { children: ReactNode }) {
       });
     return () => controller.abort();
   }, [identity, version, blocked, fail]);
+  if (auth.status === "checking")
+    return <DataState headingLevel={1} state="loading" title="Checking verified session">Financial records stay hidden until your session is confirmed.</DataState>;
   if (!identity)
     return (
       <DataState
@@ -129,7 +137,7 @@ export function FinanceScope({ children }: { children: ReactNode }) {
         {financeMessage(result.error)}
       </DataState>
     );
-  if (!result.data.items.length)
+  if (!result.data.items.length && !allowEmpty)
     return (
       <DataState headingLevel={1} state="empty" title="No connected accounts">
         <p>

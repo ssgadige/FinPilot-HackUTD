@@ -14,6 +14,12 @@ export function generateStaticParams() {
       (item) =>
         ![
           "/institutions",
+          "/subscriptions",
+          "/goals-and-plans",
+          "/debt-and-readiness",
+          "/assets",
+          "/scenario-lab",
+          "/agent-workspace",
           "/overview",
           "/accounts",
           "/transactions",

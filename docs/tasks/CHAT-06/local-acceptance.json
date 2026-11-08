@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-11-08T16:21:30.697225+00:00",
+  "task": "CHAT-06",
+  "status": "complete_local_acceptance",
+  "mvp_status": "CHAT-01_through_CHAT-06_locally_accepted",
+  "inference": "mocked_only",
+  "new_live_provider_calls": 0,
+  "checks": {
+    "backend_tests": 34,
+    "agent_tests": 78,
+    "ui_tests": 97,
+    "browser_tests": 7,
+    "typecheck": "passed",
+    "scoped_test_lint": "passed",
+    "production_build": "passed",
+    "configured_secret_scan": "passed_source_browser_and_four_local_logs"
+  },
+  "combined_api_journey": [
+    "password and email verification",
+    "simulator preview, consent and account selection",
+    "chat and session-context follow-up",
+    "owned evidence lookup and cross-user rejection",
+    "checkup and actual events",
+    "cancellation",
+    "provider failure without fabricated reply",
+    "logout and denied subsequent access"
+  ],
+  "browser_coverage": [
+    "desktop/mobile layout and automated accessibility",
+    "evidence drawer and focus return",
+    "run progress/cancellation and stale sources",
+    "duplicate-safe create retry",
+    "bounded context and snapshot reset",
+    "two isolated users and subsequent identity",
+    "session expiry clears transcript without retry"
+  ],
+  "boundaries": {
+    "api_services": "real handlers, authentication and SQLite; inference mocked",
+    "browser": "isolated component harness with intercepted authentication/API responses",
+    "live_NVIDIA": "not_performed_user_requested_local_tests_only",
+    "deployed_production_browser_journey": "not_verified",
+    "Docker_and_full_live_sponsor_rehearsal": "not_verified"
+  },
+  "remaining_outside_mvp": [
+    "saved history and long-term preferences",
+    "confirmed goal/plan mutation cards",
+    "complete general planning mappings and advanced screens",
+    "live model conversation-quality and deployment acceptance"
+  ],
+  "publishing": "changes_not_committed_or_pushed"
+}

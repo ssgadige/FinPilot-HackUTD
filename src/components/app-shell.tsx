@@ -132,6 +132,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </strong>
           </div>
           <div className="workspace-status">
+            <Link href="/agent-workspace#coach" className="small coach-entry">Ask FinPilot</Link>
             <Badge tone="success">Simulated data</Badge>
             <span
               className="notification-status"
