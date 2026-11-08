@@ -23,11 +23,11 @@ export function smtpDelivery(): Delivery {
     if (!host) fail(503,'smtp_unavailable','Email delivery is not configured');
     const local = ['127.0.0.1','localhost','mailpit'].includes(host);
     const owned = (process.env.SMTP_ALLOWED_RECIPIENTS || '').split(',').map(s=>s.trim().toLowerCase());
-    if (!(local && email.endsWith('@example.test')) && !owned.includes(email.toLowerCase())) fail(503,'smtp_unavailable','Recipient is not configured');
+    if (!(local && ['example.test','mail.finpilot.test'].includes(email.toLowerCase().split('@')[1] || '')) && !owned.includes(email.toLowerCase())) fail(503,'smtp_unavailable','Recipient is not configured');
     const transport = nodemailer.createTransport({host,port:Number(process.env.SMTP_PORT || 1025),secure:process.env.SMTP_SECURE==='true',
       requireTLS: !local && process.env.SMTP_SECURE !== 'true', connectionTimeout:5000, socketTimeout:10000,
       auth:process.env.SMTP_USER ? {user:process.env.SMTP_USER,pass:process.env.SMTP_PASS} : undefined});
-    try { await transport.sendMail({from:process.env.SMTP_FROM || 'finpilot@example.test',to:email,subject:'FinPilot verification',text:`Your FinPilot verification code is ${code}. It expires in five minutes.`}); }
+    try { await transport.sendMail({from:process.env.SMTP_FROM || 'FinPilot Demo <security@finpilot.test>',to:email,subject:'FinPilot verification',text:`Your FinPilot verification code is ${code}. It expires in five minutes.`}); }
     catch { fail(502,'smtp_failed','Unable to deliver verification email'); }
     finally { transport.close(); }
   }};

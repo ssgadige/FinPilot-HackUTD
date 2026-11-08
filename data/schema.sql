@@ -2,7 +2,7 @@ PRAGMA foreign_keys=ON;
 CREATE TABLE meta(key TEXT PRIMARY KEY,value TEXT NOT NULL);
 CREATE TABLE users(id TEXT PRIMARY KEY,name TEXT NOT NULL,email TEXT NOT NULL UNIQUE,password_hash TEXT NOT NULL,persona TEXT NOT NULL,snapshot_version INTEGER NOT NULL DEFAULT 1);
 CREATE TABLE institutions(id TEXT PRIMARY KEY,name TEXT NOT NULL,category TEXT NOT NULL,simulated INTEGER NOT NULL DEFAULT 1 CHECK(simulated=1));
-CREATE TABLE institution_logins(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),institution_id TEXT NOT NULL REFERENCES institutions(id),username TEXT NOT NULL UNIQUE,password_hash TEXT NOT NULL,UNIQUE(user_id,institution_id));
+CREATE TABLE institution_logins(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),institution_id TEXT NOT NULL REFERENCES institutions(id),username TEXT NOT NULL,password_hash TEXT NOT NULL,UNIQUE(user_id,institution_id),UNIQUE(institution_id,username));
 CREATE TABLE accounts(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),institution_id TEXT NOT NULL REFERENCES institutions(id),kind TEXT NOT NULL CHECK(kind IN ('checking','savings','credit_card','brokerage','ira','cd','auto_loan','mortgage')),label TEXT NOT NULL,last_four TEXT NOT NULL,opening_cents INTEGER NOT NULL,balance_cents INTEGER NOT NULL,credit_limit_cents INTEGER,apr_bps INTEGER,minimum_payment_cents INTEGER,maturity_date TEXT,UNIQUE(id,user_id));
 CREATE TABLE transactions(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),account_id TEXT NOT NULL,posted_date TEXT NOT NULL,merchant TEXT NOT NULL,category TEXT NOT NULL,delta_cents INTEGER NOT NULL,transfer_group TEXT,FOREIGN KEY(account_id,user_id) REFERENCES accounts(id,user_id));
 CREATE INDEX tx_user_date ON transactions(user_id,posted_date);
@@ -26,3 +26,4 @@ CREATE TABLE demo_events(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES us
 CREATE TABLE subscription_actions(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),subscription_id TEXT NOT NULL REFERENCES subscriptions(id),kind TEXT NOT NULL,status TEXT NOT NULL,payload_json TEXT NOT NULL,created_at TEXT NOT NULL);
 CREATE TABLE conversations(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),created_at TEXT NOT NULL,UNIQUE(id,user_id));
 CREATE TABLE chat_messages(id TEXT PRIMARY KEY,conversation_id TEXT NOT NULL,user_id TEXT NOT NULL,role TEXT NOT NULL,content TEXT NOT NULL,created_at TEXT NOT NULL,FOREIGN KEY(conversation_id,user_id) REFERENCES conversations(id,user_id));
+

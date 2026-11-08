@@ -11,15 +11,25 @@ class SeedTests(unittest.TestCase):
  @classmethod
  def tearDownClass(cls):cls.tmp.cleanup()
  def test_complete_reconciled_history(self):self.assertTrue(validation.validate(self.path)['reconciled'])
- def test_password_separation_and_hash_verification(self):
+ def test_separate_hashes_and_demo_password_verification(self):
   creds=json.loads((self.path.parent/'demo-credentials.json').read_text());db=sqlite3.connect(self.path)
   for c in creds:
    ph=db.execute('SELECT password_hash FROM users WHERE id=?',(c['user_id'],)).fetchone()[0]
    self.assertTrue(seed.verify_password(c['app_password'],ph));self.assertFalse(seed.verify_password('wrong',ph))
    for ins in c['institutions']:
-    ih=db.execute('SELECT password_hash FROM institution_logins WHERE username=?',(ins['username'],)).fetchone()[0]
-    self.assertTrue(seed.verify_password(ins['password'],ih));self.assertFalse(seed.verify_password(c['app_password'],ih))
+    ih=db.execute('SELECT password_hash FROM institution_logins WHERE user_id=? AND institution_id=? AND username=?',(c['user_id'],ins['institution_id'],ins['username'])).fetchone()[0]
+    self.assertTrue(seed.verify_password(ins['password'],ih));self.assertFalse(seed.verify_password('wrong',ih));self.assertNotEqual(ph,ih)
   db.close()
+ def test_matching_demo_emails_passwords_and_recipients(self):
+  creds=json.loads((self.path.parent/'demo-credentials.json').read_text())
+  self.assertEqual(len({c['email'] for c in creds}),10)
+  for c in creds:
+   self.assertTrue(c['email'].endswith('@mail.finpilot.test'));self.assertEqual(c['app_password'],'123')
+   self.assertEqual(c['verification_recipient'],c['email'])
+   for ins in c['institutions']:
+    self.assertEqual(ins['username'],c['email']);self.assertEqual(ins['email'],c['email'])
+    self.assertEqual(ins['verification_recipient'],c['email']);self.assertEqual(ins['password'],'123')
+    self.assertTrue(ins['verification_sender'].endswith('.finpilot.test'))
  def test_refuses_accidental_overwrite(self):
   with self.assertRaises(SystemExit):seed.seed(self.path)
  def test_composite_account_ownership_constraint(self):
