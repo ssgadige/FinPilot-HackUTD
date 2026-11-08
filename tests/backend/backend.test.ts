@@ -248,3 +248,19 @@ test('overview includes product-defined debt-payment and card-utilization indica
   assert.equal(empty.find(i=>i.key==='card_utilization_bps')!.value,null);
   assert.equal(empty.find(i=>i.key==='debt_payment_income_ratio_bps')!.value,null);
 });
+test('connection list is scoped and calculator API supplies owned evidence',async()=> {
+  const list=await request('connections');assert.equal(list.status,200);
+  for(const c of list.data.items){assert.ok(c.account_ids.every((id:string)=>id.startsWith('demo-01-')));assert.equal(c.status,'active');}
+  const result=await request('calculations','POST',{kind:'loan',principal_cents:1000000,apr_bps:600,months:36,extra_payment_cents:0});
+  assert.equal(result.status,201);assert.equal(result.data.payment_cents,30422);assert.equal(result.data.remaining_cents,0);assert.equal(result.data.schedule.length,36);
+  assert.equal(result.data.schedule.reduce((n:number,r:any)=>n+r.principal_cents,0),1000000);
+  assert.equal((await request('evidence/'+result.data.evidence_ids[0],'GET',undefined,user2)).status,404);
+  assert.equal((await request('calculations','POST',{kind:'loan',principal_cents:1000,apr_bps:600,months:0,extra_payment_cents:0})).status,400);
+  assert.equal((await request('calculations','POST',{kind:'savings',target_cents:800000,saved_cents:240000,months:12,apy_bps:0,user_id:'demo-02'})).status,400);
+});
+test('savings and zero-rate loan calculator examples match the Figma contracts',async()=> {
+  const savings=await request('calculations','POST',{kind:'savings',target_cents:800000,saved_cents:240000,months:12,apy_bps:0});assert.equal(savings.status,201);assert.equal(savings.data.contribution_cents,46667);assert.equal(savings.data.projected_cents,800004);
+  const funded=await request('calculations','POST',{kind:'savings',target_cents:800000,saved_cents:800000,months:12,apy_bps:0});assert.equal(funded.data.contribution_cents,0);assert.equal(funded.data.funded,true);
+  const growth=await request('calculations','POST',{kind:'savings',target_cents:800000,saved_cents:240000,months:12,apy_bps:500});assert.ok(growth.data.contribution_cents<46667);assert.ok(growth.data.projected_cents>=800000);
+  const zero=await request('calculations','POST',{kind:'loan',principal_cents:100000,apr_bps:0,months:10,extra_payment_cents:0});assert.equal(zero.data.payment_cents,10000);assert.equal(zero.data.interest_cents,0);assert.equal(zero.data.total_paid_cents,100000);
+});

@@ -9,6 +9,7 @@ import { Runs } from './runs';
 import { Chat } from './chat';
 import { ApiFailure, fail, found } from './errors';
 import { date } from './tools/finance';
+import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 const text=z.string().trim().min(1).max(200);
 const key=z.string().min(1).max(128);
 const money=z.number().int().min(1).max(100_000_000);
@@ -82,6 +83,7 @@ export function createApi(s:Services) {
         return json({items:category?s.store.all('SELECT * FROM institutions WHERE category=?',category):s.store.all('SELECT * FROM institutions ORDER BY name')});
       }
       if(resource==='connections') {
+        if(!id&&method==='GET')return json({items:s.simulator.list(uid)});
         if(id==='preview'&&path.length===2&&method==='POST') {
           s.auth.throttle(`simulator:${uid}`,10);
           const b=await body(z.strictObject({institution_id:text,demo_username:text,demo_password:z.string().min(1).max(256)}));return json(s.simulator.preview(uid,b.institution_id,b.demo_username,b.demo_password));
@@ -119,6 +121,16 @@ export function createApi(s:Services) {
       if(resource==='plans') {
         if(!id&&method==='GET')return json({items:s.planning.list(uid)});
         if(id&&action==='accept'&&method==='POST')return json(s.planning.accept(uid,id,await body(z.strictObject({expected_version:z.number().int().min(1),confirmation:confirmed,idempotency_key:key}))));
+      }
+      if(resource==='calculations'&&path.length===1&&method==='POST') {
+        const cents=z.number().int().min(0).max(100_000_000);
+        const calculationInput=z.discriminatedUnion('kind',[
+          z.strictObject({kind:z.literal('loan'),principal_cents:money,apr_bps:z.number().int().min(0).max(10000),months:z.number().int().min(1).max(600),extra_payment_cents:cents}),
+          z.strictObject({kind:z.literal('savings'),target_cents:money,saved_cents:cents,months:z.number().int().min(1).max(600),apy_bps:z.number().int().min(0).max(3000)})
+        ]);
+        const b=await body(calculationInput);
+        const result=b.kind==='loan'?loanCalculation(b.principal_cents,b.apr_bps,b.months,b.extra_payment_cents):savingsCalculation(b.target_cents,b.saved_cents,b.months,b.apy_bps);
+        return json({...result,evidence_ids:[s.finance.persistCalculation(uid,result,result)],hypothetical:true},201);
       }
       if(resource==='scenarios'&&path.length===1&&method==='POST') {
         const b=await body(scenarios);

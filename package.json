@@ -10,12 +10,14 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/backend/*.test.ts",
+    "test": "tsx --test tests/backend/*.test.ts tests/frontend/*.test.tsx",
     "db:setup": "node scripts/setup.mjs",
     "db:migrate": "tsx scripts/bootstrap.ts",
-    "setup": "node scripts/setup.mjs"
+    "setup": "node scripts/setup.mjs",
+    "test:frontend": "tsx --test tests/frontend/*.test.tsx"
   },
   "dependencies": {
+    "decimal.js": "^10.6.0",
     "next": "^16.0.0",
     "nodemailer": "^10.4.0",
     "react": "^19.2.0",
@@ -23,10 +25,12 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@types/jsdom": "^30.0.0",
     "@types/node": "^22.0.0",
     "@types/nodemailer": "^7.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "jsdom": "^29.1.1",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0"
   }

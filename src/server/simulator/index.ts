@@ -17,6 +17,9 @@ export function idempotent<T>(store: Store, uid: string, scope: string, key: str
 }
 export class Simulator {
   constructor(readonly store: Store, readonly now=()=>Date.now()) {}
+  list(uid:string) {
+    return this.store.all("SELECT id,institution_id,status,last_sync_at FROM connections WHERE user_id=? AND status='active' ORDER BY id",uid).map(c=>({...c,account_ids:this.store.all('SELECT ca.account_id FROM connection_accounts ca JOIN accounts a ON a.id=ca.account_id AND a.user_id=ca.user_id WHERE ca.connection_id=? AND ca.user_id=? AND a.user_id=? ORDER BY ca.account_id',c.id,uid,uid).map(a=>a.account_id)}));
+  }
   preview(uid: string, institution: string, username: string, password: string) {
     const login = this.store.one('SELECT * FROM institution_logins WHERE user_id=? AND institution_id=? AND username=?',uid,institution,username);
     if (!login || !verifyPassword(password,login.password_hash)) fail(401,'invalid_simulator_login','Invalid demo institution credentials');
