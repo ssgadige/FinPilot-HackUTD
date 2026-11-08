@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Store, LIABILITIES } from './db';
+import { Store, LIABILITIES, type Row } from './db';
 import { fail, found } from './errors';
 import { iso, token } from './auth';
 import { Finance } from './finance';
@@ -24,6 +24,7 @@ export type Scenario = {kind:'surprise_expense';expense_cents:number;plan_id?:st
 export interface OfferResolver {
   list(uid:string,subscriptionId:string,signal:AbortSignal):Promise<{items:Offer[];source_mode:string;availability:string}>;
 }
+export interface PlanRecord extends Row {id:string;user_id:string;run_id:string|null;version:number;status:string;snapshot_version:number;parent_plan_id:string|null;payload_json:string;created_at:string;}
 export class Planning {
   constructor(readonly store:Store,readonly offers?:OfferResolver) {}
   goal(uid:string,id:string) { return found(this.store.one('SELECT * FROM goals WHERE id=? AND user_id=?',id,uid)); }
@@ -68,7 +69,7 @@ export class Planning {
       return {id,status:'planned',source_mode:offer?.source_mode??'fixture',realized_savings_cents:0,requires_external_action:true};
     });
   }
-  plan(uid:string,id:string) { return found(this.store.one('SELECT * FROM plans WHERE id=? AND user_id=?',id,uid)); }
+  plan(uid:string,id:string) { return found(this.store.one<PlanRecord>('SELECT * FROM plans WHERE id=? AND user_id=?',id,uid)); }
   view(uid:string,id:string) {
     const p=this.plan(uid,id),stale=p.snapshot_version!==this.store.user(uid).snapshot_version;
     return {...p,payload_json:stale?null:p.payload_json,payload:stale?null:JSON.parse(p.payload_json),stale,source_mode:'fixture'};
