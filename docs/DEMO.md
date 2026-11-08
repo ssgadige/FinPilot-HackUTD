@@ -1,6 +1,30 @@
 # Three-minute demo and verification
 
-## Main journey
+## Verified local lane and current limits
+
+Run `npm run typecheck`, `npm run test:agents`, `npm run test:backend`, `npm test`
+and `npm run build`. Local agent tests use mocked inference and actual deterministic
+calculations; backend tests use real SQLite, simulator consent/disconnect and a
+local SMTP receiver. These checks do not establish a live three-minute rehearsal.
+
+The user selected local tests only. Existing live specialist traces are retained
+historical evidence. `npm run demo:agents:replay` displays them as **REPLAY / cached**
+with zero provider calls when a complete integration record is unavailable.
+
+FP-15 authenticated run/chat/demo-event handlers are now implemented and locally tested. The FP-07 agent workspace is still absent.
+General goal funding and debt payment account/date mappings still need integration. Application repair now proposes a conservative monthly revision with explicit missing data and confirmation. The main journey below is a rehearsal target, not a claim
+that the current browser application completes it.
+
+With future explicit authorization, `npm run demo:agents` performs a real CLI
+rehearsal: expense repair and duplicate replay, three seeded cash-checkup personas,
+grounded chat, injected budget exhaustion and public offer retrieval. The report
+records actual duration, per-role skips/failures and fixture/live/cached labels.
+It never claims the full application journey passed. A slow or partial run must be
+disclosed; no successful full integration artifact has yet been retained.
+
+See [integration verification](../src/server/agents/integration/README.md).
+
+## Target main journey
 
 1. Log in as Maya Chen with generated application credentials; receive code in local Mailpit. Explain that identities, bank credentials and financial records are synthetic.
 2. Financial institutions → Banks → Chase → enter Maya's generated Chase simulator credentials → consent/select accounts → link. Repeat her relevant card provider. Show 30-month history and overview indicators.

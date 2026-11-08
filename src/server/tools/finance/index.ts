@@ -11,7 +11,8 @@ export function calculation<T>(kind: string,input: unknown,result: T,assumptions
   return { ...result,evidence_id:'calc-'+createHash('sha256').update(JSON.stringify({kind,input})).digest('hex').slice(0,24),source_mode:'fixture' as const,assumptions };
 }
 export interface Scheduled { day_of_month: number; amount_cents: number; direction: 'income'|'expense'; }
-export function forecast(balance: number,start: string,days: number,items: Scheduled[],expense=0,delay=0,drop=0,nextIncomeDelays: number[] = []) {
+export interface IncomeShift {scheduled_item_id:string;original_date:string;delayed_date:string;}
+export function forecast(balance: number,start: string,days: number,items: (Scheduled & {id?:string})[],expense=0,delay=0,drop=0,nextIncomeDelays: number[] = [],shifts:IncomeShift[] = []) {
   integer(balance,-100_000_000_000); date(start); integer(days,1,90); integer(expense); integer(delay,0,60); integer(drop,0,100);
   for (const i of items) { integer(i.day_of_month,1,28); integer(i.amount_cents,1); if (!['income','expense'].includes(i.direction)) fail(400,'invalid_direction','Invalid schedule direction'); }
   for (const d of nextIncomeDelays) integer(d,1,60);
@@ -24,14 +25,16 @@ export function forecast(balance: number,start: string,days: number,items: Sched
     const due=addDays(start,i);
     for (const item of items) if (Number(due.slice(-2))===item.day_of_month) {
       const eventDelay=item.direction==='income'?(nextIncomeDelays[nextIncome++]||0):0;
-      const when=item.direction==='income'?addDays(due,Math.max(delay,eventDelay)):due;
+      let shifted=due;
+      if(item.direction==='income')for(const shift of shifts)if(shift.scheduled_item_id===item.id&&shift.original_date===shifted)shifted=date(shift.delayed_date);
+      const when=item.direction==='income'?addDays(shifted,Math.max(delay,eventDelay)):due;
       const delta=item.direction==='income'?Math.floor(item.amount_cents*(100-drop)/100):-item.amount_cents;
       deltas.set(when,(deltas.get(when)||0)+delta);
     }
   }
   for (let i=1;i<=days;i++) { const d=addDays(start,i); current+=deltas.get(d)||0; integer(current,-100_000_000_000); dated_balances.push({date:d,balance_cents:current}); }
   const low=dated_balances.reduce((a,b)=>a.balance_cents<=b.balance_cents?a:b);
-  return calculation('forecast',{balance,start,days,items,expense,delay,drop,nextIncomeDelays},{dated_balances,low_cash_date:low.date,low_cash_cents:low.balance_cents},['UTC dates; monthly due days 1–28; scheduled payments only; checking and savings are spendable; expenses applied once at start; demo delays affect consecutive next income payments once.']);
+  return calculation('forecast',{balance,start,days,items,expense,delay,drop,nextIncomeDelays,shifts},{dated_balances,low_cash_date:low.date,low_cash_cents:low.balance_cents},['UTC dates; monthly due days 1–28; scheduled payments only; checking and savings are spendable; expenses applied once at start; demo delays affect identified next income occurrences once.']);
 }
 export function amortize(balance: number,aprBps: number,payment: number,months=600) {
   integer(balance);integer(aprBps,0,10000);integer(payment,1);integer(months,1,600);

@@ -14,11 +14,11 @@ Constrained routing/DAG, merge conflict handling and deterministic evidence owne
 src/server/agents/coordinator, evidence, chat
 
 ## Acceptance criteria
-- [ ] Dependency handoff visible.
-- [ ] Irrelevant specialist skipped with reason.
-- [ ] Unknown evidence rejected.
-- [ ] Chat grounded to same user.
-- [ ] Global call budget honored.
+- [x] Dependency handoff visible.
+- [x] Irrelevant specialist skipped with reason.
+- [x] Unknown evidence rejected.
+- [x] Chat grounded to same user.
+- [x] Global call budget honored.
 
 ## Pull request requirements
 - Branch: `feat/fp-23-coordinator-evidence-gate-and-basic-chat-role`.
@@ -30,3 +30,7 @@ src/server/agents/coordinator, evidence, chat
 [API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
 [Issue #23](https://github.com/ssgadige/FinPilot-HackUTD/issues/23)
+
+## Verification and integration status
+
+Local acceptance scenarios pass in `tests/remaining-agents.test.ts` using mocked inference. See [coordinator, evidence and chat boundaries](../../../src/server/agents/coordinator/README.md). FP-15 application routes are implemented and locally tested. Fresh live coordinator/chat validation remains pending. The user selected local tests only.

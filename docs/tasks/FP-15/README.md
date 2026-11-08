@@ -14,11 +14,11 @@ Connect C runner to authenticated routes, polling events, persisted run steps an
 src/app/api/v1/runs, chat, demo/events
 
 ## Acceptance criteria
-- [ ] Checkup returns 202 and status.
-- [ ] Cancellation stops new calls.
-- [ ] Duplicate event not applied twice.
-- [ ] Chatbot cannot supply user identity.
-- [ ] Stale snapshot visible.
+- [x] Checkup returns 202 and status.
+- [x] Cancellation stops new calls.
+- [x] Duplicate event not applied twice.
+- [x] Chatbot cannot supply user identity.
+- [x] Stale snapshot visible.
 
 ## Pull request requirements
 - Branch: `feat/fp-15-agent-run-events-chat-routes-and-change-trigger`.
@@ -30,3 +30,9 @@ src/app/api/v1/runs, chat, demo/events
 [API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
 [Issue #15](https://github.com/ssgadige/FinPilot-HackUTD/issues/15)
+
+## Implementation and acceptance evidence
+
+Delivered together on `feat/fp-15-16-authenticated-agent-integration`; no shared API payload contracts changed. See [run service and boundaries](../../../src/server/runs/README.md), [backend acceptance tests](../../../tests/backend/runs.test.ts), [local acceptance record](../../../src/server/runs/local-acceptance.json) and [setup/reset guide](../../../SETUP.md).
+
+Verification uses real SQLite, authenticated HTTP handlers, deterministic tools and local SMTP; provider inference is mocked. Missing/failed providers, stale snapshots, cancellation, two-user ownership, identity injection and duplicate/failed events are exercised. A production build and configured-secret/browser-bundle audit are included. Existing repository-wide explicit-any lint debt is disclosed; this is not a claim of production certification, live NVIDIA verification, Docker-daemon validation or a finished FP-07 UI.

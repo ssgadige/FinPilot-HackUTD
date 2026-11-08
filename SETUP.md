@@ -1,175 +1,77 @@
-# Installation and runtime setup
+# Local installation and verification
 
-Development environment: Visual Studio Code (VS Code).
+Use Node 22.18+ (the repository pins Node 22 in `.nvmrc`), npm and Python 3.11+. SQLite is built into Node; no separate database server or Python virtual environment is required for this application.
 
-The following dependencies support local development and the Docker runtime. Application and Docker runtime implementation is tracked in GitHub Issues. Provider credentials are configured separately from source control.
+## Start the application
 
-## 1. Technology stack
+From the repository root:
 
-| Part | Tool | What it does | Separate download? |
-|---|---|---|---|
-| Editor | VS Code + Codex extension | Write and review code | Yes |
-| Source control | Git + GitHub | Shared repository, branches and PRs | Git yes; GitHub in browser |
-| Frontend | React + Next.js + TypeScript | Dashboard, forms, charts and chatbot interface | Installed through project npm dependencies |
-| Backend | Next.js server routes on Node.js | Login, account APIs, finance tools and agent execution | Node.js yes; backend packages through npm |
-| Database | SQLite | Stores users, connected demo accounts, history, plans and agent runs | Embedded in app; no database server to install |
-| Database viewer | DB Browser for SQLite | Inspect tables and run development queries | Recommended for everyone; especially backend owner |
-| Agents and chatbot | NVIDIA Nemotron hosted API | All specialist agents, coordinator and basic chat | API account/key later; no local model download |
-| Containers | Docker Desktop + Docker Compose | Run the application and local email service consistently | Yes on Windows/macOS; Linux Engine + Compose is an alternative |
-| Email testing | Mailpit container | Receives test login-verification emails | Downloaded as a Docker image later |
-| Demo data | Python 3.11+ | Generates and validates 30 months of synthetic records | Yes for running the supplied scripts locally |
-
-One Next.js application handles the frontend and backend. One SQLite database handles the project data. Docker runs the application; Nemotron inference stays on the hosted NVIDIA service. No GPU/CUDA setup is needed for this chosen approach. Database files must be kept in persistent Docker storage.
-
-## 2. Install these on development machines
-
-Install in this order. Existing compatible installations can be retained.
-
-| Install | Official download | Check in terminal |
-|---|---|---|
-| Git | https://git-scm.com/downloads | `git --version` |
-| VS Code | https://code.visualstudio.com/download | Open VS Code; `code --version` if command is on PATH |
-| Node.js 22.x, version 22.13 or newer | https://nodejs.org/en/download | `node --version` and `npm --version` |
-| Python 3.11 or newer | https://www.python.org/downloads/ | Windows: `py --version`; macOS/Linux: `python3 --version` |
-| Docker Desktop | https://www.docker.com/products/docker-desktop/ | `docker --version`, `docker compose version`, `docker info` |
-| DB Browser for SQLite | https://sqlitebrowser.org/dl/ | Open the application |
-
-Use the same Node major version across the team. Node 22 is the project baseline; choose the latest available 22.x patch. Reopen VS Code after installing tools so its terminal sees PATH updates. npm comes with Node.js. Docker Desktop includes Compose; no separate Compose download is needed on Desktop installations.
-
-### Windows Docker setup
-
-1. Check the current [Docker Windows requirements](https://docs.docker.com/desktop/setup/install/windows-install/) for ythe Windows edition/version.
-2. Use the WSL 2 backend and Linux containers for this application.
-3. Check WSL with `wsl --version` and `wsl --status` in PowerShell.
-4. If WSL is missing, follow the [Microsoft WSL installation guide](https://learn.microsoft.com/en-us/windows/wsl/install); run `wsl --install` from an administrator PowerShell when required, then restart if prompted. Use `wsl --update` if an installed WSL needs updating.
-5. Start Docker Desktop and wait for its engine to run. Enable firmware virtualization if Docker reports it is disabled.
-6. Run `docker info` and `docker compose version`. An installed CLI alone does not mean the engine is running.
-
-For macOS, choose the Docker build matching Apple Silicon or Intel. For Linux, use Docker Desktop or Docker Engine with the Compose plugin from [Docker's official installation documentation](https://docs.docker.com/engine/install/).
-
-### VS Code extensions
-
-Install the official Codex extension, ESLint and Prettier. Docker/container tools and GitHub Pull Requests are optional conveniences. If working inside WSL, install Microsoft's WSL extension too. Sign in to Codex/GitHub later when we configure accounts. Do not share personal login credentials.
-
-## 3. Clone and open the repository
-
-After ythe GitHub account is invited to the private repository:
-
-```bash
-git clone https://github.com/ssgadige/FinPilot-HackUTD.git
-cd FinPilot-HackUTD
-code .
-```
-
-If `code` is unavailable, open VS Code → File → Open Folder and select this folder. If cloning says Repository not found, check the signed-in GitHub account and repository access first.
-
-Before coding, create ythe task branch, for example:
-
-```bash
-git switch -c feat/FP-01-app-shell
-```
-
-Choose ythe actual task from [the task board](docs/TASK_BOARD.md). A owns frontend, B owns backend/security/data, C owns Nemotron agents. Each task has its own README.
-
-## 4. Run the data starter now
-
-Windows PowerShell:
-
-```powershell
-py scripts/seed_demo.py
-py scripts/validate_seed.py
-py -m unittest discover -s tests -v
-```
-
-macOS/Linux:
-
-```bash
-python3 scripts/seed_demo.py
-python3 scripts/validate_seed.py
-python3 -m unittest discover -s tests -v
-```
-
-Expected: 10 fictional users, 30 simulated institution logins, 41 accounts, 12,062 transactions and 30 months per user. The test suite currently has five checks.
-
-Generated files:
-
-- `data/finpilot-demo.sqlite`: open with DB Browser → Open Database.
-- `data/demo-credentials.json`: fictional application and institution passwords for local testing.
-- `data/seed-manifest.json`: record counts and seed metadata.
-
-These are gitignored. Do not commit them. Re-running the seed refuses to overwrite existing data; `--reset` is only for intentionally replacing ythe disposable local demo data. Each reset generates new demo passwords. Every laptop gets its own independent database and credentials. Avoid editing the SQLite file manually while the app is writing to it; use app APIs for normal development.
-
-## 5. Frontend/backend packages — installed once through the repository
-
-The application owner will create `package.json` and commit `package-lock.json` in FP-01. Teammates then use `npm ci` to install the same package versions. Do not each scaffold a separate app or run unrelated npm installs.
-
-| Package group | Planned packages |
-|---|---|
-| UI and server framework | `next`, `react`, `react-dom`, `typescript` |
-| Database access and validation | `better-sqlite3`, `zod` |
-| Email | `nodemailer` |
-| Charts/icons | `recharts`, `lucide-react` |
-| Development/testing | ESLint, Prettier, Vitest, Playwright and matching TypeScript definitions |
-
-Nemotron can be called through server-side HTTP using Node's fetch; a separate Python AI framework is not required. Password hashing uses Node crypto scrypt to match the supplied seed format. Native SQLite packages must be installed/built for Linux inside Docker; never copy Windows/macOS `node_modules` into the image.
-
-After FP-01 creates the application and scripts, the local development workflow will be:
-
-```bash
+```sh
 npm ci
+npm run setup
 npm run dev
 ```
 
-The planned app URL is http://localhost:3000 . These commands cannot start the app yet because the application scaffold has not been implemented.
+Setup generates the private synthetic database only when absent and applies migrations. Repeating it preserves existing data. It creates an ignored `.env.local` with a random OTP secret if needed, without overwriting existing configuration. Configure the server using `.env.example`; do not commit or paste actual values. Generated defaults do not set empty NVIDIA values that would mask existing `.env` configuration. If an older `.env.local` contains empty NVIDIA entries, remove those entries or configure them there: Next.js gives `.env.local` priority over `.env`.
 
-## 6. Docker runtime plan
+Open http://localhost:3000. Use only the generated fictional application credentials in `data/demo-credentials.json`. Start the local inbox separately:
 
-Implementation includes `Dockerfile`, `compose.yaml` and `.dockerignore` as part of the backend/integration work. This README does not claim those runtime files already exist.
-
-| Component | Container/service | Storage/network requirement |
-|---|---|---|
-| Frontend + backend + agents | `app` | Next.js Node server; localhost port 3000 for local demo |
-| SQLite | File used by `app`, no separate service | Named volume mounted at `/app/data`; `DATABASE_PATH=/app/data/finpilot-demo.sqlite` |
-| Login email inbox | `mailpit` | App SMTP host `mailpit`, port `1025`; host web inbox bound to `127.0.0.1:8025` |
-| Nemotron | External hosted API | Outbound HTTPS from app; key only in server environment |
-
-Inside Docker, `localhost` means the current container. Therefore the app must use `SMTP_HOST=mailpit`, not `127.0.0.1`. Browser access remains http://localhost:8025 for the local inbox. Mailpit is shared development mail, not real inbox delivery; keep its UI local and synthetic-only.
-
-Implementation requirements: pinned compatible images/dependencies; seed the persistent volume explicitly once without an automatic destructive reset; non-root app process with correct volume ownership; health checks; graceful SQLite close; server-only runtime secrets; `.dockerignore` excludes env, DB, credentials, node_modules and git. Rebuilding an image must preserve users/history. A container must not reset the database on every restart. Keep a single app instance for this SQLite prototype.
-
-Once the Compose/app files are implemented and documented, the intended workflow is:
-
-```bash
-docker compose up --build -d
-docker compose ps
-docker compose logs --tail=100 app
-docker compose down
+```sh
+docker compose up -d mailpit
 ```
 
-`docker compose down` stops the stack while preserving named volumes by default. Do not use `down -v` unless deliberately discarding the demo database. The container seed command is tracked in workstream B after the runtime exists; the current host-generated database is not automatically copied into a named volume.
+Mailpit is available at http://localhost:8025; host application SMTP is `127.0.0.1:1025`. Password login creates only a pending challenge. Read the code in Mailpit and complete verification before using finance APIs. Institution simulator credentials are separate generated entries; never enter real bank credentials.
 
-Docker packages the runtime; public hosting still needs a Docker-capable machine and HTTPS. For the hackathon, run Compose on the demo laptop first. Public server/account configuration comes later.
+The application requires `OTP_HMAC_SECRET` of at least 32 characters. Local HTTP is permitted only with `ALLOW_LOCAL_HTTP=true` and a localhost `APP_URL`. Shared deployments require HTTPS. NVIDIA configuration is server-only: `NVIDIA_API_KEY`, accessible `NEMOTRON_MODEL`, optional HTTPS `NEMOTRON_BASE_URL`, timeout at most 30000 ms. No `NEXT_PUBLIC_*` secret is supported.
 
-## 7. Accounts and environment settings — later
+Missing NVIDIA configuration returns 503 for new runs/chat/demo events without applying an event. Provider failures create failed or explicit partial runs, never fabricated live findings. Local acceptance tests mock inference and perform no NVIDIA calls. Do not run live smoke scripts when operating in local-only mode.
 
-- GitHub: each contributor uses their own account; verify repository access.
-- NVIDIA: agent owner obtains an API key and accessible Nemotron model supporting the tool-call workflow. Confirm quota with a real smoke test. Do not put keys in chat, source code or frontend environment variables.
-- Email: Mailpit needs no real email account. The fictional `example.test` logins use this local SMTP inbox. Real email delivery later needs a verified sender and SMTP credentials.
-- Jira: browser account and Atlassian connection later; no desktop installation.
+## Backend run and event flow
 
-Copy `.env.example` to a local ignored environment file. Store `NVIDIA_API_KEY`, model ID, session secret and OTP secret server-side. For the future Compose runtime, explicitly map its environment file/variables in Compose; `.env.local` is not automatically injected into a container. Never bake it into the image. All demo bank login fields accept only generated fictional credentials.
+After login and simulated account linking, unsafe calls require the session's `fp_csrf` value in `X-CSRF-Token` and the exact configured `Origin`. Cookies remain browser-managed. Do not copy session tokens into source, logs or examples.
 
-## 8. Ready-to-start checklist
+1. `POST /api/v1/runs` with `{"intent":"cash","idempotency_key":"local-checkup-1"}` returns 202, `run_id` and snapshot version. Other intents: `subscriptions`, `planning`, `stress`, `full`.
+2. Poll `GET /api/v1/runs/:id` and `GET /api/v1/runs/:id/events?cursor=...`. Keep `next_cursor` for incremental polling. Status, safe role steps, evidence references, partial failures and call counts are persisted.
+3. `POST /api/v1/runs/:id/cancel` stops new tools/provider calls. It accepts an empty body or `{}`. Persisted partial activity remains an audit record.
+4. `POST /api/v1/chat` with `{"message":"Explain the current findings."}` reads only the current user's scoped snapshot/findings. `Run a financial checkup` explicitly permits a bounded run request; ordinary questions cannot start one. Conversation IDs are owner-checked. Raw user messages are not persisted; at most 20 assistant messages per conversation are retained, and each response grounds on fresh server state.
+5. With `DEMO_MODE=true`, `POST /api/v1/demo/events` accepts `{"kind":"surprise_expense","amount_cents":200000,"idempotency_key":"demo-expense-1"}` or `{"kind":"delayed_income","days":7,"idempotency_key":"demo-delay-1"}`. Identity and accounts are selected by the server, never supplied by the client/model. The event changes a selected account/identified income occurrence once, advances the snapshot and queues repair atomically. Reusing a key with another payload returns 409.
+6. Repair proposes a new application plan version and keeps the previous accepted plan intact. Missing goal funding/payment metadata is explicit: the conservative monthly revision pauses optional allocations for review, preserves reserve/bills/minimums, and reports `needs_information`. It does not claim the unavailable Goal Allocator ran. Accept only through `/plans/:id/accept` with expected version and explicit confirmation.
 
-- [ ] VS Code opens the cloned repository.
-- [ ] Git, Node/npm and Python version commands work.
-- [ ] Docker Desktop engine is running; Compose works.
-- [ ] DB Browser opens the seeded SQLite file.
-- [ ] Seed validation and five tests pass.
-- [ ] Read ythe task README and shared API contracts.
-- [ ] Later: GitHub access, NVIDIA credentials and email configuration verified.
-- [ ] After implementation: app starts in Compose and database survives stop/start.
+One checkup per user and two queued/running checkups per process are allowed. Each run shares 24 model calls, at most two active roles and bounded provider/role deadlines. Per-user run/event/chat limits also apply. Database results survive restart; interrupted work fails visibly and is never silently re-inferred. Run this SQLite prototype as one persistent application process. The FP-07 agent workspace is still a separate frontend integration task; the authenticated APIs are implemented.
 
-No MySQL Workbench, PostgreSQL server, MongoDB, separate Express backend, CUDA toolkit or local Nemotron weights are part of this agreed setup. SQLite plus Next.js covers the scoped build.
+## Local acceptance checks
 
-Official references: [Docker Compose](https://docs.docker.com/compose/install/), [Docker Windows setup](https://docs.docker.com/desktop/setup/install/windows-install/), [Next.js installation](https://nextjs.org/docs/app/getting-started/installation), [NVIDIA tool calling](https://docs.nvidia.com/nim/large-language-models/1.15.0/function-calling.html).
+```sh
+npm run typecheck
+npm run test:backend
+npm run test:agents
+npm test
+npm run build
+npm run verify:security
+```
+
+Backend tests use fresh temporary seeded databases, real local SQLite and a test SMTP receiver. Inference is mocked. Tests cover HTTP login/verification/link/run/logout, cross-user reads/mutations, CSRF, invalid identity fields, cancellation, stale snapshots, budgets, duplicate and failed events, consent disconnects, plan acceptance conflicts and missing/failed providers. Agent tests include tool argument manipulation, malicious merchant data and outbound offer SSRF/redirect guards.
+
+The security audit checks configured secret values against reviewable source and built browser bundles (and local logs supplied with repeated `--log path` arguments), checks server-only field names in browser JavaScript, Git/Docker exclusions and dependency declaration/lockfile agreement. It prints no secret values. Run it after building. This does not certify production security or scan removed historical Git objects. Repository-wide lint still has existing explicit-any issues; use `npm run lint` to see the current report.
+
+## Persistent storage and reset
+
+Data files and generated credentials are private and Git-ignored. App restarts, migrations and repeated setup preserve accounts, runs, plans and events. For an intentional reset of **disposable local demo data**, stop the app first:
+
+```sh
+python3 scripts/seed_demo.py --reset
+npm run db:migrate
+python3 scripts/validate_seed.py
+```
+
+Reset deletes sessions, linked accounts, run history, plans and events and generates new demo passwords. Do not reset a database you need to preserve. `validate_seed.py` validates the fresh unlinked seed, not an application database after accounts have been linked.
+
+## Container runtime
+
+```sh
+docker compose build app
+docker compose run --rm app npm run setup
+docker compose up -d
+```
+
+Compose loads `.env.local`, stores the SQLite database in `finpilot-data`, sets container SMTP to `mailpit:1025`, and binds host app/inbox ports to localhost. Keep `.env.local` configured with server-only secrets; it is excluded from the image. The application runs as a non-root user. `docker compose down` preserves the named volume; `down -v` deletes it. Images and Mailpit are pinned in the repository. Container startup itself never reseeds automatically. Container runtime availability must be verified on the demo machine; the local acceptance record does not claim a Docker daemon was tested here.
