@@ -19,8 +19,11 @@ function pythonCommand() {
   }
   throw Error('Python 3.11+ is required. Install Python on PATH, or set PYTHON to its executable path.');
 }
-const python=pythonCommand();
-const runPython=(...arguments_)=>execFileSync(python.command,[...python.prefix,...arguments_],{stdio:'inherit'});
+let python;
+const runPython=(...arguments_)=>{
+  python??=pythonCommand();
+  return execFileSync(python.command,[...python.prefix,...arguments_],{stdio:'inherit'});
+};
 const database=resolve(process.env.DATABASE_PATH || './data/finpilot-demo.sqlite');
 const created=!existsSync(database);
 if(created)runPython('scripts/seed_demo.py','--database',database);
