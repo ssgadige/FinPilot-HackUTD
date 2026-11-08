@@ -1,7 +1,13 @@
-/** FP-04 integration model, NOT an agreed FP-12 wire contract. See IMPLEMENTATION.md.
- * Unknown/incomplete wire shapes fail closed; no fixture fallback or financial arithmetic.
+/** Accounts use the shared FP-04/FP-12 contract. Other financial models still
+ * require integration agreement. Unknown/incomplete shapes fail closed;
+ * no fixture fallback or financial arithmetic. See IMPLEMENTATION.md.
  */
-import type { Page, SourceMode } from "../../contracts/types";
+import type {
+  AccountSummary,
+  AccountsResponse,
+  Page,
+  SourceMode,
+} from "../../contracts/types";
 
 export type Meta = {
   snapshot_version: string | number;
@@ -10,22 +16,7 @@ export type Meta = {
   assumptions?: string[];
   missing_inputs?: string[];
 };
-export type Account = {
-  id: string;
-  label: string;
-  kind:
-    | "checking"
-    | "savings"
-    | "credit_card"
-    | "auto_loan"
-    | "mortgage"
-    | "brokerage"
-    | "ira"
-    | "cd";
-  last_four?: string;
-  balance_cents?: number | null;
-  last_sync_at?: string;
-};
+export type Account = AccountSummary;
 export type Transaction = {
   id: string;
   account_id: string;
@@ -54,7 +45,7 @@ export type Commitment = {
   amount_cents: number;
   transaction_id?: string;
 };
-export type Accounts = Meta & { items: Account[] };
+export type Accounts = Meta & AccountsResponse;
 export type Transactions = Meta & Page<Transaction>;
 export type Overview = Meta & {
   liquid_cash_cents?: number | null;
@@ -109,6 +100,7 @@ const account = (v: unknown) =>
   ].includes(String(v.kind)) &&
   optional(v.last_four, (v) => typeof v === "string" && /^\d{4}$/.test(v)) &&
   moneyFields(v, ["balance_cents"]) &&
+  optional(v.maturity_date, (v) => v === null || date(v)) &&
   optional(v.last_sync_at, (v) => str(v) && !Number.isNaN(Date.parse(v)));
 const transaction = (v: unknown) =>
   object(v) &&

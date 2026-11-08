@@ -14,7 +14,7 @@ Prefix `/api/v1`. JSON, ISO 8601 UTC timestamps, date-only financial dates `YYYY
 | POST /connections | preview_token, account_ids, consent_version, idempotency_key | connection and sync summary; ownership and consent required |
 | POST /connections/:id/sync | idempotency_key | updated snapshot_version; no duplicate transactions |
 | DELETE /connections/:id | confirmation | revoke access, mark dependent findings stale |
-| GET /accounts | institution_id optional | authorized linked accounts and last sync |
+| GET /accounts | institution_id optional | AccountsResponse: authorized linked items, authenticated user's snapshot_version, source_mode and as_of; includes metadata for empty lists |
 | GET /transactions | account_id, from, to, category, q, cursor | scoped Page<Transaction>; account filter optional |
 | GET /overview | — | liquid_cash_cents, debt_cents, net_worth_cents, indicators, upcoming_bills, snapshot_version |
 | GET /forecast | days: 30 or 90 | dated balances, assumptions, low_cash_date; calculation evidence |
@@ -36,6 +36,10 @@ Prefix `/api/v1`. JSON, ISO 8601 UTC timestamps, date-only financial dates `YYYY
 | POST /chat | message, conversation_id optional | Nemotron reply, evidence_ids, requested_run_id optional; bounded history |
 
 Errors: 400 invalid input, 401 missing/incomplete auth, 403 forbidden, 404 unknown or not-owned object (consistent non-enumerating policy), 409 stale version, 429 rate limit, 502 provider failure, 503 unavailable integration. Format: {error:{code,message,request_id}}. Do not leak stack traces or secret provider payloads.
+
+## Accounts response agreement (FP-04 / FP-12)
+
+`contracts/types.ts` defines `AccountsResponse` and `AccountSummary`, reused by the frontend adapter and backend. `snapshot_version` is the authenticated user's current database value, read in the same transaction as the account list. Filtering by institution or returning an empty list does not change or omit it. No user identity is accepted from the client. `source_mode` remains `fixture`; `as_of` comes from the dataset's observation metadata, not the wall clock. Account `last_sync_at` is omitted when unknown; it is never fabricated. Financial totals and other endpoints retain their existing contracts; this accounts agreement does not resolve their remaining FP-04/FP-12 field differences.
 
 ## Example overview
 
