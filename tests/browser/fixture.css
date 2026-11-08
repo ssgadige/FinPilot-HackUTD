@@ -1,5 +1,6 @@
 /* Labels isolated test dialogs; never imported by the application. */
-.connection-dialog::before {
+.connection-dialog::before,
+.evidence-drawer::before {
   content: "Automated test fixture · not live integration";
   display: block;
   margin-bottom: 16px;

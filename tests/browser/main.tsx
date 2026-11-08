@@ -1,11 +1,16 @@
 import { createRoot } from "react-dom/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "../../src/components/auth/auth-provider";
 import { WorkspaceGate } from "../../src/components/auth/workspace-gate";
 import { AppShell } from "../../src/components/app-shell";
 import { InstitutionCatalog } from "../../src/components/connections/institution-catalog";
 import { AccountConsent } from "../../src/components/connections/account-consent";
 import { ConnectionManager } from "../../src/components/connections/connection-manager";
+import { FinanceScope } from "../../src/components/finance/finance-scope";
+import { OverviewScreen } from "../../src/components/finance/overview";
+import { TransactionsScreen } from "../../src/components/finance/transactions";
+import { CashScreen } from "../../src/components/finance/forecast";
+import { AccountsScreen } from "../../src/components/finance/accounts";
 import {
   confirmedConnectionFixture,
   verifiedPreviewFixture,
@@ -18,6 +23,11 @@ import "./fixture.css";
 function Fixture() {
   const { state } = useAuth();
   const [mode, setMode] = useState(location.hash.slice(1));
+  useEffect(() => {
+    const update = () => setMode(location.hash.slice(1));
+    window.addEventListener("hashchange", update);
+    return () => window.removeEventListener("hashchange", update);
+  }, []);
   const [preview] = useState(verifiedPreviewFixture);
   const [connection] = useState(confirmedConnectionFixture);
   if (state.status !== "authenticated")
@@ -34,7 +44,19 @@ function Fixture() {
             Automated test fixture · not live integration. Session and backend
             responses are supplied only by tests.
           </p>
-          {mode === "consent" ? (
+          {["overview", "transactions", "cash", "accounts"].includes(mode) ? (
+            <FinanceScope>
+              {mode === "overview" ? (
+                <OverviewScreen />
+              ) : mode === "transactions" ? (
+                <TransactionsScreen />
+              ) : mode === "accounts" ? (
+                <AccountsScreen />
+              ) : (
+                <CashScreen />
+              )}
+            </FinanceScope>
+          ) : mode === "consent" ? (
             <>
               <h1>Choose the accounts to connect</h1>
               <AccountConsent
