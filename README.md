@@ -15,9 +15,35 @@ docker compose up -d mailpit
 npm run dev
 ```
 
-Open **http://127.0.0.1:3000/login** and **http://localhost:8025** for email codes. Fresh demo setup automatically prepares all ten profiles with seven account types, 71 accounts and 13,322 transactions. Use the fictional credentials generated privately in `data/demo-credentials.json`; login still requires the emailed code. AI responses require your own server-side NVIDIA configuration.
+Open **http://127.0.0.1:3000/login** and **http://localhost:8025** for email codes. Fresh demo setup automatically prepares all ten profiles with seven account types, 71 accounts and 13,322 transactions. Use a fictional demo login below; login still requires the emailed code. AI responses require your own server-side NVIDIA configuration.
 
 Already set up an older clone with empty dashboards? Pull main, run `npm ci`, then **`npm run demo:prepare`** and restart the app. This explicitly upgrades the configured demo database after taking a backup. Ordinary repeated `npm run setup` preserves existing connection/disconnect choices and records. See [SETUP.md](SETUP.md) for native/container paths and configuration.
+
+## Judge demo logins
+
+These are **public fictional demo accounts**, provided for judging after running the setup above. The **demo password is `123` for all ten accounts**. No registration or manual institution linking is needed for the prepared dashboards.
+
+| Profile | Login email | Example focus |
+|---|---|---|
+| Maya Chen | `maya.chen@mail.finpilot.test` | Car purchase planning |
+| Jordan Brooks | `jordan.brooks@mail.finpilot.test` | Irregular freelance income |
+| Priya Shah | `priya.shah@mail.finpilot.test` | Subscriptions |
+| Luis Rivera | `luis.rivera@mail.finpilot.test` | Card utilization |
+| Amina Hassan | `amina.hassan@mail.finpilot.test` | Mortgage household |
+| Ethan Park | `ethan.park@mail.finpilot.test` | Limited cash buffer |
+| Sofia Martinez | `sofia.martinez@mail.finpilot.test` | Savings and CD maturity |
+| Noah Williams | `noah.williams@mail.finpilot.test` | Retirement income |
+| Zoe Patel | `zoe.patel@mail.finpilot.test` | Home down payment |
+| Oliver Reed | `oliver.reed@mail.finpilot.test` | Irregular charges |
+
+1. Open **http://127.0.0.1:3000/login**, enter any email above and the demo password `123`, then select **Continue**.
+2. Open **http://localhost:8025**, find the **newest email addressed to that profile**, and copy its six-digit verification code.
+3. Enter the code in FinPilot and select **Verify and sign in**. The profile's prepared accounts and financial history appear automatically.
+4. Use **Sign out** before trying another profile.
+
+Codes expire after five minutes and are single use; always use the newest email. There is no fixed verification code or authentication bypass. Mailpit must be running (`docker compose up -d mailpit`).
+
+For a hosted presentation, use the **app URL supplied by the team**; the localhost links above work only on the computer running the local demo. The presenting team must also provide access to the verification email/code. If the database's demo passwords were deliberately changed, use its private `data/demo-credentials.json` or ask the presenting team. Only the standard fictional demo logins are published here; server keys, session tokens, OTPs and generated runtime files remain private.
 
 ## Development
 
