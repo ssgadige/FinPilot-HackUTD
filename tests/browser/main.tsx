@@ -1,3 +1,6 @@
+import { CoachPanel } from "../../src/components/chat/coach-panel";
+import { AgentWorkspace } from "../../src/components/chat/agent-workspace";
+import { PageHeading } from "../../src/components/page-heading";
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
 import { AuthProvider, useAuth } from "../../src/components/auth/auth-provider";
@@ -62,7 +65,7 @@ function Fixture() {
             Automated test fixture · not live integration. Session and backend
             responses are supplied only by tests.
           </p>
-          {PlanningScreen ? (
+          {mode === "integrated" ? <AgentWorkspace /> : mode === "coach" ? <><PageHeading title="Ask about your next move" description="A conversation connected to your financial picture." /><CoachPanel /></> : PlanningScreen ? (
             <FinanceScope key={mode} allowEmpty>
               <PlanningScreen />
             </FinanceScope>

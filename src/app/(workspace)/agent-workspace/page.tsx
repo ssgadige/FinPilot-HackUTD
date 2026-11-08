@@ -1,11 +1,8 @@
+import type { Metadata } from "next";
 import { requireVerifiedSession } from "@/server/auth/session";
-import { FinanceScope } from "@/components/finance/finance-scope";
-import { AgentsScreen } from "@/components/planning/agents";
+import { AgentWorkspace } from "@/components/chat/agent-workspace";
+export const metadata: Metadata = { title: "Financial team & coach" };
 export default async function Page() {
   await requireVerifiedSession();
-  return (
-    <FinanceScope allowEmpty>
-      <AgentsScreen />
-    </FinanceScope>
-  );
+  return <AgentWorkspace />;
 }

@@ -3,12 +3,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, type ReactNode } from "react";
-import { Menu, Navigation, X } from "lucide-react";
+import { Menu, Navigation, Sparkles, X } from "lucide-react";
 import { navigation } from "@/lib/navigation";
 import { ChatPopup } from "./chat-popup";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/auth-provider";
 import { LogoutButton } from "@/components/auth/logout-button";
+
+const navGroups: { label: string; hrefs: string[] }[] = [
+  {
+    label: "Money",
+    hrefs: ["/overview", "/institutions", "/accounts", "/transactions", "/cash-and-bills"],
+  },
+  {
+    label: "Planning",
+    hrefs: ["/subscriptions", "/debt-and-readiness", "/goals-and-plans", "/assets", "/scenario-lab"],
+  },
+  { label: "Intelligence", hrefs: ["/agent-workspace"] },
+  { label: "Workspace", hrefs: ["/settings"] },
+];
+
+function initials(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  return (
+    ((parts[0]?.[0] ?? "") + (parts.length > 1 ? (parts.at(-1)?.[0] ?? "") : "")).toUpperCase() ||
+    "FP"
+  );
+}
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { state } = useAuth();
@@ -22,20 +43,30 @@ export function AppShell({ children }: { children: ReactNode }) {
   function navLinks(mobile = false) {
     return (
       <nav aria-label={mobile ? "Mobile navigation" : "Primary navigation"}>
-        {navigation.filter(item=>item.href!=="/settings").map(({ href, label, icon: Icon }) => (
-          <Link
-            href={href}
-            key={href}
-            aria-current={
-              pathname === href || (pathname === "/" && href === "/overview")
-                ? "page"
-                : undefined
-            }
-            onClick={mobile ? closeNavigation : undefined}
-          >
-            <Icon size={18} aria-hidden="true" />
-            <span>{label}</span>
-          </Link>
+        {navGroups.filter(group=>group.label!=="Workspace").map((group) => (
+          <div key={group.label}>
+            <p className="nav-group-label">
+              {group.label}
+            </p>
+            {navigation
+              .filter((item) => group.hrefs.includes(item.href))
+              .map(({ href, label, icon: Icon }) => (
+                <Link
+                  href={href}
+                  key={href}
+                  aria-current={
+                    pathname === href ||
+                    (pathname === "/" && href === "/overview")
+                      ? "page"
+                      : undefined
+                  }
+                  onClick={mobile ? closeNavigation : undefined}
+                >
+                  <Icon size={17} aria-hidden="true" />
+                  <span>{label}</span>
+                </Link>
+              ))}
+          </div>
         ))}
       </nav>
     );
@@ -90,7 +121,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           {brand}
           {navLinks(true)}
-          <p className="small">Simulation · No real money movement</p>
+          <p className="small">Personal banking workspace</p>
         </div>
       </dialog>
       <div className="app-content">
@@ -123,8 +154,14 @@ export function AppShell({ children }: { children: ReactNode }) {
             </strong>
           </div>
           <div className="workspace-status">
-            <span className="profile-avatar" aria-label="FinPilot profile">
-              FP
+            <button type="button" className="coach-entry" onClick={()=>window.dispatchEvent(new Event("finpilot:open-chat"))}>
+              <Sparkles size={14} aria-hidden="true" />
+              Ask FinPilot
+            </button>
+            <span className="profile-avatar" role="img" aria-label="FinPilot profile">
+              {state.status === "authenticated"
+                ? initials(state.session.profile.display_name)
+                : "FP"}
             </span>
             <LogoutButton />
           </div>
@@ -135,7 +172,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <footer className="app-footer">
           <span>FinPilot</span>
           <span>
-            Demo environment · Fictional financial records. No bank affiliation.
+            Demo environment - Fictional records. No bank affiliation.
           </span>
         </footer>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { MessageCircle, Send, X } from "lucide-react";
 import { useAuth } from "./auth/auth-provider";
 import { Button } from "./ui/button";
@@ -54,7 +55,7 @@ function ChatSession({csrf,onExpired}:{csrf:string|null;onExpired:()=>void}) {
         {error&&<p role="alert" className="chat-error">{error}</p>}
         <label htmlFor="chat-question" className="sr-only">Message FinPilot</label><textarea ref={input} id="chat-question" placeholder="Ask a question…" value={draft} onChange={event=>setDraft(event.target.value)} maxLength={2000} rows={2} disabled={busy}/>
         <Button type="submit" disabled={busy||!draft.trim()}><Send size={16} aria-hidden="true"/>{busy?"Sending…":"Send"}</Button>
-        <p className="small muted">AI guidance may be unavailable. Never share passwords or codes.</p>
+        <p className="small muted">Never share passwords or codes. <Link href="/agent-workspace#coach" onClick={close}>Open financial coach</Link></p>
       </form>
     </dialog>
   </>;

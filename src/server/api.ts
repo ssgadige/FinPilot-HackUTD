@@ -11,6 +11,7 @@ import { date } from './tools/finance';
 import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 import type { Runs } from './runs';
 import { subscriptionSummary } from './subscription-summary';
+import { sanitizeConversationText } from './agents/chat/memory';
 const key=z.string().min(1).max(128);
 const login=z.strictObject({email:z.email().max(254),password:z.string().min(1).max(256)});
 const text=z.string().trim().min(1).max(200);
@@ -72,7 +73,7 @@ export function createApi(s:Services) {
       // Account-scoped throttle for APIs and provider budgets; GET polling gets a larger window.
       s.auth.throttle(`api:${uid}:${unsafe?'write':'read'}`,unsafe?120:1000,60000);
       if(resource==='auth'&&id==='logout'&&path.length===2&&method==='POST') {
-        s.auth.logout(cookies.fp_session||'');cookie('fp_session','',0);cookie('fp_csrf','',0,false);return new Response(null,{status:204,headers});
+        s.auth.logout(cookies.fp_session||'');s.runs?.forgetChatSession(uid,session.token_hash);cookie('fp_session','',0);cookie('fp_csrf','',0,false);return new Response(null,{status:204,headers});
       }
       if(resource==='me'&&path.length===1&&method==='GET') {
         if(cookies.fp_csrf&&equal(hash(cookies.fp_csrf),session.csrf_hash||''))headers.set('x-csrf-token',cookies.fp_csrf);
@@ -86,7 +87,12 @@ export function createApi(s:Services) {
           if(id&&action==='events'&&method==='GET')return json(s.runs.events(uid,id,url.searchParams.has('cursor')?url.searchParams.get('cursor')!:undefined));
           if(id&&action==='cancel'&&method==='POST'){if(request.body)await body(z.strictObject({}));return json(s.runs.cancel(uid,id));}
         }
-        if(resource==='chat'&&path.length===1&&method==='POST')return json(await s.runs.message(uid,await body(z.strictObject({message:z.string().min(1).max(2000),conversation_id:key.optional()}))));
+        if(resource==='chat'&&path.length===1&&method==='POST'){
+          const input=await body(z.strictObject({message:z.string().min(1).max(2000),conversation_id:key.optional()}));
+          const message=sanitizeConversationText(input.message,[cookies.fp_session??'',cookies.fp_csrf??'',request.headers.get('x-csrf-token')??'',session.token_hash]);
+          if(!message||message.length>2000)fail(400,'invalid_message','Credentials cannot be included in chat');
+          return json(await s.runs.message(uid,{...input,message},session.token_hash));
+        }
         if(resource==='demo'&&id==='events'&&path.length===2&&method==='POST')return json(s.runs.demoEvent(uid,await body(z.discriminatedUnion('kind',[
           z.strictObject({kind:z.literal('surprise_expense'),amount_cents:money,idempotency_key:key}),
           z.strictObject({kind:z.literal('delayed_income'),days:z.number().int().min(1).max(60),idempotency_key:key}),

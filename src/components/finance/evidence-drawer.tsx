@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { EvidenceDialog } from "@/components/ui/evidence-dialog";
 import { Button } from "@/components/ui/button";
 import { DataState } from "@/components/ui/data-state";
 import {
@@ -21,7 +21,6 @@ export function EvidenceDrawer({
   record: EvidenceRecord;
   onClose: () => void;
 }) {
-  const dialog = useRef<HTMLDialogElement>(null);
   const { accounts } = useFinanceScope();
   const result = useFinancialRead(
     `evidence:${record.account.id}:${record.transaction?.id ?? "account"}`,
@@ -32,57 +31,9 @@ export function EvidenceDrawer({
       return fresh;
     },
   );
-  useEffect(() => {
-    const opener =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-    const node = dialog.current;
-    node?.showModal();
-    return () => {
-      node?.close();
-      if (opener?.isConnected) opener.focus();
-    };
-  }, []);
   const account = result.data?.items.find((a) => a.id === record.account.id);
   return (
-    <dialog
-      ref={dialog}
-      className="evidence-drawer"
-      aria-labelledby="evidence-title"
-      onKeyDown={(event) => {
-        if (event.key !== "Tab") return;
-        const controls = Array.from(
-          event.currentTarget.querySelectorAll<HTMLElement>(
-            'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), [tabindex="0"]',
-          ),
-        ).filter((node) => !node.hidden);
-        const first = controls[0],
-          last = controls.at(-1);
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last?.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first?.focus();
-        }
-      }}
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-    >
-      <header className="finance-toolbar">
-        <div>
-          <p className="eyebrow">Source record</p>
-          <h2 id="evidence-title">
-            {record.transaction ? "Transaction evidence" : "Account evidence"}
-          </h2>
-        </div>
-        <Button onClick={onClose} autoFocus>
-          Close evidence
-        </Button>
-      </header>
+    <EvidenceDialog title={record.transaction ? "Transaction evidence" : "Account evidence"} onClose={onClose}>
       <p>
         Read-only records from your authorized account scope. Access is checked
         again when you open this drawer.
@@ -139,6 +90,6 @@ export function EvidenceDrawer({
           This account was disconnected or access was revoked.
         </DataState>
       )}
-    </dialog>
+    </EvidenceDialog>
   );
 }

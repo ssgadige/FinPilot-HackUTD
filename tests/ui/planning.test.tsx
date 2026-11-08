@@ -373,17 +373,14 @@ it("stops terminal-run polling and only displays reported roles/events", async (
   expect(fetcher.mock.calls).toHaveLength(calls);
   expect(screen.getAllByText("Status: Not reported")).toHaveLength(8);
 });
-it("keeps chat and missing run services explicitly unavailable instead of simulating success", async () => {
+it("shows unavailable run responses without simulating success and links the coach", async () => {
   const user = userEvent.setup();
   mount(<AgentsScreen />);
   await user.click(await screen.findByRole("button", { name: "Run checkup" }));
   await screen.findByText(/not implemented yet/);
   expect(screen.queryByText("Run status: completed")).not.toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Run checkup" })).toBeDisabled();
-  await user.click(screen.getByText("Chat integration"));
-  expect(
-    screen.getByRole("heading", { name: "Chat panel unavailable" }),
-  ).toBeVisible();
+  expect(screen.getByRole("link", { name: "Open financial coach" })).toHaveAttribute("href", "/agent-workspace#coach");
 });
 
 

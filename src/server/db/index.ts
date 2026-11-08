@@ -50,13 +50,19 @@ export class Store {
     this.exec('UPDATE users SET snapshot_version=snapshot_version+1 WHERE id=?', uid);
     this.exec("UPDATE plans SET status='stale' WHERE user_id=? AND status='proposed'", uid);
   }
-  evidence(uid: string, id: string) {
+  evidence(uid: string, id: string): Row & {snapshot_version:number} {
     const e = found(this.one('SELECT * FROM evidence WHERE id=? AND user_id=?', id, uid));
     const run = found(this.one('SELECT snapshot_version FROM runs WHERE id=? AND user_id=?', e.run_id, uid));
-    if (run.snapshot_version !== this.user(uid).snapshot_version) return found(undefined);
+    if (run.snapshot_version !== this.user(uid).snapshot_version) return found<Row & {snapshot_version:number}>(undefined);
+    const state=this.one('SELECT context_json FROM run_state WHERE run_id=? AND user_id=?',e.run_id,uid);
+    if(state){
+      const context=JSON.parse(state.context_json) as {allowedAccountIds:string[]};
+      const visible=new Set(this.accounts(uid).map(a=>a.id));
+      if(context.allowedAccountIds.some(id=>!visible.has(id)))return found<Row & {snapshot_version:number}>(undefined);
+    }
     if (e.kind === 'account') this.account(uid, e.source_id);
     if (e.kind === 'transaction') found(this.scoped('transactions', uid).find(t => t.id === e.source_id));
-    return e;
+    return {...e,snapshot_version:run.snapshot_version};
   }
   close() { this.db.close(); }
 }

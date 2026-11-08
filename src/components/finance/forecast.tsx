@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useId, useState } from "react";
+import { TriangleAlert } from "lucide-react";
 import { PageHeading } from "@/components/page-heading";
 import { Card } from "@/components/ui/card";
 import { ChartWrapper } from "@/components/ui/chart-wrapper";
@@ -18,6 +19,8 @@ export function ForecastPanel({
   compact?: boolean;
 }) {
   const [days, setDays] = useState<30 | 90>(30);
+  // useId() contains ":"/"«" which break SVG url(#…) references.
+  const gradientId = `forecast-fill-${useId().replace(/[^\w-]/g, "")}`;
   const { accounts } = useFinanceScope();
   const result = useFinancialRead(`forecast:${days}`, async (signal) => {
     const data = await financeApi.forecast(days, signal);
@@ -46,6 +49,15 @@ export function ForecastPanel({
   const coordinates = data?.balances
     .map((b) => `${x(b.date)},${y(b.balance_cents)}`)
     .join(" ");
+  const area =
+    data && data.balances.length
+      ? `M${x(data.balances[0].date)},170 L${coordinates?.replaceAll(" ", " L")} L${x(data.balances.at(-1)!.date)},170 Z`
+      : "";
+  const lowest = data?.balances.reduce<(typeof data.balances)[number] | null>(
+    (low, b) => (!low || b.balance_cents < low.balance_cents ? b : low),
+    null,
+  );
+  const zeroY = min < 0 && max > 0 ? y(0) : null;
   return (
     <section className="page-stack" aria-label="Cash forecast">
       <Card>
@@ -72,12 +84,15 @@ export function ForecastPanel({
                 .join(", ") || "No accounts included"}
               . Savings do not automatically cover checking obligations.
             </p>
-            <p className="forecast-warning">
-              <strong>Low-cash date:</strong>{" "}
-              {data.low_cash_date ?? "None reported"}.{" "}
-              {data.low_cash_explanation ??
-                "The service has not supplied a low-cash explanation or threshold. Absence of a date is not a healthy-cash assessment."}
-            </p>
+            <div className="forecast-warning">
+              <TriangleAlert size={17} aria-hidden="true" />
+              <p>
+                <strong>Low-cash date:</strong>{" "}
+                {data.low_cash_date ?? "None reported"}.{" "}
+                {data.low_cash_explanation ??
+                  "The service has not supplied a low-cash explanation or threshold. Absence of a date is not a healthy-cash assessment."}
+              </p>
+            </div>
             <ChartWrapper
               title="Projected end-of-day balances"
               description="Projected balances, not posted transactions. Only dates returned by the service are shown; the line connects those observations."
@@ -109,15 +124,28 @@ export function ForecastPanel({
                   role="img"
                   aria-label="Projected balance trend. Exact dates and USD amounts are available in View chart data."
                 >
+                  <defs>
+                    <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="currentColor" stopOpacity="0.28" />
+                      <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
                   <path
                     d="M80 30H680 M80 100H680 M80 170H680"
                     className="forecast-grid"
                   />
+                  {zeroY !== null && (
+                    <path d={`M80 ${zeroY}H680`} className="forecast-zero" />
+                  )}
+                  <path d={area} fill={`url(#${gradientId})`} />
                   <polyline
                     points={coordinates}
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="3"
+                    strokeWidth="2.5"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    className="forecast-line"
                   />
                   <g className="forecast-axis">
                     <text x="2" y="34">
@@ -138,8 +166,12 @@ export function ForecastPanel({
                       key={b.date}
                       cx={x(b.date)}
                       cy={y(b.balance_cents)}
-                      fill="currentColor"
-                      r="4"
+                      className={
+                        b === lowest && b.balance_cents < 0
+                          ? "forecast-point forecast-point--low"
+                          : "forecast-point"
+                      }
+                      r={b === lowest && b.balance_cents < 0 ? 6 : 4}
                     >
                       <title>
                         {b.date}: {usd(b.balance_cents)} projected

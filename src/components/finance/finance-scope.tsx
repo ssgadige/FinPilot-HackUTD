@@ -92,6 +92,8 @@ export function FinanceScope({
       });
     return () => controller.abort();
   }, [identity, version, blocked, fail]);
+  if (auth.status === "checking")
+    return <DataState headingLevel={1} state="loading" title="Checking verified session">Financial records stay hidden until your session is confirmed.</DataState>;
   if (!identity)
     return (
       <DataState

@@ -6,6 +6,8 @@ export const usePathname = () =>
     debts: "/debt-and-readiness",
     assets: "/assets",
     scenarios: "/scenario-lab",
+    coach: "/agent-workspace",
+    integrated: "/agent-workspace",
     agents: "/agent-workspace",
     overview: "/overview",
     transactions: "/transactions",

@@ -72,7 +72,7 @@ export type Calculation = {
   }[];
   snapshot_version?: number;
 };
-// Prepared run boundary only: these HTTP routes are currently absent. Confirm envelope with FP-15/23.
+// Authenticated FP-15/23 run envelopes; execution status is server reported.
 export type RunView = {
   id: string;
   status: string;
@@ -101,7 +101,7 @@ function requireShape(ok: unknown): asserts ok {
 }
 export function workspaceMessage(error: unknown) {
   const p = error instanceof WorkspaceProblem ? error : null;
-  if (p?.code === "ai_unavailable") return "Nemotron execution is unavailable. The server requires NVIDIA_API_KEY and NEMOTRON_MODEL configuration; no agent run was started.";
+  if (p?.code === "ai_unavailable") return "Nemotron execution is unavailable. The analysis service needs server configuration; no agent run was started.";
   if (p?.status === 401) return "Your session expired. Sign in again.";
   if (p?.status === 403)
     return "Access was revoked. Financial records have been cleared.";
@@ -315,7 +315,7 @@ export const workspaceApi = {
   },
   async run(id: string, signal: AbortSignal): Promise<RunView> {
     const raw = await workspaceRequest("runs/" + encodeURIComponent(id), signal);
-    const d=obj(raw)&&text(raw.run_id)?{...raw,id:raw.run_id,model_status:raw.inference_source_mode=== "live"?"Live provider calls recorded":"No model calls recorded",steps:Array.isArray(raw.role_steps)?raw.role_steps.map((step:unknown)=>obj(step)?{...step,agent_id:step.agent_id||step.role}:step):null}:raw;
+    const d=obj(raw)&&text(raw.run_id)?{...raw,id:raw.run_id,model_status:raw.inference_source_mode=== "live"?"Live provider calls recorded":raw.inference_source_mode=== "cached"?"Cached / replay inference":raw.inference_source_mode=== "fixture"?"Fixture inference":"No model calls recorded",steps:Array.isArray(raw.role_steps)?raw.role_steps.map((step:unknown)=>obj(step)?{...step,agent_id:step.agent_id||step.role}:step):null}:raw;
     requireShape(
       obj(d) &&
         text(d.id) &&
@@ -361,7 +361,7 @@ export const workspaceApi = {
     id: string,
     cursor: string | null,
     signal: AbortSignal,
-  ): Promise<{ items: RunEvent[]; next_cursor: string | null; stale?: boolean }> {
+  ): Promise<{ items: RunEvent[]; next_cursor: string | null; stale?: boolean; has_more?: boolean }> {
     const d = await workspaceRequest(
       "runs/" +
         encodeURIComponent(id) +
@@ -373,6 +373,7 @@ export const workspaceApi = {
     requireShape(
       obj(d) &&
         (d.next_cursor === null || typeof d.next_cursor === "string") &&
+        (d.has_more === undefined || typeof d.has_more === "boolean") &&
         rows.every(
           (v) =>
             obj(v) &&
@@ -383,7 +384,7 @@ export const workspaceApi = {
             text(v.at),
         ),
     );
-    return d as unknown as { items: RunEvent[]; next_cursor: string | null; stale?: boolean };
+    return d as unknown as { items: RunEvent[]; next_cursor: string | null; stale?: boolean; has_more?: boolean };
   },
 };
 /** User input conversion only; not a financial forecast or total. */

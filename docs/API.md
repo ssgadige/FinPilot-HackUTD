@@ -66,3 +66,9 @@ Financial integration adds presentation aliases without removing legacy FP-12/to
 Run responses use `run_id`, `role_steps` (`role` or in-progress `agent_id`), top-level `findings`, `stale`, and `inference_source_mode`. Events use a numeric-string cursor and `has_more`. Frontend cancellation calls the existing POST endpoint; chat implementation is unchanged and its frontend integration remains pending.
 
 Subscription GET now reuses the existing deterministic recurring detector, adding `recurrence` matching-charge/price-change details and `{summary:{monthly_equivalent_cents,annual_recurring_cents,complete,assumptions},snapshot_version,source_mode,as_of}`. Incomplete/empty detection produces null totals. It does not aggregate a cursor page or infer unused services. Offer responses add optional billing interval, promotion, terms, retrieval and availability fields from the existing source; an explicitly confirmed music category enables the supported fixed-provider comparison. Fixture offers are never labeled live.
+
+## Chat session context
+
+The verified session injects user identity and the private session binding. Clients still send only `message` and optional `conversation_id`; `history`, role messages and session/user identity fields are rejected. The response may include `context: {mode: "session_only", retained_turns, max_turns: 6, expires_after_seconds: 900, snapshot_version, reset}`. Reset is `new_or_expired`, `continued`, `snapshot_changed` or `source_unavailable`. Older clients can ignore this additive metadata.
+
+Context is held only in server memory, bounded and expired per conversation, cleared on logout and lost at process restart. Snapshot/account-scope changes and inaccessible selected evidence discard old context; financial facts are reloaded on every turn. This does not add saved-history APIs or alter the existing assistant/evidence audit persistence.

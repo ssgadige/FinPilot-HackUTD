@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PageHeading } from "@/components/page-heading";
 import { Card } from "@/components/ui/card";
@@ -27,41 +28,35 @@ const roles = [
   ["plan-repair", "Plan Repair"],
   ["coordinator", "Coordinator"],
 ] as const;
+const rolePurpose: Record<string, string> = {
+  "data-integrity": "Checks record consistency before other specialists analyze your accounts.",
+  "cash-collision": "Examines the timing of bills, income and potential cash shortfalls.",
+  "subscription-detective": "Identifies recurring charges and price changes without guessing usage.",
+  "deal-scout": "Compares supported offers with clear sources, renewal terms and limitations.",
+  "debt-readiness": "Reviews debt tradeoffs when required payment and rate inputs are available.",
+  "goal-allocator": "Explores goal funding with explicit cash-buffer and account constraints.",
+  "stress-test": "Evaluates supported hypothetical shocks and makes missing inputs visible.",
+  "plan-repair": "Proposes revisions after a change; the current plan needs explicit review.",
+  "coordinator": "Routes the checkup and joins supported findings with their evidence.",
+};
+
 export type FindingContext = {
   runId: string;
   findingId: string;
   evidenceIds: string[];
 };
-/** Teammate-owned chat slot. No model client, alternate provider or chat backend is created here. */
-export function ChatBoundary({ context }: { context?: FindingContext }) {
-  return (
-    <details open={Boolean(context)}>
-      <summary>Chat integration</summary>
-      <h2>Chat panel unavailable</h2>
-      <p>
-        The full chatbot is owned by the parallel chat implementation. No chat
-        component has been integrated here. The existing backend is unchanged. No reply or typing
-        state is simulated.
-      </p>
-      {context && (
-        <p>
-          Selected finding reference: <code>{context.findingId}</code> ·{" "}
-          {context.evidenceIds.length} scoped evidence references ready for the
-          teammate’s explain-finding interface.
-        </p>
-      )}
-      <p>
-        Only Nemotron may supply model responses. Financial source labels remain
-        independent of model execution status.
-      </p>
-    </details>
-  );
+/** A finding handoff remains an explicit draft in the shared financial coach. */
+export function ChatBoundary({ context, onExplain }: { context?: FindingContext; onExplain?: (context: FindingContext) => void }) {
+  return <Card><h2>Discuss the evidence</h2><p>Ask FinPilot to explain a supported finding. Your question is reviewed before it is sent; opening the coach starts no inference.</p>
+    {context && onExplain ? <Button disabled={!context.evidenceIds.length} onClick={() => onExplain(context)}>Explain selected finding</Button> : <Link href="/agent-workspace#coach">Open financial coach</Link>}
+  </Card>;
 }
-export function AgentsScreen() {
+export function AgentsScreen({ initialRunId, onExplain }: { initialRunId?: string; onExplain?: (context: FindingContext) => void } = {}) {
   const { accounts } = useFinanceScope();
   const action = useWorkspaceAction();
+  const startKey = useRef<string | null>(null);
   const [draft, setDraft] = useState(""),
-    [id, setId] = useState(""),
+    [id, setId] = useState(initialRunId ?? ""),
     [missing, setMissing] = useState(false);
   return (
     <div className="page-stack planning-page">
@@ -79,7 +74,7 @@ export function AgentsScreen() {
                     csrf,
                     body: {
                       intent: "full",
-                      idempotency_key: crypto.randomUUID(),
+                      idempotency_key: (startKey.current ??= crypto.randomUUID()),
                     },
                   }),
                 (d) => {
@@ -89,9 +84,9 @@ export function AgentsScreen() {
                     "run_id" in d &&
                     typeof d.run_id === "string"
                   )
-                    setId(d.run_id);
+                    { setId(d.run_id); startKey.current = null; }
                 },
-                () => setMissing(true),
+                (error) => { if (error && typeof error === "object" && "status" in error && [404, 503].includes(Number(error.status))) setMissing(true); },
               )
             }
           >
@@ -101,8 +96,12 @@ export function AgentsScreen() {
       />
       <Sources />
       <Card>
-        <h2>Financial checkup</h2>
-        <p>Review insights and activity from your financial team. AI availability may vary.</p>
+        <h2>Checkup controls</h2>
+        <p>
+          Request an analysis of your selected accounts or inspect an existing
+          authorized run. Activity comes from the server. Missing model configuration,
+          unavailable tools and partial results are shown explicitly.
+        </p>
         {!accounts.items.length && (
           <p>
             Connect and verify an institution before requesting a financial
@@ -128,7 +127,7 @@ export function AgentsScreen() {
         </form>
       </Card>
       {id ? (
-        <RunPanel key={id} id={id} />
+        <RunPanel key={id} id={id} onExplain={onExplain} />
       ) : (
         <div className="planning-role-list">
           {roles.map(([key, label]) => (
@@ -136,17 +135,17 @@ export function AgentsScreen() {
               <h2>{label}</h2>
               <p>Status: Not reported</p>
               <p className="small muted">
-                Ready when a checkup is available.
+                {rolePurpose[key]}
               </p>
             </section>
           ))}
         </div>
       )}
-      <ChatBoundary />
+      <ChatBoundary onExplain={onExplain} />
     </div>
   );
 }
-export function RunPanel({ id }: { id: string }) {
+export function RunPanel({ id, onExplain }: { id: string; onExplain?: (context: FindingContext) => void }) {
   const { accounts, epoch, currentEpoch, fail } = useFinanceScope();
   const [run, setRun] = useState<RunView | null>(null),
     [events, setEvents] = useState<RunEvent[]>([]),
@@ -180,7 +179,7 @@ export function RunPanel({ id }: { id: string }) {
           return;
         setRun(view);
         setError("");
-        if(stream.stale){setEvents([]);setRun({...view,stale:true,findings:[]});return;}
+        if(view.stale || stream.stale){setEvents([]);setRun({...view,stale:true,findings:[]});return;}
         setEvents((old) => {
           const map = new Map(old.map((e) => [e.id, e]));
           stream.items.forEach((e) => map.set(e.id, e));
@@ -189,10 +188,7 @@ export function RunPanel({ id }: { id: string }) {
         cursor = stream.next_cursor;
         failures = 0;
         calls++;
-        if (
-          ["completed", "failed", "cancelled", "partial"].includes(view.status)
-        )
-          return;
+        if (["completed", "failed", "cancelled", "partial"].includes(view.status) && !stream.has_more) return;
         if (calls >= 60) {
           setError(
             "Polling limit reached. Inspect again to request current status.",
@@ -277,7 +273,7 @@ export function RunPanel({ id }: { id: string }) {
           </>
         )}
       </Card>
-      {run?.findings && !run.stale && run.snapshot_version===accounts.snapshot_version && <Card><h2>Confirmed findings</h2>{run.findings.map(f=><section key={f.id}><h3>{f.summary}</h3><EvidenceLinks ids={f.evidence_ids}/><Button variant="secondary" onClick={()=>setExplain({runId:id,findingId:f.id,evidenceIds:f.evidence_ids})}>Prepare explanation reference</Button></section>)}</Card>}
+      {run?.findings && !run.stale && run.snapshot_version===accounts.snapshot_version && <Card><h2>Confirmed findings</h2>{run.findings.map(f=><section key={f.id}><h3>{f.summary}</h3><EvidenceLinks ids={f.evidence_ids}/><Button variant="secondary" disabled={!f.evidence_ids.length} onClick={()=>{const context={runId:id,findingId:f.id,evidenceIds:f.evidence_ids};if(onExplain)onExplain(context);else setExplain(context);}}>Explain finding</Button></section>)}</Card>}
       <div className="planning-grid">
         {roles.map(([key, label]) => {
           const step = run?.steps.find((s) => s.agent_id === key);
@@ -302,15 +298,13 @@ export function RunPanel({ id }: { id: string }) {
                       <EvidenceLinks ids={f.evidence_ids} />
                       <Button
                         variant="secondary"
-                        onClick={() =>
-                          setExplain({
-                            runId: id,
-                            findingId: f.id,
-                            evidenceIds: f.evidence_ids,
-                          })
-                        }
+                        disabled={!f.evidence_ids.length}
+                        onClick={() => {
+                          const context = { runId: id, findingId: f.id, evidenceIds: f.evidence_ids };
+                          if (onExplain) onExplain(context); else setExplain(context);
+                        }}
                       >
-                        Prepare explanation reference
+                        Explain finding
                       </Button>
                     </div>
                   ))}
@@ -338,7 +332,7 @@ export function RunPanel({ id }: { id: string }) {
           </p>
         )}
       </Card>
-      {explain && <ChatBoundary context={explain} />}
+      {explain && <ChatBoundary context={explain} onExplain={onExplain} />}
     </div>
   );
 }
