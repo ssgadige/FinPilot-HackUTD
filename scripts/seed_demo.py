@@ -43,18 +43,18 @@ def seed(destination,reset=False):
  for iid,name,cat in INSTITUTIONS:db.execute('INSERT INTO institutions VALUES(?,?,?,1)',(iid,name,cat))
  months=[(2024+(4+i)//12,(4+i)%12+1) for i in range(30)]
  for i,(name,slug,persona,income,rent,extra_kind) in enumerate(PROFILES):
-  uid=f'demo-{i+1:02d}';pw='Demo!'+secrets.token_urlsafe(16);email=slug+'@example.test'
+  uid=f'demo-{i+1:02d}';pw='123';email=slug+'@mail.finpilot.test'
   db.execute('INSERT INTO users(id,name,email,password_hash,persona) VALUES(?,?,?,?,?)',(uid,name,email,password_hash(pw),persona))
   bank=['chase','bofa','pnc','capital-one','ally'][i%5];card='amex' if i%2==0 else 'discover'
   extra=('demo-auto' if extra_kind=='auto_loan' else 'demo-mortgage' if extra_kind=='mortgage' else bank if extra_kind=='cd' else 'fidelity' if i%2==0 else 'vanguard')
   # CD belongs to the same bank; add wallet as third distinct provider for that persona.
   providers=list(dict.fromkeys([bank,card,extra]));
   if len(providers)<3:providers.append('paypal')
-  creds={'user_id':uid,'name':name,'persona':persona,'email':email,'app_password':pw,'institutions':[]}
+  creds={'user_id':uid,'name':name,'persona':persona,'email':email,'app_password':pw,'verification_recipient':email,'verification_sender':'security@finpilot.test','verification_sender_name':'FinPilot Demo','institutions':[]}
   for iid in providers:
-   username=f'{slug}.{iid}';ipw='Institution!'+secrets.token_urlsafe(14)
+   username=email;ipw='123'
    db.execute('INSERT INTO institution_logins VALUES(?,?,?,?,?)',(uid+'-'+iid,uid,iid,username,password_hash(ipw)))
-   creds['institutions'].append({'institution_id':iid,'username':username,'password':ipw})
+   creds['institutions'].append({'institution_id':iid,'username':username,'email':email,'password':ipw,'verification_recipient':email,'verification_sender':f'verification@{iid}.finpilot.test','verification_sender_name':next(name for key,name,_ in INSTITUTIONS if key==iid)+' Simulator'})
   credentials.append(creds)
   opening_check=income*(4 if i in [2,6,8] else 2);opening_save=income*(6 if i in [6,8] else 2)
   opening_card=[190000,160000,90000,720000,230000,85000,60000,45000,180000,330000][i]
