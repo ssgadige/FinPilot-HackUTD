@@ -23,7 +23,9 @@ export const allowlists = {
   'stress-test': ['stress_test_plan', 'forecast_cash', 'compare_plans'],
   'plan-repair': ['get_plan_version','get_changed_events','forecast_cash','propose_plan_revision'],
   'coordinator': ['route_specialists','read_run_findings','compare_plans'],
-  'chat': ['read_overview','read_findings','request_checkup','read_plan'],
+  'chat': ['read_overview','read_findings','request_checkup','read_plan',
+    'get_accounts','get_cash_flow','get_spending_by_category','get_merchant_spending','get_upcoming_bills',
+    'get_subscriptions','get_debts','get_goals','check_purchase_affordability','simulate_expense'],
 } as const;
 export type Role = keyof typeof allowlists;
 export type SnapshotLoader = (context: Context, signal: AbortSignal) => Promise<Snapshot>;

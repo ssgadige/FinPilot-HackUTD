@@ -3,6 +3,7 @@ import { Store, type Row } from '../db';
 import { Auth, iso, token } from '../auth';
 import { ApiFailure, fail, found } from '../errors';
 import { Finance } from '../finance';
+import { CoachData } from '../coach-data';
 import { Planning, type PlanPayload } from '../planning';
 import { idempotent } from '../simulator';
 import { readConfig, type Config } from '../nemotron/index';
@@ -277,6 +278,7 @@ export class Runs {
       const selected=message.match(/\bevidence\s+(calc-[A-Za-z0-9_-]{1,180})\b/)?.[1];
       if(selected){this.store.evidence(uid,selected);history.selected_evidence_id=selected;}
       const response=await chat({context,message,history,config,budget,signal:controller.signal,infer:this.options.infer,
+        queries:new CoachData(this.store,this.finance),
         allowRunRequest:/^\s*(?:please\s+)?(?:run|start) (?:a )?(?:financial )?checkup[.!]?\s*$/i.test(message),
         requestRun:async(_ctx,key)=>this.start(uid,{intent:'full',idempotency_key:key}).run_id,
         load:async()=>{
@@ -290,7 +292,12 @@ export class Runs {
             findings,plan:plan?{context,payload:this.planning.view(uid,plan.id).payload}:null};
         }});
       controller.signal.throwIfAborted();this.assertChatSession(uid,sessionKey);await this.bridge.authorize(context);
-      if(response.result.result.status==='failed')fail(502,'chat_failed','Nemotron chat could not complete safely');
+      if(response.result.result.status==='failed'){
+        // Log only the safe runtime code (e.g. INVALID_AGENT_RESULT_CURRENCY); never message text or secrets.
+        const code=response.result.events.findLast(e=>e.type==='failed')?.message??'AGENT_EXECUTION_FAILED';
+        console.warn(`[chat] reply rejected: ${/^[A-Z_]{3,80}$/.test(code)?code:'AGENT_EXECUTION_FAILED'}`);
+        fail(502,'chat_failed','Nemotron chat could not complete safely');
+      }
       const reply=sanitizeConversationText(response.reply,secrets);
       if(!reply)fail(502,'chat_failed','Nemotron chat could not complete safely');
       this.store.atomic(()=>{
@@ -317,7 +324,10 @@ export class Runs {
       const saved=this.memory.read(uid,sessionKey,conversation,context);
       return {reply,evidence_ids:response.evidence_ids,requested_run_id:response.requested_run_id,conversation_id:conversation,source_mode:'fixture',inference_source_mode:'live',
         context:{mode:'session_only',retained_turns:saved.turns.length,max_turns:MEMORY_MAX_TURNS,expires_after_seconds:MEMORY_TTL_MS/1000,snapshot_version:context.snapshotVersion,reset:history.reset}};
-    }catch(error){if(error instanceof ApiFailure)throw error;fail(502,'chat_failed','Nemotron chat could not complete safely');}
+    }catch(error){if(error instanceof ApiFailure)throw error;
+      const code=error instanceof Error&&/^[A-Z_]{3,80}$/.test(error.message)?error.message:'UNEXPECTED_ERROR';
+      console.warn(`[chat] request failed: ${code}`);
+      fail(502,'chat_failed','Nemotron chat could not complete safely');}
     finally{this.chats.delete(controller);this.chatLocks.delete(lock);finish();}
   }
 }
