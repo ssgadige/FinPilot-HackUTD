@@ -3,6 +3,7 @@ import { Store, LIABILITIES, type Row } from './db';
 import { fail, found } from './errors';
 import { iso, token } from './auth';
 import { Finance } from './finance';
+import { idempotent } from './simulator';
 import { calculation, integer } from './tools/finance';
 import type { Offer } from '../../contracts/types';
 
@@ -137,5 +138,19 @@ export class Planning {
       {...result,kind:input.kind,plan_id:plan?.id??null,plan_version:plan?.version??null,dated_balances,low_cash_date:low.date,low_cash_cents:low.balance_cents,reserve_cents:reserve,reserve_breached:low.balance_cents<reserve,proposal_only:true},
       [...result.assumptions,'Goal contributions and EXTRA debt payments reserve liquid cash once on each future due date; existing scheduled minimum payments remain in the baseline. Intentions never create realized subscription savings.']);
     return {...calculated,evidence_ids:[finance.persistCalculation(uid,calculated,calculated)]};
+  }
+  demoEvent(uid:string,body:{kind:'surprise_expense'|'delayed_income';amount_cents?:number;days?:number;idempotency_key:string},enqueue:(intent:string,key:string)=>import('./db').Row) {
+    return idempotent(this.store,uid,'demo_event',body.idempotency_key,body,()=> {
+      const id=token();
+      if(body.kind==='surprise_expense') {
+        const account=found(this.store.accounts(uid).find(a=>a.kind==='checking'));
+        this.store.exec('INSERT INTO transactions VALUES(?,?,?,?,?,?,?,NULL)',id,uid,account.id,found(this.store.one("SELECT value FROM meta WHERE key='as_of'")).value,'Demo surprise expense','demo_expense',-body.amount_cents!);
+        this.store.exec('UPDATE accounts SET balance_cents=balance_cents-? WHERE id=? AND user_id=?',body.amount_cents!,account.id,uid);
+      }
+      this.store.exec('INSERT INTO demo_events VALUES(?,?,?,?,?,?)',id,uid,body.kind,JSON.stringify(body),body.idempotency_key,iso());
+      this.store.invalidate(uid);
+      const run=enqueue('plan_repair',`repair:${id}`);
+      return {id,run_id:run.id,snapshot_version:this.store.user(uid).snapshot_version,source_mode:'fixture',proposal_only:true};
+    });
   }
 }

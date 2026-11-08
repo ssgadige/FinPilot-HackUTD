@@ -1,0 +1,39 @@
+FP-15 integration
+
+Lane C source is integrated from commit 5d1036c (FP-17/18/19). Its existing
+Nemotron adapter, tool loop, integrity/cash and subscription/deal tools are reused.
+The same loop now supports coordinator routing/merging and a plan-repair role;
+there is no second agent framework. Each role uses its existing Markdown prompt.
+The role allowlist and coordinator phases remain server-controlled.
+
+DatabaseSnapshots rechecks the authenticated owner, run, immutable snapshot and
+selected connection accounts on EVERY tool read and after asynchronous work.
+No password, email, session, OTP or provider key is projected into tool data.
+Tool evidence and role steps are persisted with run/user ownership. Dependency
+results are explicitly untrusted. Cancellation stops new calls, including late
+provider callbacks. Limits: 24 model calls/run, 4 tool calls/role, 90-second run
+wall time, bounded provider output, 10 run requests/hour/user. Missing credentials
+or providers produce visible failed/unavailable states; there is no fake success.
+
+POST /demo/events is DEMO_MODE-only, idempotent and transactional. It changes
+only the current user's fixture ledger/snapshot, cancels stale runs and queues
+repair. A validated completed repair may persist a new proposed plan; only an
+explicit confirmed versioned acceptance replaces the accepted plan. Planned
+subscription actions never create realized savings or additional spending power.
+
+Debt-readiness, goal-allocation and standalone stress specialist integrations
+are outside FP-15 and absent from the current lane C branch. Requests selecting
+those roles record a visible skipped/needs_information result. They are never
+presented as completed autonomous agents. The server's pure calculators remain
+available. Chat is a separate bounded Nemotron interface with no financial write
+tools or authority to select identity; conversation ownership is checked.
+
+OFFERS_MODE=fixture makes no external offer requests and returns labeled fictional
+terms. OFFERS_MODE=live uses lane C's pinned HTTPS allowlist/DNS/size/time controls;
+unrecognized terms and failures remain unavailable. Choosing an offer is only an
+external action intention, with zero realized savings.
+
+Verification: npm run test:backend; npm run test:agents; npm run typecheck;
+npm run build. Provider test doubles are confined to tests. A real diagnostic is
+available as node --env-file-if-exists=.env.local --import tsx scripts/smoke-nemotron.ts.
+A successful mocked test is never live-provider acceptance evidence.
