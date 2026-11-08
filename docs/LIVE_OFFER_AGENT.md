@@ -55,3 +55,35 @@ Sources verified November 8, 2026:
 - CFPB preapproval: https://www.consumerfinance.gov/owning-a-home/explore/get-a-preapproval-letter/
 - CFPB prequalification terminology: https://www.consumerfinance.gov/ask-cfpb/whats-the-difference-between-a-prequalification-letter-and-a-preapproval-letter-en-127/
 - SBA 7(a) eligibility: https://www.sba.gov/loans/7a-loans/
+
+## Eligibility signals and existing-card benefits
+
+Use human-readable signals such as “Matches the requirements we could verify,” “Published requirement not met,” and “More information needed.” Explain the actual supporting and blocking factors. Do not invent numerical approval probabilities or say a score proves full/partial approval. A requested-versus-affordable funding gap is a planning estimate, not a lender offer.
+
+An existing-card benefit scan must identify the **exact card product and country/version**, not merely Amex/Chase/Discover as issuer. Current seed cards do not identify exact real products or personalized entitlements. Until confirmed, show “Confirm card product to check benefits.”
+
+For a known card, freshly retrieve official terms and show:
+- Statement-credit categories, caps, reset periods, expiration, qualifying merchants/channels and exclusions.
+- Enrollment requirements/status; do not assume an offer is activated.
+- Category reward rates/caps and existing-card comparisons for already planned spending.
+- Relevant travel/protection benefits and conditions; do not promise claim approval.
+- Issuer-confirmed remaining allowance/usage, or “Remaining usage unknown” when unavailable. A posted purchase or missing credit in the transaction ledger alone does not establish remaining entitlement.
+- Evidence source/time and personal/business account scope. Targeted offers require issuer-authorized account-level evidence; public offers are discovery candidates only.
+
+Prioritize existing benefits that fit the user's normal spending before recommending a new card. Do not add theoretical benefit caps together as guaranteed savings or recommend extra purchases solely to exhaust credits. Pending credits, returns, shared authorized-user caps and expiry need explicit treatment. Never collect/store PAN, CVV or real issuer passwords.
+
+Official issuer reference: https://www.americanexpress.com/en-us/benefits/offers/partner-terms/ (verified November 8, 2026). Eligibility, enrollment and purchase conditions vary by account and offer; this is not a catalog of benefits for every linked card.
+
+## Strict read-only boundary
+
+This capability only retrieves, calculates, compares and explains. It has **no authority or endpoint** to transfer funds, initiate ACH/wires, pay a bill/card, process a purchase, change autopay/payment methods, redeem rewards, enroll in benefits, execute a balance transfer, submit a credit application or initiate a credit pull. It may show the official issuer source for the user to review independently. Even if the model requests one of these operations, the runtime must reject it rather than execute it.
+
+Do not add financial mutation tools to the role registry. Account linking/disconnection and FinPilot authentication remain separate consent/session features; linking grants analysis access, not payment authority. Institution integrations must use read-only scopes. No payment SDK, money-movement credential or payment processor is required.
+
+## Implemented assessment foundation — not a live agent
+
+`src/server/agents/planning/offer-readiness.ts` adds pure deterministic helpers for fresh official-source checks, published-criteria matching, planning funding gaps and existing-card benefit visibility. It never returns approval odds, an approved amount or redemption/enrollment authority. Benefits require confirmed product, applicable enrollment, authorized account and fresh issuer-level usage evidence before showing a confirmed remaining amount.
+
+`tests/backend/offer-readonly.test.ts`: eight focused tests pass with `node --test tests/backend/offer-readonly.test.ts` on Node 24. These test helpers, not production provider integrations. Full app build/lint/browser tests have not been run for this addition.
+
+Remaining runtime work: configured search/official-source adapters, product/benefit data adapters, authenticated context loaders with consent rechecks, role tool registration, evidence persistence, UI and end-to-end rejection tests for prohibited actions. The pure helpers do not enforce authorization for the whole application or make the feature live by themselves.
