@@ -30,3 +30,35 @@
 | [FP-24] Agent integration sponsor evidence and rehearsal | C | 3.5 | [#24](https://github.com/ssgadige/FinPilot-HackUTD/issues/24) | [README](tasks/FP-24/README.md) |
 
 Each workstream totals 14 planned hours, including integration and verification. Actual contributors are assigned through GitHub Issues. Workflow: Todo → In Progress → Review → Done; record blockers in the issue.
+
+## Conversational coach extension — planned
+
+See [the implementation plan](CHATBOT_PLAN.md) for the uploaded frontend mapping, delivery gates, security boundaries and estimates. These extend FP-07/08 and reuse FP-15/23; they are not part of the original 14-hour lane totals above. Task IDs are local specifications; GitHub issues have not been created.
+
+| Task | Deliverable | Estimate | Dependencies |
+|---|---|---:|---|
+| [FP-25](tasks/FP-25/README.md) | Chatbot design mapping and contract handoff | 1–2 h | FP-07, FP-15, FP-23 implementation inventory |
+| [FP-26](tasks/FP-26/README.md) | Responsive chatbot interface and authenticated API client | 3–4 h | FP-25 |
+| [FP-27](tasks/FP-27/README.md) | Agent workspace with chat run cards and evidence navigation | 3–5 h | FP-26; existing FP-15 run/evidence APIs |
+| [FP-28](tasks/FP-28/README.md) | Private bounded conversation memory and conversation APIs | 4–6 h | FP-25, FP-26 |
+| [FP-29](tasks/FP-29/README.md) | Conversational coaching dialogue and preference discovery | 4–6 h | FP-28 |
+| [FP-30](tasks/FP-30/README.md) | Application planning account mappings and monthly semantics | 4–6 h | FP-25; existing FP-14/20/21 tools |
+| [FP-31](tasks/FP-31/README.md) | Grounded coach tools for scenarios and agent workflow handoffs | 4–6 h | FP-27, FP-29, FP-30 |
+| [FP-32](tasks/FP-32/README.md) | Reviewable coach action cards and confirmed execution | 4–6 h | FP-26, FP-30, FP-31 |
+| [FP-33](tasks/FP-33/README.md) | User-requested check-ins and coaching progress | 3–5 h | FP-29, FP-32 |
+| [FP-34](tasks/FP-34/README.md) | Coaching preferences and privacy controls UI | 2–4 h | FP-28, FP-33 |
+| [FP-35](tasks/FP-35/README.md) | Coach security and conversational quality evaluation | 4–6 h | FP-28–34 |
+| [FP-36](tasks/FP-36/README.md) | End-to-end coach journey and design acceptance | 4–6 h | FP-27, FP-32, FP-34, FP-35 |
+
+## Two-hour coach MVP
+
+| Task | Scope | Status | Specification |
+|---|---|---|---|
+| CHAT-01 | Authenticated chat API client | Implemented; local verification | [README](tasks/CHAT-01/README.md) |
+| CHAT-02 | Responsive coach interface | Implemented; local verification | [README](tasks/CHAT-02/README.md) |
+| CHAT-03 | Evidence navigation and grounding UI | Implemented; local verification | [README](tasks/CHAT-03/README.md) |
+| CHAT-04 | Checkup requests and live run status UI | Implemented; local verification | [README](tasks/CHAT-04/README.md) |
+| CHAT-05 | Bounded session conversational context | Implemented; local verification | [README](tasks/CHAT-05/README.md) |
+| CHAT-06 | Final combined integration/polish | Complete local acceptance; live verification pending | [README](tasks/CHAT-06/README.md) |
+
+Verification of CHAT-01/02 does not mark the entire FP-07 workspace or FP-25–36 roadmap complete.

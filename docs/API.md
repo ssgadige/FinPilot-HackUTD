@@ -33,7 +33,7 @@ Prefix `/api/v1`. JSON, ISO 8601 UTC timestamps, date-only financial dates `YYYY
 | GET /plans | — | proposed/accepted/stale versions |
 | POST /plans/:id/accept | expected_version, confirmation, idempotency_key | atomic acceptance or 409 version conflict |
 | POST /demo/events | kind: surprise_expense/delayed_income, amount_cents/days, idempotency_key | DEMO_MODE only; user-scoped event; triggers plan repair proposal |
-| POST /chat | message, conversation_id optional | Nemotron reply, evidence_ids, requested_run_id optional; bounded history |
+| POST /chat | message, conversation_id optional | Nemotron reply, evidence_ids, requested_run_id optional; additive context metadata for bounded session-only memory |
 
 Errors: 400 invalid input, 401 missing/incomplete auth, 403 forbidden, 404 unknown or not-owned object (consistent non-enumerating policy), 409 stale version, 429 rate limit, 502 provider failure, 503 unavailable integration. Format: {error:{code,message,request_id}}. Do not leak stack traces or secret provider payloads.
 
@@ -48,3 +48,9 @@ Example numbers illustrate shape only, not seeded values. Frontend must replace 
 ## Tools
 
 Use strict role-specific tool schemas. Tools never accept arbitrary SQL or user identity. Money/date arithmetic returns evidence IDs and assumptions. Scope joined queries on user and connected selected account; ownership on the parent alone is insufficient if a supplied child ID belongs to another user.
+
+## Chat session context
+
+The verified session injects user identity and the private session binding. Clients still send only `message` and optional `conversation_id`; `history`, role messages and session/user identity fields are rejected. The response may include `context: {mode: "session_only", retained_turns, max_turns: 6, expires_after_seconds: 900, snapshot_version, reset}`. Reset is `new_or_expired`, `continued`, `snapshot_changed` or `source_unavailable`. Older clients can ignore this additive metadata.
+
+Context is held only in server memory, bounded and expired per conversation, cleared on logout and lost at process restart. Snapshot/account-scope changes and inaccessible selected evidence discard old context; financial facts are reloaded on every turn. This does not add saved-history APIs or alter the existing assistant/evidence audit persistence.

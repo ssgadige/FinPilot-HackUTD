@@ -5,6 +5,7 @@ export const usePathname = () =>
     transactions: "/transactions",
     cash: "/cash-and-bills",
     accounts: "/accounts",
+    coach: "/agent-workspace",
   })[location.hash.slice(1)] ?? "/institutions";
 export const useRouter = () => ({
   refresh: () => window.dispatchEvent(new Event("test-router-refresh")),

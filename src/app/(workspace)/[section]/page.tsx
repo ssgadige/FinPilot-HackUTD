@@ -18,6 +18,7 @@ export function generateStaticParams() {
           "/accounts",
           "/transactions",
           "/cash-and-bills",
+          "/agent-workspace",
         ].includes(item.href),
     )
     .map((item) => ({ section: item.href.slice(1) }));

@@ -8,6 +8,8 @@ import { createApi } from '../../src/server/api';
 import { NemotronError, type complete } from '../../src/server/nemotron';
 import type { AgentResult } from '../../contracts/types';
 import { runAgent, RunBudget } from '../../src/server/agents/runtime';
+import { chatApi } from '../../src/lib/chat-api';
+import { runsApi } from '../../src/lib/runs-api';
 const config=()=>({apiKey:'test-provider-secret',baseUrl:'https://example.test',model:'nvidia/nemotron',timeoutMs:30000});
 function model(inspect?:(messages:Parameters<typeof complete>[1])=>void):typeof complete {
   return async(_config,messages,available)=>{
@@ -35,6 +37,43 @@ async function setup(options:RunOptions={}){
   return {...a,runs,async finish(){await runs.close();a.close();}};
 }
 const checkup=(key='checkup')=>({intent:'cash',idempotency_key:key});
+
+test('CHAT-01: browser adapter interoperates with authenticated chat handler and expired sessions',async()=>{
+  const a=await setup();const originalFetch=globalThis.fetch;
+  try{
+    a.link();const handler=createApi(a.services),session=a.sessions[0];
+    globalThis.fetch=async(input,init)=>{
+      const headers=new Headers(init?.headers);headers.set('Origin','http://localhost:3000');
+      headers.set('Cookie',`fp_session=${session.session}; fp_csrf=${session.csrf}`);
+      const path=typeof input==='string'?input:input instanceof URL?input.href:input.url;
+      return handler(new Request(new URL(path,'http://localhost:3000'),{...init,headers}));
+    };
+    const first=await chatApi.send({message:'Explain the overview.'},{csrfToken:session.csrf});
+    assert.equal(first.source_mode,'fixture');assert.ok(first.conversation_id);assert.equal(first.requested_run_id,null);
+    const second=await chatApi.send({message:'Explain the findings.',conversation_id:first.conversation_id},{csrfToken:session.csrf});
+    assert.equal(second.conversation_id,first.conversation_id);
+    for(const id of first.evidence_ids){
+      const source=await runsApi.evidence(id);assert.equal(source.id,id);assert.equal(source.source_mode,'fixture');assert.equal(source.snapshot_version,a.store.user('demo-01').snapshot_version);
+      assert.equal((await a.request('evidence/'+id,'GET',undefined,1)).status,404);
+    }
+    const source=await runsApi.evidence(first.evidence_ids[0]);
+    assert.equal((await runsApi.view(source.run_id)).status,'completed');
+    assert.ok((await runsApi.events(source.run_id)).items.some(e=>e.type==='tool_completed'));
+    const queued=await runsApi.start('browser-idempotency',session.csrf);
+    assert.equal((await runsApi.start('browser-idempotency',session.csrf)).run_id,queued.run_id);
+    await a.runs.drain();assert.equal((await runsApi.view(queued.run_id)).status,'completed');
+    assert.equal(await runsApi.cancel(queued.run_id,session.csrf),'completed');
+    a.store.invalidate('demo-01');await assert.rejects(runsApi.evidence(first.evidence_ids[0]),{kind:'unavailable'});
+    assert.equal((await runsApi.view(source.run_id)).stale,true);
+    const fresh=await chatApi.send({message:'Explain the current overview.'},{csrfToken:session.csrf});
+    const connection=a.store.one("SELECT id FROM connections WHERE user_id=? AND status='active'",'demo-01')!;
+    // Recheck actual selected-account visibility even without a version bump.
+    a.store.exec("UPDATE connections SET status='revoked' WHERE id=? AND user_id=?",connection.id,'demo-01');
+    await assert.rejects(runsApi.evidence(fresh.evidence_ids[0]),{kind:'unavailable'});
+    a.auth.logout(session.session);
+    await assert.rejects(chatApi.send({message:'Explain.'},{csrfToken:session.csrf}),{kind:'session-expired'});
+  }finally{globalThis.fetch=originalFetch;await a.finish();}
+});
 
 test('FP-16: disconnect after a tool result stops the next provider call from using cached data',async()=>{
   const a=await setup();let calls=0;
@@ -197,7 +236,10 @@ test('FP-15: delay targets a scoped income occurrence once; forecasts/tools agre
 test('FP-15/16: chat is session-owned, grounded, bounded, excludes secrets and starts runs only on explicit request',async()=>{
   let calls=0;const a=await setup({infer:model(messages=>{
     calls++;const context=JSON.stringify(messages);
-    for(const secret of ['test-provider-secret',...a.sessions.flatMap(s=>[s.session,s.csrf]),...a.credentials.flatMap((c:{app_password:string})=>[c.app_password])])assert.ok(!context.includes(secret));
+    // Public demo password "123" can occur inside legitimate cents/hashed IDs.
+    // Check high-entropy credentials plus forbidden auth fields instead of that substring.
+    for(const secret of ['test-provider-secret',...a.sessions.flatMap(s=>[s.session,s.csrf]),...a.credentials.flatMap((c:{app_password:string})=>[c.app_password])].filter(value=>value.length>=12))assert.ok(!context.includes(secret));
+    assert.doesNotMatch(context,/password_hash|code_hmac|pending_binding_hash/);
   })});
   try{
     a.link();const run=await a.request('runs','POST',checkup());await a.runs.drain();
@@ -229,7 +271,7 @@ test('FP-16: stale queued work and server restart fail visibly without replaying
   }finally{await restarted?.close();await a.finish();}
 });
 
-test('FP-16: HTTP password/OTP, link, run, polling and logout flow uses opaque hashed sessions and safe cookies',async()=>{
+test('CHAT-06: HTTP password/OTP, linking, chat, follow-up, evidence, checkup, cancellation and logout journey',async()=>{
   let code='';const a=await setup();
   try{
     a.auth.delivery.send=async(_email,value)=>{code=value;};
@@ -247,8 +289,18 @@ test('FP-16: HTTP password/OTP, link, run, polling and logout flow uses opaque h
     const c=a.credentials[0].institutions[0];
     const preview=await a.request('connections/preview','POST',{institution_id:c.institution_id,demo_username:c.username,demo_password:c.password},0,headers);assert.equal(preview.status,200);
     const linked=await a.request('connections','POST',{preview_token:preview.data.preview_token,account_ids:preview.data.accounts.map((x:{id:string})=>x.id),consent_version:'v1',idempotency_key:'http-link'},0,headers);assert.equal(linked.status,201);
+    const chat=await a.request('chat','POST',{message:'Explain my current financial picture.'},0,headers);assert.equal(chat.status,200);
+    const followup=await a.request('chat','POST',{message:'Which bill should I review?',conversation_id:chat.data.conversation_id},0,headers);assert.equal(followup.status,200);assert.equal(followup.data.context.reset,'continued');assert.equal(followup.data.context.retained_turns,4);
+    const source=await a.request('evidence/'+followup.data.evidence_ids[0],'GET',undefined,0,headers);assert.equal(source.status,200);assert.equal(source.data.snapshot_version,linked.data.sync.snapshot_version);
+    assert.equal((await a.request('evidence/'+followup.data.evidence_ids[0],'GET',undefined,1)).status,404);
     const run=await a.request('runs','POST',checkup('http-flow'),0,headers);assert.equal(run.status,202);await a.runs.drain();
     assert.equal((await a.request('runs/'+run.data.run_id,'GET',undefined,0,headers)).data.status,'completed');
+    assert.ok((await a.request('runs/'+run.data.run_id+'/events','GET',undefined,0,headers)).data.items.some((event:{type:string})=>event.type==='tool_completed'));
+    const cancelled=await a.request('runs','POST',checkup('http-cancel'),0,headers);assert.equal(cancelled.status,202);
+    assert.equal((await a.request('runs/'+cancelled.data.run_id+'/cancel','POST',{},0,headers)).data.status,'cancelled');await a.runs.drain();
+    assert.equal((await a.request('runs/'+cancelled.data.run_id,'GET',undefined,0,headers)).data.status,'cancelled');
+    a.runs.options.infer=async()=>{throw Error('private provider failure');};
+    const unavailable=await a.request('chat','POST',{message:'Explain the current findings.',conversation_id:chat.data.conversation_id},0,headers);assert.equal(unavailable.status,502);assert.equal(unavailable.data.reply,undefined);assert.ok(!JSON.stringify(unavailable.data).includes('private provider failure'));
     assert.equal((await a.request('auth/logout','POST',undefined,0,headers)).status,204);
     assert.equal((await a.request('runs/'+run.data.run_id,'GET',undefined,0,headers)).status,401);
   }finally{await a.finish();}

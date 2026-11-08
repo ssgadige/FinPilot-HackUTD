@@ -24,7 +24,7 @@ The proposed application plan has fresh evidence, a parent accepted version and 
 
 ## Chat
 
-Every read rechecks the user/snapshot/account scope and validates original finding evidence. Conversation IDs are owned, input is bounded, credential-shaped messages are rejected, and raw user messages are not stored. At most 20 assistant messages per conversation are retained. Responses ground on fresh state rather than an unbounded conversation transcript. Chat has per-user hourly limits and at most two active requests per process.
+Every read rechecks the user/snapshot/account scope and validates original finding evidence. Conversation IDs are owned, input is bounded, credential-shaped messages are rejected, and raw user messages are not stored. At most 20 assistant messages per conversation are retained. Responses ground on fresh state plus bounded, untrusted session-only conversation context. Up to three recent successful exchanges expire after 15 minutes of conversation inactivity; logout, session change or server restart prevents reuse. Snapshot/account-scope changes reset context. User turns are not written to SQLite. See [CHAT-05](../../../docs/tasks/CHAT-05/README.md). Chat has per-user hourly limits and at most two active requests per process.
 
 An ordinary question receives only read tools. An explicit request such as `Run a financial checkup` permits the run-request tool, whose callback injects the session user and an idempotency key. Chat cannot choose users, accept plans or execute financial actions.
 

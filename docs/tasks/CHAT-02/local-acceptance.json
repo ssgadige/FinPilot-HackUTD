@@ -1,0 +1,42 @@
+{
+  "checked_at": "2026-11-08T14:19:35.692461+00:00",
+  "tasks": [
+    "CHAT-01",
+    "CHAT-02"
+  ],
+  "status": "passed_local_acceptance",
+  "branch": "feat/chat-01-02-coach-interface",
+  "route": "/agent-workspace",
+  "inference_verification": "mocked_only_no_live_NVIDIA_calls",
+  "checks": {
+    "ui_tests": {
+      "passed": 74,
+      "failed": 0
+    },
+    "backend_tests": {
+      "passed": 25,
+      "failed": 0
+    },
+    "browser_tests": {
+      "passed": 2,
+      "failed": 0
+    },
+    "browser_accessibility": "passed_automated_axe_at_1440_and_390_widths",
+    "horizontal_overflow": "none_at_tested_widths",
+    "typecheck": "passed",
+    "production_build": "passed",
+    "scoped_eslint": "passed",
+    "configured_secret_scan": "passed_source_browser_and_three_local_logs"
+  },
+  "screenshots": [
+    "evidence/coach-fixture-1440.png",
+    "evidence/coach-fixture-390.png"
+  ],
+  "limitations": [
+    "No live provider verification; existing user preference is local tests only.",
+    "No evidence navigation or run polling/cancellation UI yet (CHAT-03/04).",
+    "No prior-turn context supplied to the model yet (CHAT-05).",
+    "New conversation clears local state, not server-stored assistant records.",
+    "The test screenshots use an isolated authenticated component harness, not an authentication bypass in the application."
+  ]
+}

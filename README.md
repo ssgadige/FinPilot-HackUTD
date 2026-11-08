@@ -44,7 +44,7 @@ A financial health navigator built for HackUTD. FinPilot brings accounts, debts,
 
 ## Current status
 
-The web application, authentication, simulator account linking, finance backend and bounded agent services are implemented. Authenticated run, polling, cancellation, chat and demo-event APIs are implemented. The agent workspace remains pending. Tasks 15–16 connect and verify these APIs; Tasks 22–24 add durable repair, coordinator/evidence/chat services and local integration verification; full live/browser rehearsal is not yet accepted. See [verification status](src/server/agents/integration/README.md).
+The web application, authentication, simulator account linking, finance backend and bounded agent services are implemented. Authenticated run, polling, cancellation, chat and demo-event APIs are implemented. The coach interface, evidence drawer, checkup activity/cancellation controls and bounded session conversation context are implemented; advanced feature screens and general planning mappings remain incomplete. Tasks 15–16 connect and verify these APIs; Tasks 22–24 add durable repair, coordinator/evidence/chat services and local integration verification; full live/browser rehearsal is not yet accepted. See [verification status](src/server/agents/integration/README.md).
 
 Run the data checks with Python 3.11 or newer:
 

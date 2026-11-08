@@ -11,6 +11,8 @@ import { OverviewScreen } from "../../src/components/finance/overview";
 import { TransactionsScreen } from "../../src/components/finance/transactions";
 import { CashScreen } from "../../src/components/finance/forecast";
 import { AccountsScreen } from "../../src/components/finance/accounts";
+import { CoachPanel } from "../../src/components/chat/coach-panel";
+import { PageHeading } from "../../src/components/page-heading";
 import {
   confirmedConnectionFixture,
   verifiedPreviewFixture,
@@ -44,7 +46,9 @@ function Fixture() {
             Automated test fixture · not live integration. Session and backend
             responses are supplied only by tests.
           </p>
-          {["overview", "transactions", "cash", "accounts"].includes(mode) ? (
+          {mode === "coach" ? (
+            <><PageHeading title="Ask about your next move" description="A conversation connected to your financial picture." /><CoachPanel /></>
+          ) : ["overview", "transactions", "cash", "accounts"].includes(mode) ? (
             <FinanceScope>
               {mode === "overview" ? (
                 <OverviewScreen />
