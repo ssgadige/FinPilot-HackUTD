@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import { PageHeading } from "@/components/page-heading";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonClass } from "@/components/ui/button";
+import { buttonClass } from "@/components/ui/button";
+import { DecisionControls } from "@/components/decision-controls";
 import { Card, MetricCard } from "@/components/ui/card";
 import { ChartWrapper } from "@/components/ui/chart-wrapper";
 import { DataTable } from "@/components/ui/data-table";
@@ -25,8 +26,8 @@ export default function Home() {
         title="Your financial command center"
         description="A shared shell for every financial decision."
         action={
-          <Link href="/ui" className={buttonClass()}>
-            Explore shared UI
+          <Link href="/overview" className={buttonClass()}>
+            Open overview
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
         }
@@ -116,21 +117,10 @@ export default function Home() {
           </Card>
         </div>
         <div className="page-stack">
-          <Card className="next-move">
-            <div className="eyebrow">A LITTLE CLARITY, EVERY DAY</div>
+          <Card>
             <h2>One clear next move</h2>
             <p className="muted">
               Findings turn account records into a decision you can inspect.
-            </p>
-            <p className="small muted">
-              Findings will appear when the financial data and agent services
-              are available.
-            </p>
-            <Button disabled aria-describedby="checkup-unavailable">
-              Run checkup
-            </Button>
-            <p id="checkup-unavailable" className="small muted">
-              Checkups are unavailable in this UI scaffold.
             </p>
           </Card>
           <Card>
@@ -156,20 +146,7 @@ export default function Home() {
               </li>
             </ol>
           </Card>
-          <Card>
-            <h2>Decision controls</h2>
-            <p className="muted">
-              Inspect the source, compare an alternative, then confirm your
-              choice.
-            </p>
-            <Button variant="secondary" disabled>
-              View supporting evidence
-            </Button>
-            <Button disabled>Ask FinPilot</Button>
-            <p className="small muted">
-              Evidence and chat are unavailable in this scaffold.
-            </p>
-          </Card>
+          <DecisionControls />
         </div>
       </div>
     </div>

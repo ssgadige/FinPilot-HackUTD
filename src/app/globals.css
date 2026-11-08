@@ -597,6 +597,9 @@ tr:last-child td {
 .mobile-menu {
   display: none;
 }
+.mobile-section {
+  display: none;
+}
 .mobile-drawer {
   padding: 0;
   width: min(320px, 90vw);
@@ -713,6 +716,15 @@ body:has(.mobile-drawer[open]) {
   .mobile-menu {
     display: inline-flex;
     padding: 8px;
+  }
+  .mobile-section {
+    display: block;
+    flex: 1;
+    min-width: 0;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .workspace-bar {
     padding: 12px 16px;

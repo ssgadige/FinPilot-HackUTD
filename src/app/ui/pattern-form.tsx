@@ -24,7 +24,7 @@ export function PatternForm() {
   }
   return (
     <form ref={form} onSubmit={submit} noValidate className="page-stack">
-      <div className="field-grid">
+      <div className="page-stack">
         <FormField
           label="Amount (USD)"
           name="amount"

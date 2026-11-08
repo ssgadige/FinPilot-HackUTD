@@ -27,14 +27,12 @@ test("desktop shell, all section destinations, skip link, and shared patterns", 
     name: "Primary navigation",
     exact: true,
   });
-  const sections = await nav
-    .getByRole("link")
-    .evaluateAll((links) =>
-      links.map((link) => ({
-        href: link.getAttribute("href")!,
-        label: link.textContent!,
-      })),
-    );
+  const sections = await nav.getByRole("link").evaluateAll((links) =>
+    links.map((link) => ({
+      href: link.getAttribute("href")!,
+      label: link.textContent!,
+    })),
+  );
   expect(sections).toHaveLength(13);
   for (const section of sections) {
     await nav.getByRole("link", { name: section.label, exact: true }).click();
@@ -143,7 +141,7 @@ test("tablet rail, 200 percent equivalent layout, reduced motion and local asset
   );
   expect(
     await page
-      .locator(".field-grid .skeleton")
+      .locator(".pattern-loading .skeleton")
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("none");
 });

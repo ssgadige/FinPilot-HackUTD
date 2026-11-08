@@ -48,7 +48,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
   const brand = (
     <>
-      <Link href="/" className="brand" aria-label="FinPilot home" onClick={closeNavigation}>
+      <Link
+        href="/"
+        className="brand"
+        aria-label="FinPilot home"
+        onClick={closeNavigation}
+      >
         <Navigation size={25} aria-hidden="true" />
         finpilot<span className="brand-dot">.</span>
       </Link>
@@ -106,6 +111,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             <Menu size={23} />
           </button>
+          <span className="mobile-section">
+            {pathname === "/"
+              ? "Command center"
+              : pathname === "/ui"
+                ? "Shared UI"
+                : (navigation.find((item) => item.href === pathname)?.label ??
+                  "Workspace")}
+          </span>
           <div className="workspace-label">
             <span className="muted">Personal workspace</span>
             <span className="workspace-slash">/</span>

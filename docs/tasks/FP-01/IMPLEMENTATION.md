@@ -25,6 +25,8 @@ Open http://localhost:3000. On Windows with PowerShell script execution disabled
 
 ## Design reference
 
+Reviewed the attached `FinPilot_All_Screens_and_Task_Guide.pdf`: page 3 (FP-01 handoff), page 4 (shell), and page 5 (shared interaction patterns). Pages 19 and 55 were consulted only for shared component and responsive consistency. The PDF review aligned the shell's “Open overview” navigation action, the stacked form and reusable table, and the right-hand loading, validation and decision-control cards. All text, inputs, navigation and buttons remain real semantic HTML/React components. No PDF page is used as an application image. PDF page headers, handoff text and interaction annotations remain outside the product UI.
+
 Used the [dedicated FP-01 Figma page](https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ?node-id=2-4): shell application `3:829` and shared patterns application `3:936`. Implementation annotations are outside the product UI. Reused the provided forecast SVG locally at `public/images/forecast-reference.svg` (828 × 190); no temporary asset URLs remain. This is a design illustration, with a text alternative and disclosure explaining that numerical forecast data is unavailable. Future calculated charts must provide equivalent tabular data through `ChartWrapper.dataTable`.
 
 Unavailable financial actions and synthetic source labels intentionally replace the reference's apparent functional actions and named profile. The layout adapts to the viewport instead of retaining fixed Figma widths.
