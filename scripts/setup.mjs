@@ -7,4 +7,4 @@ const database=resolve(process.env.DATABASE_PATH || './data/finpilot-demo.sqlite
 if(!existsSync(database)) execFileSync('python3',['scripts/seed_demo.py','--database',database],{stdio:'inherit'});
 else console.log('Existing database preserved; applying migrations only.');
 execFileSync(process.execPath,['--import','tsx','scripts/bootstrap.ts'],{stdio:'inherit',env:{...process.env,DATABASE_PATH:database}});
-console.log('Backend database ready. Use npm run dev and a local Mailpit inbox.');
+console.log('Backend database ready. Validate with python3 scripts/validate_seed.py. See src/server/db/SETUP.txt.');

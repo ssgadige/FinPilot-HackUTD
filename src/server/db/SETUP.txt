@@ -1,0 +1,49 @@
+FP-09 - Database adapter and validated seed
+
+Requirements: Node.js 22.13+ (22.23.4 is pinned in .nvmrc), npm, Python 3.11+.
+SQLite is provided by node:sqlite; no separate database service is needed.
+
+Install once:
+  npm ci
+
+One-command database setup:
+  npm run setup
+
+Setup creates the disposable synthetic database only when absent, applies
+SQLite migrations, and preserves existing data/configuration when repeated.
+It also creates a private, gitignored .env.local for subsequent server work.
+To select another database, set DATABASE_PATH before running setup.
+
+Validate and verify:
+  python3 scripts/validate_seed.py
+  npm test
+  npm run build
+  python3 -m unittest discover -s tests -v
+
+Expected fresh data: 10 fictional users, 30 months of history per user,
+41 accounts and 12,062 transactions. All balances must reconcile to opening
+balance plus signed ledger deltas. No accounts are initially linked.
+
+Generated files, excluded from Git:
+  data/finpilot-demo.sqlite (including WAL/SHM files)
+  data/demo-credentials.json
+  data/seed-manifest.json
+  .env.local
+
+Database and credential files are created with private permissions. Never
+paste or log generated credentials. All financial records are fixtures.
+
+Intentional reset of disposable data only; stop any app using it first:
+  python3 scripts/seed_demo.py --reset
+  npm run db:migrate
+  python3 scripts/validate_seed.py
+
+Query boundary:
+  Store.accounts, Store.account and Store.scoped enforce user ownership and
+  active connection/account selection. User identity must be injected by
+  authenticated server code in the consuming API; never accept model/client
+  identity. Store.atomic commits synchronous work or rolls it back on failure.
+  Store.one/all/exec are internal parameterized SQL primitives, not model tools.
+
+Acceptance evidence is recorded in the FP-09 commit message. Existing
+Markdown documentation is intentionally unchanged.
