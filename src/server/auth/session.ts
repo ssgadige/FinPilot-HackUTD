@@ -12,7 +12,7 @@ export async function requireVerifiedSession() {
     return auth.profile(session.user_id);
   } catch (error) {
     redirect(error instanceof ApiFailure && error.status === 401
-      ? "/login?reason=session-expired" : "/login?reason=unavailable");
+      ? "/login?reason=expired" : "/login?reason=unavailable");
   }
 }
 
