@@ -153,7 +153,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         </main>
         <footer className="app-footer">
           <span>FinPilot · Independent hackathon prototype</span>
-          <span>Synthetic examples only. No institutions connected.</span>
+          <span>
+            Synthetic records only. Institution connections are simulated.
+          </span>
         </footer>
       </div>
     </>

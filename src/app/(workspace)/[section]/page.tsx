@@ -9,7 +9,9 @@ import { DataState } from "@/components/ui/data-state";
 import { buttonClass } from "@/components/ui/button";
 
 export function generateStaticParams() {
-  return navigation.map((item) => ({ section: item.href.slice(1) }));
+  return navigation
+    .filter((item) => item.href !== "/institutions")
+    .map((item) => ({ section: item.href.slice(1) }));
 }
 export async function generateMetadata({
   params,
