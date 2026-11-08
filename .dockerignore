@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.env
+.env.*
+!.env.example
+data/*.sqlite*
+data/demo-credentials.json
+data/seed-manifest.json
+__pycache__
+*.log
+*.tsbuildinfo

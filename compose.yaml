@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    init: true
+    env_file: .env.local
+    environment:
+      DATABASE_PATH: /app/data/finpilot-demo.sqlite
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - finpilot-data:/app/data
+    depends_on:
+      - mailpit
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/v1/me').then(r=>process.exit(r.status===401?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+  mailpit:
+    image: axllent/mailpit:v1.27@sha256:e22dce5b36f93c77082e204a3942fb6b283b7896e057458400a4c88344c3df68
+    ports:
+      - "127.0.0.1:8025:8025"
+      - "127.0.0.1:1025:1025"
+volumes:
+  finpilot-data:
