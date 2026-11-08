@@ -1,0 +1,26 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="828" height="190" viewBox="0 0 828 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Editable forecast vector" clip-path="url(#clip0_0_45)">
+<g id="Vector">
+<path d="M0 0H828Z" fill="black"/>
+<path d="M0 0H828" stroke="#DCE5ED"/>
+</g>
+<g id="Vector_2">
+<path d="M0 63.3333H828Z" fill="black"/>
+<path d="M0 63.3333H828" stroke="#DCE5ED"/>
+</g>
+<g id="Vector_3">
+<path d="M0 126.667H828Z" fill="black"/>
+<path d="M0 126.667H828" stroke="#DCE5ED"/>
+</g>
+<g id="Vector_4">
+<path d="M0 190H828Z" fill="black"/>
+<path d="M0 190H828" stroke="#DCE5ED"/>
+</g>
+<path id="Vector_5" d="M0 66.5L118.286 79.8L236.571 114L354.857 155.8L473.143 95L591.429 74.1L709.714 104.5L828 60.8" stroke-width="3" stroke="#087F8C"/>
+</g>
+<defs>
+<clipPath id="clip0_0_45">
+<rect width="828" height="190" fill="white"/>
+</clipPath>
+</defs>
+</svg>
