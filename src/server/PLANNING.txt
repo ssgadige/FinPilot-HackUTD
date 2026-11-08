@@ -1,0 +1,31 @@
+FP-14 planning boundary
+
+POST/PATCH/DELETE goals and subscription preferences use authenticated identity.
+DELETE goals, subscription changes, and plan acceptance require confirmation=true.
+No endpoint accepts a caller's proposal payload or user identity.
+
+Internal Planning.propose accepts only a completed, current, owned run and a
+validated PlanPayload. Payload fields: allocations (kind=goal_contribution or
+extra_debt_payment, target_id, monthly_cents, day_of_month 1..28), reserve_cents,
+evidence_ids, assumptions. Goal targets must be owned; debt targets must be
+selected linked liabilities; evidence must be accessible at the same snapshot.
+Contributions reserve liquid cash; they never move money or increase saved_cents.
+Extra debt payments supplement scheduled minimums, which remain in the baseline.
+
+POST /scenarios accepts plan_id and applies these allocations on future monthly
+due dates once. It returns hypothetical dated balances and persisted calculation
+evidence. Stale or disconnected plan inputs require a revision (409).
+
+Plans become accepted only through POST /plans/:id/accept with expected_version,
+confirmation=true and an idempotency key. One SQLite transaction supersedes the
+old accepted plan and accepts its replacement; failures roll everything back.
+A proposal or failed revision never silently replaces an accepted plan.
+Goal/preferences/data changes make old snapshots visibly stale; their payloads
+are withheld from reads. Disconnect also revokes dependent history access.
+
+Offer retrieval is injected through the server-only OfferResolver interface.
+Unknown/unavailable integrations fail explicitly. Chosen offers and cancellation
+intentions remain planned external actions; realized_savings_cents is always zero.
+
+Checks: npm run test:backend; npm run typecheck; npm run build.
+Existing Markdown files and the shared SQL/type/API specification are unchanged.

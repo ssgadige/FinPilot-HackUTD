@@ -5,6 +5,7 @@ import { Auth,equal,hash } from './auth';
 import { ApiFailure,fail } from './errors';
 import { Simulator } from './simulator';
 import { Finance } from './finance';
+import { Planning } from './planning';
 import { date } from './tools/finance';
 import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 const key=z.string().min(1).max(128);
@@ -13,7 +14,14 @@ const text=z.string().trim().min(1).max(200);
 const confirmed=z.literal(true);
 const money=z.number().int().min(1).max(100_000_000);
 const day=z.string().refine(v=>{try{date(v);return true;}catch{return false;}},'Invalid financial date');
-export interface Services {store:Store;auth:Auth;simulator?:Simulator;finance?:Finance;}
+const goal=z.strictObject({title:text,target_cents:money,deadline:day,priority:z.number().int().min(1).max(5)});
+const goalPatch=goal.partial().refine(v=>Object.keys(v).length>0);
+const scenarios=z.discriminatedUnion('kind',[
+ z.strictObject({kind:z.literal('surprise_expense'),expense_cents:money,plan_id:text.optional()}),
+ z.strictObject({kind:z.literal('delayed_income'),delay_days:z.number().int().min(1).max(60),plan_id:text.optional()}),
+ z.strictObject({kind:z.literal('income_drop'),income_drop_pct:z.number().int().min(1).max(100),plan_id:text.optional()})
+]);
+export interface Services {store:Store;auth:Auth;simulator?:Simulator;finance?:Finance;planning?:Planning;}
 export function createApi(s:Services) {
   return async function handle(request:Request):Promise<Response> {
     const requestId=randomUUID();
@@ -98,6 +106,29 @@ export function createApi(s:Services) {
       }
       if(resource==='debts'&&path.length===1&&method==='GET')return json({items:s.finance!.debts(uid)});
       if(resource==='evidence'&&id&&path.length===2&&method==='GET')return json(s.store.evidence(uid,id));
+      if(['goals','subscriptions','subscription-actions','plans','scenarios'].includes(resource)&&!s.planning)fail(503,'service_unavailable','Planning is not configured');
+      if(resource==='goals') {
+        if(!id&&method==='GET')return json({items:s.store.all('SELECT * FROM goals WHERE user_id=? ORDER BY priority,id',uid)});
+        if(!id&&method==='POST')return json(s.planning!.createGoal(uid,await body(goal)),201);
+        if(id&&!action&&method==='GET')return json(s.planning!.goal(uid,id));
+        if(id&&!action&&method==='DELETE'){await body(z.strictObject({confirmation:confirmed}));s.planning!.deleteGoal(uid,id);return new Response(null,{status:204,headers});}
+        if(id&&!action&&method==='PATCH')return json(s.planning!.updateGoal(uid,id,await body(goalPatch)));
+      }
+      if(resource==='subscriptions') {
+        if(!id&&method==='GET')return json({items:s.store.scoped('subscriptions',uid)});
+        if(id&&!action&&method==='PATCH')return json(s.planning!.preferences(uid,id,await body(z.strictObject({usage_confirmed:z.enum(['used','unused','unknown']).optional(),preferences:z.record(z.string().max(50),z.union([z.string().max(200),z.boolean()])).refine(p=>Object.keys(p).length<=20).optional(),confirmation:confirmed}))));
+        if(id&&action==='offers'&&method==='GET')return json(await s.planning!.listOffers(uid,id));
+      }
+      if(resource==='subscription-actions'&&path.length===1&&method==='POST')return json(await s.planning!.action(uid,await body(z.strictObject({subscription_id:text,offer_id:text.optional(),cancel_intention:z.literal(true).optional(),confirmation:confirmed}).refine(b=>Boolean(b.offer_id)!==Boolean(b.cancel_intention)))),201);
+      if(resource==='plans') {
+        if(!id&&method==='GET')return json({items:s.planning!.list(uid)});
+        if(id&&!action&&method==='GET')return json(s.planning!.view(uid,id));
+        if(id&&action==='accept'&&method==='POST')return json(s.planning!.accept(uid,id,await body(z.strictObject({expected_version:z.number().int().min(1),confirmation:confirmed,idempotency_key:key}))));
+      }
+      if(resource==='scenarios'&&path.length===1&&method==='POST') {
+        if(!s.finance)fail(503,'service_unavailable','Finance is not configured');
+        return json(s.planning!.scenario(uid,await body(scenarios),s.finance),201);
+      }
       if(resource==='calculations'&&path.length===1&&method==='POST') {
         const cents=z.number().int().min(0).max(100_000_000);
         const calculationInput=z.discriminatedUnion('kind',[
