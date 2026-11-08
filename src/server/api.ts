@@ -121,7 +121,8 @@ export function createApi(s:Services) {
         if(id&&action==='accept'&&method==='POST')return json(s.planning.accept(uid,id,await body(z.strictObject({expected_version:z.number().int().min(1),confirmation:confirmed,idempotency_key:key}))));
       }
       if(resource==='scenarios'&&path.length===1&&method==='POST') {
-        const b=await body(scenarios);if(b.plan_id)s.planning.plan(uid,b.plan_id);
+        const b=await body(scenarios);
+        if(b.plan_id){s.planning.plan(uid,b.plan_id);fail(503,'plan_scenario_unavailable','Plan-specific scenario calculations are not integrated');}
         const result=s.finance.forecast(uid,90,b.kind==='surprise_expense'?b.expense_cents:0,b.kind==='delayed_income'?b.delay_days:0,b.kind==='income_drop'?b.income_drop_pct:0);
         return json({kind:b.kind,...result,evidence_ids:[s.finance.persistCalculation(uid,result,result)]},201);
       }

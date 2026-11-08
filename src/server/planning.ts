@@ -33,9 +33,10 @@ export class Planning {
   }
   accept(uid:string,id:string,body:{expected_version:number;confirmation:true;idempotency_key:string}) {
     return this.store.atomic(()=> {
+      const plan=this.plan(uid,id);
+      if(plan.snapshot_version!==this.store.user(uid).snapshot_version)fail(409,'version_conflict','Plan snapshot is stale');
       const replay=this.store.one('SELECT * FROM plan_acceptances WHERE user_id=? AND key=?',uid,body.idempotency_key);
       if(replay) {if(replay.plan_id!==id||replay.expected_version!==body.expected_version) fail(409,'idempotency_conflict','Key already used');return JSON.parse(replay.result_json);}
-      const plan=this.plan(uid,id);
       if(plan.status!=='proposed'||plan.version!==body.expected_version||plan.snapshot_version!==this.store.user(uid).snapshot_version) fail(409,'version_conflict','Plan changed or snapshot is stale');
       this.store.exec("UPDATE plans SET status='superseded' WHERE user_id=? AND status='accepted'",uid);
       const result=this.store.exec("UPDATE plans SET status='accepted',version=version+1 WHERE id=? AND user_id=? AND status='proposed' AND version=?",id,uid,body.expected_version);

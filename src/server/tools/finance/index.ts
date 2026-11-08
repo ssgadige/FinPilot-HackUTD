@@ -50,7 +50,7 @@ export function utilization(balance: number,limit: number|null) {
 }
 export function normalize(amount: number,cadence: string) {
   integer(amount,1);const factors: Record<string,[number,number]>={monthly:[1,1],annual:[1,12],weekly:[52,12],quarterly:[1,3]};
-  if(!factors[cadence]) fail(400,'invalid_cadence','Unsupported cadence');const [n,d]=factors[cadence];return Math.round(amount*n/d);
+  if(!Object.hasOwn(factors,cadence)) fail(400,'invalid_cadence','Unsupported cadence');const [n,d]=factors[cadence];return Math.round(amount*n/d);
 }
 export function recurring(rows: {merchant:string;posted_date:string;delta_cents:number;transfer_group?:string|null}[]) {
   const groups=new Map<string,typeof rows>();

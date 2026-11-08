@@ -211,3 +211,40 @@ test('malicious merchant content stays inert and never appears in chat model con
   const rows=finance.transactions('demo-02',{q:'disclose OTP',limit:50});assert.equal(rows.items[0].merchant,merchant);
   let messages='';const chat=new Chat(db,{async reply(history){messages=JSON.stringify(history);return 'Test reply';}});await chat.send('demo-02','What is a budget?');assert.ok(!messages.includes(merchant));assert.ok(!messages.includes('password_hash'));
 });
+test('acceptance replay cannot return a plan payload after its snapshot becomes stale',()=> {
+  const uid='demo-02',run=token();
+  db.exec("INSERT INTO runs VALUES(?,?,?,'completed',?,?,?,NULL)",run,uid,'test',db.user(uid).snapshot_version,run,iso());
+  const plan=planning.propose(uid,run,{private_allocation_cents:500});
+  const request={expected_version:1,confirmation:true as const,idempotency_key:'stale-replay-regression'};
+  planning.accept(uid,plan.id,request);
+  const connection=db.one("SELECT id FROM connections WHERE user_id=? AND status='active'",uid)!;
+  sim.revoke(uid,connection.id);
+  assert.throws(()=>planning.accept(uid,plan.id,request),{code:'version_conflict'});
+});
+test('normalization rejects inherited property names as invalid cadences',()=> {
+  for(const cadence of ['constructor','toString','__proto__'])assert.throws(()=>normalize(1000,cadence),{code:'invalid_cadence'});
+});
+test('plan-specific scenarios report unavailable instead of ignoring the plan',async()=> {
+  const uid='demo-02',run=token();
+  db.exec("INSERT INTO runs VALUES(?,?,?,'completed',?,?,?,NULL)",run,uid,'test',db.user(uid).snapshot_version,run,iso());
+  const plan=planning.propose(uid,run,{allocation_cents:500});
+  const input={kind:'surprise_expense',expense_cents:1000,plan_id:plan.id};
+  assert.equal((await request('scenarios','POST',input,user1)).status,404);
+  const result=await request('scenarios','POST',input,user2);
+  assert.equal(result.status,503);assert.equal(result.data.error.code,'plan_scenario_unavailable');
+});
+test('overview includes product-defined debt-payment and card-utilization indicators',()=> {
+  const uid='demo-03';
+  for(const c of credentials[2].institutions.slice(0,2)) {
+    const preview=sim.preview(uid,c.institution_id,c.username,c.password);
+    sim.connect(uid,{preview_token:preview.preview_token,account_ids:preview.accounts.map(a=>a.id),consent_version:'v1',idempotency_key:'indicator-'+c.institution_id});
+  }
+  const overview=finance.overview(uid);
+  const indicators=Object.fromEntries(overview.indicators.map(i=>[i.key,i.value]));
+  assert.ok(typeof indicators.cash_buffer_months==='number');
+  assert.equal(indicators.card_utilization_bps,750); // Priya owes $900 against a $12,000 card limit.
+  assert.ok(typeof indicators.debt_payment_income_ratio_bps==='number'&&indicators.debt_payment_income_ratio_bps>0);
+  const empty=finance.overview('demo-04').indicators;
+  assert.equal(empty.find(i=>i.key==='card_utilization_bps')!.value,null);
+  assert.equal(empty.find(i=>i.key==='debt_payment_income_ratio_bps')!.value,null);
+});
