@@ -5,7 +5,7 @@ import Link from "next/link";
 import { MessageCircle, Send, X } from "lucide-react";
 import { useAuth } from "./auth/auth-provider";
 import { Button } from "./ui/button";
-import { workspaceRequest, WorkspaceProblem } from "@/lib/workspace-api";
+import { chatApi, ChatProblem } from "@/lib/chat-api";
 
 export function ChatPopup() {
   const {state,clearSession}=useAuth();
@@ -30,16 +30,16 @@ function ChatSession({csrf,onExpired}:{csrf:string|null;onExpired:()=>void}) {
     if(/nvapi-|\b(password|otp|verification code|api key|session token)\b|^\d{6}$/i.test(message)){setError("Please keep passwords and verification codes out of chat.");return;}
     const controller=new AbortController();request.current=controller;setBusy(true);setError("");
     try {
-      const data=await workspaceRequest("chat",controller.signal,{method:"POST",csrf,body:{message,...(conversation.current?{conversation_id:conversation.current}:{})}});
+      const data=await chatApi.send({message,...(conversation.current?{conversation_id:conversation.current}:{})},{csrfToken:csrf,signal:controller.signal});
       if(controller.signal.aborted)return;
       if(!data||typeof data!=="object"||!("reply" in data)||typeof data.reply!=="string")throw new Error("Unsupported response");
       if("conversation_id" in data&&typeof data.conversation_id==="string")conversation.current=data.conversation_id;
       setMessages(old=>[...old,{role:"user" as const,text:message},{role:"assistant" as const,text:data.reply as string}].slice(-20));setDraft("");
-    }catch(failure){if(controller.signal.aborted)return;if(failure instanceof WorkspaceProblem&&failure.status===401){onExpired();return;}setError(failure instanceof WorkspaceProblem&&failure.status===429?"Please wait a moment before trying again.":"The assistant is temporarily unavailable. Your accounts and planning tools are still available.");}
+    }catch(failure){if(controller.signal.aborted)return;if(failure instanceof ChatProblem&&failure.kind==="session-expired"){onExpired();return;}setError(failure instanceof ChatProblem&&failure.kind==="rate-limit"?"Please wait a moment before trying again.":"The assistant is temporarily unavailable. Your accounts and planning tools are still available.");}
     finally{if(!controller.signal.aborted){request.current=null;setBusy(false);}}
   }
   return <>
-    <button ref={trigger} className="chat-launcher" aria-label="Ask FinPilot" aria-haspopup="dialog" onClick={()=>setOpen(true)}><MessageCircle size={22} aria-hidden="true"/><span>Ask FinPilot</span></button>
+    <button ref={trigger} className="chat-launcher" aria-label="Chat with FinPilot" aria-haspopup="dialog" onClick={()=>setOpen(true)}><MessageCircle size={22} aria-hidden="true"/><span>Chat with FinPilot</span></button>
     <dialog ref={dialog} className="chat-popup" aria-labelledby="chat-popup-title" onCancel={event=>{event.preventDefault();close();}} onClose={()=>{setOpen(false);trigger.current?.focus();}} onKeyDown={event=>{
       if(event.key!=="Tab")return;
       const controls=Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled),textarea:not(:disabled),a[href]'));

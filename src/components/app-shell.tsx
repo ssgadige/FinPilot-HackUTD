@@ -154,9 +154,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             </strong>
           </div>
           <div className="workspace-status">
-            <button type="button" className="coach-entry" onClick={()=>window.dispatchEvent(new Event("finpilot:open-chat"))}>
+            <button type="button" aria-label="Open financial coach" className="coach-entry" onClick={()=>window.dispatchEvent(new Event("finpilot:open-chat"))}>
               <Sparkles size={14} aria-hidden="true" />
-              Ask FinPilot
+              Financial coach
             </button>
             <span className="profile-avatar" role="img" aria-label="FinPilot profile">
               {state.status === "authenticated"

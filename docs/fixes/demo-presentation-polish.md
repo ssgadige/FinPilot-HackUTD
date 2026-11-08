@@ -30,3 +30,13 @@ Backups are in ignored `data/backups/`; no database, credentials, mailbox conten
 - Desktop/mobile screenshots under `docs/fixes/evidence/presentation/` are real browser sessions with synthetic presentation records, not network fixtures. Earlier task fixture screenshots are preserved.
 
 Remaining AI limitation: Nemotron credentials/model settings are not configured locally. Chat popup is present; AI answers, agent checkups and new AI plan proposals cannot be claimed working until that configuration is supplied. Existing no-bank-action boundaries remain: proposals never execute transfers, merchant cancellations or purchases.
+
+## Submission integration review
+
+The earlier frontend PR #50 was already merged. This change incorporates current main `4724907`, preserving the teammate's integrated coach, its backend/context/evidence/run support, the NOVA banking redesign and the 3D coach avatar. The popup reuses the reviewed `chatApi` adapter (including its model-call timeout) and links to the complete financial coach; there is no replacement chatbot backend. Source details remain available on demand, with one honest demo disclosure.
+
+Combined validation: production build/typecheck, 123 component/session tests, 39 backend tests, 78 agent/tool tests, 12 Python tests, and the unchanged 33-test browser suite. Changed-file lint and the source/browser secret audit pass. Popup/coach control-name collisions found by browser accessibility checks were corrected rather than suppressing those checks. Earlier screenshots show the pre-integration presentation and remain historical; submission screenshots show the combined main design.
+
+Source is distributed through a pull request, with no generated DB, local secret, mailbox or credentials committed. The 71-account/13,322-transaction dataset remains in the configured local database; README explains idempotent preparation for another presentation database. AI behavior requires server configuration and no live Nemotron execution is claimed.
+
+Final combined-design real-browser check: fresh Mailpit login, seven owned account types, mobile overflow check, popup using the real unavailable AI response, preserved full teammate coach and revoked-session logout all passed. Submission screenshots: `submission-overview-desktop.png`, `submission-overview-mobile.png`, `submission-popup-desktop.png` in the presentation evidence folder.

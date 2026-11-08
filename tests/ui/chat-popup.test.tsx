@@ -14,17 +14,17 @@ beforeEach(()=>{
 afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks();});
 it('opens a keyboard accessible popup and reports provider failure without inventing a reply',async()=>{
  const user=userEvent.setup();render(<AuthProvider><ChatPopup/></AuthProvider>);
- await user.click(await screen.findByRole('button',{name:'Ask FinPilot'}));
+ await user.click(await screen.findByRole('button',{name:'Chat with FinPilot'}));
  const input=screen.getByLabelText('Message FinPilot');expect(input).toHaveFocus();
  await user.type(input,'Explain my spending');await user.click(screen.getByRole('button',{name:'Send'}));
  await screen.findByRole('alert');expect(screen.getByRole('alert')).toHaveTextContent('temporarily unavailable');
  expect(input).toHaveValue('Explain my spending');expect(screen.queryByText('FinPilot:')).not.toBeInTheDocument();
- await user.click(screen.getByRole('button',{name:'Close chat'}));await waitFor(()=>expect(screen.getByRole('button',{name:'Ask FinPilot'})).toHaveFocus());
+ await user.click(screen.getByRole('button',{name:'Close chat'}));await waitFor(()=>expect(screen.getByRole('button',{name:'Chat with FinPilot'})).toHaveFocus());
 });
 it('shows only backend replies and clears the conversation when account access changes',async()=>{
- post.mockImplementation(async()=>Response.json({reply:'Review the returned account evidence.',conversation_id:'owned-test-conversation'}));
+ post.mockImplementation(async()=>Response.json({reply:'Review the returned account evidence.',conversation_id:'owned-test-conversation',evidence_ids:[],requested_run_id:null,source_mode:'fixture',inference_source_mode:'fixture'}));
  const user=userEvent.setup();render(<AuthProvider><ChatPopup/></AuthProvider>);
- await user.click(await screen.findByRole('button',{name:'Ask FinPilot'}));await user.type(screen.getByLabelText('Message FinPilot'),'Explain my accounts');await user.click(screen.getByRole('button',{name:'Send'}));
+ await user.click(await screen.findByRole('button',{name:'Chat with FinPilot'}));await user.type(screen.getByLabelText('Message FinPilot'),'Explain my accounts');await user.click(screen.getByRole('button',{name:'Send'}));
  await screen.findByText('Review the returned account evidence.');
  fireEvent(window,new Event('finpilot:finance-invalidated'));
  expect(screen.queryByText('Review the returned account evidence.')).not.toBeInTheDocument();
