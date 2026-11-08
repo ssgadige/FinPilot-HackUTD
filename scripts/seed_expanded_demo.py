@@ -64,6 +64,8 @@ def seed(destination):
    raise SystemExit('Refusing to overwrite existing generated outputs. Choose a new directory.')
  destination.parent.mkdir(parents=True,exist_ok=True)
  schema=(ROOT/'data/schema.sql').read_text()
+ if schema.count("'auto_loan','mortgage'")!=1:
+  raise ValueError('Base account schema changed; review expanded account-kind integration.')
  schema=schema.replace("'auto_loan','mortgage'", "'auto_loan','mortgage','personal_loan','student_loan','business_loan','line_of_credit'")
  db=sqlite3.connect(destination)
  db.executescript(schema+EXTRA_SCHEMA)
@@ -91,10 +93,10 @@ def seed(destination):
    db.execute('INSERT INTO fixture_entities VALUES(?,?,?,?,?,?,?,?)',(business,uid,spec['name'],'business',spec['industry'],spec['formed'],spec['employees'],'fixture'))
   db.execute('INSERT INTO fixture_credit_profiles VALUES(?,?,?,?,?,?,?,?)',(uid,score,'FinPilot simulated score; not FICO or bureau-derived',AS_OF,'fixture',2 if i==3 else 1 if i==9 else 0,3 if i in (0,3,9) else 1,18 if i==5 else 90+i*9))
   providers=list(dict.fromkeys(x[0] for x in definitions))
-  cred={'user_id':uid,'name':name,'persona':scenario,'email':email,'app_password':'123','verification_recipient':email,'verification_sender':'security@finpilot.test','source_mode':'fixture','history_months':nmonths,'simulated_credit_score':score,'institutions':[]}
+  cred={'user_id':uid,'name':name,'persona':scenario,'email':email,'app_password':'123','verification_recipient':email,'verification_sender':'security@finpilot.test','verification_sender_name':'FinPilot Demo','source_mode':'fixture','history_months':nmonths,'simulated_credit_score':score,'institutions':[]}
   for iid in providers:
    db.execute('INSERT INTO institution_logins VALUES(?,?,?,?,?)',(uid+'-'+iid,uid,iid,email,password_hash('123')))
-   cred['institutions'].append({'institution_id':iid,'institution_name':PROVIDERS[iid][0],'username':email,'password':'123','verification_recipient':email,'verification_sender':f'verification@{iid}.finpilot.test','accounts':[]})
+   cred['institutions'].append({'institution_id':iid,'institution_name':PROVIDERS[iid][0],'username':email,'email':email,'password':'123','verification_recipient':email,'verification_sender':f'verification@{iid}.finpilot.test','verification_sender_name':PROVIDERS[iid][0]+' Simulator','accounts':[]})
   accounts=[]; kinds={}; personal_cards=[]; business_cards=[]; loans=[]
   for j,(iid,kind,opening) in enumerate(definitions):
    aid=f'{uid}-a{j+1}'; kinds[aid]=kind
