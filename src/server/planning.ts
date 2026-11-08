@@ -88,8 +88,12 @@ export class Planning {
     return p;
   }
   // Internal server seam; the API never accepts a caller/model supplied proposal payload.
-  propose(uid:string,runId:string,input:unknown,parentId?:string) {
+  propose(uid:string,runId:string,input:unknown,parentId?:string,completeAgentRun=false) {
     return this.store.atomic(()=>{
+      if(completeAgentRun){
+        const changed=this.store.exec("UPDATE runs SET status='completed' WHERE id=? AND user_id=? AND status='running'",runId,uid);
+        if(!changed.changes)fail(409,'run_changed','Run is no longer active');
+      }
       const run=found(this.store.one("SELECT * FROM runs WHERE id=? AND user_id=? AND status='completed'",runId,uid));
       if(run.snapshot_version!==this.store.user(uid).snapshot_version)fail(409,'stale_snapshot','Rerun against current snapshot');
       const parent=parentId?this.plan(uid,parentId):undefined;

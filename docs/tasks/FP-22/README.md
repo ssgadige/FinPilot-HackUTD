@@ -14,10 +14,10 @@ Consume changed-data event and current plan snapshot; rerun affected tools/roles
 src/server/agents/repair
 
 ## Acceptance criteria
-- [ ] Injected expense triggers real run.
-- [ ] Idempotent event.
-- [ ] Previous accepted plan retained.
-- [ ] Revision has before/after evidence and requires confirmation.
+- [x] Injected expense triggers real run.
+- [x] Idempotent event.
+- [x] Previous accepted plan retained.
+- [x] Revision has before/after evidence and requires confirmation.
 
 ## Pull request requirements
 - Branch: `feat/fp-22-event-driven-plan-repair-specialist`.
@@ -29,3 +29,7 @@ src/server/agents/repair
 [API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
 [Issue #22](https://github.com/ssgadige/FinPilot-HackUTD/issues/22)
+
+## Verification and integration status
+
+Local acceptance scenarios pass in `tests/remaining-agents.test.ts` using mocked inference and real calculations/storage. See [repair implementation and retained historical live evidence](../../../src/server/agents/repair/README.md). FP-15 now provides authenticated event dispatch and a conservative monthly application-plan adapter that explicitly reports unavailable planning metadata.

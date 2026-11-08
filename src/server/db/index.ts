@@ -29,7 +29,12 @@ export class Store {
       key TEXT NOT NULL, fingerprint TEXT NOT NULL, result_json TEXT NOT NULL, PRIMARY KEY(user_id,scope,key));
       CREATE TABLE IF NOT EXISTS auth_limits(key TEXT PRIMARY KEY, count INTEGER NOT NULL, expires INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS plan_acceptances(user_id TEXT NOT NULL REFERENCES users(id), key TEXT NOT NULL,
-      plan_id TEXT NOT NULL, expected_version INTEGER NOT NULL, result_json TEXT NOT NULL, PRIMARY KEY(user_id,key));`);
+      plan_id TEXT NOT NULL, expected_version INTEGER NOT NULL, result_json TEXT NOT NULL, PRIMARY KEY(user_id,key));
+      CREATE TABLE IF NOT EXISTS run_state(run_id TEXT PRIMARY KEY,user_id TEXT NOT NULL,context_json TEXT NOT NULL,
+      request_json TEXT NOT NULL,result_json TEXT,model_calls INTEGER NOT NULL DEFAULT 0,
+      FOREIGN KEY(run_id,user_id) REFERENCES runs(id,user_id));
+      CREATE TABLE IF NOT EXISTS agent_records(id TEXT PRIMARY KEY,run_id TEXT NOT NULL,user_id TEXT NOT NULL,
+      payload_json TEXT NOT NULL,FOREIGN KEY(run_id,user_id) REFERENCES runs(id,user_id));`);
     if (!this.one('SELECT version FROM backend_migrations WHERE version=1')) this.atomic(() => {
       this.db.exec('ALTER TABLE sessions ADD COLUMN csrf_hash TEXT; ALTER TABLE goals ADD COLUMN version INTEGER NOT NULL DEFAULT 1; ALTER TABLE runs ADD COLUMN error_code TEXT;');
       this.exec('INSERT INTO backend_migrations VALUES(1)');
