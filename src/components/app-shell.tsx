@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, type ReactNode } from "react";
-import { Bell, Menu, Navigation, PanelLeftClose, Sparkles, X } from "lucide-react";
+import { Menu, Navigation, Sparkles, X } from "lucide-react";
 import { navigation } from "@/lib/navigation";
-import { Badge } from "@/components/ui/badge";
+import { ChatPopup } from "./chat-popup";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth/auth-provider";
 import { LogoutButton } from "@/components/auth/logout-button";
@@ -43,7 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   function navLinks(mobile = false) {
     return (
       <nav aria-label={mobile ? "Mobile navigation" : "Primary navigation"}>
-        {navGroups.map((group) => (
+        {navGroups.filter(group=>group.label!=="Workspace").map((group) => (
           <div key={group.label}>
             <p className="nav-group-label">
               {group.label}
@@ -68,15 +68,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               ))}
           </div>
         ))}
-        <div className="nav-divider" />
-        <Link
-          href="/ui"
-          aria-current={pathname === "/ui" ? "page" : undefined}
-          onClick={mobile ? closeNavigation : undefined}
-        >
-          <PanelLeftClose size={17} aria-hidden="true" />
-          <span>Shared UI</span>
-        </Link>
       </nav>
     );
   }
@@ -91,7 +82,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <Navigation size={25} aria-hidden="true" />
         finpilot<span className="brand-dot">.</span>
       </Link>
-      <p className="brand-caption">Financial command center</p>
+      <p className="brand-caption">Personal banking</p>
     </>
   );
 
@@ -105,7 +96,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {navLinks()}
         <div className="sidebar-footer">
           <span className="simulation-dot" />
-          Independent simulation<p>No real money movement</p>
+          Your financial workspace
         </div>
       </aside>
       <dialog
@@ -130,7 +121,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           {brand}
           {navLinks(true)}
-          <p className="small">Simulation · No real money movement</p>
+          <p className="small">Personal banking workspace</p>
         </div>
       </dialog>
       <div className="app-content">
@@ -163,20 +154,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </strong>
           </div>
           <div className="workspace-status">
-            <Link href="/agent-workspace#coach" className="coach-entry">
+            <button type="button" aria-label="Open financial coach" className="coach-entry" onClick={()=>window.dispatchEvent(new Event("finpilot:open-chat"))}>
               <Sparkles size={14} aria-hidden="true" />
-              Ask FinPilot
-            </Link>
-            <Badge tone="success">Simulated data</Badge>
-            <span
-              className="notification-status"
-              title="Notifications unavailable in scaffold"
-            >
-              <Bell size={18} aria-hidden="true" />
-              <span className="sr-only">
-                Notifications unavailable in scaffold
-              </span>
-            </span>
+              Financial coach
+            </button>
             <span className="profile-avatar" role="img" aria-label="FinPilot profile">
               {state.status === "authenticated"
                 ? initials(state.session.profile.display_name)
@@ -189,12 +170,13 @@ export function AppShell({ children }: { children: ReactNode }) {
           {children}
         </main>
         <footer className="app-footer">
-          <span>FinPilot · Independent hackathon prototype</span>
+          <span>FinPilot</span>
           <span>
-            Synthetic records only. Institution connections are simulated.
+            Demo environment - Fictional records. No bank affiliation.
           </span>
         </footer>
       </div>
+      <ChatPopup />
     </>
   );
 }

@@ -18,3 +18,6 @@ __pycache__/
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
+
+# Private, consistent backups before explicit demo data preparation
+data/backups/

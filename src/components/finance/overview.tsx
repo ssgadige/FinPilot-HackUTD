@@ -59,7 +59,7 @@ function Signal({
       <h3>{definition.title}</h3>
       <p className="signal-value">
         {available
-          ? `${indicator.value}${definition.unit === "months" ? " months" : "%"}`
+          ? `${new Intl.NumberFormat("en-US", {maximumFractionDigits:definition.unit==="months"?1:2}).format(indicator.value!)}${definition.unit === "months" ? " months" : "%"}`
           : "Unavailable"}
       </p>
       {available && definition.unit === "percent" && (
@@ -69,6 +69,7 @@ function Signal({
           />
         </div>
       )}
+      <details className="signal-details"><summary>How it works</summary>
       <p className="signal-formula">{definition.formula}</p>
       <p className="small">
         {available
@@ -84,6 +85,7 @@ function Signal({
           (available ? "None reported" : "Not supplied")}{" "}
         · Source: {indicator?.source_mode ?? "Unavailable"}
       </p>
+      </details>
     </article>
   );
 }

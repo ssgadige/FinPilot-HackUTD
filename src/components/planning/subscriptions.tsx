@@ -49,17 +49,17 @@ export function SubscriptionsScreen() {
         <MetricCard
           label="Monthly recurring cost"
           value={usd(r.data?.summary?.monthly_equivalent_cents)}
-          detail="Server-normalized detected recurring charges; missing or uncertain patterns remain unavailable."
+          detail="Estimated from recurring charges."
         />
         <MetricCard
           label="Annual recurring cost"
           value={usd(r.data?.summary?.annual_recurring_cents)}
-          detail="Server projection at latest known recurring prices, not realized charges or savings."
+          detail="Projected at your latest recurring prices."
         />
         <MetricCard
           label="Usage confidence"
           value="Unknown"
-          detail="Transaction history alone cannot establish that a service is unused."
+          detail="Confirm which services you still use."
         />
       </div>
       {!accounts.items.length ? (

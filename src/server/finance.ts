@@ -9,7 +9,7 @@ export class Finance {
   accounts(uid:string,institution?:string):AccountSummary[] {
     return this.store.accounts(uid).filter(a=>!institution||a.institution_id===institution).map(a=>{
       const lastSync=this.store.one("SELECT MAX(c.last_sync_at) AS at FROM connections c JOIN connection_accounts ca ON ca.connection_id=c.id AND ca.user_id=c.user_id WHERE c.user_id=? AND ca.account_id=? AND c.status='active'",uid,a.id)?.at;
-      return {id:a.id,institution_id:a.institution_id,kind:a.kind,label:a.label,last_four:a.last_four,balance_cents:a.balance_cents,source_mode:'fixture',...(a.kind==='cd'?{maturity_date:a.maturity_date??null}:{}),...(typeof lastSync==='string'?{last_sync_at:lastSync}:{})};
+      return {id:a.id,institution_id:a.institution_id,kind:a.kind,label:a.label.replace(/\s*[\u2022\u00b7]\s*Simulation$/i,''),last_four:a.last_four,balance_cents:a.balance_cents,source_mode:'fixture',...(a.kind==='cd'?{maturity_date:a.maturity_date??null}:{}),...(typeof lastSync==='string'?{last_sync_at:lastSync}:{})};
     });
   }
   transactions(uid:string,query: {account_id?:string;from?:string;to?:string;category?:string;q?:string;cursor?:string;limit:number}) {

@@ -14,35 +14,12 @@ import type { EvidenceRecord } from "./evidence-drawer";
 
 export function Metadata({ meta }: { meta: Meta }) {
   return (
-    <div className="finance-metadata">
-      <p>
-        <strong>Source:</strong>{" "}
-        {meta.source_mode === "fixture"
-          ? "Simulated / fixture records"
-          : meta.source_mode === "cached"
-            ? "Cached records · may be stale"
-            : meta.source_mode === "live"
-              ? "Live source (backend-reported)"
-              : "Unavailable"}{" "}
-        · <strong>Snapshot:</strong> {meta.snapshot_version}
-      </p>
-      <p>
-        <strong>As of:</strong>{" "}
-        {meta.as_of ?? "Unavailable · freshness is unknown"}
-      </p>
-      <p>
-        <strong>Assumptions:</strong>{" "}
-        {meta.assumptions?.length
-          ? meta.assumptions.join("; ")
-          : "Not supplied"}
-      </p>
-      <p>
-        <strong>Missing inputs:</strong>{" "}
-        {meta.missing_inputs
-          ? meta.missing_inputs.join("; ") || "None reported by the service"
-          : "Not reported"}
-      </p>
-    </div>
+    <details className="finance-metadata compact-metadata">
+      <summary>As of {meta.as_of??"date unavailable"} | {meta.source_mode==="fixture"?"Demo records":meta.source_mode==="cached"?"Saved snapshot":"Source details"}</summary>
+      <p>Snapshot {meta.snapshot_version}</p>
+      {meta.assumptions?.length?<p>{meta.assumptions.join("; ")}</p>:null}
+      {meta.missing_inputs?.length?<p>Missing inputs: {meta.missing_inputs.join("; ")}</p>:null}
+    </details>
   );
 }
 export function ReadState({
@@ -96,7 +73,7 @@ export function Commitments({
             { key: "event", label: "Commitment", render: (r) => r.description },
             {
               key: "amount",
-              label: "Projected cash effect",
+              label: "Amount",
               numeric: true,
               render: (r) => usd(r.amount_cents),
             },

@@ -57,3 +57,14 @@ python -m unittest discover -s tests -v
 The dataset contains 10 fictional profiles and 30 months of history. Generated credentials and database files are excluded from version control.
 
 FinPilot is an independent hackathon prototype. Institution connections and financial records are simulated. It is not affiliated with PNC or any listed institution and does not execute real financial transactions.
+
+## Preloaded presentation dashboards
+
+To prepare all ten recognized demo profiles with seven supported account types, coherent history and preselected presentation access, use the actual configured database path:
+
+```bash
+python scripts/prepare_demo_dashboards.py --database ./data/finpilot-login-test.sqlite --expand-account-types
+python scripts/prepare_demo_dashboards.py --database ./data/finpilot-login-test.sqlite --expand-account-types --apply
+```
+
+The first command only inspects. The second creates a consistent private backup and adds missing demo records/access idempotently, preserving credentials and existing ledger records. Use the path from `DATABASE_PATH`; Docker volumes and host databases are separate. This does not disable application login, verification, ownership or disconnect protections. Git distributes the provisioning script, not local databases or secrets. See [presentation verification](docs/fixes/demo-presentation-polish.md).
