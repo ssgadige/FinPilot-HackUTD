@@ -4,11 +4,16 @@ import { Store } from './db';
 import { Auth,equal,hash } from './auth';
 import { ApiFailure,fail } from './errors';
 import { Simulator } from './simulator';
+import { Finance } from './finance';
+import { date } from './tools/finance';
+import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 const key=z.string().min(1).max(128);
 const login=z.strictObject({email:z.email().max(254),password:z.string().min(1).max(256)});
 const text=z.string().trim().min(1).max(200);
 const confirmed=z.literal(true);
-export interface Services {store:Store;auth:Auth;simulator?:Simulator;}
+const money=z.number().int().min(1).max(100_000_000);
+const day=z.string().refine(v=>{try{date(v);return true;}catch{return false;}},'Invalid financial date');
+export interface Services {store:Store;auth:Auth;simulator?:Simulator;finance?:Finance;}
 export function createApi(s:Services) {
   return async function handle(request:Request):Promise<Response> {
     const requestId=randomUUID();
@@ -78,6 +83,30 @@ export function createApi(s:Services) {
         }
         if(id&&action==='sync'&&method==='POST') {const b=await body(z.strictObject({idempotency_key:key}));return json(s.simulator.sync(uid,id,b.idempotency_key));}
         if(id&&!action&&method==='DELETE') {await body(z.strictObject({confirmation:confirmed}));return json(s.simulator.revoke(uid,id));}
+      }
+      if(['accounts','transactions','overview','forecast','debts','evidence','calculations'].includes(resource)&&!s.finance)fail(503,'service_unavailable','Finance service is not configured');
+      if(resource==='accounts'&&path.length===1&&method==='GET')return json({items:s.finance!.accounts(uid,url.searchParams.get('institution_id')||undefined)});
+      if(resource==='transactions'&&path.length===1&&method==='GET') {
+        const q=z.strictObject({account_id:text.optional(),from:day.optional(),to:day.optional(),category:text.optional(),q:z.string().max(100).optional(),cursor:z.string().max(500).optional(),limit:z.coerce.number().int().min(1).max(200).default(50)}).safeParse(Object.fromEntries(url.searchParams));
+        if(!q.success||q.data.from&&q.data.to&&q.data.from>q.data.to)fail(400,'invalid_input','Invalid transaction query');
+        return json(s.finance!.transactions(uid,q.data));
+      }
+      if(resource==='overview'&&path.length===1&&method==='GET')return json(s.finance!.overview(uid));
+      if(resource==='forecast'&&path.length===1&&method==='GET') {
+        const days=Number(url.searchParams.get('days')||30);if(days!==30&&days!==90)fail(400,'invalid_input','Forecast days must be 30 or 90');
+        const result=s.finance!.forecast(uid,days);return json({...result,evidence_ids:[s.finance!.persistCalculation(uid,result,result)]});
+      }
+      if(resource==='debts'&&path.length===1&&method==='GET')return json({items:s.finance!.debts(uid)});
+      if(resource==='evidence'&&id&&path.length===2&&method==='GET')return json(s.store.evidence(uid,id));
+      if(resource==='calculations'&&path.length===1&&method==='POST') {
+        const cents=z.number().int().min(0).max(100_000_000);
+        const calculationInput=z.discriminatedUnion('kind',[
+          z.strictObject({kind:z.literal('loan'),principal_cents:money,apr_bps:z.number().int().min(0).max(10000),months:z.number().int().min(1).max(600),extra_payment_cents:cents}),
+          z.strictObject({kind:z.literal('savings'),target_cents:money,saved_cents:cents,months:z.number().int().min(1).max(600),apy_bps:z.number().int().min(0).max(3000)})
+        ]);
+        const b=await body(calculationInput);
+        const result=b.kind==='loan'?loanCalculation(b.principal_cents,b.apr_bps,b.months,b.extra_payment_cents):savingsCalculation(b.target_cents,b.saved_cents,b.months,b.apy_bps);
+        return json({...result,evidence_ids:[s.finance!.persistCalculation(uid,result,result)],hypothetical:true},201);
       }
 
       fail(404,'not_found','Route not found');
