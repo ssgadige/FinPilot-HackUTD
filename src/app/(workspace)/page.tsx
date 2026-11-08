@@ -13,13 +13,15 @@ import { DecisionControls } from "@/components/decision-controls";
 import { Card, MetricCard } from "@/components/ui/card";
 import { ChartWrapper } from "@/components/ui/chart-wrapper";
 import { DataTable } from "@/components/ui/data-table";
+import { requireVerifiedSession } from "@/server/auth/session";
 
 const commitments = [
   { date: "Nov 10", label: "Planned card payment", amount: "−$1,250.00" },
   { date: "Nov 15", label: "Expected paycheck", amount: "+$2,600.00" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  await requireVerifiedSession();
   return (
     <div className="page-stack">
       <PageHeading

@@ -6,6 +6,7 @@ import { PatternForm } from "./pattern-form";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { DecisionControls } from "@/components/decision-controls";
+import { requireVerifiedSession } from "@/server/auth/session";
 
 const patterns = [
   { pattern: "Filters", behavior: "Preserve selected scope", state: "Active" },
@@ -15,7 +16,8 @@ const patterns = [
 
 export const metadata = { title: "Shared UI" };
 
-export default function SharedUI() {
+export default async function SharedUI() {
+  await requireVerifiedSession();
   return (
     <div className="page-stack">
       <PageHeading

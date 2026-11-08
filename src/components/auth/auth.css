@@ -1,0 +1,141 @@
+.auth-layout {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+}
+.auth-brand-panel {
+  background: var(--nav);
+  color: white;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+}
+.auth-brand-note {
+  margin: 64px 8px 0;
+  color: #d8e3ed;
+  line-height: 1.8;
+  font-size: 14px;
+}
+.auth-brand-footer {
+  margin: auto 8px 0;
+  padding-top: 48px;
+  color: #b5c9da;
+}
+.auth-workspace {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.auth-main {
+  width: 100%;
+  flex: 1;
+  min-height: auto;
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+.auth-grid {
+  margin-top: 8px;
+}
+.auth-steps {
+  list-style: none;
+  counter-reset: auth-step;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+.auth-steps li {
+  counter-increment: auth-step;
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+}
+.auth-steps li::before {
+  content: "0" counter(auth-step);
+  color: var(--teal);
+  font-size: 12px;
+}
+.password-field {
+  position: relative;
+}
+.password-field input {
+  padding-right: 56px;
+}
+.password-field > .button {
+  position: absolute;
+  top: 27px;
+  right: 4px;
+  min-height: 40px;
+  padding: 10px;
+}
+.field .otp-input {
+  letter-spacing: 0.7em;
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+.challenge-timing {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+.logout-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 320px;
+}
+.session-pending {
+  max-width: 640px;
+  margin: 64px auto;
+  padding: 16px;
+}
+@media (max-width: 1000px) {
+  .auth-layout {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+  .auth-brand-panel .brand {
+    font-size: 24px;
+  }
+  .auth-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 639px) {
+  .auth-layout {
+    display: block;
+  }
+  .auth-brand-panel {
+    padding: 16px;
+  }
+  .auth-brand-panel .brand {
+    font-size: 25px;
+    padding: 0;
+  }
+  .auth-brand-panel .brand-caption {
+    padding: 4px 0 0;
+  }
+  .auth-brand-note,
+  .auth-brand-footer {
+    display: none;
+  }
+  .auth-main {
+    padding-top: 24px;
+    padding-bottom: 32px;
+  }
+  .auth-main .page-heading > .button {
+    width: 100%;
+  }
+  .auth-main .inline-actions {
+    align-items: stretch;
+  }
+  .auth-workspace .workspace-bar {
+    min-height: 64px;
+  }
+  .workspace-status .profile-avatar,
+  .workspace-status .notification-status {
+    display: none;
+  }
+}

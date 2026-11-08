@@ -549,7 +549,7 @@ tr:last-child td {
   color: var(--muted);
   margin-top: 2px;
 }
-.data-state h3 {
+.data-state :is(h1, h2, h3) {
   margin-bottom: 6px;
 }
 .data-state p + p {

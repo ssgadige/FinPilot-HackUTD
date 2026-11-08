@@ -7,8 +7,11 @@ import { Bell, Menu, Navigation, PanelLeftClose, X } from "lucide-react";
 import { navigation } from "@/lib/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/components/auth/auth-provider";
+import { LogoutButton } from "@/components/auth/logout-button";
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const { state } = useAuth();
   const pathname = usePathname();
   const drawer = useRef<HTMLDialogElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -122,7 +125,11 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="workspace-label">
             <span className="muted">Personal workspace</span>
             <span className="workspace-slash">/</span>
-            <strong>UI preview</strong>
+            <strong>
+              {state.status === "authenticated"
+                ? state.session.profile.display_name
+                : "Session unresolved"}
+            </strong>
           </div>
           <div className="workspace-status">
             <Badge tone="success">Simulated data</Badge>
@@ -135,12 +142,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                 Notifications unavailable in scaffold
               </span>
             </span>
-            <span
-              className="profile-avatar"
-              aria-label="Preview profile; not signed in"
-            >
+            <span className="profile-avatar" aria-label="FinPilot profile">
               FP
             </span>
+            <LogoutButton />
           </div>
         </header>
         <main id="main-content" tabIndex={-1}>
