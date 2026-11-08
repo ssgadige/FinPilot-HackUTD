@@ -25,7 +25,8 @@
     "test:agents": "node --test tests/nemotron.test.ts tests/agent-runtime.test.ts tests/subscriptions.test.ts tests/planning.test.ts tests/stress.test.ts tests/remaining-agents.test.ts",
     "demo:agents": "node --env-file-if-exists=.env scripts/smoke-integration.ts",
     "demo:agents:replay": "node scripts/replay-agent-demo.ts",
-    "verify:security": "node scripts/verify-security.mjs"
+    "verify:security": "node scripts/verify-security.mjs",
+    "demo:prepare": "node scripts/setup.mjs --prepare-demo"
   },
   "dependencies": {
     "@react-three/fiber": "9.8.2",

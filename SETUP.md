@@ -9,12 +9,13 @@ From the repository root:
 ```sh
 npm ci
 npm run setup
+docker compose up -d mailpit
 npm run dev
 ```
 
-Setup generates the private synthetic database only when absent and applies migrations. Repeating it preserves existing data. It creates an ignored `.env.local` with a random OTP secret if needed, without overwriting existing configuration. Configure the server using `.env.example`; do not commit or paste actual values. Generated defaults do not set empty NVIDIA values that would mask existing `.env` configuration. If an older `.env.local` contains empty NVIDIA entries, remove those entries or configure them there: Next.js gives `.env.local` priority over `.env`.
+Setup generates the private synthetic database only when absent, applies migrations and automatically prepares all ten demo dashboards (seven account types each). Repeating ordinary setup preserves existing records and revoked connection choices. To explicitly upgrade an older demo database, run `npm run demo:prepare`; it creates a consistent backup before adding the missing presentation records/access. It creates an ignored `.env.local` with a random OTP secret if needed, without overwriting existing configuration. Configure the server using `.env.example`; do not commit or paste actual values. Generated defaults do not set empty NVIDIA values that would mask existing `.env` configuration. If an older `.env.local` contains empty NVIDIA entries, remove those entries or configure them there: Next.js gives `.env.local` priority over `.env`.
 
-Open http://localhost:3000. Use only the generated fictional application credentials in `data/demo-credentials.json`. Start the local inbox separately:
+Open http://127.0.0.1:3000/login. Use the exact `APP_URL` if you have customized it: `localhost` and `127.0.0.1` are different origins, and unsafe requests from another origin are correctly rejected. Use only the generated fictional application credentials in `data/demo-credentials.json`. Start the local inbox separately:
 
 ```sh
 docker compose up -d mailpit
@@ -28,7 +29,7 @@ Missing NVIDIA configuration returns 503 for new runs/chat/demo events without a
 
 ## Backend run and event flow
 
-After login and simulated account linking, unsafe calls require the session's `fp_csrf` value in `X-CSRF-Token` and the exact configured `Origin`. Cookies remain browser-managed. Do not copy session tokens into source, logs or examples.
+After login (new demo dashboards are already preloaded), unsafe calls require the session's `fp_csrf` value in `X-CSRF-Token` and the exact configured `Origin`. Cookies remain browser-managed. Do not copy session tokens into source, logs or examples.
 
 1. `POST /api/v1/runs` with `{"intent":"cash","idempotency_key":"local-checkup-1"}` returns 202, `run_id` and snapshot version. Other intents: `subscriptions`, `planning`, `stress`, `full`.
 2. Poll `GET /api/v1/runs/:id` and `GET /api/v1/runs/:id/events?cursor=...`. Keep `next_cursor` for incremental polling. Status, safe role steps, evidence references, partial failures and call counts are persisted.
@@ -37,7 +38,7 @@ After login and simulated account linking, unsafe calls require the session's `f
 5. With `DEMO_MODE=true`, `POST /api/v1/demo/events` accepts `{"kind":"surprise_expense","amount_cents":200000,"idempotency_key":"demo-expense-1"}` or `{"kind":"delayed_income","days":7,"idempotency_key":"demo-delay-1"}`. Identity and accounts are selected by the server, never supplied by the client/model. The event changes a selected account/identified income occurrence once, advances the snapshot and queues repair atomically. Reusing a key with another payload returns 409.
 6. Repair proposes a new application plan version and keeps the previous accepted plan intact. Missing goal funding/payment metadata is explicit: the conservative monthly revision pauses optional allocations for review, preserves reserve/bills/minimums, and reports `needs_information`. It does not claim the unavailable Goal Allocator ran. Accept only through `/plans/:id/accept` with expected version and explicit confirmation.
 
-One checkup per user and two queued/running checkups per process are allowed. Each run shares 24 model calls, at most two active roles and bounded provider/role deadlines. Per-user run/event/chat limits also apply. Database results survive restart; interrupted work fails visibly and is never silently re-inferred. Run this SQLite prototype as one persistent application process. The FP-07 agent workspace is still a separate frontend integration task; the authenticated APIs are implemented.
+One checkup per user and two queued/running checkups per process are allowed. Each run shares 24 model calls, at most two active roles and bounded provider/role deadlines. Per-user run/event/chat limits also apply. Database results survive restart; interrupted work fails visibly and is never silently re-inferred. Run this SQLite prototype as one persistent application process. The specialist workspace, full coach and popup are integrated; actual model execution requires configured Nemotron access.
 
 ## Local acceptance checks
 
@@ -75,3 +76,13 @@ docker compose up -d
 ```
 
 Compose loads `.env.local`, stores the SQLite database in `finpilot-data`, sets container SMTP to `mailpit:1025`, and binds host app/inbox ports to localhost. Keep `.env.local` configured with server-only secrets; it is excluded from the image. The application runs as a non-root user. `docker compose down` preserves the named volume; `down -v` deletes it. Images and Mailpit are pinned in the repository. Container startup itself never reseeds automatically. Container runtime availability must be verified on the demo machine; the local acceptance record does not claim a Docker daemon was tested here.
+
+## Verify prepared presentation data
+
+Use your effective `DATABASE_PATH`:
+
+```sh
+python scripts/validate_presentation.py --database ./data/finpilot-demo.sqlite
+```
+
+This read-only check verifies ten recognized users, complete account types, authorized preloaded access, history, SQLite integrity and balance reconciliation. `validate_seed.py` remains the separate validator for the original unlinked raw seed; it is not the validator for a prepared or user-modified application database. Existing databases are never reset by setup. A local Python executable can be selected with `PYTHON` if automatic discovery fails.
