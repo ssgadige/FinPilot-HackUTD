@@ -9,7 +9,18 @@ import { DataState } from "@/components/ui/data-state";
 import { buttonClass } from "@/components/ui/button";
 
 export function generateStaticParams() {
-  return navigation.map((item) => ({ section: item.href.slice(1) }));
+  return navigation
+    .filter(
+      (item) =>
+        ![
+          "/institutions",
+          "/overview",
+          "/accounts",
+          "/transactions",
+          "/cash-and-bills",
+        ].includes(item.href),
+    )
+    .map((item) => ({ section: item.href.slice(1) }));
 }
 export async function generateMetadata({
   params,

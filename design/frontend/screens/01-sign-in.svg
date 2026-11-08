@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1440" height="1000" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1440 1000" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1440" height="1000"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1000)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1440" height="1000" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,96%,98%); fill-rule: evenodd;"/>
+			<text x="32" y="971" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,1942) scale(1,-1)">FINPILOT / FRONTEND BLUEPRINT</text>
+			<text x="32" y="940" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1880) scale(1,-1)">01  Sign in</text>
+			<text x="1130" y="968" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1936) scale(1,-1)">#2 / FP-02</text>
+			<text x="1130" y="943" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1886) scale(1,-1)">Design reference / v1</text>
+			<rect x="32" y="108" width="1376" height="800" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<path d="M 32,82 L 1408,82 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="32" y="56" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,112) scale(1,-1)">FRONTEND  #2 / FP-02</text>
+			<text x="300" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">BACKEND  #10</text>
+			<text x="795" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">AGENTS  None</text>
+			<text x="32" y="35" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,70) scale(1,-1)">Continue -&gt; verification challenge. No authenticated financial session before email-code verification.</text>
+			<rect x="32" y="108" width="596" height="800" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(6%,16%,26%); fill-rule: evenodd;"/>
+			<text x="86" y="835" style="font-family: DejaVu Sans; font-weight: bold; font-size: 36px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1670) scale(1,-1)">finpilot</text>
+			<text x="86" y="700" style="font-family: DejaVu Sans; font-weight: bold; font-size: 46px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1400) scale(1,-1)">One clear view. A</text>
+			<text x="86" y="644" style="font-family: DejaVu Sans; font-weight: bold; font-size: 46px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1288) scale(1,-1)">better next</text>
+			<text x="86" y="588" style="font-family: DejaVu Sans; font-weight: bold; font-size: 46px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1176) scale(1,-1)">move.</text>
+			<text x="86" y="522" style="font-family: DejaVu Sans; font-size: 20px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1044) scale(1,-1)">Connect your financial picture. Let</text>
+			<text x="86" y="491" style="font-family: DejaVu Sans; font-size: 20px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,982) scale(1,-1)">specialized agents build a plan around your</text>
+			<text x="86" y="460" style="font-family: DejaVu Sans; font-size: 20px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,920) scale(1,-1)">goals.</text>
+			<rect x="86" y="202" width="270" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="97" y="210" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,420) scale(1,-1)">Independent hackathon prototype</text>
+			<text x="760" y="750" style="font-family: DejaVu Sans; font-weight: bold; font-size: 32px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1500) scale(1,-1)">Welcome back</text>
+			<text x="760" y="714" style="font-family: DejaVu Sans; font-size: 16px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1428) scale(1,-1)">Sign in to your FinPilot workspace.</text>
+			<text x="760" y="653" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1306) scale(1,-1)">Email address</text>
+			<rect x="760" y="596" width="480" height="45" rx="7" ry="7" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="774" y="613" style="font-family: DejaVu Sans; font-size: 14px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1226) scale(1,-1)">maya.chen@example.test</text>
+			<text x="760" y="552" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1104) scale(1,-1)">Password</text>
+			<rect x="760" y="495" width="480" height="45" rx="7" ry="7" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="774" y="512" style="font-family: DejaVu Sans; font-size: 14px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1024) scale(1,-1)">Enter your password</text>
+			<rect x="760" y="408" width="480" height="40" rx="7" ry="7" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(3%,49%,54%); fill-rule: evenodd;"/>
+			<text x="776" y="423" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,846) scale(1,-1)">Continue</text>
+			<text x="760" y="368" style="font-family: DejaVu Sans; font-size: 14px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,736) scale(1,-1)">Demo accounts only. Never enter real banking credentials.</text>
+			<text x="760" y="259" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,518) scale(1,-1)">Verification is completed on the next screen.</text>
+		</g>
+	</g>
+</svg>

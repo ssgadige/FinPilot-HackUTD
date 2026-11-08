@@ -8,10 +8,19 @@ export default defineConfig({
     browserName: "chromium",
     trace: "retain-on-failure",
   },
-  webServer: {
-    command: "npm run dev",
-    url: "http://127.0.0.1:3000",
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000,
-  },
+  webServer: [
+    {
+      command: "npm run dev",
+      url: "http://127.0.0.1:3000",
+      reuseExistingServer: !process.env.CI,
+      timeout: 120000,
+    },
+    {
+      command:
+        "node node_modules/vite/bin/vite.js --config tests/browser/vite.config.mts",
+      url: "http://127.0.0.1:3100",
+      reuseExistingServer: !process.env.CI,
+      timeout: 120000,
+    },
+  ],
 });
