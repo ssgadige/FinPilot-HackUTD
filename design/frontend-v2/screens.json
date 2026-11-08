@@ -1,0 +1,2925 @@
+{
+  "FP-01": [
+    {
+      "key": "shell",
+      "title": "Your financial command center",
+      "subtitle": "A shared shell for every financial decision.",
+      "metrics": [
+        [
+          "Liquid cash",
+          "$5,400",
+          "Checking + savings"
+        ],
+        [
+          "Debt",
+          "$17,600",
+          "Linked cards and loans"
+        ],
+        [
+          "Net worth",
+          "$9,200",
+          "Assets - liabilities"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "chart",
+          "title": "Money pulse - next 30 days",
+          "values": [
+            65,
+            58,
+            40,
+            18,
+            50,
+            61,
+            45,
+            68
+          ],
+          "caption": "Illustrative forecast. Select a point to inspect that day."
+        },
+        {
+          "type": "table",
+          "title": "Upcoming commitments",
+          "heads": [
+            "Date",
+            "Commitment",
+            "Amount"
+          ],
+          "rows": [
+            [
+              "Nov 10",
+              "Planned card payment",
+              "$1,250"
+            ],
+            [
+              "Nov 15",
+              "Expected paycheck",
+              "+$2,600"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "One clear next move",
+          "text": "Findings turn account records into a decision you can inspect."
+        },
+        {
+          "type": "steps",
+          "title": "Explore your workspace",
+          "rows": [
+            "Connect institutions",
+            "Review financial picture",
+            "Compare a plan"
+          ]
+        }
+      ],
+      "action": "Open overview",
+      "target": "overview",
+      "tabs": []
+    },
+    {
+      "key": "components",
+      "title": "Shared interaction patterns",
+      "subtitle": "Every page uses the same visual and behavior system.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Form fields - clear labels and units",
+          "rows": [
+            [
+              "Amount (USD)",
+              "$200.00"
+            ],
+            [
+              "Date",
+              "2027-03-01"
+            ],
+            [
+              "Account",
+              "Chase checking / 1000"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Reusable data table",
+          "heads": [
+            "Pattern",
+            "Behavior",
+            "State"
+          ],
+          "rows": [
+            [
+              "Filters",
+              "Preserve selected scope",
+              "Active"
+            ],
+            [
+              "Evidence",
+              "Open source drawer",
+              "Read-only"
+            ],
+            [
+              "Pagination",
+              "50 records per page",
+              "Next"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Loading",
+          "text": "Skeletons preserve the layout while records load."
+        },
+        {
+          "type": "note",
+          "title": "Validation",
+          "text": "Keep entered data; highlight the field with an actionable error."
+        }
+      ],
+      "action": "View sign in",
+      "target": "login",
+      "tabs": []
+    }
+  ],
+  "FP-02": [
+    {
+      "key": "login",
+      "title": "Welcome back",
+      "subtitle": "Your whole financial picture, in one protected workspace.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Sign in",
+          "rows": [
+            [
+              "Email",
+              "maya.chen@example.test"
+            ],
+            [
+              "Password",
+              "Enter your application password"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Demo workspace",
+          "text": "Use fictional FinPilot credentials. Institution credentials are separate."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "steps",
+          "title": "What happens next",
+          "rows": [
+            "Password checked securely",
+            "Email code sent",
+            "Session starts after verification"
+          ]
+        }
+      ],
+      "action": "Continue",
+      "target": "verify",
+      "tabs": []
+    },
+    {
+      "key": "verify",
+      "title": "Check your email",
+      "subtitle": "Enter the 6-digit code sent to m***@example.test.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Verification challenge",
+          "rows": [
+            [
+              "Email code",
+              "-  -  -  -  -  -"
+            ],
+            [
+              "Expires in",
+              "04:52"
+            ],
+            [
+              "Resend",
+              "Available in 45 seconds"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Use your latest code",
+          "text": "Sending another code invalidates the previous code."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Local email demo",
+          "text": "Mailpit receives messages for fictional addresses. No real inbox is implied."
+        }
+      ],
+      "action": "Verify and sign in",
+      "target": "overview",
+      "tabs": []
+    },
+    {
+      "key": "verify-error",
+      "title": "That code has expired",
+      "subtitle": "Request a fresh code; your financial session has not started.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Try a new code",
+          "rows": [
+            [
+              "Email code",
+              "Expired - enter the latest code"
+            ],
+            [
+              "Resend",
+              "Available now"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Safe failure",
+          "text": "Codes are single-use, expire after five minutes and have an attempt limit."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Too many attempts",
+          "text": "Show a timed lockout after the configured attempt limit. Do not reveal account existence."
+        }
+      ],
+      "action": "Request new code",
+      "target": "verify",
+      "tabs": []
+    }
+  ],
+  "FP-03": [
+    {
+      "key": "institutions",
+      "title": "Connect your financial picture",
+      "subtitle": "Select an institution category, then a simulated provider.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Find an institution",
+          "rows": [
+            [
+              "Search",
+              "Bank name or provider"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Banks and credit unions",
+          "heads": [
+            "Institution",
+            "Products",
+            "Connection"
+          ],
+          "rows": [
+            [
+              "Chase",
+              "Checking / savings",
+              "Connected"
+            ],
+            [
+              "Bank of America",
+              "Checking / savings",
+              "Connect"
+            ],
+            [
+              "PNC",
+              "Checking / savings",
+              "Connect"
+            ],
+            [
+              "Capital One",
+              "Checking / cards",
+              "Connect"
+            ],
+            [
+              "Ally",
+              "Savings / CDs",
+              "Connect"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Your consent stays specific",
+          "text": "Choose the exact accounts and records FinPilot can read."
+        },
+        {
+          "type": "note",
+          "title": "Simulation only",
+          "text": "Never enter real banking credentials."
+        }
+      ],
+      "action": "Connect Chase",
+      "target": "link-login",
+      "tabs": [
+        "Banks",
+        "Cards",
+        "Investments",
+        "Loans",
+        "Wallets"
+      ]
+    },
+    {
+      "key": "provider-categories",
+      "title": "More financial institutions",
+      "subtitle": "Cover assets and obligations across institution types.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Provider directory",
+          "heads": [
+            "Category",
+            "Institutions",
+            "Access"
+          ],
+          "rows": [
+            [
+              "Cards",
+              "Amex / Discover",
+              "Simulated"
+            ],
+            [
+              "Investments",
+              "Fidelity / Vanguard",
+              "Snapshots"
+            ],
+            [
+              "Loans",
+              "Demo Auto / Demo Mortgage",
+              "Read-only"
+            ],
+            [
+              "Wallets",
+              "PayPal",
+              "Simulated"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Product boundaries",
+          "text": "Bank-issued credit cards remain under their issuing bank. No real financial account is opened."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "steps",
+          "title": "Linking journey",
+          "rows": [
+            "Choose provider",
+            "Validate demo credentials",
+            "Select accounts and consent"
+          ]
+        }
+      ],
+      "action": "Continue to provider",
+      "target": "link-login",
+      "tabs": [
+        "Banks",
+        "Cards",
+        "Investments",
+        "Loans",
+        "Wallets"
+      ]
+    },
+    {
+      "key": "link-login",
+      "title": "Connect Chase",
+      "subtitle": "Step 1 of 2 - validate your simulated institution login.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "note",
+          "title": "Simulation only",
+          "text": "This screen authenticates against the local simulator, never the actual bank."
+        },
+        {
+          "type": "fields",
+          "title": "Institution credentials",
+          "rows": [
+            [
+              "Username",
+              "maya.chen.chase"
+            ],
+            [
+              "Password",
+              "Generated institution password"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Invalid credentials",
+          "text": "Keep the provider selected, clear the password and show a generic connection error."
+        },
+        {
+          "type": "note",
+          "title": "App password is different",
+          "text": "Do not reuse or transmit the FinPilot application password here."
+        }
+      ],
+      "action": "Continue to account selection",
+      "target": "consent",
+      "tabs": []
+    },
+    {
+      "key": "consent",
+      "title": "Choose the accounts to connect",
+      "subtitle": "Step 2 of 2 - read-only access, controlled by you.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Account selection",
+          "heads": [
+            "Selected",
+            "Account",
+            "Balance"
+          ],
+          "rows": [
+            [
+              "Yes",
+              "Checking / 1000",
+              "$350"
+            ],
+            [
+              "Yes",
+              "Savings / 1001",
+              "$5,050"
+            ],
+            [
+              "No",
+              "Other eligible account",
+              "Not shared"
+            ]
+          ]
+        },
+        {
+          "type": "fields",
+          "title": "Consent",
+          "rows": [
+            [
+              "Scope",
+              "Balances + 30 months of history"
+            ],
+            [
+              "Permission",
+              "I authorize the selected read-only access"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "No money movement",
+          "text": "Connecting does not authorize payments, transfers, cancellation or purchases."
+        },
+        {
+          "type": "note",
+          "title": "Disconnected means inaccessible",
+          "text": "Agents lose access when consent is revoked."
+        }
+      ],
+      "action": "Connect selected accounts",
+      "target": "syncing",
+      "tabs": []
+    },
+    {
+      "key": "connected",
+      "title": "Your accounts are connected",
+      "subtitle": "The initial history sync completed successfully.",
+      "metrics": [
+        [
+          "Selected accounts",
+          "2",
+          "Chase / read-only"
+        ],
+        [
+          "History",
+          "30 months",
+          "Synthetic records"
+        ],
+        [
+          "Last sync",
+          "Just now",
+          "Snapshot 1"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Connection details",
+          "heads": [
+            "Account",
+            "Scope",
+            "Status"
+          ],
+          "rows": [
+            [
+              "Checking / 1000",
+              "Balance + history",
+              "Ready"
+            ],
+            [
+              "Savings / 1001",
+              "Balance + history",
+              "Ready"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Sync states",
+          "text": "Syncing / partial / failed / revoked each need a distinct status. Retry is idempotent."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Next step",
+          "text": "Review the overview, then run a financial checkup."
+        }
+      ],
+      "action": "View financial overview",
+      "target": "overview",
+      "tabs": []
+    },
+    {
+      "key": "syncing",
+      "title": "Bringing your records together",
+      "subtitle": "A truthful connection progress state with safe retry.",
+      "metrics": [
+        [
+          "Selected accounts",
+          "2",
+          "Read-only consent"
+        ],
+        [
+          "Status",
+          "Syncing",
+          "Actual server status"
+        ],
+        [
+          "Data scope",
+          "30 months",
+          "Simulated history"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Sync progress",
+          "heads": [
+            "Step",
+            "State"
+          ],
+          "rows": [
+            [
+              "Validate ownership",
+              "Completed"
+            ],
+            [
+              "Read selected account balances",
+              "Completed"
+            ],
+            [
+              "Load transaction history",
+              "In progress"
+            ],
+            [
+              "Reconcile snapshot",
+              "Queued"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Progress policy",
+          "text": "Progress comes from real server events. Do not animate a fabricated 100% success. Repeated sync must not duplicate records."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "If partially complete",
+          "text": "Show which accounts imported and which need retry. Preserve valid records."
+        },
+        {
+          "type": "note",
+          "title": "Cancel / retry",
+          "text": "Define server behavior before exposing a cancel control."
+        }
+      ],
+      "action": "View completion reference",
+      "target": "connected",
+      "tabs": []
+    },
+    {
+      "key": "connection-error",
+      "title": "The connection needs another try",
+      "subtitle": "No successful connection is claimed until validation and consent complete.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "note",
+          "title": "Could not validate the demo credentials",
+          "text": "Keep the institution selected, clear the password and allow retry. Use a generic error without disclosing account existence."
+        },
+        {
+          "type": "table",
+          "title": "Useful recovery",
+          "heads": [
+            "Situation",
+            "Action"
+          ],
+          "rows": [
+            [
+              "Incorrect demo login",
+              "Retry credentials"
+            ],
+            [
+              "Provider timeout",
+              "Retry safely"
+            ],
+            [
+              "Partial history",
+              "Inspect affected account"
+            ],
+            [
+              "Consent revoked",
+              "Reconnect explicitly"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "No fallback access",
+          "text": "Do not expose records from an unselected or different user's account."
+        }
+      ],
+      "action": "Try institution login again",
+      "target": "link-login",
+      "tabs": []
+    }
+  ],
+  "FP-04": [
+    {
+      "key": "overview",
+      "title": "A clearer next move starts here",
+      "subtitle": "A financial picture you can inspect, not just a balance.",
+      "metrics": [
+        [
+          "Liquid cash",
+          "$5,400",
+          "Checking + savings"
+        ],
+        [
+          "Debt",
+          "$17,600",
+          "Linked cards and loans"
+        ],
+        [
+          "Net worth",
+          "$9,200",
+          "Assets - liabilities"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "chart",
+          "title": "Money pulse - checking account",
+          "values": [
+            65,
+            56,
+            20,
+            8,
+            40,
+            70,
+            62,
+            66
+          ],
+          "caption": "Potential Nov 10 shortfall. Select the date for the responsible records."
+        },
+        {
+          "type": "table",
+          "title": "Your financial signals",
+          "heads": [
+            "Indicator",
+            "Current value",
+            "Calculation"
+          ],
+          "rows": [
+            [
+              "Cash buffer",
+              "1.8 months",
+              "$5,400 / $3,000 essentials"
+            ],
+            [
+              "Debt / income",
+              "18%",
+              "$900 / $5,000 gross income"
+            ],
+            [
+              "Card utilization",
+              "32%",
+              "$3,600 / $11,250 limits"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Timing conflict",
+          "text": "Enough money overall can still mean insufficient checking cash on a bill date."
+        },
+        {
+          "type": "steps",
+          "title": "Suggested next moves",
+          "rows": [
+            "Inspect the Nov 10 collision",
+            "Compare a payment allocation",
+            "Stress-test your choice"
+          ]
+        }
+      ],
+      "action": "Review cash collision",
+      "target": "cash-collision",
+      "tabs": []
+    },
+    {
+      "key": "accounts",
+      "title": "Accounts with context",
+      "subtitle": "Separate available cash, liabilities and restricted assets.",
+      "metrics": [
+        [
+          "Liquid cash",
+          "$5,400",
+          "Checking + savings"
+        ],
+        [
+          "Debt",
+          "$17,600",
+          "Linked cards and loans"
+        ],
+        [
+          "Net worth",
+          "$9,200",
+          "Assets - liabilities"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Linked accounts",
+          "heads": [
+            "Institution / account",
+            "Type",
+            "Balance"
+          ],
+          "rows": [
+            [
+              "Chase / 1000",
+              "Checking",
+              "$350"
+            ],
+            [
+              "Chase / 1001",
+              "Savings",
+              "$5,050"
+            ],
+            [
+              "Amex / 1002",
+              "Credit card owed",
+              "$3,600"
+            ],
+            [
+              "Demo Auto / 1003",
+              "Loan owed",
+              "$14,000"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Available cash policy",
+          "text": "Brokerage, retirement and CD balances are excluded from spendable cash by default."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Account actions",
+          "text": "Open history, inspect connection scope or manage sync."
+        },
+        {
+          "type": "note",
+          "title": "Privacy",
+          "text": "Only the last four identifier digits are shown."
+        }
+      ],
+      "action": "View checking history",
+      "target": "transactions",
+      "tabs": []
+    },
+    {
+      "key": "transactions",
+      "title": "Every transaction, in its place",
+      "subtitle": "Filter by account, date, merchant or category.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Search and filters",
+          "rows": [
+            [
+              "Search",
+              "Merchant or description"
+            ],
+            [
+              "Account / date",
+              "All linked accounts / last 30 days"
+            ],
+            [
+              "Category",
+              "All categories"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Transaction history",
+          "heads": [
+            "Date / merchant",
+            "Category",
+            "Amount"
+          ],
+          "rows": [
+            [
+              "Oct 29 / Market Basket",
+              "Groceries",
+              "-$84.20"
+            ],
+            [
+              "Oct 28 / StreamPlus",
+              "Subscription",
+              "-$18.99"
+            ],
+            [
+              "Oct 25 / Card payment",
+              "Transfer",
+              "-$350"
+            ],
+            [
+              "Oct 16 / Savings sweep",
+              "Transfer",
+              "-$150"
+            ],
+            [
+              "Oct 15 / Payroll",
+              "Income",
+              "+$2,600"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Transfers are not extra income",
+          "text": "Paired owned-account transfers are excluded from income/spending totals."
+        },
+        {
+          "type": "note",
+          "title": "30-month history",
+          "text": "Paginate results and preserve filters when opening details."
+        }
+      ],
+      "action": "Inspect selected record",
+      "target": "transaction-detail",
+      "tabs": []
+    },
+    {
+      "key": "transaction-detail",
+      "title": "Transaction evidence",
+      "subtitle": "Inspect the record behind the finding.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Source record",
+          "heads": [
+            "Property",
+            "Value"
+          ],
+          "rows": [
+            [
+              "Merchant",
+              "StreamPlus"
+            ],
+            [
+              "Posted date",
+              "2026-10-28"
+            ],
+            [
+              "Account",
+              "Amex / 1002"
+            ],
+            [
+              "Signed amount",
+              "-$18.99"
+            ],
+            [
+              "Source",
+              "Simulated institution history"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Possible duplicate",
+          "text": "Flag a candidate for review; do not automatically remove an equal-value transaction."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Corrections",
+          "text": "The base scope is read-only. Category edits require a later explicit endpoint."
+        },
+        {
+          "type": "note",
+          "title": "Evidence access",
+          "text": "Ownership and connection scope are checked again when opening the record."
+        }
+      ],
+      "action": "Back to history",
+      "target": "transactions",
+      "tabs": []
+    },
+    {
+      "key": "cash-calendar",
+      "title": "Your month, before it happens",
+      "subtitle": "A calendar of cash obligations and income arrival dates.",
+      "metrics": [
+        [
+          "Checking now",
+          "$350",
+          "Account-specific"
+        ],
+        [
+          "Lowest projected",
+          "-$900",
+          "Nov 10"
+        ],
+        [
+          "Next income",
+          "Nov 15",
+          "+$2,600 expected"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "chart",
+          "title": "Dated checking forecast",
+          "values": [
+            65,
+            60,
+            10,
+            7,
+            70,
+            66,
+            55,
+            61
+          ],
+          "caption": "Shows cumulative end-of-day balance. Same-day ordering is explicit."
+        },
+        {
+          "type": "table",
+          "title": "Upcoming cash calendar",
+          "heads": [
+            "Date",
+            "Event",
+            "Cash effect"
+          ],
+          "rows": [
+            [
+              "Nov 10",
+              "Planned card payment",
+              "-$1,250"
+            ],
+            [
+              "Nov 15",
+              "Expected paycheck",
+              "+$2,600"
+            ],
+            [
+              "Nov 18",
+              "Internet bill",
+              "-$65"
+            ],
+            [
+              "Nov 22",
+              "Insurance",
+              "-$145"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Account vs whole picture",
+          "text": "Savings does not automatically cover checking obligations."
+        },
+        {
+          "type": "note",
+          "title": "Forecast assumptions",
+          "text": "Only linked accounts, scheduled items and explicit assumptions are included."
+        }
+      ],
+      "action": "Inspect collision",
+      "target": "cash-collision",
+      "tabs": []
+    },
+    {
+      "key": "cash-collision",
+      "title": "The timing conflict, explained",
+      "subtitle": "Review alternatives before choosing a plan.",
+      "metrics": [
+        [
+          "Before payment",
+          "$350",
+          "Checking"
+        ],
+        [
+          "Planned outflow",
+          "$1,250",
+          "Nov 10"
+        ],
+        [
+          "Projected after",
+          "-$900",
+          "$350 - $1,250"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Evidence chain",
+          "heads": [
+            "Source",
+            "Observation",
+            "Effect"
+          ],
+          "rows": [
+            [
+              "Checking record",
+              "Current balance",
+              "$350"
+            ],
+            [
+              "Scheduled payment",
+              "Before income date",
+              "-$1,250"
+            ],
+            [
+              "Expected paycheck",
+              "Nov 15",
+              "Arrives later"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Candidate options",
+          "text": "Compare a proposed cash allocation or a revised payment assumption. No transfer or bank schedule is changed by this design."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "steps",
+          "title": "Decision path",
+          "rows": [
+            "Inspect the sources",
+            "Compare two options",
+            "Choose a plan",
+            "Track the result"
+          ]
+        }
+      ],
+      "action": "Compare plans",
+      "target": "plan-compare",
+      "tabs": []
+    }
+  ],
+  "FP-05": [
+    {
+      "key": "subscriptions",
+      "title": "Your recurring costs, made visible",
+      "subtitle": "Spot price changes and compare terms before changing services.",
+      "metrics": [
+        [
+          "Monthly equivalent",
+          "$94.95",
+          "5 recurring candidates"
+        ],
+        [
+          "Price increase",
+          "+$3.00",
+          "StreamPlus"
+        ],
+        [
+          "Potential overlap",
+          "2 services",
+          "Confirm your usage"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Recurring services",
+          "heads": [
+            "Service",
+            "Cost / cadence",
+            "Next step"
+          ],
+          "rows": [
+            [
+              "StreamPlus",
+              "$18.99 / month",
+              "Compare"
+            ],
+            [
+              "StreamExtra",
+              "$18.99 / month",
+              "Confirm usage"
+            ],
+            [
+              "MusicCloud",
+              "$10.99 / month",
+              "Review"
+            ],
+            [
+              "FitnessClub",
+              "$42.99 / month",
+              "Confirm usage"
+            ],
+            [
+              "CloudBox",
+              "$2.99 / month",
+              "Review"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Do not guess usage",
+          "text": "Recurring charges reveal payment patterns, not whether you actually use a service."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Three distinct states",
+          "text": "Detected candidate / user-confirmed subscription / confirmed changed cost."
+        },
+        {
+          "type": "note",
+          "title": "Annual renewals",
+          "text": "Show full upfront cost as well as monthly equivalent."
+        }
+      ],
+      "action": "Set service preferences",
+      "target": "subscription-preferences",
+      "tabs": []
+    },
+    {
+      "key": "subscription-preferences",
+      "title": "Tell us what you want to keep",
+      "subtitle": "Meaningful savings preserve the features you care about.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "StreamPlus preferences",
+          "rows": [
+            [
+              "Still using it?",
+              "Yes / No / Not sure"
+            ],
+            [
+              "Features to keep",
+              "Ad-free / HD / two screens"
+            ],
+            [
+              "Billing preference",
+              "Monthly only / annual if affordable"
+            ],
+            [
+              "Switching preference",
+              "Same provider / equivalent alternatives"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "User confirmation",
+          "text": "If usage is unknown, ask. Do not label the service unused from payment history."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "steps",
+          "title": "Comparison process",
+          "rows": [
+            "Confirm essential features",
+            "Fetch comparable offer terms",
+            "Calculate first-year and renewal cost"
+          ]
+        }
+      ],
+      "action": "Compare compatible offers",
+      "target": "offers",
+      "tabs": []
+    },
+    {
+      "key": "offers",
+      "title": "Compare the full cost",
+      "subtitle": "Every price needs terms, eligibility and a source.",
+      "metrics": [
+        [
+          "Current annual cost",
+          "$227.88",
+          "$18.99 x 12"
+        ],
+        [
+          "Annual sample option",
+          "$189.96",
+          "Paid upfront"
+        ],
+        [
+          "Conditional difference",
+          "$37.92",
+          "Before unknown taxes/fees"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Comparable sample offers",
+          "heads": [
+            "Option",
+            "First-year cost",
+            "Tradeoff"
+          ],
+          "rows": [
+            [
+              "Current monthly",
+              "$227.88",
+              "Flexible billing"
+            ],
+            [
+              "Annual same-feature sample",
+              "$189.96",
+              "Upfront payment"
+            ],
+            [
+              "Ad-supported sample",
+              "$119.88",
+              "Different features"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Sample offers - not verified live",
+          "text": "Show source URL, retrieval time, eligibility, features, promo expiry and renewal terms. Unknown costs stay unknown."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Cash timing matters",
+          "text": "A cheaper annual total can still be unaffordable this month."
+        },
+        {
+          "type": "note",
+          "title": "No double counting",
+          "text": "Cancellation and switching are mutually exclusive actions for one subscription."
+        }
+      ],
+      "action": "Review annual option",
+      "target": "offer-detail",
+      "tabs": []
+    },
+    {
+      "key": "offer-detail",
+      "title": "Is the annual option worth it?",
+      "subtitle": "Savings and affordability belong in the same comparison.",
+      "metrics": [
+        [
+          "Annual difference",
+          "$37.92",
+          "Conditional estimate"
+        ],
+        [
+          "Upfront cost",
+          "$189.96",
+          "Due on switch"
+        ],
+        [
+          "Monthly equivalent",
+          "$15.83",
+          "Not a monthly charge"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Offer terms",
+          "heads": [
+            "Term",
+            "Value"
+          ],
+          "rows": [
+            [
+              "Source mode",
+              "Sample catalog"
+            ],
+            [
+              "Feature match",
+              "Must be confirmed"
+            ],
+            [
+              "Eligibility",
+              "Unknown until verified"
+            ],
+            [
+              "Renewal price",
+              "Not yet verified"
+            ],
+            [
+              "Taxes / fees",
+              "Not included - unknown"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Cost calculation",
+          "text": "12 x $18.99 - $189.96 = $37.92. A true first-year comparison also includes known switching/cancellation fees."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Decision",
+          "text": "Save a proposal, then confirm a real provider change outside the prototype."
+        },
+        {
+          "type": "note",
+          "title": "Agent follow-through",
+          "text": "Only confirmed changes can be used as available savings in a plan."
+        }
+      ],
+      "action": "Save proposed change",
+      "target": "subscription-confirm",
+      "tabs": []
+    },
+    {
+      "key": "subscription-confirm",
+      "title": "Review your subscription action",
+      "subtitle": "A saved intention is not a completed cancellation or purchase.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Proposed action",
+          "rows": [
+            [
+              "Service",
+              "StreamPlus"
+            ],
+            [
+              "Choice",
+              "Review annual plan with provider"
+            ],
+            [
+              "Estimated difference",
+              "$37.92 per year - conditional"
+            ],
+            [
+              "Confirmation",
+              "I understand this saves a proposal only"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "After saving",
+          "text": "Show Proposed status, a checklist and provider guidance. Do not show Realized savings until confirmed."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "External action",
+          "text": "The user completes any purchase/cancellation directly with the provider."
+        }
+      ],
+      "action": "Save proposal",
+      "target": "subscriptions",
+      "tabs": []
+    }
+  ],
+  "FP-06": [
+    {
+      "key": "debt-planner",
+      "title": "Give every payment a purpose",
+      "subtitle": "Compare payoff choices while reserving bills and a cash cushion.",
+      "metrics": [
+        [
+          "Debt owed",
+          "$17,600",
+          "Linked obligations"
+        ],
+        [
+          "Monthly minimums",
+          "$300",
+          "Required payments"
+        ],
+        [
+          "Extra budget",
+          "$200",
+          "User-selected"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Debt inventory",
+          "heads": [
+            "Debt",
+            "APR / balance",
+            "Minimum"
+          ],
+          "rows": [
+            [
+              "Amex card",
+              "24.99% / $3,600",
+              "$100"
+            ],
+            [
+              "Auto loan",
+              "6.50% / $14,000",
+              "$200"
+            ]
+          ]
+        },
+        {
+          "type": "fields",
+          "title": "Payment strategy",
+          "rows": [
+            [
+              "Strategy",
+              "Highest APR first / smallest balance first"
+            ],
+            [
+              "Extra monthly amount",
+              "$200"
+            ],
+            [
+              "Minimum cash buffer",
+              "$1,000"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Exact conventions",
+          "text": "Debt simulations need a payment date, rate basis, minimum-payment rule and rounding policy."
+        },
+        {
+          "type": "note",
+          "title": "Interest vs credit readiness",
+          "text": "Do not promise a credit score change or loan approval."
+        }
+      ],
+      "action": "Open payoff calculator",
+      "target": "loan-calculator",
+      "tabs": []
+    },
+    {
+      "key": "loan-calculator",
+      "title": "Payoff calculator",
+      "subtitle": "Fixed-rate, equal monthly payments; full assumptions visible.",
+      "metrics": [
+        [
+          "Loan principal",
+          "$10,000",
+          "Example only"
+        ],
+        [
+          "Monthly payment",
+          "$304.22",
+          "36 months at 6% APR"
+        ],
+        [
+          "Schedule",
+          "36 payments",
+          "Final amount adjusted for rounding"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Loan inputs",
+          "rows": [
+            [
+              "Principal (USD)",
+              "$10,000"
+            ],
+            [
+              "Nominal annual APR",
+              "6.00%"
+            ],
+            [
+              "Term (months)",
+              "36"
+            ],
+            [
+              "Extra monthly payment",
+              "$0"
+            ],
+            [
+              "Payment timing",
+              "End of month"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Result fields",
+          "heads": [
+            "Output",
+            "Source"
+          ],
+          "rows": [
+            [
+              "Required payment",
+              "Amortization formula"
+            ],
+            [
+              "Total paid / interest",
+              "Sum rounded schedule"
+            ],
+            [
+              "Payoff month",
+              "First zero balance"
+            ],
+            [
+              "Schedule",
+              "Principal / interest / remaining"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Validation",
+          "text": "Reject negative principal/APR, zero term and non-finite input. APR=0 uses P/n."
+        },
+        {
+          "type": "note",
+          "title": "Rounding",
+          "text": "Use exact cents for posted payments and a capped final payment. Identify any residual."
+        }
+      ],
+      "action": "Calculate payoff",
+      "target": "loan-result",
+      "tabs": []
+    },
+    {
+      "key": "savings-calculator",
+      "title": "Make the goal concrete",
+      "subtitle": "Calculate the contribution required to reach your target.",
+      "metrics": [
+        [
+          "Target",
+          "$8,000",
+          "Car fund"
+        ],
+        [
+          "Saved",
+          "$2,400",
+          "Already allocated"
+        ],
+        [
+          "Monthly contribution",
+          "$466.67",
+          "12 months / 0% interest"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Goal inputs",
+          "rows": [
+            [
+              "Goal target",
+              "$8,000"
+            ],
+            [
+              "Current savings",
+              "$2,400"
+            ],
+            [
+              "Months remaining",
+              "12"
+            ],
+            [
+              "Annual yield / APY",
+              "0%"
+            ],
+            [
+              "Contribution timing",
+              "End of each month"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Contribution calculation",
+          "text": "At 0%: max(0, target - saved) / months, rounded up to the next cent. With APY, convert to an effective monthly rate."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "No negative savings requirement",
+          "text": "Already-funded goals show $0 and Funded status."
+        },
+        {
+          "type": "note",
+          "title": "Feasibility",
+          "text": "A mathematically valid contribution can exceed the available budget; show the gap."
+        }
+      ],
+      "action": "Calculate contribution",
+      "target": "savings-result",
+      "tabs": []
+    },
+    {
+      "key": "goals",
+      "title": "Your priorities, coordinated",
+      "subtitle": "Your goals share the same available dollars.",
+      "metrics": [
+        [
+          "Available after commitments",
+          "$1,400",
+          "Illustrative monthly budget"
+        ],
+        [
+          "Car fund",
+          "$2,400 / $8,000",
+          "30% funded"
+        ],
+        [
+          "Emergency cushion",
+          "$3,000 / $6,000",
+          "50% funded"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Goal portfolio",
+          "heads": [
+            "Goal",
+            "Priority / deadline",
+            "Allocation"
+          ],
+          "rows": [
+            [
+              "Car fund",
+              "1 / Mar 2027",
+              "$1,000 proposed"
+            ],
+            [
+              "Emergency cushion",
+              "2 / Jun 2027",
+              "Reserved buffer"
+            ],
+            [
+              "Debt reduction",
+              "Required + extra",
+              "$400 proposed"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Budget conservation",
+          "text": "Debt extras + goal contributions + additional reserves cannot exceed the same available budget."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Progress is earned",
+          "text": "Goal progress uses confirmed funds, not unconfirmed future subscription savings."
+        }
+      ],
+      "action": "Create or edit goal",
+      "target": "goal-editor",
+      "tabs": []
+    },
+    {
+      "key": "goal-editor",
+      "title": "Set a goal that fits your life",
+      "subtitle": "Make the target, deadline and tradeoff explicit.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Goal details",
+          "rows": [
+            [
+              "Goal name",
+              "Car fund"
+            ],
+            [
+              "Target amount",
+              "$8,000"
+            ],
+            [
+              "Current saved amount",
+              "$2,400"
+            ],
+            [
+              "Deadline",
+              "2027-03-01"
+            ],
+            [
+              "Priority",
+              "1 - highest"
+            ],
+            [
+              "Minimum cash cushion",
+              "$1,000"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Form errors",
+          "text": "Reject past deadline, nonpositive target and negative savings; keep entered values after validation errors."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Editing a goal",
+          "text": "Increment its version and mark dependent proposals stale."
+        },
+        {
+          "type": "note",
+          "title": "Budget impact",
+          "text": "Show whether the required contribution fits the current monthly budget."
+        }
+      ],
+      "action": "Save goal",
+      "target": "plan-compare",
+      "tabs": []
+    },
+    {
+      "key": "plan-compare",
+      "title": "Choose your next move",
+      "subtitle": "Three coherent allocations; the same monthly budget.",
+      "metrics": [
+        [
+          "Available budget",
+          "$1,400",
+          "After commitments"
+        ],
+        [
+          "Cash floor",
+          "$1,000",
+          "Protected in each option"
+        ],
+        [
+          "Decision",
+          "Yours",
+          "Explicit acceptance"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Plan alternatives",
+          "heads": [
+            "Strategy",
+            "Extra debt / goal",
+            "Monthly total"
+          ],
+          "rows": [
+            [
+              "Debt first",
+              "$600 / $800",
+              "$1,400"
+            ],
+            [
+              "Balanced",
+              "$400 / $1,000",
+              "$1,400"
+            ],
+            [
+              "Car first",
+              "$200 / $1,200",
+              "$1,400"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Timelines and assumptions",
+          "text": "Show calculated goal completion, payoff timing and interest by option; never invent dates."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Try the plan",
+          "text": "Stress-test an unexpected expense before accepting."
+        },
+        {
+          "type": "note",
+          "title": "What changes?",
+          "text": "Selection changes a proposed allocation only, not bank transactions."
+        }
+      ],
+      "action": "Stress-test balanced",
+      "target": "scenario-lab",
+      "tabs": []
+    },
+    {
+      "key": "accept-plan",
+      "title": "Review before accepting",
+      "subtitle": "Save your chosen plan with its assumptions and version.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Balanced allocation",
+          "heads": [
+            "Item",
+            "Amount"
+          ],
+          "rows": [
+            [
+              "Extra debt payment",
+              "$400 / month"
+            ],
+            [
+              "Car contribution",
+              "$1,000 / month"
+            ],
+            [
+              "Protected cash floor",
+              "$1,000"
+            ]
+          ]
+        },
+        {
+          "type": "fields",
+          "title": "Acceptance",
+          "rows": [
+            [
+              "Plan version",
+              "v1 / snapshot 1"
+            ],
+            [
+              "Confirmation",
+              "I reviewed this allocation and its assumptions"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Version conflict",
+          "text": "If a newer version exists, show a refresh action rather than silently overwriting it."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Nothing moves automatically",
+          "text": "This saves a financial plan. It does not make a payment or transfer."
+        }
+      ],
+      "action": "Accept selected plan",
+      "target": "goals",
+      "tabs": []
+    },
+    {
+      "key": "assets",
+      "title": "Assets, with their limitations",
+      "subtitle": "A clear picture of savings, maturity and restricted balances.",
+      "metrics": [
+        [
+          "Liquid cash",
+          "$5,400",
+          "Checking + savings"
+        ],
+        [
+          "Investment snapshots",
+          "$14,000",
+          "Not live market values"
+        ],
+        [
+          "CD snapshot",
+          "$7,400",
+          "Maturity Jan 15, 2027"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Asset inventory",
+          "heads": [
+            "Account",
+            "Valuation date",
+            "Balance"
+          ],
+          "rows": [
+            [
+              "Savings",
+              "2026-10-31",
+              "$5,050"
+            ],
+            [
+              "Brokerage",
+              "2026-10-31",
+              "$8,000"
+            ],
+            [
+              "IRA",
+              "2026-10-31",
+              "$6,000"
+            ],
+            [
+              "CD",
+              "2026-10-31",
+              "$7,400"
+            ]
+          ]
+        },
+        {
+          "type": "fields",
+          "title": "CD illustration",
+          "rows": [
+            [
+              "Principal",
+              "$1,000"
+            ],
+            [
+              "APY",
+              "5%"
+            ],
+            [
+              "Horizon",
+              "1 year"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Expected CD value",
+          "text": "$1,050 after one year at 5% APY before taxes or penalties."
+        },
+        {
+          "type": "note",
+          "title": "Availability",
+          "text": "Do not count retirement/CD balances as bill-paying cash by default."
+        }
+      ],
+      "action": "Run scenario",
+      "target": "scenario-lab",
+      "tabs": []
+    },
+    {
+      "key": "scenario-lab",
+      "title": "Rehearse the unexpected",
+      "subtitle": "Test the plan with an explicit change in circumstances.",
+      "metrics": [
+        [
+          "Baseline minimum",
+          "$1,200",
+          "Within 30 days"
+        ],
+        [
+          "Surprise expense",
+          "$900",
+          "Selected event"
+        ],
+        [
+          "Stressed minimum",
+          "$300",
+          "Cushion below $1,000"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "fields",
+          "title": "Stress controls",
+          "rows": [
+            [
+              "Scenario",
+              "Unexpected expense / delayed income / income drop"
+            ],
+            [
+              "Expense amount",
+              "$900"
+            ],
+            [
+              "Event date",
+              "2026-11-10"
+            ],
+            [
+              "Plan / horizon",
+              "Balanced / 30 days"
+            ]
+          ]
+        },
+        {
+          "type": "chart",
+          "title": "Baseline and stressed balance",
+          "values": [
+            80,
+            76,
+            68,
+            70,
+            78,
+            75
+          ],
+          "caption": "Add the selected event once. Baseline stays unchanged."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "No probability claim",
+          "text": "This is one scenario, not a prediction of risk."
+        },
+        {
+          "type": "note",
+          "title": "Result details",
+          "text": "Show first shortfall date, buffer breach, affected goals and comparison assumptions."
+        }
+      ],
+      "action": "Review stress result",
+      "target": "stress-result",
+      "tabs": []
+    },
+    {
+      "key": "stress-result",
+      "title": "This plan needs more breathing room",
+      "subtitle": "The tested scenario breaches your chosen cash floor.",
+      "metrics": [
+        [
+          "Baseline minimum",
+          "$1,200",
+          "No breach"
+        ],
+        [
+          "Stress minimum",
+          "$300",
+          "After $900 expense"
+        ],
+        [
+          "Buffer gap",
+          "$700",
+          "$1,000 floor - $300"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Scenario comparison",
+          "heads": [
+            "Measure",
+            "Baseline",
+            "Stress"
+          ],
+          "rows": [
+            [
+              "Minimum balance",
+              "$1,200",
+              "$300"
+            ],
+            [
+              "Cash floor breached",
+              "No",
+              "Yes"
+            ],
+            [
+              "Actual cash below zero",
+              "No",
+              "No"
+            ],
+            [
+              "Plan replaced",
+              "No",
+              "No"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Distinct conditions",
+          "text": "A buffer breach is different from an overdraft. Show both clearly."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "steps",
+          "title": "Next step",
+          "rows": [
+            "Review smaller optional allocations",
+            "Keep required payments",
+            "Recalculate the candidate",
+            "Accept only if desired"
+          ]
+        }
+      ],
+      "action": "Review revised proposal",
+      "target": "plan-repair",
+      "tabs": []
+    },
+    {
+      "key": "plan-repair",
+      "title": "Your situation changed. Your plan can adapt.",
+      "subtitle": "A revised proposal with every change explained.",
+      "metrics": [
+        [
+          "New event",
+          "$900 expense",
+          "Applied once"
+        ],
+        [
+          "Accepted plan",
+          "v1",
+          "Preserved"
+        ],
+        [
+          "Proposed revision",
+          "v2",
+          "Needs your approval"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "What changes",
+          "heads": [
+            "Allocation",
+            "Before",
+            "Proposed"
+          ],
+          "rows": [
+            [
+              "Goal contribution",
+              "$1,000",
+              "$700"
+            ],
+            [
+              "Extra debt payment",
+              "$400",
+              "$200"
+            ],
+            [
+              "Added reserve",
+              "$0",
+              "$500"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Same budget, new priorities",
+          "text": "$700 + $200 + $500 = $1,400. The new reserve reduces optional allocations; it does not create money."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Follow the evidence",
+          "text": "Open the changed transaction, snapshot and recalculated forecast."
+        },
+        {
+          "type": "note",
+          "title": "Choose",
+          "text": "Accept revision or keep the previous plan. A failed repair never replaces it."
+        }
+      ],
+      "action": "Review acceptance",
+      "target": "accept-plan",
+      "tabs": []
+    },
+    {
+      "key": "loan-result",
+      "title": "Your payoff result, line by line",
+      "subtitle": "A cent-rounded schedule with an adjusted final payment.",
+      "metrics": [
+        [
+          "Regular payment",
+          "$304.22",
+          "35 regular payments"
+        ],
+        [
+          "Final payment",
+          "$304.18",
+          "Month 36"
+        ],
+        [
+          "Total interest",
+          "$951.88",
+          "Monthly rate / rounded schedule"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "First three installments",
+          "heads": [
+            "Month",
+            "Interest / principal",
+            "Remaining"
+          ],
+          "rows": [
+            [
+              "1",
+              "$50.00 / $254.22",
+              "$9,745.78"
+            ],
+            [
+              "2",
+              "$48.73 / $255.49",
+              "$9,490.29"
+            ],
+            [
+              "3",
+              "$47.45 / $256.77",
+              "$9,233.52"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Result conventions",
+          "text": "$10,000 principal; 6% nominal annual interest rate; 36 end-of-month payments; no fees; interest rounded half-up to cents per period. Last payment clears the balance."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Compare an extra payment",
+          "text": "A $100 monthly extra should shorten the schedule and reduce total interest. Recalculate through the same schedule engine."
+        },
+        {
+          "type": "note",
+          "title": "Rate is not fee-inclusive APR",
+          "text": "The rate used for interest accrual must be explicit. Do not substitute a fee-inclusive advertised APR without disclosure."
+        }
+      ],
+      "action": "Edit calculation",
+      "target": "loan-calculator",
+      "tabs": []
+    },
+    {
+      "key": "savings-result",
+      "title": "A savings contribution you can verify",
+      "subtitle": "Show what is required and whether the current budget supports it.",
+      "metrics": [
+        [
+          "Monthly target",
+          "$466.67",
+          "Ceiling to the next cent"
+        ],
+        [
+          "Already saved",
+          "$2,400",
+          "Confirmed funds"
+        ],
+        [
+          "Goal target",
+          "$8,000",
+          "12 months / 0% yield"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Contribution plan",
+          "heads": [
+            "Period",
+            "Contribution",
+            "Goal balance"
+          ],
+          "rows": [
+            [
+              "Start",
+              "Already saved",
+              "$2,400.00"
+            ],
+            [
+              "Months 1–11",
+              "$466.67 each",
+              "$7,533.37"
+            ],
+            [
+              "Month 12",
+              "$466.63 final",
+              "$8,000.00"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Formula and final adjustment",
+          "text": "($8,000 - $2,400) / 12 = $466.666… . Round the recurring amount up; cap the final contribution to the remaining target. Positive yield uses effective monthly APY conversion."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Feasibility is separate",
+          "text": "Compare the required contribution against unallocated monthly income. Show a shortfall if it does not fit."
+        },
+        {
+          "type": "note",
+          "title": "Already funded",
+          "text": "When current savings already covers the target, required contribution is $0."
+        }
+      ],
+      "action": "Save goal details",
+      "target": "goal-editor",
+      "tabs": []
+    }
+  ],
+  "FP-07": [
+    {
+      "key": "agent-running",
+      "title": "Your financial team is at work",
+      "subtitle": "Specialists collaborate on one coordinated result.",
+      "metrics": [
+        [
+          "Run status",
+          "In progress",
+          "Snapshot 1"
+        ],
+        [
+          "Completed roles",
+          "3 of 9",
+          "Real events only"
+        ],
+        [
+          "Next step",
+          "Goal allocation",
+          "Waiting on debt/cash results"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Agent handoffs",
+          "heads": [
+            "Role",
+            "Tool / dependency",
+            "Status"
+          ],
+          "rows": [
+            [
+              "Data integrity",
+              "reconcile_ledger",
+              "Completed"
+            ],
+            [
+              "Cash collision",
+              "forecast_cash",
+              "Completed"
+            ],
+            [
+              "Subscription detective",
+              "detect_recurring",
+              "Completed"
+            ],
+            [
+              "Deal scout",
+              "preferences needed",
+              "Needs input"
+            ],
+            [
+              "Debt readiness",
+              "simulate_debt_payoff",
+              "Running"
+            ],
+            [
+              "Goal negotiator",
+              "cash + debt outputs",
+              "Queued"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Scope and cancellation",
+          "text": "Cancel stops new model/tool calls. Completed results remain visible."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Trace",
+          "text": "Show concise real tool events and timing, not hidden chain-of-thought."
+        },
+        {
+          "type": "note",
+          "title": "Source labels",
+          "text": "Live inference can analyze simulated financial records; label both independently."
+        }
+      ],
+      "action": "View completed findings",
+      "target": "agent-results",
+      "tabs": []
+    },
+    {
+      "key": "agent-results",
+      "title": "A plan, backed by evidence",
+      "subtitle": "Findings are prioritized by what matters next.",
+      "metrics": [
+        [
+          "Cash collision",
+          "Review now",
+          "Payment before income"
+        ],
+        [
+          "Subscription opportunity",
+          "Conditional",
+          "Preferences needed"
+        ],
+        [
+          "Plan proposal",
+          "Ready",
+          "Compare tradeoffs"
+        ]
+      ],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Findings",
+          "heads": [
+            "Priority",
+            "Finding",
+            "Action"
+          ],
+          "rows": [
+            [
+              "Urgent",
+              "Nov 10 checking shortfall",
+              "Inspect evidence"
+            ],
+            [
+              "Opportunity",
+              "Annual subscription option",
+              "Compare terms"
+            ],
+            [
+              "Planning",
+              "Competing car/debt goals",
+              "Compare plans"
+            ]
+          ]
+        },
+        {
+          "type": "steps",
+          "title": "Workflow completed",
+          "rows": [
+            "Integrity filtered transfers",
+            "Cash set spending constraints",
+            "Debt supplied payment alternatives",
+            "Goals coordinated the budget",
+            "Stress tested the plan"
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Three agent outcomes",
+          "text": "Completed / needs information / failed are distinct, with skipped roles explained."
+        },
+        {
+          "type": "note",
+          "title": "Evidence gate",
+          "text": "Unsupported amounts or unknown source IDs cannot become accepted findings."
+        }
+      ],
+      "action": "Open finding evidence",
+      "target": "finding-evidence",
+      "tabs": []
+    },
+    {
+      "key": "finding-evidence",
+      "title": "Why this finding exists",
+      "subtitle": "Records, calculations and assumptions in one place.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Evidence chain",
+          "heads": [
+            "Source",
+            "Value",
+            "Observation"
+          ],
+          "rows": [
+            [
+              "Checking balance",
+              "$350",
+              "Linked account"
+            ],
+            [
+              "Scheduled payment",
+              "-$1,250",
+              "Nov 10"
+            ],
+            [
+              "Expected paycheck",
+              "+$2,600",
+              "Nov 15"
+            ],
+            [
+              "Calculated Nov 10 result",
+              "-$900",
+              "Before later income"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Reproducible calculation",
+          "text": "$350 - $1,250 = -$900. Forecast horizon, date ordering and account scope are explicit."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Freshness",
+          "text": "Snapshot 1. Changing or disconnecting records makes this finding stale."
+        },
+        {
+          "type": "note",
+          "title": "No secret data",
+          "text": "Passwords, OTPs and session tokens never enter evidence or model context."
+        }
+      ],
+      "action": "Ask about this finding",
+      "target": "chat",
+      "tabs": []
+    },
+    {
+      "key": "chat",
+      "title": "Ask about your next move",
+      "subtitle": "A conversation connected to the agent workflow.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "steps",
+          "title": "Conversation",
+          "rows": [
+            "You: Why is there a shortfall when I have savings?",
+            "FinPilot: The payment is from checking. Savings is separate; no transfer is assumed.",
+            "You: Compare options while protecting $1,000.",
+            "FinPilot: I can request a planning run using that constraint."
+          ]
+        },
+        {
+          "type": "fields",
+          "title": "Message",
+          "rows": [
+            [
+              "Ask FinPilot",
+              "Explain a finding or request a checkup"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Basic chat scope",
+          "text": "Read current data, explain findings, clarify goals and request runs."
+        },
+        {
+          "type": "note",
+          "title": "Authorization",
+          "text": "A message does not authorize money movement or replace explicit plan acceptance."
+        }
+      ],
+      "action": "Request checkup",
+      "target": "agent-running",
+      "tabs": []
+    },
+    {
+      "key": "agent-partial",
+      "title": "Some results are ready",
+      "subtitle": "One specialist failed; the rest of your data stays useful.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Partial run",
+          "heads": [
+            "Role",
+            "Result",
+            "Next action"
+          ],
+          "rows": [
+            [
+              "Cash collision",
+              "Completed",
+              "View evidence"
+            ],
+            [
+              "Deal scout",
+              "Provider timeout",
+              "Retry or sample offers"
+            ],
+            [
+              "Goal negotiator",
+              "Needs data",
+              "Resolve dependency"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Honest fallback",
+          "text": "Sample offers are labeled. An unavailable model is not replaced by scripted success."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Retry boundary",
+          "text": "Retry only affected work on a compatible snapshot; preserve accepted plans."
+        }
+      ],
+      "action": "Review completed findings",
+      "target": "agent-results",
+      "tabs": []
+    }
+  ],
+  "FP-08": [
+    {
+      "key": "settings",
+      "title": "Your workspace, your access",
+      "subtitle": "Manage profile, verification and institution consent.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Profile and session",
+          "heads": [
+            "Setting",
+            "Status"
+          ],
+          "rows": [
+            [
+              "Maya Chen",
+              "maya.chen@example.test"
+            ],
+            [
+              "Email verification",
+              "Required at sign in"
+            ],
+            [
+              "Current session",
+              "Protected server cookie"
+            ],
+            [
+              "Workspace",
+              "Simulation only"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Connected institutions",
+          "heads": [
+            "Institution",
+            "Last sync",
+            "Action"
+          ],
+          "rows": [
+            [
+              "Chase",
+              "Today",
+              "Manage / disconnect"
+            ],
+            [
+              "Amex",
+              "Today",
+              "Manage / disconnect"
+            ]
+          ]
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Security changes",
+          "text": "Email or credential changes need reauthentication and are outside scope unless safely implemented."
+        },
+        {
+          "type": "note",
+          "title": "Session control",
+          "text": "Sign out invalidates the server session."
+        }
+      ],
+      "action": "Review disconnect",
+      "target": "disconnect",
+      "tabs": []
+    },
+    {
+      "key": "disconnect",
+      "title": "Disconnect Chase?",
+      "subtitle": "Revoke FinPilot access without closing a bank account.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Affected accounts",
+          "heads": [
+            "Account",
+            "Access to revoke"
+          ],
+          "rows": [
+            [
+              "Checking / 1000",
+              "Balance + history"
+            ],
+            [
+              "Savings / 1001",
+              "Balance + history"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Affected plans",
+          "text": "Findings and plans depending on these accounts become stale; rerun after reconnecting."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Explicit confirmation",
+          "text": "Disconnect or cancel. Prevent repeated requests from producing inconsistent state."
+        }
+      ],
+      "action": "Confirm disconnect",
+      "target": "empty-state",
+      "tabs": []
+    },
+    {
+      "key": "empty-state",
+      "title": "Start with your first connection",
+      "subtitle": "No financial data is shared until you select accounts and consent.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "steps",
+          "title": "Get started",
+          "rows": [
+            "Choose a simulated institution",
+            "Use generated credentials",
+            "Select account access",
+            "Review your overview"
+          ]
+        },
+        {
+          "type": "note",
+          "title": "No fabricated metrics",
+          "text": "Do not show $0 net worth as a meaningful conclusion when data is missing."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Clear recovery",
+          "text": "The empty state points to the next useful action, not a dead end."
+        }
+      ],
+      "action": "Connect an institution",
+      "target": "institutions",
+      "tabs": []
+    },
+    {
+      "key": "responsive",
+      "title": "The same decisions, on a smaller screen",
+      "subtitle": "Responsive behavior and accessibility are part of the product.",
+      "metrics": [],
+      "sections": [
+        {
+          "type": "table",
+          "title": "Responsive rules",
+          "heads": [
+            "Element",
+            "Mobile behavior"
+          ],
+          "rows": [
+            [
+              "Navigation",
+              "Menu drawer / current section visible"
+            ],
+            [
+              "Metrics",
+              "Stack in reading order"
+            ],
+            [
+              "Transactions",
+              "Scroll usable table; preserve headers"
+            ],
+            [
+              "Calculators",
+              "Inputs then results; sticky compare action"
+            ],
+            [
+              "Chat",
+              "Separate drawer, not over key controls"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Review checklist",
+          "text": "390px mobile and 1440px desktop screenshots; 200% zoom; keyboard focus; accessible labels; reduced motion."
+        }
+      ],
+      "inspector": [
+        {
+          "type": "note",
+          "title": "Feedback states",
+          "text": "Loading / empty / validation error / provider failure / stale data / success."
+        },
+        {
+          "type": "note",
+          "title": "Charts",
+          "text": "Provide text summaries and tabular values alongside color-coded charts."
+        }
+      ],
+      "action": "Back to overview",
+      "target": "overview",
+      "tabs": []
+    }
+  ]
+}
