@@ -3,9 +3,12 @@ import { z } from 'zod';
 import { Store } from './db';
 import { Auth,equal,hash } from './auth';
 import { ApiFailure,fail } from './errors';
+import { Simulator } from './simulator';
 const key=z.string().min(1).max(128);
 const login=z.strictObject({email:z.email().max(254),password:z.string().min(1).max(256)});
-export interface Services {store:Store;auth:Auth;}
+const text=z.string().trim().min(1).max(200);
+const confirmed=z.literal(true);
+export interface Services {store:Store;auth:Auth;simulator?:Simulator;}
 export function createApi(s:Services) {
   return async function handle(request:Request):Promise<Response> {
     const requestId=randomUUID();
@@ -58,6 +61,23 @@ export function createApi(s:Services) {
       if(resource==='me'&&path.length===1&&method==='GET') {
         if(cookies.fp_csrf&&equal(hash(cookies.fp_csrf),session.csrf_hash||''))headers.set('x-csrf-token',cookies.fp_csrf);
         return json(s.auth.profile(uid));
+      }
+      if(resource==='institutions'&&path.length===1&&method==='GET') {
+        const category=url.searchParams.get('category');if(category&&category.length>50)fail(400,'invalid_input','Invalid category');
+        return json({items:category?s.store.all('SELECT * FROM institutions WHERE category=?',category):s.store.all('SELECT * FROM institutions ORDER BY name')});
+      }
+      if(resource==='connections') {
+        if(!s.simulator)fail(503,'service_unavailable','Simulator is not configured');
+        if(!id&&method==='GET')return json({items:s.simulator.list(uid)});
+        if(id==='preview'&&path.length===2&&method==='POST') {
+          s.auth.throttle(`simulator:${uid}`,10);
+          const b=await body(z.strictObject({institution_id:text,demo_username:text,demo_password:z.string().min(1).max(256)}));return json(s.simulator.preview(uid,b.institution_id,b.demo_username,b.demo_password));
+        }
+        if(!id&&method==='POST') {
+          const b=await body(z.strictObject({preview_token:key,account_ids:z.array(text).min(1).max(20).refine(a=>new Set(a).size===a.length),consent_version:text,idempotency_key:key}));return json(s.simulator.connect(uid,b),201);
+        }
+        if(id&&action==='sync'&&method==='POST') {const b=await body(z.strictObject({idempotency_key:key}));return json(s.simulator.sync(uid,id,b.idempotency_key));}
+        if(id&&!action&&method==='DELETE') {await body(z.strictObject({confirmation:confirmed}));return json(s.simulator.revoke(uid,id));}
       }
 
       fail(404,'not_found','Route not found');
