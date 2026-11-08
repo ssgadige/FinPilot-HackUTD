@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, expect, it, vi } from "vitest";
 import { AuthProvider, useAuth } from "@/components/auth/auth-provider";
@@ -7,6 +7,8 @@ import { planningAccounts } from "../fixtures/planning";
 
 afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 it("hands specialist evidence to a reviewable coach draft, preserves discussion across views and clears on identity change", async () => {
+  Object.defineProperty(HTMLDialogElement.prototype,"showModal",{configurable:true,value(){this.setAttribute("open","");}});
+  Object.defineProperty(HTMLDialogElement.prototype,"close",{configurable:true,value(){this.removeAttribute("open");}});
   let userId = "user-a";
   const json = (data: unknown, status = 200) => new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json", "X-CSRF-Token": "fixture-csrf" } });
   const fetcher = vi.fn(async (path: string) => {
@@ -24,7 +26,7 @@ it("hands specialist evidence to a reviewable coach draft, preserves discussion 
   await screen.findByLabelText("Existing authorized run ID");
   await user.type(screen.getByLabelText("Existing authorized run ID"), "owned");
   await user.click(screen.getByRole("button", { name: "Inspect run availability" }));
-  await user.click(await screen.findByRole("button", { name: "Explain finding" }));
+  await user.click(within(await screen.findByRole("dialog",{name:"Your checkup results"})).getByRole("button",{name:"Explain finding"}));
   const input = screen.getByLabelText("Ask FinPilot");
   expect(input).toHaveValue("Explain the current finding supported by evidence calc-owned.");
   expect(fetcher.mock.calls.filter(([p]) => p === "/api/v1/chat")).toHaveLength(0);

@@ -3,14 +3,14 @@ import { useEffect, useId, useRef, type ReactNode } from "react";
 import { Button } from "./button";
 import "@/components/finance/finance.css";
 /** Shared native drawer for account, transaction and calculated agent evidence. */
-export function EvidenceDialog({title,onClose,children}:{title:string;onClose:()=>void;children:ReactNode}){
+export function EvidenceDialog({title,onClose,children,className=""}:{title:string;onClose:()=>void;children:ReactNode;className?:string}){
   const dialog=useRef<HTMLDialogElement>(null);const titleId=useId();
   useEffect(()=>{
     const opener=document.activeElement instanceof HTMLElement?document.activeElement:null;
     const node=dialog.current;node?.showModal();
     return ()=>{node?.close();if(opener?.isConnected)opener.focus();};
   },[]);
-  return <dialog ref={dialog} className="evidence-drawer" aria-labelledby={titleId}
+  return <dialog ref={dialog} className={`evidence-drawer ${className}`} aria-labelledby={titleId}
     onCancel={event=>{event.preventDefault();onClose();}}
     onKeyDown={event=>{
       if(event.key!=="Tab")return;

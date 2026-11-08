@@ -1,5 +1,6 @@
 "use client";
 
+import { CoachResponse } from "./coach-response";
 import { useEffect, useRef } from "react";
 import type { ChatReply } from "@/lib/chat-api";
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,7 @@ export function MessageList({ messages, busy, onEvidence, onRun }: { messages: C
       ) : messages.map(message => (
         <article key={message.id} className={`coach-message coach-message--${message.role}`} aria-label={message.role === "user" ? "Your message" : "FinPilot reply"}>
           <p className="coach-speaker">{message.role === "user" ? "You" : "FinPilot"}</p>
-          <p className="coach-message-text">{message.stale?"This previous answer is hidden because its financial snapshot is outdated or inaccessible.":message.content}</p>
+          {message.stale?<p className="coach-message-text">This previous answer is hidden because its financial snapshot is outdated or inaccessible.</p>:<CoachResponse response={message.response} text={message.content}/>}
           {message.stale && <p className="coach-stale">This answer refers to an older or inaccessible snapshot. Ask for an updated explanation before using its amounts.</p>}
           {message.delivery === "unconfirmed" && <p className="small muted">Response not confirmed. This message was not automatically resent.</p>}
           {message.response && (

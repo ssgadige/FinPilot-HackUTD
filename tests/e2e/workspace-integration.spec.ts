@@ -15,7 +15,7 @@ test("combined workspace hands off real references without implicit inference an
   await page.screenshot({ path: "docs/tasks/CHAT-INTEGRATION/evidence/specialists-fixture-1440.png", fullPage: true });
   await page.getByLabel("Existing authorized run ID").fill("owned");
   await page.getByRole("button", { name: "Inspect run availability" }).click();
-  await page.getByRole("button", { name: "Explain finding", exact: true }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Explain finding", exact: true }).click();
   await expect(page.getByLabel("Ask FinPilot")).toHaveValue("Explain the current finding supported by evidence calc-owned.");
   expect(chats).toBe(0);
   await page.getByRole("button", { name: "Send message" }).click();

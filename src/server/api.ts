@@ -11,6 +11,7 @@ import { date } from './tools/finance';
 import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 import type { Runs } from './runs';
 import { subscriptionSummary } from './subscription-summary';
+import { CreditMonitor } from './credit';
 import { sanitizeConversationText } from './agents/chat/memory';
 const key=z.string().min(1).max(128);
 const login=z.strictObject({email:z.email().max(254),password:z.string().min(1).max(256)});
@@ -74,6 +75,12 @@ export function createApi(s:Services) {
       s.auth.throttle(`api:${uid}:${unsafe?'write':'read'}`,unsafe?120:1000,60000);
       if(resource==='auth'&&id==='logout'&&path.length===2&&method==='POST') {
         s.auth.logout(cookies.fp_session||'');s.runs?.forgetChatSession(uid,session.token_hash);cookie('fp_session','',0);cookie('fp_csrf','',0,false);return new Response(null,{status:204,headers});
+      }
+      if(resource==='credit') {
+        const credit=new CreditMonitor(s.store);
+        if(path.length===1&&method==='GET')return json(credit.view(uid));
+        if(path.length===2&&id==='connect'&&method==='POST') {const b=await body(z.strictObject({provider_id:key,confirmation:confirmed}));return json(credit.connect(uid,b.provider_id));}
+        if(path.length===1&&method==='DELETE') {await body(z.strictObject({confirmation:confirmed}));return json(credit.disconnect(uid));}
       }
       if(resource==='me'&&path.length===1&&method==='GET') {
         if(cookies.fp_csrf&&equal(hash(cookies.fp_csrf),session.csrf_hash||''))headers.set('x-csrf-token',cookies.fp_csrf);

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { fail } from '../../errors';
+import { fail } from '../../errors.ts';
 export function integer(n: number,min=0,max=100_000_000_000): number {
   if (!Number.isSafeInteger(n) || n<min || n>max) fail(400,'invalid_range','Value outside supported range'); return n;
 }

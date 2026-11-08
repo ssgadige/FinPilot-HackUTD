@@ -1,4 +1,6 @@
 "use client";
+import type { Finding } from "../../../contracts/types";
+import { CheckupResults } from "./checkup-results";
 import { useEffect, useRef, useState } from "react";
 import type { RunEvent } from "../../../contracts/types";
 import { Card } from "@/components/ui/card";
@@ -6,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { ChatProblem } from "@/lib/chat-api";
 import { runsApi, type RunStatus, type RunView } from "@/lib/runs-api";
 export const roleLabel=(role:string)=>role.replaceAll('-',' ').replace(/\b\w/g,c=>c.toUpperCase());
-export function RunCard({id,csrfToken,onExpired,onState,onStale,onEvidence}:{id:string;csrfToken:string|null;onExpired:()=>void;onState:(status:RunStatus|'stale')=>void;onStale:()=>void;onEvidence:(id:string)=>void}){
+export function RunCard({id,csrfToken,onExpired,onState,onStale,onEvidence,onExplain}:{id:string;csrfToken:string|null;onExpired:()=>void;onState:(status:RunStatus|'stale')=>void;onStale:()=>void;onEvidence:(id:string)=>void;onExplain?:(finding:Finding)=>void}){
   const [refresh,setRefresh]=useState(0);
+  const [showResults,setShowResults]=useState(false);
   const [result,setResult]=useState<{id:string;generation:number;data?:RunView;error?:string}|null>(null);
   const [events,setEvents]=useState<{id:string;items:RunEvent[]}>({id,items:[]});
   const [cooldown,setCooldown]=useState(0);const cooling=cooldown>0;
@@ -77,11 +80,13 @@ export function RunCard({id,csrfToken,onExpired,onState,onStale,onEvidence}:{id:
         <h3>Specialist handoffs</h3>
         {data.role_steps.length?<ul className="coach-role-list">{data.role_steps.map(step=><li key={step.role}><strong>{roleLabel(step.role)}</strong><span>{step.status.replaceAll('_',' ')}</span>{step.reason&&<p>{step.reason}</p>}{step.depends_on.length>0&&<p className="small muted">Depends on: {step.depends_on.map(roleLabel).join(', ')}</p>}</li>)}</ul>:<p>No role steps have been returned yet.</p>}
         <h3>Findings</h3>
+        {data.findings.length>0&&<Button onClick={()=>setShowResults(true)}>View clear results</Button>}
         {data.findings.length?<ul className="coach-findings">{data.findings.map(f=><li key={f.id}><strong>{f.severity}</strong><p>{f.summary}</p><div className="coach-evidence-links">{f.evidence_ids.map((e,index)=><Button key={e} variant="ghost" onClick={()=>onEvidence(e)}>Inspect finding source {index+1}</Button>)}</div></li>)}</ul>:<p>No supported findings have been returned for this run.</p>}
         {data.trace.length>0&&<details><summary>Validated tool trace ({data.trace.length})</summary><ul>{data.trace.map((t,index)=><li key={index}>{t.tool} · {t.source_modes.join(', ')} · {t.evidence_ids.length} evidence reference(s)</li>)}</ul></details>}
       </>}
       {active&&<Button disabled={cancelling||!csrfToken} variant="secondary" onClick={()=>void cancel()}>{cancelling?'Requesting cancellation…':'Cancel checkup'}</Button>}
     </>}
+    {showResults&&data&&!data.stale&&<CheckupResults findings={data.findings} onClose={()=>setShowResults(false)} onExplain={onExplain?f=>{setShowResults(false);onExplain(f);}:undefined} onEvidence={id=>{setShowResults(false);onEvidence(id);}}/>}
     {cancelMessage&&<p role="status">{cancelMessage}</p>}
     {events.id===id&&events.items.length>0&&<details><summary>Actual activity events ({events.items.length}{events.items.length===200?'; most recent 200':''})</summary><ol className="coach-event-list">{events.items.map(e=><li key={e.id}><strong>{roleLabel(e.agent_id)}</strong> · {e.type.replaceAll('_',' ')}<p>{e.message}</p><time dateTime={e.at}>{e.at}</time></li>)}</ol></details>}
   </Card>;

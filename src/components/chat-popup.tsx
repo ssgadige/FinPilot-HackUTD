@@ -5,7 +5,8 @@ import Link from "next/link";
 import { MessageCircle, Send, X } from "lucide-react";
 import { useAuth } from "./auth/auth-provider";
 import { Button } from "./ui/button";
-import { chatApi, ChatProblem } from "@/lib/chat-api";
+import { CoachResponse } from "./chat/coach-response";
+import { chatApi, ChatProblem, type ChatReply } from "@/lib/chat-api";
 
 export function ChatPopup() {
   const {state,clearSession}=useAuth();
@@ -14,14 +15,16 @@ export function ChatPopup() {
 }
 function ChatSession({csrf,onExpired}:{csrf:string|null;onExpired:()=>void}) {
   const [open,setOpen]=useState(false),[draft,setDraft]=useState(""),[busy,setBusy]=useState(false),[error,setError]=useState("");
-  const [messages,setMessages]=useState<{role:"user"|"assistant";text:string}[]>([]);
+  const [messages,setMessages]=useState<{role:"user"|"assistant";text:string;response?:ChatReply}[]>([]);
   const dialog=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement>(null),input=useRef<HTMLTextAreaElement>(null);
   const request=useRef<AbortController|null>(null),conversation=useRef<string|undefined>(undefined);
   useEffect(()=>{
     const show=()=>setOpen(true);
+    const prepare=(event:Event)=>{const text=(event as CustomEvent<{text?:unknown}>).detail?.text;if(typeof text==='string'&&text.length<=2000){setDraft(text);setOpen(true);}};
+    window.addEventListener("finpilot:coach-draft",prepare);
     const clear=()=>{request.current?.abort();request.current=null;conversation.current=undefined;setMessages([]);setDraft("");setError("");setBusy(false);};
     window.addEventListener("finpilot:open-chat",show);window.addEventListener("finpilot:finance-invalidated",clear);
-    return()=>{request.current?.abort();window.removeEventListener("finpilot:open-chat",show);window.removeEventListener("finpilot:finance-invalidated",clear);};
+    return()=>{request.current?.abort();window.removeEventListener("finpilot:coach-draft",prepare);window.removeEventListener("finpilot:open-chat",show);window.removeEventListener("finpilot:finance-invalidated",clear);};
   },[]);
   useEffect(()=>{if(open){dialog.current?.showModal();input.current?.focus();}else{dialog.current?.close();}},[open]);
   function close(){setOpen(false);trigger.current?.focus();}
@@ -34,7 +37,7 @@ function ChatSession({csrf,onExpired}:{csrf:string|null;onExpired:()=>void}) {
       if(controller.signal.aborted)return;
       if(!data||typeof data!=="object"||!("reply" in data)||typeof data.reply!=="string")throw new Error("Unsupported response");
       if("conversation_id" in data&&typeof data.conversation_id==="string")conversation.current=data.conversation_id;
-      setMessages(old=>[...old,{role:"user" as const,text:message},{role:"assistant" as const,text:data.reply as string}].slice(-20));setDraft("");
+      setMessages(old=>[...old,{role:"user" as const,text:message},{role:"assistant" as const,text:data.reply as string,response:data}].slice(-20));setDraft("");
     }catch(failure){if(controller.signal.aborted)return;if(failure instanceof ChatProblem&&failure.kind==="session-expired"){onExpired();return;}setError(failure instanceof ChatProblem&&failure.kind==="rate-limit"?"Please wait a moment before trying again.":"The assistant is temporarily unavailable. Your accounts and planning tools are still available.");}
     finally{if(!controller.signal.aborted){request.current=null;setBusy(false);}}
   }
@@ -49,7 +52,7 @@ function ChatSession({csrf,onExpired}:{csrf:string|null;onExpired:()=>void}) {
       <header className="chat-popup-header"><div><h2 id="chat-popup-title">Your FinPilot assistant</h2><p>Accounts. Insights. Next steps.</p></div><Button variant="ghost" aria-label="Close chat" onClick={close}><X size={20}/></Button></header>
       <div className="chat-messages" role="log" aria-label="Conversation" aria-live="polite">
         {!messages.length&&<div className="chat-welcome"><MessageCircle size={32} aria-hidden="true"/><h3>How can we help?</h3><p>Ask about your spending, accounts or goals.</p></div>}
-        {messages.map((message,index)=><p key={index} className={`chat-message chat-message--${message.role}`}><span className="sr-only">{message.role==="user"?"You":"FinPilot"}: </span>{message.text}</p>)}
+        {messages.map((message,index)=><article key={index} className={`chat-message chat-message--${message.role}`}><span className="sr-only">{message.role==="user"?"You":"FinPilot"}: </span>{message.role==="assistant"?<CoachResponse text={message.text} response={message.response}/>:message.text}</article>)}
       </div>
       <form onSubmit={submit} className="chat-composer" aria-busy={busy}>
         {error&&<p role="alert" className="chat-error">{error}</p>}

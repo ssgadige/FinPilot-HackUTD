@@ -17,7 +17,7 @@ const navGroups: { label: string; hrefs: string[] }[] = [
   },
   {
     label: "Planning",
-    hrefs: ["/subscriptions", "/debt-and-readiness", "/goals-and-plans", "/assets", "/scenario-lab"],
+    hrefs: ["/credit-health", "/subscriptions", "/debt-and-readiness", "/goals-and-plans", "/assets", "/scenario-lab"],
   },
   { label: "Intelligence", hrefs: ["/agent-workspace"] },
   { label: "Workspace", hrefs: ["/settings"] },

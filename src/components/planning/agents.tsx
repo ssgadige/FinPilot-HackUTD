@@ -1,4 +1,5 @@
 "use client";
+import { CheckupResults } from "@/components/chat/checkup-results";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { PageHeading } from "@/components/page-heading";
@@ -154,6 +155,8 @@ export function RunPanel({ id, onExplain }: { id: string; onExplain?: (context: 
     [retry, setRetry] = useState(0),
     [explain, setExplain] = useState<FindingContext>();
   const active = useRef(true);
+  const [showResults,setShowResults]=useState(false);
+  const resultsShown=useRef(false);
   const cancelAction=useWorkspaceAction();
   useEffect(() => {
     const c = new AbortController();
@@ -178,6 +181,7 @@ export function RunPanel({ id, onExplain }: { id: string; onExplain?: (context: 
         if (c.signal.aborted || currentEpoch() !== epoch || !active.current)
           return;
         setRun(view);
+        if(view.status==='completed'&&!view.stale&&view.findings?.length&&!resultsShown.current&&document.getElementById('specialist-view')?.hidden!==true){resultsShown.current=true;setShowResults(true);}
         setError("");
         if(view.stale || stream.stale){setEvents([]);setRun({...view,stale:true,findings:[]});return;}
         setEvents((old) => {
@@ -273,6 +277,8 @@ export function RunPanel({ id, onExplain }: { id: string; onExplain?: (context: 
           </>
         )}
       </Card>
+      {run?.findings?.length && !run.stale && run.snapshot_version===accounts.snapshot_version ? <Button onClick={()=>setShowResults(true)}>View clear results</Button> : null}
+      {showResults&&run&&!run.stale&&run.snapshot_version===accounts.snapshot_version&&<CheckupResults findings={run.findings??[]} onClose={()=>setShowResults(false)} onExplain={onExplain?f=>{setShowResults(false);onExplain({runId:id,findingId:f.id,evidenceIds:f.evidence_ids});}:undefined}/>}
       {run?.findings && !run.stale && run.snapshot_version===accounts.snapshot_version && <Card><h2>Confirmed findings</h2>{run.findings.map(f=><section key={f.id}><h3>{f.summary}</h3><EvidenceLinks ids={f.evidence_ids}/><Button variant="secondary" disabled={!f.evidence_ids.length} onClick={()=>{const context={runId:id,findingId:f.id,evidenceIds:f.evidence_ids};if(onExplain)onExplain(context);else setExplain(context);}}>Explain finding</Button></section>)}</Card>}
       <div className="planning-grid">
         {roles.map(([key, label]) => {

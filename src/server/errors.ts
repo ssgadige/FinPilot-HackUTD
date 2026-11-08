@@ -2,7 +2,9 @@
 const apiFailureBrand = Symbol.for('finpilot.ApiFailure');
 export class ApiFailure extends Error {
   readonly [apiFailureBrand] = true;
-  constructor(public status: number, public code: string, message: string) { super(message); }
+  public status:number;
+  public code:string;
+  constructor(status: number, code: string, message: string) { super(message); this.status=status; this.code=code; }
 }
 export function isApiFailure(error: unknown): error is ApiFailure {
   return typeof error === 'object' && error !== null &&

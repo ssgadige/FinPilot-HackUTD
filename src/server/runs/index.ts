@@ -12,6 +12,7 @@ import { chat, type ChatFinding } from '../agents/chat';
 import { runAgent, RunBudget, type RuntimeOptions } from '../agents/runtime';
 import { EvidenceGate, scopedTool } from '../agents/evidence';
 import { addDays, integer } from '../tools/finance';
+import { CreditMonitor } from '../credit';
 import { SessionConversationMemory, sanitizeConversationText, MEMORY_TTL_MS, MEMORY_MAX_TURNS } from '../agents/chat/memory';
 
 export type Intent = CheckupOptions['intent'];
@@ -272,25 +273,30 @@ export class Runs {
     this.chats.set(controller,{userId:uid,sessionKey,done});this.chatLocks.add(lock);
     try{
       const context=this.bridge.contextFor(uid,token());const budget=new RunBudget();
+      const runReference=message.match(/\brun(?:_id)?\s*[:=]?\s+([A-Za-z0-9_-]{20,128})\b/i)?.[1]??(/^[A-Za-z0-9_-]{20,128}$/.test(message)?message:undefined);
+      const selectedRun=runReference?this.row(uid,runReference):null;
+      if(selectedRun&&(selectedRun.snapshot_version!==context.snapshotVersion||selectedRun.status!=='completed'))fail(409,'stale_run','Choose a completed current checkup');
       let history=this.memory.read(uid,sessionKey,conversation,context);
       if(history.selected_evidence_id){try{this.store.evidence(uid,history.selected_evidence_id);}catch{this.memory.forgetConversation(uid,sessionKey,conversation);history={turns:[],selected_evidence_id:null,reset:'source_unavailable'};}}
       const selected=message.match(/\bevidence\s+(calc-[A-Za-z0-9_-]{1,180})\b/)?.[1];
       if(selected){this.store.evidence(uid,selected);history.selected_evidence_id=selected;}
-      const response=await chat({context,message,history,config,budget,signal:controller.signal,infer:this.options.infer,
+      const response=await chat({context,message,history,config,budget,signal:controller.signal,infer:this.options.infer,reviewRun:!!runReference,
         allowRunRequest:/^\s*(?:please\s+)?(?:run|start) (?:a )?(?:financial )?checkup[.!]?\s*$/i.test(message),
         requestRun:async(_ctx,key)=>this.start(uid,{intent:'full',idempotency_key:key}).run_id,
         load:async()=>{
           this.assertChatSession(uid,sessionKey);controller.signal.throwIfAborted();
           await this.bridge.authorize(context);
-          const findings:ChatFinding[]=this.store.all('SELECT ar.payload_json FROM agent_records ar JOIN runs r ON r.id=ar.run_id AND r.user_id=ar.user_id WHERE ar.user_id=? AND r.snapshot_version=? AND r.status=? ORDER BY ar.rowid DESC LIMIT 20',uid,context.snapshotVersion,'completed').map(r=>JSON.parse(r.payload_json));
+          const findings:ChatFinding[]=this.store.all('SELECT ar.payload_json FROM agent_records ar JOIN runs r ON r.id=ar.run_id AND r.user_id=ar.user_id WHERE ar.user_id=? AND r.snapshot_version=? AND r.status=? AND (? IS NULL OR r.id=?) ORDER BY ar.rowid DESC LIMIT 20',uid,context.snapshotVersion,'completed',runReference??null,runReference??null).map(r=>JSON.parse(r.payload_json));
           const plan=this.store.one("SELECT id FROM plans WHERE user_id=? AND snapshot_version=? AND status IN ('accepted','proposed') ORDER BY created_at DESC LIMIT 1",uid,context.snapshotVersion);
           const overview=this.finance.overview(uid);
           return {context,overview:{...overview,upcoming_bills:overview.upcoming_bills.map(b=>({id:b.id,account_id:b.account_id,
             amount_cents:b.amount_cents,day_of_month:b.day_of_month,direction:b.direction,essential:b.essential}))},
-            findings,plan:plan?{context,payload:this.planning.view(uid,plan.id).payload}:null};
+            credit:new CreditMonitor(this.store).view(uid),findings,plan:plan?{context,payload:this.planning.view(uid,plan.id).payload}:null};
         }});
       controller.signal.throwIfAborted();this.assertChatSession(uid,sessionKey);await this.bridge.authorize(context);
       if(response.result.result.status==='failed')fail(502,'chat_failed','Nemotron chat could not complete safely');
+      const safeText=(text:string)=>{const clean=sanitizeConversationText(text,secrets);if(clean===null)fail(502,'chat_failed','Nemotron chat could not complete safely');return clean;};
+      const publicAnswer={...response.answer,title:safeText(response.answer.title),findings:response.answer.findings.map(f=>({...f,summary:safeText(f.summary)})),assumptions:response.answer.assumptions.map(safeText),missing_data:response.answer.missing_data.map(safeText)};
       const reply=sanitizeConversationText(response.reply,secrets);
       if(!reply)fail(502,'chat_failed','Nemotron chat could not complete safely');
       this.store.atomic(()=>{
@@ -315,7 +321,7 @@ export class Runs {
       });
       this.memory.save(uid,sessionKey,conversation,context,history,message,reply,history.selected_evidence_id);
       const saved=this.memory.read(uid,sessionKey,conversation,context);
-      return {reply,evidence_ids:response.evidence_ids,requested_run_id:response.requested_run_id,conversation_id:conversation,source_mode:'fixture',inference_source_mode:'live',
+      return {reply,answer:publicAnswer,sources:response.sources,calculations:response.calculations,evidence_ids:response.evidence_ids,requested_run_id:response.requested_run_id,conversation_id:conversation,source_mode:'fixture',inference_source_mode:'live',
         context:{mode:'session_only',retained_turns:saved.turns.length,max_turns:MEMORY_MAX_TURNS,expires_after_seconds:MEMORY_TTL_MS/1000,snapshot_version:context.snapshotVersion,reset:history.reset}};
     }catch(error){if(error instanceof ApiFailure)throw error;fail(502,'chat_failed','Nemotron chat could not complete safely');}
     finally{this.chats.delete(controller);this.chatLocks.delete(lock);finish();}

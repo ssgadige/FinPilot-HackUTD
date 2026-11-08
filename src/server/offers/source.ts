@@ -1,3 +1,4 @@
+import { officialOfferUrls } from '../../lib/trusted-links.ts';
 import { lookup } from 'node:dns/promises';
 import { request } from 'node:https';
 import { BlockList, isIP } from 'node:net';
@@ -23,7 +24,13 @@ export interface Network {
 }
 // Only the fixed provider URL is reachable. IPv4 is intentionally used so every
 // address can be validated and pinned; IPv6, redirects and proxy env are unused.
-export async function retrievePage(signal: AbortSignal, network: Network = { resolve: lookup, request }, timeoutMs = 10000): Promise<string> {
+const TRUSTED_FINANCE_URLS = new Set<string>(officialOfferUrls);
+export function retrievePage(signal: AbortSignal, network?: Network, timeoutMs = 10000): Promise<string> {
+  return retrieveTrustedPage(SOURCE_URL,signal,network,timeoutMs);
+}
+export async function retrieveTrustedPage(sourceUrl:string, signal: AbortSignal, network: Network = { resolve: lookup, request }, timeoutMs = 10000): Promise<string> {
+  if(sourceUrl!==SOURCE_URL&&!TRUSTED_FINANCE_URLS.has(sourceUrl))throw new Error('OFFER_SOURCE_NOT_ALLOWED');
+  const hostname=new URL(sourceUrl).hostname;
   if (!Number.isInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 10000) throw new Error('OFFER_TIMEOUT_CONFIG');
   const combined = AbortSignal.any([signal, AbortSignal.timeout(timeoutMs)]);
   return new Promise((resolve, reject) => {
@@ -35,11 +42,11 @@ export async function retrievePage(signal: AbortSignal, network: Network = { res
       combined.removeEventListener('abort', abort);
       if (error) reject(error); else resolve(html!);
     };
-    network.resolve('www.spotify.com', { all: true, family: 4 }).then(addresses => {
+    network.resolve(hostname, { all: true, family: 4 }).then(addresses => {
       if (combined.aborted) return;
       if (!addresses.length || addresses.some(a => !publicIPv4(a.address))) { finish(new Error('OFFER_UNSAFE_DESTINATION')); return; }
       const pinned = addresses[0].address;
-      req = network.request(SOURCE_URL, { method: 'GET', signal: combined, agent: false,
+      req = network.request(sourceUrl, { method: 'GET', signal: combined, agent: false,
         headers: { Accept: 'text/html', 'Accept-Encoding': 'identity', 'User-Agent': 'FinPilot/1.0 public-price-check' },
         lookup: (_hostname, options, callback) => {
           // Preserve original hostname for Host/TLS while preventing DNS rebinding.

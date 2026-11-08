@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { calculation, integer } from "./index";
+import { calculation, integer } from "./index.ts";
 const D = Decimal.clone({ precision: 40, rounding: Decimal.ROUND_HALF_UP });
 export function loanCalculation(
   principal_cents: number,
