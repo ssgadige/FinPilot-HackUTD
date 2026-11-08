@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AuthProvider } from "@/components/auth/auth-provider";
@@ -136,6 +136,7 @@ describe("institution discovery", () => {
       </AuthProvider>,
     );
     expect(await screen.findByText("Loading institutions")).toBeInTheDocument();
+    await waitFor(() => expect(finish).toBeTypeOf("function"));
     await act(async () => finish(json([])));
     expect(screen.getByText("No matching providers")).toBeInTheDocument();
     view.unmount();
