@@ -4,7 +4,7 @@ Status: extended roadmap. The two-hour MVP now has [CHAT-01](tasks/CHAT-01/READM
 
 ## Design source and product target
 
-The user-uploaded `FinPilot_All_Screens_and_Task_Guide.pdf` has 85 pages, 47 screens, 24 handoffs and 12 calculator contracts. The guide was extracted and its desktop chat, agent-running and mobile-agent screens were visually reviewed. Use it with the tracked [v2 handoff](../design/frontend-v2/README.md) and [screen manifest](../design/frontend-v2/screens.json). The upload remains an untouched user-owned local file; the existing tracked manifests keep this backlog usable without committing the PDF.
+The user-uploaded `FinPilot_All_Screens_and_Task_Guide.pdf` has 85 pages, 47 screens, 24 handoffs and 12 calculator contracts. The guide was extracted and its desktop chat, agent-running and mobile-agent screens were visually reviewed. Use it with the tracked [v2 handoff](../design/frontend-v2/README.md) and [screen manifest](../design/frontend-v2/screens.json). The [uploaded guide](../FinPilot_All_Screens_and_Task_Guide.pdf) is preserved unchanged in the repository alongside the tracked screen manifests.
 
 | Uploaded PDF pages | Screen keys | Coach implementation |
 |---|---|---|

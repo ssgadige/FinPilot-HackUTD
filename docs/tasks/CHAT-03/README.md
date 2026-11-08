@@ -16,4 +16,4 @@ Verification: 91 UI tests, 25 backend tests and four browser tests pass across C
 
 [Desktop evidence](evidence/source-fixture-1440.png) · [Mobile evidence](evidence/source-fixture-390.png) · [Combined acceptance](../CHAT-04/local-acceptance.json).
 
-The screenshots are explicitly labeled test fixtures. CHAT-05 now adds bounded session context; saved history remains deferred. Changes are local and uncommitted.
+The screenshots are explicitly labeled test fixtures. CHAT-05 now adds bounded session context; saved history remains deferred.
