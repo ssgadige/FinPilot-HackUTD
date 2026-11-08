@@ -15,6 +15,8 @@ test.beforeEach(async ({ page }) => {
       },
     }),
   );
+  await page.route("**/api/v1/connections", route=>route.fulfill({json:{items:[]}}));
+  await page.route("**/api/v1/accounts", route=>route.fulfill({json:{items:[],snapshot_version:1,source_mode:"fixture",as_of:"2026-01-01"}}));
   await page.route("**/api/v1/institutions", (route) =>
     route.fulfill({ json: providerFixtures }),
   );
@@ -93,6 +95,7 @@ test("test-only provider dialog clears secrets and cannot expose account selecti
       json: {
         preview_token: randomUUID(),
         masked_email: "p***@example.test",
+        challenge_id: randomUUID(),
         accounts: [{ label: "Forbidden premature account" }],
       },
     });
@@ -114,21 +117,21 @@ test("test-only provider dialog clears secrets and cannot expose account selecti
   await expect.poll(() => requests).toBe(1);
   release();
   await expect(
-    page.getByText("Institution email verification unavailable"),
+    page.getByText("Verify your institution email"),
   ).toBeVisible();
   await expect(
     dialog.getByRole("heading", { name: "Connect Chase" }),
   ).toBeInViewport();
-  await expect(page.getByLabel("Institution email code")).toBeDisabled();
+  await expect(page.getByLabel("Institution email code")).toBeEnabled();
   await expect(
     page.getByRole("button", { name: "Verify institution email" }),
-  ).toBeDisabled();
+  ).toBeEnabled();
   await expect(page.getByText("Forbidden premature account")).toHaveCount(0);
   await expect(dialog.getByRole("checkbox")).toHaveCount(0);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await screenshot(
     page,
-    "institution-verification-unavailable-fixture-390",
+    "institution-verification-fixture-390",
     false,
   );
   await page.goto("http://127.0.0.1:3000/institutions");

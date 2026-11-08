@@ -32,10 +32,11 @@ export function SubscriptionsScreen() {
   const [selected, setSelected] = useState<Subscription | null>(null),
     [evidence, setEvidence] = useState<EvidenceRecord | null>(null);
   const r = useWorkspaceRead("subscriptions", async (s) => {
-    const rows = await workspaceApi.subscriptions(s);
+    const page = await workspaceApi.subscriptionPage(s);
+    const rows=page.items;
     if (rows.some((v) => !accounts.items.some((a) => a.id === v.account_id)))
       throw new WorkspaceProblem(403, "revoked");
-    return rows;
+    return page;
   });
   return (
     <div className="page-stack planning-page">
@@ -47,13 +48,13 @@ export function SubscriptionsScreen() {
       <div className="finance-metrics">
         <MetricCard
           label="Monthly recurring cost"
-          value="Unavailable"
-          detail="A reconciled monthly billing total has not been supplied."
+          value={usd(r.data?.summary?.monthly_equivalent_cents)}
+          detail="Server-normalized detected recurring charges; missing or uncertain patterns remain unavailable."
         />
         <MetricCard
           label="Annual recurring cost"
-          value="Unavailable"
-          detail="Annual upfront charges and mixed billing periods need confirmation."
+          value={usd(r.data?.summary?.annual_recurring_cents)}
+          detail="Server projection at latest known recurring prices, not realized charges or savings."
         />
         <MetricCard
           label="Usage confidence"
@@ -65,8 +66,8 @@ export function SubscriptionsScreen() {
         <Unlinked />
       ) : r.data ? (
         <div className="planning-grid">
-          {r.data.length ? (
-            r.data.map((v) => {
+          {r.data.items.length ? (
+            r.data.items.map((v) => {
               const a = accounts.items.find((a) => a.id === v.account_id)!;
               return (
                 <Card key={v.id}>
@@ -82,8 +83,7 @@ export function SubscriptionsScreen() {
                     {a.label} · Usage: {v.usage_confirmed ?? "unknown"}
                   </p>
                   <p className="small muted">
-                    Recurrence confidence and price changes: unavailable; no
-                    supporting comparison evidence was returned.
+                    {v.recurrence?`${v.recurrence.candidate?"Detected recurring pattern":"Uncertain pattern"} ? ${v.recurrence.charge_count} matching charges ? Latest ${v.recurrence.last_charge_date??"unknown"} ? Price increase ${usd(v.recurrence.price_increase_cents)}. This does not establish usage.`:"Recurrence confidence and price changes are unavailable; no supporting comparison evidence was returned."}
                   </p>
                   <div className="finance-actions">
                     <Button onClick={() => setSelected(v)}>
@@ -133,6 +133,7 @@ function SubscriptionReview({
 }) {
   const { refresh } = useFinanceScope();
   const action = useWorkspaceAction();
+  const [category,setCategory]=useState(typeof value.preferences.category==="string"?value.preferences.category:"");
   const [usage, setUsage] = useState(value.usage_confirmed ?? "unknown"),
     [notes, setNotes] = useState(
       typeof value.preferences.notes === "string"
@@ -168,7 +169,7 @@ function SubscriptionReview({
                     method: "PATCH",
                     body: {
                       usage_confirmed: usage,
-                      preferences: { ...value.preferences, notes },
+                      preferences: { ...value.preferences, notes, ...(category?{category}:{}) },
                       confirmation: true,
                     },
                     csrf,
@@ -190,6 +191,10 @@ function SubscriptionReview({
             <option value="unused">Unused</option>
             <option value="unknown">Unknown</option>
           </SelectField>
+          <SelectField label="Comparison category" value={category} onChange={e=>setCategory(e.target.value)}>
+            <option value="">Unconfirmed</option><option value="music">Music subscription</option><option value="other">Other service</option>
+          </SelectField>
+          <p className="small muted">Choose music only for a music service. Available comparisons use the existing allowlisted provider; eligibility and feature equivalence still require review.</p>
           <FormField
             label="Features to keep / preferences"
             value={notes}
@@ -288,6 +293,9 @@ function Offers({
                   </dd>
                   <dt>Renewal charge</dt>
                   <dd>{usd(o.renewal_cents)}</dd>
+                  <dt>Promotional price</dt>
+                  <dd>{o.promotion?`${usd(o.promotion.price_cents)} for ${o.promotion.months} month(s). ${o.promotion.requires_new_customer?"New-customer eligibility required.":""} Availability and eligibility must be confirmed.`:"No confirmed promotional price supplied"}</dd>
+                  <dt>Terms</dt><dd>{o.terms??"Terms unavailable"}</dd>
                   <dt>Promotion ends</dt>
                   <dd>{o.promo_end ?? "Unavailable"}</dd>
                   <dt>Eligibility</dt>

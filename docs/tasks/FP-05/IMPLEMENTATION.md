@@ -1,5 +1,12 @@
 # FP-05 — subscriptions and offer comparison
 
+## Current integrated review status
+
+Real institution verification now enables populated subscription views. Recurring totals and price-change/charge evidence reuse the reviewed server detector against complete authorized history. The configured allowlisted offer source is wired; source/availability labels and promotional/upfront/renewal terms remain explicit. Comparison category is an explicit saved preference. Real Chromium preference and confirmed intention persistence passed; no merchant action occurred. Historical notes below describe the initial checkpoint; the current status is in FP-08/IMPLEMENTATION.md.
+
+## Historical checkpoint notes
+
+
 Implemented on the combined `feat/fp-08-frontend-integration-accessibility-and-demo-polish` branch with FP-06–08. Existing uncommitted accounts/session fixes are preserved dependencies, not silently attributed to this task. Nothing is committed or pushed.
 
 ## Delivered and acceptance

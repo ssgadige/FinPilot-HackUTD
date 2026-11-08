@@ -1,85 +1,69 @@
-# FP-05–08 combined frontend integration and demo handoff
+# FP-05?08 integration and review handoff
 
-Branch: `feat/fp-08-frontend-integration-accessibility-and-demo-polish`. This intentionally combines frontend tasks FP-05, FP-06, FP-07 and FP-08. Nothing is staged, committed, pushed, merged or closed.
+Branch: `feat/fp-08-frontend-integration-accessibility-and-demo-polish`.
 
-## Existing work preserved
+## Foundation and scope
 
-The initial branch was `fix/accounts-snapshot-and-session-redirect`, with the accounts snapshot/session error-brand fix uncommitted. Its shared account envelope, authenticated snapshot lookup, typed server errors, session redirect semantics, tests and `docs/fixes` handoff/evidence remain in place. They are **pre-existing dependencies**, not newly attributed FP-05–08 work. The combined working tree still contains that separate fix. Before creating a clean PR, land or stage that dependency separately; do not silently bundle it.
+Preserved the existing work with checkpoint commits `fe9bfc0` and `56e2861`, then integrated reviewed main `8fb621f` in `a3d7cac`. Main includes merged PRs #43, #44, #46 and #47. Older overlapping PRs #38/#39 were not merged. Accounts/session conflict resolution retains actual authenticated snapshot reads, branded errors and server denial. Existing planning files and historical screenshot evidence are retained.
 
-Task-specific changes overlapping those files are limited to the optional authorized CD `maturity_date` response/type/decoder. No other prior fix behavior is overwritten. Existing source/planning files and historical screenshot evidence are preserved. No commits or destructive git operations were used to move branches.
+No chatbot component, backend, prompts, conversation storage, model settings or agent inference implementation was changed. The existing main run services are reused. Chat frontend acceptance remains pending the teammate's integration; the boundary accepts `{runId,findingId,evidenceIds}` and displays no fake replies.
 
-The supplied PDF pages 25–49 and the four task READMEs/UI/API/security/agent/shared-type guidance were reviewed. Components are real accessible React controls, never PDF images.
+## Delivered integration
 
-## Dependency map
+- Complete institution credential ? Mailpit challenge ? verified preview ? unchecked selected-account consent flow. HMAC domain separation, five-minute expiry, five attempts, 60-second resend, single use, user/institution/session/attempt binding, SMTP failure denial and session-bound CSRF. No usable preview or account labels before verification. Runtime never calls actual banks.
+- Persisted connection listing after login/restart, sync/retry, confirmed disconnect receipt, immediate financial invalidation and fresh accounts/overview. Existing ownership and idempotent selection remain server enforced.
+- Six protected FP-05?07 routes reuse the existing shell, dialogs, tables and authentication scope. Failed, loading, empty, revoked and changed-snapshot states remain explicit.
+- Financial DTO aliases preserve original FP-12 fields. Transactions keep transfers visible and use account kind; authoritative totals and forecasts remain server calculations. Investments are separate from liquid cash. Indicator inputs and definitions are supplied by the backend; missing inputs remain unavailable.
+- Subscription costs, price changes and matching-charge counts reuse the reviewed deterministic recurring tool against complete authorized history. Unknown patterns yield unavailable totals. Preferences and comparison category require confirmation. Offers reuse the existing allowlisted fetcher and configured source mode, with promotional/renewal/upfront terms and source labels. Intentions never cancel, purchase or realize savings.
+- Goals create/edit; actual server payment comparisons, assets, scenarios and scoped evidence. Existing plan acceptance retains version, same-key retries and renewed review after 409.
+- Runs use current `run_id`/`role_steps`/findings/event envelopes, bounded serial polling, server cancellation, terminal stopping and stale suppression. Scoped calculation evidence shows returned values and assumptions. No completed model execution is invented.
 
-| Area | Implemented HTTP support | Remaining dependency or mismatch |
+Necessary additive contracts are documented in `docs/API.md`. No dataset reset, expanded PR #45 seed or credential repair was performed.
+
+## Acceptance evidence
+
+| Task | Evidence and result | Remaining limitation |
 | --- | --- | --- |
-| Subscriptions | GET list, PATCH confirmed preferences, GET offers, POST planned action | No reconciled monthly/annual summary or confidence/price-history fields. Offer resolver absent in `getServices`; no saved-action listing endpoint. |
-| Debt/assets | GET debts/accounts, POST calculations, GET evidence | Unknown values stay unavailable; individual valuation timestamps absent. Optional owned CD maturity is now exposed from its existing column. |
-| Goals/plans/scenarios | Goal CRUD, list/detail/accept plans, POST scenarios | Populated data requires verified linking; new plans require server planning execution. No client plan creation or fabricated baseline. |
-| Runs/chat | Runtime modules only; no HTTP run/chat routes found | FP-15/23 handler/envelope wiring and teammate-owned chat component/API remain blocked. |
-| Institutions | Real `{items}` catalog normalized by the existing frontend adapter | Institution verify/resend contract is still missing; legacy preview cannot release account access in the frontend. |
-| Existing FP-04 populated views | Snapshot/session dependency preserved | Other transaction/overview/forecast response fields still need separate FP-04/FP-12 coordination; not falsely declared solved by empty-scope tests. |
+| FP-05 | Real Chromium saved a preference and explicitly confirmed proposed intention. Real server recurring summaries and matching-charge evidence verified. Fixture browser checks cover offer/source terms, confirmations and failures. | Configured offer mode may be fixture or unavailable; neither establishes a purchasable offer. No saved-intention listing API. |
+| FP-06 | Real user B goal create/edit persisted; server baseline/extra-payment comparisons, account-backed scenario, evidence drawer and installed brokerage linking rendered. Fixture tests cover 409 acceptance/review and optional CD maturity. | Installed seed does not give these users CD/IRA snapshots. No real proposed plan was available for acceptance because inference is unavailable. |
+| FP-07 | Current run/status/event/cancel adapter regression passes; backend ownership/cancellation/trace tests use test-only inference. Real browser start returned `503 ai_unavailable`, shown honestly. | Local `NVIDIA_API_KEY` and `NEMOTRON_MODEL` are missing. No successful live inference/evidence claim. Chat frontend pending teammate integration. |
+| FP-08 | Both real journeys described below; keyboard/axe/responsive fixtures; preserved server auth, CSRF and scope invalidation. | Live agent/plan/chat acceptance remains explicitly incomplete. |
 
-## New shared behavior and logical task changes
+## Real Chromium + Mailpit journeys
 
-- `src/lib/workspace-api.ts`: inspected DTO adapters; same-origin/no-store requests, required session-bound CSRF on mutations, safe errors, input-unit parsing only. No financial formulas, response fixtures, storage-backed data or model client.
-- `src/components/planning/{workspace-state,modal,shared}.tsx`, `planning.css`: serial request lifetime, stale-response protection, duplicate mutation locks, response acknowledgment checks, accessible native review dialogs and scoped evidence reads. Financial scope is cleared on auth/revocation; existing `finpilot:finance-invalidated` is honored.
-- `FinanceScope` gains opt-in `allowEmpty` for goal management and informative new pages. Its default FP-04 empty-state behavior and server boundary are unchanged.
-- Six dedicated routes remain inside `src/app/(workspace)` and independently require a verified server session. Generic section generation excludes them. Navigation URLs are unchanged.
-- FP-05: subscription review, preferences, term/source comparison and intention confirmation. FP-06: debt comparisons, goals, assets, existing plan review and scenarios. FP-07: real-data-only agent workspace and teammate chat boundary. See their individual handoffs for acceptance and file details.
-- Narrow compatibility fixes: normalize the actual Institutions `{items}` envelope while retaining legacy test arrays; expose optional owned CD maturity; replace obsolete login copy that still said server authentication was unimplemented. No authentication grant, institution verification or financial calculation was changed.
-- Tests are extended in `tests/ui/planning.test.tsx`, `tests/backend/frontend-planning-contract.test.ts`, `tests/e2e/planning.spec.ts`, test fixtures/harness files. Legacy browser expectations now assert the implemented FP-10 API's 401 denial and the existing fixed `reason=expired`, not nonexistent endpoints/obsolete reasons. Forged-cookie coverage uses the actual cookie name and rechecks the server after a forged client profile tries the workspace link; denial was not weakened.
+Tests used a consistent SQLite backup under ignored `node_modules/.cache/fp05-08/otp-integration.sqlite`, with a process-only database override and the configured `http://127.0.0.1:3000` origin. No network or session mocks were used in these journeys.
 
-## Baseline and checks
+1. Maya completed password + fresh Mailpit OTP, then separate real Chase and card credentials + fresh institution OTP. The browser checked no account access before verification, unchecked consent and only explicitly selected account access. Actual overview/history loaded. Subscription preferences and a proposed intention saved. Logout revoked the old session; fresh login restored saved connections.
+2. User B completed fresh login, could not access Maya's account (404), and saw no Maya connections. Verified bank/card/investment linking used only installed providers. Goal creation/editing persisted; server payment comparisons and a real account-backed scenario rendered. Its scoped calculation evidence opened from a real result. After server restart both saved connections remained. Confirmed disconnect removed the account from fresh scope and its transaction endpoint returned 404. Logout revoked the old session.
 
-Before editing, build, typecheck and component tests passed on the preserved integration-fix working tree; lint had 92 errors and one warning. The baseline did not include successful agent/chat or connected-user journeys.
+A real run request returned `503 ai_unavailable`; required NVIDIA key/model settings are missing locally and were not changed. This is a configuration blocker, not evidence of agent completion. Real plan acceptance cannot be rehearsed without a returned proposal. Installed seed: ten users, thirty provider logins, existing provider set; no expanded provider seed installed.
 
-| Check | Result |
-| --- | --- |
-| Component/session suite | PASS, 73 tests including original suites and 14 new preference/goal/plan/asset/scenario/run/privacy tests |
-| All backend tests | PASS, 14 tests in isolated generated fixtures, including prior accounts/session regressions and new frontend DTO/CD maturity coverage |
-| Full Chromium suite | PASS, all 25 tests against the real protected server plus the separate labeled fixture harness |
-| Typecheck | PASS |
-| Production build | PASS, including all six protected task routes |
-| Lint | 92 existing errors and one existing warning; baseline diagnostic comparison confirmed zero new findings. No suppressions or weakened checks. |
-| `git diff --check` | PASS |
+## Checks
 
-New tests cover explicit confirmations and exact API payloads; sample-source labels; missing providers; input preservation; returned receipt validation; duplicate submissions; same-key plan retry; 409 refetch/fresh confirmation; maturity and cash separation; server scenario inputs/evidence; empty scope; revocation; late user-A response after switching to user B; terminal polling, non-overlap and abort/unmount. Browser checks include focus containment/return, nested Escape behavior, readable scrollable tables, 1440/390px overflow and axe. Contrast and nested-dialog issues caught during verification were fixed, not suppressed.
+- Typecheck and production build pass.
+- Component/session suite: 74 passing tests.
+- Backend suite: 28 tests, including new institution code binding/expiry/attempt/resend/replay and summary ownership/revocation regressions.
+- Chromium suite: 25 tests, including protected-server denial and separate labeled fixture UI/axe checks.
+- Repository lint: 104 existing errors and one warning in inherited files; changed-file diagnostics are checked separately. No suppressions or weakened assertions. One inherited chat test failed intermittently on an intermediate backend run; its focused retry and subsequent full suite passed without changing chatbot code.
+- `git diff --check` and source/artifact review performed before staging.
 
-## Actual Mailpit / Chromium rehearsals
+Runtime configuration, generated credentials, DB copies, mailbox messages, session data and test logs remain ignored and excluded. No secret or OTP is included in screenshots or handoff.
 
-The existing login-test database was opened read-only and backed up into an ignored isolated database. Only the test app process used a temporary `DATABASE_PATH` override. `.env.local`, OTP HMAC secret, NVIDIA settings, shared records and deployment/network files were not changed. Passwords, codes, cookies, mailbox bodies and session-state files were never printed or committed. Mailpit lookup retrieved only the new recipient-specific email for each attempt; no messages were deleted.
+## Screenshots
 
-**Journey A — partially verified, blocked at institution OTP.** Real password submission and fresh Mailpit verification established a server-backed session. The new subscriptions page showed the real empty scope. The Institutions catalog loaded from the actual API; the generated simulator credential request reached the legacy preview handler. The frontend then stopped at **Institution email verification unavailable** and retained zero linked accounts. Connected subscriptions → preferences → offers → intention persistence/reload could not complete without bypassing missing institution verification, so none was manufactured. Offer wiring is an additional blocker.
+Files containing `fixture` are automated response fixtures, not live integration. Historical blocked screenshots remain as historical evidence and are superseded by the connected real screenshots below. Real screenshots use synthetic installed records and real backend/Mailpit sessions.
 
-**Journey B — goal work and calculations verified; linked planning blocked.** A different user completed real Mailpit login in the same browser context after logout. A user-A privacy-sentinel goal was absent, and direct access to its ID returned 404. User B created and edited a goal through actual POST/PATCH endpoints, then reloaded and observed persistence. Hypothetical baseline/extra-payment comparisons came from the real server calculator. Account-backed debt/assets/CD views and scenarios stayed empty/disabled because no institution was verified/linked. No existing plans were available; real plan acceptance/stale-plan interaction was therefore blocked. Fixture 409 regressions are not counted as real journey completion.
+- [Connected overview](evidence/journey-a-connected-overview-real-1440.png)
+- [Transactions](evidence/journey-a-transactions-real-1440.png)
+- [Recurring costs desktop](evidence/journey-a-subscriptions-connected-real-1440.png) / [mobile](evidence/journey-a-subscriptions-connected-real-390.png)
+- [Configured sample offer via real backend desktop](evidence/journey-a-offers-connected-real-1440.png) / [mobile](evidence/journey-a-offers-connected-real-390.png)
+- [Saved connections](evidence/journey-a-saved-connections-real-1440.png)
+- [Persisted goals](evidence/journey-b-connected-goals-real-1440.png)
+- [Assets desktop](evidence/journey-b-assets-real-1440.png) / [mobile](evidence/journey-b-assets-real-390.png)
+- [Scenario evidence](evidence/journey-b-scenario-evidence-real-1440.png)
+- [Confirmed disconnect](evidence/journey-b-disconnected-real-1440.png)
+- [Actual run configuration blocker](evidence/journey-b-real-run-unavailable-1440.png)
 
-Both users logged out through the real 204 endpoint. Replaying each former cookie against `/me`, accounts, transactions, overview and forecast returned 401. The tests verified sessions and changes in the isolated database. The real run path returned 404; no model execution was claimed. User A/B source data was never mixed or stored in localStorage.
+Do not merge or auto-close incomplete issues. Review this combined integration with the remaining agent configuration, real proposal acceptance and teammate chat criteria visible.
 
-## Screenshots and evidence
-
-FP-05/06/07 handoffs list each page's **labeled fixture** desktop/mobile screenshots. Additional fixtures here: [unlinked](evidence/unlinked-fixture-1280.png), [offers unavailable](evidence/offers-unavailable-fixture-1280.png). These demonstrate UI behavior, not backend readiness.
-
-Actual local backend / Mailpit screenshots (synthetic database records, no network mocks):
-
-- [Journey A subscriptions empty scope](evidence/journey-a-subscriptions-real-1440.png)
-- [Institution OTP blocker](evidence/journey-a-institution-otp-blocked-real-1440.png)
-- [Journey B persisted goal desktop](evidence/journey-b-goal-persisted-real-1440.png), [mobile](evidence/journey-b-goal-persisted-real-390.png)
-- [Real server calculations](evidence/journey-b-server-calculations-real-1440.png)
-- [Scenario dependency](evidence/journey-b-scenario-blocked-real-1440.png)
-- [Run dependency](evidence/run-boundary-real-1440.png)
-- [Anonymous login desktop](evidence/login-real-anonymous-1440.png), [mobile](evidence/login-real-anonymous-390.png)
-
-## Readiness
-
-| Task | Implemented | Verified against real backend | Blocked |
-| --- | --- | --- | --- |
-| FP-05 | Subscription/preferences/offer/intention UI and adapters | Real verified login/unlinked view; actual handler DTO/persistence regressions separately | Institution OTP, connected data, offer resolver, aggregates and action listing |
-| FP-06 | Debt/calculation, goal edit, assets/maturity, scenarios, existing plans/409 UI | Real goal create/edit/reload, foreign-goal denial, hypothetical calculations | Verified linked debt/assets/scenarios and real server plan proposals |
-| FP-07 | Nine roles, real-response polling/evidence and chat integration boundary | Actual missing-route response only | Run/chat HTTP wiring, provider execution and teammate integration; not fully complete |
-| FP-08 | Protected navigation, state/privacy/a11y integration and responsive evidence | Real two-user partial journeys, logout and replay rejection | Both complete demo journeys await the dependencies above |
-
-See [proposed combined PR title/body](PR_PROPOSAL.md). It uses **Related to #5, #6, #7, #8**, not automatic issue closure. No work on PR #45's dataset, a loan-offer agent, hosting, migration project, demo prelinking or registration is included.
-
-After rehearsal, the isolated server was stopped and the normal local app was restored using the original `.env.local` on port 3000. A final comparison confirmed the entire environment file and every original database table record are unchanged. The rehearsal-only goals and authentication activity remain confined to the ignored isolated copy. No files are staged.
+Final restoration: the original `./data/finpilot-login-test.sqlite` is running again at `http://127.0.0.1:3000`. Fresh real Chromium/Mailpit login, helpful unlinked scope and logout passed there. Content checks confirmed existing users, credential records, financial records and connections were unchanged; `.env.local` remained identical. Only normal auth activity and additive runtime tables occurred. Real offers testing explicitly confirmed MusicCloud's music category; the configured source returned a clearly labeled Sample offer, not a live merchant offer.

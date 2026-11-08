@@ -40,7 +40,7 @@ export function ChatBoundary({ context }: { context?: FindingContext }) {
       <h2>Chat panel unavailable</h2>
       <p>
         The full chatbot is owned by the parallel chat implementation. No chat
-        component or HTTP route is exposed in this checkout. No reply or typing
+        component has been integrated here. The existing backend is unchanged. No reply or typing
         state is simulated.
       </p>
       {context && (
@@ -78,7 +78,7 @@ export function AgentsScreen() {
                     method: "POST",
                     csrf,
                     body: {
-                      intent: "financial_checkup",
+                      intent: "full",
                       idempotency_key: crypto.randomUUID(),
                     },
                   }),
@@ -161,6 +161,7 @@ export function RunPanel({ id }: { id: string }) {
     [retry, setRetry] = useState(0),
     [explain, setExplain] = useState<FindingContext>();
   const active = useRef(true);
+  const cancelAction=useWorkspaceAction();
   useEffect(() => {
     const c = new AbortController();
     let timer: ReturnType<typeof setTimeout> | undefined,
@@ -185,6 +186,7 @@ export function RunPanel({ id }: { id: string }) {
           return;
         setRun(view);
         setError("");
+        if(stream.stale){setEvents([]);setRun({...view,stale:true,findings:[]});return;}
         setEvents((old) => {
           const map = new Map(old.map((e) => [e.id, e]));
           stream.items.forEach((e) => map.set(e.id, e));
@@ -246,10 +248,9 @@ export function RunPanel({ id }: { id: string }) {
             Pause local polling
           </Button>
         </div>
-        <p>
-          Pausing polling does not cancel server execution. A cancellation
-          endpoint is not currently available.
-        </p>
+        <p>Pausing polling does not cancel server execution.</p>
+        <Button variant="secondary" disabled={cancelAction.busy||!run||!["queued","running"].includes(run.status)} onClick={()=>void cancelAction.run((signal,csrf)=>workspaceRequest(`runs/${encodeURIComponent(id)}/cancel`,signal,{method:"POST",csrf,body:{}}),()=>setRetry(v=>v+1))}>Cancel server run</Button>
+        {cancelAction.error&&<p role="alert">{cancelAction.error}</p>}
         {error && <p role="alert">{error}</p>}
         {(error || paused) && (
           <Button
@@ -265,7 +266,7 @@ export function RunPanel({ id }: { id: string }) {
           <>
             <p>
               Financial snapshot {run.snapshot_version}:{" "}
-              {run.snapshot_version === accounts.snapshot_version
+              {!run.stale && run.snapshot_version === accounts.snapshot_version
                 ? "current"
                 : "Stale — accounts changed"}
             </p>
@@ -282,6 +283,7 @@ export function RunPanel({ id }: { id: string }) {
           </>
         )}
       </Card>
+      {run?.findings && !run.stale && run.snapshot_version===accounts.snapshot_version && <Card><h2>Confirmed findings</h2>{run.findings.map(f=><section key={f.id}><h3>{f.summary}</h3><EvidenceLinks ids={f.evidence_ids}/><Button variant="secondary" onClick={()=>setExplain({runId:id,findingId:f.id,evidenceIds:f.evidence_ids})}>Prepare explanation reference</Button></section>)}</Card>}
       <div className="planning-grid">
         {roles.map(([key, label]) => {
           const step = run?.steps.find((s) => s.agent_id === key);
@@ -289,7 +291,7 @@ export function RunPanel({ id }: { id: string }) {
             <Card key={key} className="planning-role">
               <h2>{label}</h2>
               <p>Status: {step?.status ?? "Not reported"}</p>
-              {step?.result && (
+              {step?.result && !run?.stale && run?.snapshot_version===accounts.snapshot_version && (
                 <>
                   <p>{step.result.headline}</p>
                   <p>

@@ -205,6 +205,14 @@ async function request<T>(
   } catch {
     throw new FinanceError("contract");
   }
+  // Convert documented basis points to display percent, without recomputing ratios.
+  if (path === "overview" && object(value) && Array.isArray(value.indicators)) {
+    value.indicators=value.indicators.map((row:unknown)=>{
+      if(!object(row))return row;
+      const alias=row.key==="debt_payment_income_ratio_bps"?"debt_to_income":row.key==="card_utilization_bps"?"card_utilization":null;
+      return alias?{...row,key:alias,value:typeof row.value==="number"?row.value/100:row.value,unit:"percent"}:row.key==="cash_buffer_months"?{...row,unit:"months"}:row;
+    });
+  }
   if (!object(value) || !meta(value) || !valid(value))
     throw new FinanceError("contract");
   return value as T;

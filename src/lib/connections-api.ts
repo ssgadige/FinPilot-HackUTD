@@ -101,6 +101,7 @@ async function request(
         );
       }
       if (
+        code === "invalid_simulator_login" ||
         code === "INVALID_CREDENTIALS" ||
         code === "INVALID_INSTITUTION_LOGIN"
       )
@@ -109,6 +110,8 @@ async function request(
           "Could not validate the demo credentials. Re-enter your generated institution login; no accounts were linked.",
         );
       if (
+        code === "invalid_preview" ||
+        code === "expired_institution_code" ||
         code === "PREVIEW_EXPIRED" ||
         code === "INVALID_PREVIEW" ||
         response.status === 410
@@ -117,6 +120,7 @@ async function request(
           "expired-preview",
           "This preview has expired. Start institution sign-in and email verification again; no new link is confirmed.",
         );
+      if (code === "invalid_institution_code") throw new ConnectionProblem("invalid-login", "Incorrect or consumed institution code. Try again or restart verification.");
       if (response.status === 401 || response.status === 403)
         throw new ConnectionProblem(
           "unauthorized",
@@ -192,24 +196,37 @@ export const connectionsApi = {
     username: string,
     password: string,
     options: Options = {},
-  ): Promise<{ maskedRecipient: string | null }> {
+  ): Promise<{ maskedRecipient: string | null; challengeId: string }> {
     const response = await request("/connections/preview", "POST", options, {
       institution_id: institutionId,
       demo_username: username,
       demo_password: password,
     });
     const data: unknown = await response.json().catch(() => null);
-    // PR #26 requires an institution OTP BEFORE a preview can be released.
-    // The verify/resend contract is unconfirmed. Never return a legacy preview
-    // token or account labels from this response, even if the backend sends them.
-    return {
-      maskedRecipient:
-        object(data) &&
-        typeof data.masked_email === "string" &&
-        data.masked_email.includes("*")
-          ? data.masked_email
-          : null,
-    };
+    if (!object(data) || !identifier(data.challenge_id) || typeof data.masked_email !== "string") unavailable();
+    return { maskedRecipient: data.masked_email, challengeId: data.challenge_id };
+  },
+  async verify(challengeId: string, code: string, options: Options = {}) {
+    const response = await request("/connections/verify", "POST", options, {challenge_id: challengeId, code});
+    const data: unknown = await response.json();
+    if (!object(data) || !identifier(data.preview_token) || !identifier(data.institution_id) || typeof data.expires_at !== "string" || data.consent_version !== "v1" || !Array.isArray(data.accounts)) unavailable();
+    const accounts = data.accounts.map((a: unknown) => {
+      if (!object(a) || !identifier(a.id) || typeof a.label !== "string" || typeof a.last_four !== "string" || !Array.isArray(a.records) || !a.records.every((r: unknown) => typeof r === "string")) unavailable();
+      return {id:a.id,label:a.label,lastFour:a.last_four,records:a.records as string[]};
+    });
+    return {institutionId:data.institution_id,previewToken:data.preview_token,expiresAt:data.expires_at,consentVersion:data.consent_version,accounts};
+  },
+  async resend(challengeId: string, options: Options = {}) {
+    await request("/connections/resend", "POST", options, {challenge_id:challengeId});
+  },
+  async list(options: Options = {}) {
+    const response=await request("/connections","GET",options);
+    const data:unknown=await response.json();
+    if(!object(data)||!Array.isArray(data.items)) unavailable();
+    return data.items.map((c:unknown)=>{
+      if(!object(c)||!identifier(c.id)||!identifier(c.institution_id)||c.status!=="active"||!Array.isArray(c.account_ids)||!c.account_ids.every(identifier))unavailable();
+      return {id:c.id,institutionId:c.institution_id,status:"active" as const,accountIds:c.account_ids as string[],lastSuccessfulSync:typeof c.last_sync_at==="string"?c.last_sync_at:null};
+    });
   },
   async link(input: LinkRequest, options: Options = {}): Promise<LinkReceipt> {
     const response = await request("/connections", "POST", options, {
@@ -272,7 +289,10 @@ export const connectionsApi = {
       options,
       { confirmation: true },
     );
-    if (response.status !== 204) unavailable();
+    if (response.status !== 204) {
+      const data:unknown=await response.json().catch(()=>null);
+      if(!object(data)||data.revoked!==true||!Number.isSafeInteger(data.snapshot_version)) unavailable();
+    }
   },
   async accounts(options: Options = {}): Promise<unknown> {
     const response = await request("/accounts", "GET", options);

@@ -30,4 +30,4 @@ export interface AccountsResponse {
   source_mode: SourceMode;
   as_of: string;
 }
-export interface Offer { id: string; provider: string; plan: string; source_url: string | null; source_mode: SourceMode; verified_at: string | null; monthly_equivalent_cents: Cents; upfront_cents: Cents; eligibility: string[]; features: string[]; promo_end: string | null; renewal_cents: Cents | null; currency: 'USD'; }
+export interface Offer { id: string; provider: string; plan: string; source_url: string | null; source_mode: SourceMode; verified_at: string | null; monthly_equivalent_cents: Cents; upfront_cents: Cents; eligibility: string[]; features: string[]; promo_end: string | null; renewal_cents: Cents | null; currency: 'USD'; billing_months?: 1 | 12; promotion?: {months:number;price_cents:Cents;requires_new_customer:boolean}|null; terms?:string; retrieved_at?:string|null; availability?:string; }

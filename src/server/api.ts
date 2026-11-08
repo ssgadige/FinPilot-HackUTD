@@ -10,6 +10,7 @@ import { Planning } from './planning';
 import { date } from './tools/finance';
 import { loanCalculation,savingsCalculation } from './tools/finance/calculators';
 import type { Runs } from './runs';
+import { subscriptionSummary } from './subscription-summary';
 const key=z.string().min(1).max(128);
 const login=z.strictObject({email:z.email().max(254),password:z.string().min(1).max(256)});
 const text=z.string().trim().min(1).max(200);
@@ -101,7 +102,20 @@ export function createApi(s:Services) {
         if(!id&&method==='GET')return json({items:s.simulator.list(uid)});
         if(id==='preview'&&path.length===2&&method==='POST') {
           s.auth.throttle(`simulator:${uid}`,10);
-          const b=await body(z.strictObject({institution_id:text,demo_username:text,demo_password:z.string().min(1).max(256)}));return json(s.simulator.preview(uid,b.institution_id,b.demo_username,b.demo_password));
+          const b=await body(z.strictObject({institution_id:text,demo_username:text,demo_password:z.string().min(1).max(256)}));
+          const {binding,...challenge}=await s.simulator.begin(s.auth,uid,session.token_hash,b.institution_id,b.demo_username,b.demo_password);
+          cookie('fp_link_pending',binding,300);return json(challenge,202);
+        }
+        if(id==='verify'&&path.length===2&&method==='POST') {
+          s.auth.throttle(`institution-verify:${uid}`,30);
+          const b=await body(z.strictObject({challenge_id:key,code:z.string().regex(/^\d{6}$/)}));
+          const result=s.simulator.verify(s.auth,uid,session.token_hash,b.challenge_id,cookies.fp_link_pending||'',b.code);
+          cookie('fp_link_pending','',0);return json(result);
+        }
+        if(id==='resend'&&path.length===2&&method==='POST') {
+          const b=await body(z.strictObject({challenge_id:key}));
+          await s.simulator.resend(s.auth,uid,session.token_hash,b.challenge_id,cookies.fp_link_pending||'');
+          cookie('fp_link_pending',cookies.fp_link_pending||'',300);return json({message:'Verification delivery requested'},202);
         }
         if(!id&&method==='POST') {
           const b=await body(z.strictObject({preview_token:key,account_ids:z.array(text).min(1).max(20).refine(a=>new Set(a).size===a.length),consent_version:text,idempotency_key:key}));return json(s.simulator.connect(uid,b),201);
@@ -137,7 +151,7 @@ export function createApi(s:Services) {
         if(id&&!action&&method==='PATCH')return json(s.planning!.updateGoal(uid,id,await body(goalPatch)));
       }
       if(resource==='subscriptions') {
-        if(!id&&method==='GET')return json({items:s.store.scoped('subscriptions',uid)});
+        if(!id&&method==='GET')return json(await subscriptionSummary(s.store,uid));
         if(id&&!action&&method==='PATCH')return json(s.planning!.preferences(uid,id,await body(z.strictObject({usage_confirmed:z.enum(['used','unused','unknown']).optional(),preferences:z.record(z.string().max(50),z.union([z.string().max(200),z.boolean()])).refine(p=>Object.keys(p).length<=20).optional(),confirmation:confirmed}))));
         if(id&&action==='offers'&&method==='GET')return json(await s.planning!.listOffers(uid,id));
       }

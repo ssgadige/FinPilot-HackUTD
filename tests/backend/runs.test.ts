@@ -245,7 +245,11 @@ test('FP-16: HTTP password/OTP, link, run, polling and logout flow uses opaque h
     const authRow=a.auth.session(session);assert.notEqual(authRow.token_hash,session);assert.equal(authRow.token_hash.length,64);
     assert.ok(!JSON.stringify(a.store.all('SELECT * FROM login_challenges')).includes('"'+code+'"'));
     const c=a.credentials[0].institutions[0];
-    const preview=await a.request('connections/preview','POST',{institution_id:c.institution_id,demo_username:c.username,demo_password:c.password},0,headers);assert.equal(preview.status,200);
+    const challenge=await a.request('connections/preview','POST',{institution_id:c.institution_id,demo_username:c.username,demo_password:c.password},0,headers);assert.equal(challenge.status,202);
+    assert.equal(challenge.data.preview_token,undefined);assert.equal(challenge.data.accounts,undefined);
+    const binding=challenge.headers.getSetCookie().find(s=>s.startsWith('fp_link_pending='))!.split(';')[0];
+    const linkHeaders={...headers,cookie:headers.cookie+'; '+binding};
+    const preview=await a.request('connections/verify','POST',{challenge_id:challenge.data.challenge_id,code},0,linkHeaders);assert.equal(preview.status,200);
     const linked=await a.request('connections','POST',{preview_token:preview.data.preview_token,account_ids:preview.data.accounts.map((x:{id:string})=>x.id),consent_version:'v1',idempotency_key:'http-link'},0,headers);assert.equal(linked.status,201);
     const run=await a.request('runs','POST',checkup('http-flow'),0,headers);assert.equal(run.status,202);await a.runs.drain();
     assert.equal((await a.request('runs/'+run.data.run_id,'GET',undefined,0,headers)).data.status,'completed');

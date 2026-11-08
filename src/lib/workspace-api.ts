@@ -9,6 +9,7 @@ export type Subscription = {
   status: string;
   usage_confirmed: "used" | "unused" | "unknown" | null;
   preferences: Record<string, string | boolean>;
+  recurrence?: {candidate:boolean;charge_count:number;last_charge_date:string|null;price_increase_cents:number;monthly_equivalent_cents:number|null;history:{transaction_id:string;date:string;amount_cents:number}[]};
 };
 export type Goal = {
   id: string;
@@ -77,6 +78,8 @@ export type RunView = {
   status: string;
   snapshot_version: number;
   model_status?: string;
+  stale?: boolean;
+  findings?: import("../../contracts/types").Finding[];
   steps: { agent_id: string; status: string; result?: AgentResult }[];
   partial?: boolean;
 };
@@ -98,6 +101,7 @@ function requireShape(ok: unknown): asserts ok {
 }
 export function workspaceMessage(error: unknown) {
   const p = error instanceof WorkspaceProblem ? error : null;
+  if (p?.code === "ai_unavailable") return "Nemotron execution is unavailable. The server requires NVIDIA_API_KEY and NEMOTRON_MODEL configuration; no agent run was started.";
   if (p?.status === 401) return "Your session expired. Sign in again.";
   if (p?.status === 403)
     return "Access was revoked. Financial records have been cleared.";
@@ -185,8 +189,16 @@ function preferences(v: unknown): Record<string, string | boolean> {
   }
 }
 export const workspaceApi = {
-  async subscriptions(signal: AbortSignal): Promise<Subscription[]> {
-    return items(await workspaceRequest("subscriptions", signal)).map((v) => {
+  async subscriptionPage(signal:AbortSignal) {
+    const data=await workspaceRequest("subscriptions",signal);
+    const rows=await this.decodeSubscriptions(data);
+    const summary=obj(data)&&obj(data.summary)?data.summary:null;
+    if(summary)requireShape((summary.monthly_equivalent_cents===null||integer(summary.monthly_equivalent_cents))&&(summary.annual_recurring_cents===null||integer(summary.annual_recurring_cents)));
+    return {items:rows,summary:summary as {monthly_equivalent_cents:number|null;annual_recurring_cents:number|null}|null};
+  },
+  async subscriptions(signal: AbortSignal): Promise<Subscription[]> {return this.decodeSubscriptions(await workspaceRequest("subscriptions",signal));},
+  async decodeSubscriptions(data:unknown):Promise<Subscription[]> {
+    return items(data).map((v) => {
       requireShape(
         obj(v) &&
           text(v.id) &&
@@ -298,10 +310,12 @@ export const workspaceApi = {
       source_mode: d.source_mode,
       source_id: d.source_id,
       observed_at: d.observed_at,
+      payload: (()=>{try{const value=typeof d.payload_json==="string"?JSON.parse(d.payload_json):null;return obj(value)?value:null;}catch{return null;}})(),
     };
   },
   async run(id: string, signal: AbortSignal): Promise<RunView> {
-    const d = await workspaceRequest("runs/" + encodeURIComponent(id), signal);
+    const raw = await workspaceRequest("runs/" + encodeURIComponent(id), signal);
+    const d=obj(raw)&&text(raw.run_id)?{...raw,id:raw.run_id,model_status:raw.inference_source_mode=== "live"?"Live provider calls recorded":"No model calls recorded",steps:Array.isArray(raw.role_steps)?raw.role_steps.map((step:unknown)=>obj(step)?{...step,agent_id:step.agent_id||step.role}:step):null}:raw;
     requireShape(
       obj(d) &&
         text(d.id) &&
@@ -340,13 +354,14 @@ export const workspaceApi = {
                 ))),
         ),
     );
+    if(obj(d)&&d.findings!==undefined)requireShape(Array.isArray(d.findings)&&d.findings.every(f=>obj(f)&&text(f.id)&&text(f.summary)&&Array.isArray(f.evidence_ids)&&f.evidence_ids.every(text)));
     return d as unknown as RunView;
   },
   async events(
     id: string,
     cursor: string | null,
     signal: AbortSignal,
-  ): Promise<{ items: RunEvent[]; next_cursor: string | null }> {
+  ): Promise<{ items: RunEvent[]; next_cursor: string | null; stale?: boolean }> {
     const d = await workspaceRequest(
       "runs/" +
         encodeURIComponent(id) +
@@ -368,7 +383,7 @@ export const workspaceApi = {
             text(v.at),
         ),
     );
-    return d as unknown as { items: RunEvent[]; next_cursor: string | null };
+    return d as unknown as { items: RunEvent[]; next_cursor: string | null; stale?: boolean };
   },
 };
 /** User input conversion only; not a financial forecast or total. */

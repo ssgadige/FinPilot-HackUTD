@@ -1,5 +1,12 @@
 # FP-07 — agent workspace and teammate-owned chat boundary
 
+## Current integrated review status
+
+Current main provides authenticated run/status/events/cancel APIs, now wired into the workspace using its actual envelopes. Bounded polling, server cancellation, reported findings/events, stale suppression and scoped evidence are implemented and regression tested. A real browser start returns 503 ai_unavailable because local NVIDIA_API_KEY and NEMOTRON_MODEL are missing; configuration and chatbot code remain untouched. Chat frontend integration is pending the teammate and its acceptance is incomplete. Earlier missing-route observations below are historical checkpoint findings, superseded by FP-08/IMPLEMENTATION.md.
+
+## Historical checkpoint notes
+
+
 Prepared on the combined FP-05–08 branch. **FP-07 is not fully complete or verified against a real run/chat response.** No competing chatbot, model provider, backend runtime, agent framework or chat contract was added.
 
 ## Inspection and ownership

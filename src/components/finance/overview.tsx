@@ -28,7 +28,7 @@ const definitions = [
     title: "Debt-to-income",
     unit: "percent",
     formula:
-      "Required monthly debt payments ÷ monthly gross income × 100. Optional extra payments are excluded.",
+      "Observed linked liability payments divided by linked income in the latest complete dataset month, as a percentage. This is not a verified gross-income underwriting ratio.",
   },
   {
     key: "card_utilization",

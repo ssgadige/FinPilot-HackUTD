@@ -1,5 +1,12 @@
 # FP-06 — debt, goals, assets and scenarios
 
+## Current integrated review status
+
+Reviewed main and complete institution verification are integrated. Real goal create/edit, debt comparisons, account-backed scenario/evidence and installed investment linking have passed Chromium/Mailpit testing on an isolated backup. Financial DTOs are aligned without client authoritative arithmetic. Real plan acceptance remains blocked by missing Nemotron configuration and no returned proposal; fixture 409/version/idempotency tests pass. CD/IRA records absent from these installed users remain unavailable. Historical notes below refer to the initial checkpoint; use FP-08/IMPLEMENTATION.md for current checks.
+
+## Historical checkpoint notes
+
+
 Implemented together with FP-05/07/08 on `feat/fp-08-frontend-integration-accessibility-and-demo-polish`. No changes to financial formulas, authentication semantics, database schemas, seeding or registration.
 
 ## Delivered and files

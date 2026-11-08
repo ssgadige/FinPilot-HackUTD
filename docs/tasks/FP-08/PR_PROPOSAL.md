@@ -1,17 +1,9 @@
-# Proposed title
+# Integrate FP-05?08 frontend and verified institution linking
 
-feat: integrate subscription, planning and agent-workspace frontends
+Reviewed main supplied agent services while the frontend still had mismatched DTOs and no institution verification route. This change connects the protected frontend to actual backend envelopes, adds scoped Mailpit institution OTP before preview/consent, restores saved connections, and completes subscription, goal/debt/asset/scenario and run workspace controls. Chatbot implementation is unchanged; its frontend integration remains pending.
 
-# Proposed body
+Validation: production build/typecheck; 74 component/session tests; 28 backend tests; 25 Chromium/axe tests. Real Chromium/Mailpit journeys against an isolated copy verified selected linking, preference/intention persistence, user isolation, goal editing, server scenarios/evidence, restart persistence, disconnect and logout. Screenshots and detailed acceptance table: `docs/tasks/FP-08/IMPLEMENTATION.md`.
 
-Related to #5, #6, #7 and #8.
+Remaining blockers: local real run start returns 503 ai_unavailable (required NVIDIA_API_KEY/NEMOTRON_MODEL missing; settings preserved); no real proposal for acceptance; teammate chat integration pending. Fixture inference/offer tests are labeled and do not prove live inference or merchant availability. Full repository lint retains inherited debt (104 errors, one warning); changed-file diagnostics checked without suppressions. No DB, local configuration, credentials or mailbox/runtime artifacts included.
 
-Adds protected subscriptions, debt/readiness, goals/plans, assets, scenario and agent-workspace screens using the existing banking shell and actual API contracts. Preferences, goal saves, proposed intentions, server calculations and versioned plan acceptance use session cookies and CSRF; missing values and unavailable providers remain explicit. No money movement, merchant change, fabricated inference, institution-verification bypass or competing chatbot is included.
-
-Preserves the separate accounts/snapshot/session integration fix currently present as uncommitted dependency work. Land/stage that dependency independently before creating this combined PR. Task-specific compatibility is limited to the current Institutions envelope and optional authorized CD maturity; no financial formula or database schema changes.
-
-Validation: 73 component/session tests, 14 isolated backend tests, all 25 Chromium tests, typecheck and production build pass. Lint retains 92 existing errors and one existing warning with zero new findings. See the four IMPLEMENTATION.md files for desktop/mobile screenshots and check details. Labeled fixture screenshots are distinct from actual Mailpit/browser evidence.
-
-Real two-user rehearsals verified fresh Mailpit login, session isolation, goal create/edit/reload, server hypothetical calculations, logout and former-cookie denial. Full journeys remain blocked by institution OTP wiring, connected data, missing offer resolver and absent run/chat HTTP integration. Plan 409 UI is covered by automated fixtures, not claimed as a successful real-plan demo. The teammate retains chatbot ownership.
-
-These issues remain open while their unmet acceptance criteria are documented. No merge or issue closure is requested by this proposal.
+References #5, #6, #7, #8. These references do not close incomplete issues. Request review; do not merge.

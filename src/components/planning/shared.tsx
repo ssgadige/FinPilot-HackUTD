@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { DataState } from "@/components/ui/data-state";
 import { useFinanceScope } from "@/components/finance/finance-scope";
 import { Metadata } from "@/components/finance/finance-ui";
+import { usd } from "@/lib/finance-api";
 import { workspaceApi } from "@/lib/workspace-api";
 import { ReviewDialog } from "./modal";
 import { ResourceState, useWorkspaceRead } from "./workspace-state";
@@ -62,6 +63,8 @@ function EvidenceReference({
           <dd>{r.data.observed_at}</dd>
           <dt>Source record</dt>
           <dd>{r.data.source_id}</dd>
+          {r.data.payload && ["balance_cents","low_cash_cents","reserve_cents","payment_cents","interest_cents","paid_cents","remaining_cents"].map(key=>typeof r.data?.payload?.[key]==="number"?<div key={key}><dt>{key.replace(/_cents$/, "").replaceAll("_"," ")}</dt><dd>{usd(r.data.payload[key] as number)}</dd></div>:null)}
+          {r.data.payload && Array.isArray(r.data.payload.assumptions) && <><dt>Assumptions</dt><dd>{r.data.payload.assumptions.filter((v:unknown)=>typeof v==="string").join("; ")}</dd></>}
         </dl>
       ) : (
         <ResourceState {...r} />

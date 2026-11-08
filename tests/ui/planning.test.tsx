@@ -385,3 +385,17 @@ it("keeps chat and missing run services explicitly unavailable instead of simula
     screen.getByRole("heading", { name: "Chat panel unavailable" }),
   ).toBeVisible();
 });
+
+
+it("decodes current run envelopes, exposes scoped findings and confirms server cancellation", async () => {
+  let cancelled=false;
+  handlers["GET /api/v1/runs/run-current"] = () => json({run_id:"run-current",status:cancelled?"cancelled":"running",snapshot_version:planningAccounts.snapshot_version,role_steps:[{role:"cash-collision",status:"running",reason:"Executing scoped tools"}],findings:[],trace:[],stale:false,inference_source_mode:"live"});
+  handlers["GET /api/v1/runs/run-current/events"] = () => json({items:[],next_cursor:"0",has_more:false,stale:false});
+  handlers["POST /api/v1/runs/run-current/cancel"] = () => {cancelled=true;return json({run_id:"run-current",status:"cancelled"});};
+  mount(<RunPanel id="run-current"/>);
+  await screen.findByText("Run status: running");
+  await userEvent.click(screen.getByRole("button",{name:"Cancel server run"}));
+  await screen.findByText("Run status: cancelled");
+  expect(cancelled).toBe(true);
+  expect(screen.queryByText("Run status: completed")).not.toBeInTheDocument();
+});

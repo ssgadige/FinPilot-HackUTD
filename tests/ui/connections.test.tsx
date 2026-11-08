@@ -61,9 +61,11 @@ beforeEach(() => {
         { "X-CSRF-Token": csrf },
       ),
     "GET /api/v1/institutions": () => json(providerFixtures),
+    "GET /api/v1/connections": () => json({items:[]}),
+    "GET /api/v1/accounts": () => json({items:[],snapshot_version:1,source_mode:"fixture",as_of:"2026-01-01"}),
   };
   fetchMock = vi.fn(async (url: string, options: RequestInit) => {
-    const handler = handlers[`${options.method} ${url}`];
+    const handler = handlers[`${options.method||"GET"} ${url}`];
     if (!handler) throw new Error("Unexpected test request");
     return handler(options);
   });
@@ -114,14 +116,14 @@ describe("institution discovery", () => {
       ).toBeInTheDocument();
     }
     expect(
-      screen.getByRole("heading", { name: "Connection status unavailable" }),
+      screen.getByRole("heading", { name: "Saved connections" }),
     ).toBeInTheDocument();
     expect(
       fetchMock.mock.calls.every(([url]) => url.startsWith("/api/v1/")),
     ).toBe(true);
     expect(
       fetchMock.mock.calls.some(([url]) => url === "/api/v1/connections"),
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it("handles a pending directory, empty result, service error and retry", async () => {
@@ -259,6 +261,7 @@ describe("simulator credentials and institution verification boundary", () => {
         preview_token: crypto.randomUUID(),
         accounts: [{ label: "Must never be exposed" }],
         masked_email: "p***@example.test",
+        challenge_id: crypto.randomUUID(),
       });
     await user.type(
       screen.getByLabelText("Demo email or username"),
@@ -274,15 +277,15 @@ describe("simulator credentials and institution verification boundary", () => {
       }),
     );
     expect(
-      await screen.findByText("Institution email verification unavailable"),
+      await screen.findByText("Verify your institution email"),
     ).toBeInTheDocument();
     expect(screen.queryByText("Must never be exposed")).not.toBeInTheDocument();
-    expect(screen.getByLabelText("Institution email code")).toBeDisabled();
+    expect(screen.getByLabelText("Institution email code")).toBeEnabled();
     expect(
       screen.getByRole("button", { name: "Verify institution email" }),
-    ).toBeDisabled();
+    ).toBeEnabled();
     expect(
-      screen.getByRole("button", { name: "Resend institution code" }),
+      screen.getByRole("button", { name: /^Resend institution code/ }),
     ).toBeDisabled();
     expect(fetchMock.mock.calls).toHaveLength(1);
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();

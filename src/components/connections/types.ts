@@ -1,6 +1,4 @@
-/** Internal post-verification view model, NOT an agreed FP-11 wire schema.
- * No production adapter currently creates it: institution OTP integration is blocked.
- */
+/** Internal view model decoded only from a successfully verified institution challenge. */
 export type VerifiedInstitutionPreview = {
   institutionId: string;
   institutionName: string;
@@ -14,7 +12,7 @@ export type VerifiedInstitutionPreview = {
     records: string[];
   }[];
 };
-/** Only supplied by a confirmed server receipt or future confirmed listing adapter. */
+/** Only supplied by a confirmed server receipt or authenticated listing adapter. */
 export type ConfirmedConnection = {
   id: string;
   institutionId: string;
