@@ -1,5 +1,8 @@
 node_modules/
 .next/
+*.tsbuildinfo
+playwright-report/
+test-results/
 out/
 coverage/
 .env
@@ -14,4 +17,3 @@ __pycache__/
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
-*.tsbuildinfo

@@ -16,6 +16,7 @@ To select another database, set DATABASE_PATH before running setup.
 
 Validate and verify:
   python3 scripts/validate_seed.py
+  npm run test:backend
   npm test
   npm run build
   python3 -m unittest discover -s tests -v
