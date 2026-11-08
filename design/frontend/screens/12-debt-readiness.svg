@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1440" height="1000" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1440 1000" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1440" height="1000"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1000)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1440" height="1000" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,96%,98%); fill-rule: evenodd;"/>
+			<text x="32" y="971" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,1942) scale(1,-1)">FINPILOT / FRONTEND BLUEPRINT</text>
+			<text x="32" y="940" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1880) scale(1,-1)">12  Debt &amp; readiness</text>
+			<text x="1130" y="968" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1936) scale(1,-1)">#6 / FP-06</text>
+			<text x="1130" y="943" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1886) scale(1,-1)">Design reference / v1</text>
+			<rect x="32" y="108" width="1376" height="800" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="32" y="108" width="220" height="800" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(6%,16%,26%); fill-rule: evenodd;"/>
+			<text x="57" y="865" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1730) scale(1,-1)">finpilot</text>
+			<text x="58" y="841" style="font-family: DejaVu Sans; font-size: 10px;fill: rgb(68%,76%,83%); stroke:none;" transform="translate(0,1682) scale(1,-1)">Financial command center</text>
+			<text x="60" y="808" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1616) scale(1,-1)">Overview</text>
+			<text x="60" y="765" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1530) scale(1,-1)">Institutions</text>
+			<text x="60" y="722" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1444) scale(1,-1)">Accounts</text>
+			<text x="60" y="679" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1358) scale(1,-1)">Transactions</text>
+			<text x="60" y="636" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1272) scale(1,-1)">Cash &amp; bills</text>
+			<text x="60" y="593" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1186) scale(1,-1)">Subscriptions</text>
+			<rect x="45" y="536" width="194" height="36" rx="6" ry="6" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,27%,36%); fill-rule: evenodd;"/>
+			<text x="60" y="550" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1100) scale(1,-1)">Debt &amp; readiness</text>
+			<text x="60" y="507" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1014) scale(1,-1)">Goals &amp; plans</text>
+			<text x="60" y="464" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,928) scale(1,-1)">Assets</text>
+			<text x="60" y="421" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,842) scale(1,-1)">Agent workspace</text>
+			<text x="60" y="378" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,756) scale(1,-1)">Scenario lab</text>
+			<text x="60" y="335" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,670) scale(1,-1)">Settings</text>
+			<rect x="54" y="150" width="165" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="65" y="158" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,316) scale(1,-1)">SIMULATED DATA</text>
+			<path d="M 252,833 L 1408,833 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="282" y="872" style="font-family: DejaVu Sans; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1744) scale(1,-1)">/debts</text>
+			<text x="282" y="849" style="font-family: DejaVu Sans; font-weight: bold; font-size: 14px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1698) scale(1,-1)">Maya Chen / Personal finances</text>
+			<rect x="1117" y="861" width="130" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="1128" y="869" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,1738) scale(1,-1)">Demo workspace</text>
+			<text x="1272" y="860" style="font-family: DejaVu Sans; font-weight: bold; font-size: 14px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1720) scale(1,-1)">MC</text>
+			<text x="282" y="792" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1584) scale(1,-1)">Debt &amp; readiness</text>
+			<text x="282" y="767" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1534) scale(1,-1)">Evaluate payment options while protecting bill cash.</text>
+			<path d="M 32,82 L 1408,82 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="32" y="56" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,112) scale(1,-1)">FRONTEND  #6 / FP-06</text>
+			<text x="300" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">BACKEND  #13, #14</text>
+			<text x="795" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">AGENTS  #20</text>
+			<text x="32" y="35" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,70) scale(1,-1)">Run payoff scenario -&gt; calculation evidence. Purchase readiness is planning, not a score-point prediction or loan approval.</text>
+			<rect x="282" y="610" width="350" height="116" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="302" y="699" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1398) scale(1,-1)">Total debt</text>
+			<text x="302" y="661" style="font-family: DejaVu Sans; font-weight: bold; font-size: 29px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1322) scale(1,-1)">$17,600</text>
+			<text x="302" y="634" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1268) scale(1,-1)">Cards + auto loan</text>
+			<rect x="654" y="610" width="350" height="116" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="674" y="699" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1398) scale(1,-1)">Card utilization</text>
+			<text x="674" y="661" style="font-family: DejaVu Sans; font-weight: bold; font-size: 29px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1322) scale(1,-1)">32%</text>
+			<text x="674" y="634" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1268) scale(1,-1)">Based on linked limits</text>
+			<rect x="1026" y="610" width="350" height="116" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="1046" y="699" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1398) scale(1,-1)">Monthly minimums</text>
+			<text x="1046" y="661" style="font-family: DejaVu Sans; font-weight: bold; font-size: 29px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1322) scale(1,-1)">$300</text>
+			<text x="1046" y="634" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1268) scale(1,-1)">Illustrative obligations</text>
+			<rect x="282" y="354" width="1094" height="228" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="304" y="550" style="font-family: DejaVu Sans; font-weight: bold; font-size: 16px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1100) scale(1,-1)">Debt inventory</text>
+			<rect x="305" y="488" width="1048" height="42" rx="6" ry="6" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,96%,98%); fill-rule: evenodd;"/>
+			<text x="319" y="504" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1008) scale(1,-1)">Debt</text>
+			<text x="599" y="504" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1008) scale(1,-1)">Balance</text>
+			<text x="799" y="504" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1008) scale(1,-1)">APR</text>
+			<text x="979" y="504" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1008) scale(1,-1)">Minimum</text>
+			<text x="1169" y="504" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1008) scale(1,-1)">Action</text>
+			<path d="M 305,433 L 1353,433 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319" y="458" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,916) scale(1,-1)">Amex card</text>
+			<text x="599" y="458" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,916) scale(1,-1)">$3,600</text>
+			<text x="799" y="458" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,916) scale(1,-1)">24.99%</text>
+			<text x="979" y="458" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,916) scale(1,-1)">$100</text>
+			<text x="1169" y="458" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,916) scale(1,-1)">Compare</text>
+			<path d="M 305,378 L 1353,378 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319" y="403" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,806) scale(1,-1)">Auto loan</text>
+			<text x="599" y="403" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,806) scale(1,-1)">$14,000</text>
+			<text x="799" y="403" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,806) scale(1,-1)">6.50%</text>
+			<text x="979" y="403" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,806) scale(1,-1)">$200</text>
+			<text x="1169" y="403" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,806) scale(1,-1)">Compare</text>
+			<rect x="282" y="154" width="1094" height="176" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="304" y="298" style="font-family: DejaVu Sans; font-weight: bold; font-size: 16px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,596) scale(1,-1)">Payment scenario</text>
+			<text x="305" y="270" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,540) scale(1,-1)">Extra monthly payment</text>
+			<rect x="305" y="213" width="310" height="45" rx="7" ry="7" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="319" y="230" style="font-family: DejaVu Sans; font-size: 14px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,460) scale(1,-1)">$200</text>
+			<rect x="650" y="213" width="285" height="40" rx="7" ry="7" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(3%,49%,54%); fill-rule: evenodd;"/>
+			<text x="666" y="228" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,456) scale(1,-1)">Compare payoff options</text>
+			<text x="967" y="244" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,488) scale(1,-1)">Preserve $1,000 cash buffer</text>
+		</g>
+	</g>
+</svg>

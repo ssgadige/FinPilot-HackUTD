@@ -77,7 +77,13 @@ test("financial routes stay closed without JavaScript; backend endpoints are abs
   await page.goto("/transactions");
   await expect(page).toHaveURL(/\/login\?reason=unavailable/);
   await expect(page.getByText("$5,400")).toHaveCount(0);
-  for (const path of ["/me", "/accounts"])
+  for (const path of [
+    "/me",
+    "/accounts",
+    "/transactions",
+    "/overview",
+    "/forecast?days=30",
+  ])
     expect((await request.get(`/api/v1${path}`)).status()).toBe(404);
   expect(
     (
