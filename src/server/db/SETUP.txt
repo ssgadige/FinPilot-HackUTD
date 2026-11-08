@@ -22,8 +22,13 @@ Validate and verify:
   python3 -m unittest discover -s tests -v
 
 Expected fresh data: 10 fictional users, 30 months of history per user,
-41 accounts and 12,062 transactions. All balances must reconcile to opening
-balance plus signed ledger deltas. No accounts are initially linked.
+71 accounts and 13,322 transactions after npm run setup in demo mode. Each
+user has seven supported types with preloaded access; all balances reconcile.
+The original raw seed remains 41 unlinked accounts for isolated backend tests.
+Validate prepared dashboards with:
+  python scripts/validate_presentation.py --database <DATABASE_PATH>
+To explicitly upgrade an existing demo database (with backup):
+  npm run demo:prepare
 
 Generated files, excluded from Git:
   data/finpilot-demo.sqlite (including WAL/SHM files)

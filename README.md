@@ -2,6 +2,23 @@
 
 A financial health navigator built for HackUTD. FinPilot brings accounts, debts, subscriptions and goals into one dashboard, with NVIDIA Nemotron agents that detect conflicts, compare options and propose changes to a financial plan.
 
+## Run a fresh clone
+
+Use the Node version in `.nvmrc`, Python 3.11+ and Docker for the local email inbox.
+
+```sh
+git clone https://github.com/ssgadige/FinPilot-HackUTD.git
+cd FinPilot-HackUTD
+npm ci
+npm run setup
+docker compose up -d mailpit
+npm run dev
+```
+
+Open **http://127.0.0.1:3000/login** and **http://localhost:8025** for email codes. Fresh demo setup automatically prepares all ten profiles with seven account types, 71 accounts and 13,322 transactions. Use the fictional credentials generated privately in `data/demo-credentials.json`; login still requires the emailed code. AI responses require your own server-side NVIDIA configuration.
+
+Already set up an older clone with empty dashboards? Pull main, run `npm ci`, then **`npm run demo:prepare`** and restart the app. This explicitly upgrades the configured demo database after taking a backup. Ordinary repeated `npm run setup` preserves existing connection/disconnect choices and records. See [SETUP.md](SETUP.md) for native/container paths and configuration.
+
 ## Development
 
 - [Project board](https://github.com/users/ssgadige/projects/1)
@@ -60,11 +77,19 @@ FinPilot is an independent hackathon prototype. Institution connections and fina
 
 ## Preloaded presentation dashboards
 
-To prepare all ten recognized demo profiles with seven supported account types, coherent history and preselected presentation access, use the actual configured database path:
+`npm run setup` prepares new demo databases automatically. To upgrade an **existing** recognized demo database explicitly:
 
-```bash
-python scripts/prepare_demo_dashboards.py --database ./data/finpilot-login-test.sqlite --expand-account-types
-python scripts/prepare_demo_dashboards.py --database ./data/finpilot-login-test.sqlite --expand-account-types --apply
+```sh
+npm run demo:prepare
 ```
 
-The first command only inspects. The second creates a consistent private backup and adds missing demo records/access idempotently, preserving credentials and existing ledger records. Use the path from `DATABASE_PATH`; Docker volumes and host databases are separate. This does not disable application login, verification, ownership or disconnect protections. Git distributes the provisioning script, not local databases or secrets. See [presentation verification](docs/fixes/demo-presentation-polish.md).
+The command uses `DATABASE_PATH` with the same environment-file precedence as Next.js, finds a supported Python executable across Windows/macOS/Linux, backs up existing data and adds missing records/access idempotently. It preserves credentials and existing ledger entries. Use the configured database, not a separate host copy of a Docker volume. Normal login, verification, ownership and disconnect protections remain enforced. Databases and secrets are intentionally not pushed to GitHub.
+
+For an inspection-only preview or a non-default path, the original Python command remains available:
+
+```sh
+python scripts/prepare_demo_dashboards.py --database ./data/finpilot-demo.sqlite --expand-account-types
+python scripts/validate_presentation.py --database ./data/finpilot-demo.sqlite
+```
+
+The first command never applies changes. The second verifies a prepared presentation database. See [fresh-clone verification](docs/fixes/fresh-clone-setup.md) and [presentation verification](docs/fixes/demo-presentation-polish.md).
