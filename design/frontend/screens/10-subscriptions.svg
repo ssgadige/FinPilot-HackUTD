@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1440" height="1000" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1440 1000" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1440" height="1000"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1000)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1440" height="1000" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,96%,98%); fill-rule: evenodd;"/>
+			<text x="32" y="971" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,1942) scale(1,-1)">FINPILOT / FRONTEND BLUEPRINT</text>
+			<text x="32" y="940" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1880) scale(1,-1)">10  Subscriptions</text>
+			<text x="1130" y="968" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1936) scale(1,-1)">#5 / FP-05</text>
+			<text x="1130" y="943" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1886) scale(1,-1)">Design reference / v1</text>
+			<rect x="32" y="108" width="1376" height="800" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="32" y="108" width="220" height="800" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(6%,16%,26%); fill-rule: evenodd;"/>
+			<text x="57" y="865" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1730) scale(1,-1)">finpilot</text>
+			<text x="58" y="841" style="font-family: DejaVu Sans; font-size: 10px;fill: rgb(68%,76%,83%); stroke:none;" transform="translate(0,1682) scale(1,-1)">Financial command center</text>
+			<text x="60" y="808" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1616) scale(1,-1)">Overview</text>
+			<text x="60" y="765" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1530) scale(1,-1)">Institutions</text>
+			<text x="60" y="722" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1444) scale(1,-1)">Accounts</text>
+			<text x="60" y="679" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1358) scale(1,-1)">Transactions</text>
+			<text x="60" y="636" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1272) scale(1,-1)">Cash &amp; bills</text>
+			<rect x="45" y="579" width="194" height="36" rx="6" ry="6" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,27%,36%); fill-rule: evenodd;"/>
+			<text x="60" y="593" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1186) scale(1,-1)">Subscriptions</text>
+			<text x="60" y="550" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1100) scale(1,-1)">Debt &amp; readiness</text>
+			<text x="60" y="507" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1014) scale(1,-1)">Goals &amp; plans</text>
+			<text x="60" y="464" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,928) scale(1,-1)">Assets</text>
+			<text x="60" y="421" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,842) scale(1,-1)">Agent workspace</text>
+			<text x="60" y="378" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,756) scale(1,-1)">Scenario lab</text>
+			<text x="60" y="335" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,670) scale(1,-1)">Settings</text>
+			<rect x="54" y="150" width="165" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="65" y="158" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,316) scale(1,-1)">SIMULATED DATA</text>
+			<path d="M 252,833 L 1408,833 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="282" y="872" style="font-family: DejaVu Sans; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1744) scale(1,-1)">/subscriptions</text>
+			<text x="282" y="849" style="font-family: DejaVu Sans; font-weight: bold; font-size: 14px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1698) scale(1,-1)">Maya Chen / Personal finances</text>
+			<rect x="1117" y="861" width="130" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="1128" y="869" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,1738) scale(1,-1)">Demo workspace</text>
+			<text x="1272" y="860" style="font-family: DejaVu Sans; font-weight: bold; font-size: 14px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1720) scale(1,-1)">MC</text>
+			<text x="282" y="792" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1584) scale(1,-1)">Subscriptions</text>
+			<text x="282" y="767" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1534) scale(1,-1)">Find recurring costs, price changes and alternatives.</text>
+			<path d="M 32,82 L 1408,82 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="32" y="56" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,112) scale(1,-1)">FRONTEND  #5 / FP-05</text>
+			<text x="300" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">BACKEND  #13, #14</text>
+			<text x="795" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">AGENTS  #19</text>
+			<text x="32" y="35" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,70) scale(1,-1)">Confirm recurrence/usage preferences first. Transaction history alone cannot prove a service is unused. Compare -&gt; offer detail.</text>
+			<rect x="282" y="611" width="350" height="116" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="302" y="700" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1400) scale(1,-1)">Monthly equivalent</text>
+			<text x="302" y="662" style="font-family: DejaVu Sans; font-weight: bold; font-size: 29px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1324) scale(1,-1)">$94.95</text>
+			<text x="302" y="635" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1270) scale(1,-1)">5 recurring candidates</text>
+			<rect x="654" y="611" width="350" height="116" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="674" y="700" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1400) scale(1,-1)">Price changes</text>
+			<text x="674" y="662" style="font-family: DejaVu Sans; font-weight: bold; font-size: 29px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1324) scale(1,-1)">+$3.00</text>
+			<text x="674" y="635" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1270) scale(1,-1)">StreamPlus since May</text>
+			<rect x="1026" y="611" width="350" height="116" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="1046" y="700" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1400) scale(1,-1)">Potential opportunity</text>
+			<text x="1046" y="662" style="font-family: DejaVu Sans; font-weight: bold; font-size: 29px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1324) scale(1,-1)">Review 2</text>
+			<text x="1046" y="635" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1270) scale(1,-1)">Not yet realized savings</text>
+			<rect x="282" y="162" width="1094" height="426" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="305" y="520" width="1048" height="42" rx="6" ry="6" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,96%,98%); fill-rule: evenodd;"/>
+			<text x="319" y="536" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1072) scale(1,-1)">Service</text>
+			<text x="559" y="536" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1072) scale(1,-1)">Cadence</text>
+			<text x="719" y="536" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1072) scale(1,-1)">Cost</text>
+			<text x="859" y="536" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1072) scale(1,-1)">Finding</text>
+			<text x="1159" y="536" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1072) scale(1,-1)">Action</text>
+			<path d="M 305,462 L 1353,462 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319" y="490" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,980) scale(1,-1)">StreamPlus</text>
+			<text x="559" y="490" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,980) scale(1,-1)">Monthly</text>
+			<text x="719" y="490" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,980) scale(1,-1)">$18.99</text>
+			<text x="859" y="490" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,980) scale(1,-1)">Price increased</text>
+			<text x="1159" y="490" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,980) scale(1,-1)">Compare offers</text>
+			<path d="M 305,404 L 1353,404 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319" y="432" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,864) scale(1,-1)">StreamExtra</text>
+			<text x="559" y="432" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,864) scale(1,-1)">Monthly</text>
+			<text x="719" y="432" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,864) scale(1,-1)">$18.99</text>
+			<text x="859" y="432" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,864) scale(1,-1)">Possible overlap</text>
+			<text x="1159" y="432" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,864) scale(1,-1)">Confirm usage</text>
+			<path d="M 305,346 L 1353,346 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319" y="374" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,748) scale(1,-1)">MusicCloud</text>
+			<text x="559" y="374" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,748) scale(1,-1)">Monthly</text>
+			<text x="719" y="374" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,748) scale(1,-1)">$10.99</text>
+			<text x="859" y="374" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,748) scale(1,-1)">Recurring candidate</text>
+			<text x="1159" y="374" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,748) scale(1,-1)">Review</text>
+			<path d="M 305,288 L 1353,288 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319" y="316" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,632) scale(1,-1)">FitnessClub</text>
+			<text x="559" y="316" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,632) scale(1,-1)">Monthly</text>
+			<text x="719" y="316" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,632) scale(1,-1)">$42.99</text>
+			<text x="859" y="316" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,632) scale(1,-1)">Usage unknown</text>
+			<text x="1159" y="316" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,632) scale(1,-1)">Confirm usage</text>
+			<path d="M 305,230 L 1353,230 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="319" y="258" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,516) scale(1,-1)">CloudBox</text>
+			<text x="559" y="258" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,516) scale(1,-1)">Monthly</text>
+			<text x="719" y="258" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,516) scale(1,-1)">$2.99</text>
+			<text x="859" y="258" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,516) scale(1,-1)">Recurring candidate</text>
+			<text x="1159" y="258" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,516) scale(1,-1)">Review</text>
+		</g>
+	</g>
+</svg>
