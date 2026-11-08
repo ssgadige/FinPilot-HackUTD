@@ -6,12 +6,15 @@ export function DataState({
   title,
   children,
   action,
+  headingLevel = 3,
 }: {
   state: "loading" | "empty" | "error" | "stale" | "success";
   title: string;
   children?: ReactNode;
   action?: ReactNode;
+  headingLevel?: 1 | 2 | 3;
 }) {
+  const Heading = `h${headingLevel}` as "h1" | "h2" | "h3";
   const Icon =
     state === "loading"
       ? LoaderCircle
@@ -28,7 +31,7 @@ export function DataState({
     >
       <Icon size={22} aria-hidden="true" />
       <div>
-        <h3>{title}</h3>
+        <Heading>{title}</Heading>
         {children && <div className="muted small">{children}</div>}
         {state === "loading" && <div className="skeleton" aria-hidden="true" />}
         {action}

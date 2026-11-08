@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { requireVerifiedSession } from "@/server/auth/session";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { navigation } from "@/lib/navigation";
@@ -28,6 +29,7 @@ export default async function SectionPage({
 }: {
   params: Promise<{ section: string }>;
 }) {
+  await requireVerifiedSession();
   const { section } = await params;
   const item = navigation.find((entry) => entry.href === `/${section}`);
   if (!item) notFound();

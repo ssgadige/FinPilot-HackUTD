@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { PatternForm } from "../../src/app/ui/pattern-form";
+import { PatternForm } from "../../src/app/(workspace)/ui/pattern-form";
 
 describe("shared form interactions", () => {
   it("associates actionable validation with the field, moves focus, and preserves entered values", async () => {
