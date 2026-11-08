@@ -39,3 +39,4 @@ src/server/db, data/schema.sql, scripts
 [API contract](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/API.md) · [Security requirements](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/SECURITY.md) · [Agent design](https://github.com/ssgadige/FinPilot-HackUTD/blob/main/docs/AGENTS.md)
 
 [Issue #9](https://github.com/ssgadige/FinPilot-HackUTD/issues/9)
+

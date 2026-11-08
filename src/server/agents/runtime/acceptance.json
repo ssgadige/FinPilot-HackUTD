@@ -1,0 +1,437 @@
+{
+  "status": "passed",
+  "inference_source_mode": "live",
+  "financial_source_mode": "fixture",
+  "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "checked_at": "2026-11-08T01:06:50.072Z",
+  "total_latency_ms": 32774,
+  "request_latency_ms": [
+    1080,
+    1062,
+    842,
+    9801,
+    985,
+    1238,
+    4520,
+    13210
+  ],
+  "model_calls": 8,
+  "settings": {
+    "max_tokens": 4096,
+    "specialist_timeout_ms": 90000,
+    "max_tool_rounds": 4,
+    "max_run_model_calls": 24
+  },
+  "integrity": {
+    "result": {
+      "agent_id": "data-integrity",
+      "status": "completed",
+      "headline": "Data integrity review found 1 stale account, 1 duplicate transaction ID, 2 ledger reconciliation mismatches, and 1 unmatched transfer leg.",
+      "findings": [
+        {
+          "id": "stale-savings-account",
+          "severity": "warning",
+          "summary": "The savings account is stale and may not reflect current balances; do not treat its balance as guaranteed available cash.",
+          "evidence_ids": [
+            "calc-32d210652c8e12d23f223e67"
+          ],
+          "amount_cents": null
+        },
+        {
+          "id": "duplicate-transaction-id",
+          "severity": "urgent",
+          "summary": "Duplicate transaction ID detected: 'duplicate'. This may indicate double-counted or corrupted ledger entries.",
+          "evidence_ids": [
+            "calc-42f63b8582fd6316699d6c5f"
+          ],
+          "amount_cents": null
+        },
+        {
+          "id": "checking-reconciliation-mismatch",
+          "severity": "warning",
+          "summary": "Checking account ledger mismatch: expected 48000 cents, actual 50000 cents, difference 2000 cents.",
+          "evidence_ids": [
+            "calc-42f63b8582fd6316699d6c5f"
+          ],
+          "amount_cents": 2000
+        },
+        {
+          "id": "card-reconciliation-mismatch",
+          "severity": "warning",
+          "summary": "Card account ledger mismatch: expected 25000 cents, actual 30000 cents, difference 5000 cents.",
+          "evidence_ids": [
+            "calc-42f63b8582fd6316699d6c5f"
+          ],
+          "amount_cents": 5000
+        },
+        {
+          "id": "unmatched-transfer-leg",
+          "severity": "warning",
+          "summary": "Unmatched transfer leg detected (group: missing-transfer-leg, 5000 cents). One side of an internal transfer is missing and was not counted as income or spending.",
+          "evidence_ids": [
+            "calc-1e2c25d3b67c83403a6c9f2c"
+          ],
+          "amount_cents": 5000
+        }
+      ],
+      "evidence_ids": [
+        "calc-32d210652c8e12d23f223e67",
+        "calc-42f63b8582fd6316699d6c5f",
+        "calc-1e2c25d3b67c83403a6c9f2c"
+      ],
+      "assumptions": [
+        "Snapshot balances already include historical transactions.",
+        "Transfers are not income or spending.",
+        "Only checking, savings and wallet accounts are spendable.",
+        "Same-day expenses precede income conservatively."
+      ],
+      "missing_data": [],
+      "proposed_actions": [
+        {
+          "id": "resync-stale-savings",
+          "type": "review_payment",
+          "description": "Resync and review the stale savings account to restore current balance data.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "investigate-duplicate-transaction",
+          "type": "review_payment",
+          "description": "Investigate and resolve the duplicate transaction ID 'duplicate' in the ledger.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "reconcile-checking-mismatch",
+          "type": "review_payment",
+          "description": "Reconcile the checking account mismatch of 2000 cents between expected and actual balances.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "reconcile-card-mismatch",
+          "type": "review_payment",
+          "description": "Reconcile the card account mismatch of 5000 cents between expected and actual balances.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "resolve-missing-transfer-leg",
+          "type": "review_payment",
+          "description": "Locate the missing leg of the unmatched transfer (5000 cents, group: missing-transfer-leg).",
+          "requires_confirmation": true
+        }
+      ],
+      "snapshot_version": 1
+    },
+    "evidence": [
+      {
+        "id": "calc-32d210652c8e12d23f223e67",
+        "kind": "calculation",
+        "source_id": "get_connection_status",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-42f63b8582fd6316699d6c5f",
+        "kind": "calculation",
+        "source_id": "reconcile_ledger",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-1e2c25d3b67c83403a6c9f2c",
+        "kind": "calculation",
+        "source_id": "find_transfer_pairs",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      }
+    ],
+    "trace": [
+      {
+        "tool": "get_connection_status",
+        "evidence_ids": [
+          "calc-32d210652c8e12d23f223e67"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "reconcile_ledger",
+        "evidence_ids": [
+          "calc-42f63b8582fd6316699d6c5f"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "find_transfer_pairs",
+        "evidence_ids": [
+          "calc-1e2c25d3b67c83403a6c9f2c"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "4265d747-c5da-4e25-bc0f-73499ed271a7",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "started",
+        "at": "2026-11-08T01:06:17.299Z",
+        "message": "Agent started."
+      },
+      {
+        "id": "df7d553f-831c-4e54-8b5e-c2db9e932e9b",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "tool_started",
+        "at": "2026-11-08T01:06:18.383Z",
+        "message": "get_connection_status"
+      },
+      {
+        "id": "a0690cc4-ab4a-43e1-86c8-8f7c4cbd62f9",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "tool_completed",
+        "at": "2026-11-08T01:06:18.384Z",
+        "message": "get_connection_status"
+      },
+      {
+        "id": "980bb656-0c5e-4030-8e32-b81590b67981",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "tool_started",
+        "at": "2026-11-08T01:06:19.446Z",
+        "message": "reconcile_ledger"
+      },
+      {
+        "id": "352c624d-4329-4b1b-bae2-040864cb7a7b",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "tool_completed",
+        "at": "2026-11-08T01:06:19.448Z",
+        "message": "reconcile_ledger"
+      },
+      {
+        "id": "88397240-8198-48f3-9bd7-74065a6e7edd",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "tool_started",
+        "at": "2026-11-08T01:06:20.290Z",
+        "message": "find_transfer_pairs"
+      },
+      {
+        "id": "4a659405-61e8-4a00-8be9-4f45624df2dd",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "tool_completed",
+        "at": "2026-11-08T01:06:20.291Z",
+        "message": "find_transfer_pairs"
+      },
+      {
+        "id": "2939739e-b486-46e9-8db4-a491f7b0efda",
+        "run_id": "fp18-acceptance",
+        "agent_id": "data-integrity",
+        "type": "completed",
+        "at": "2026-11-08T01:06:30.092Z",
+        "message": "Validated agent result."
+      }
+    ]
+  },
+  "cash": {
+    "result": {
+      "agent_id": "cash-collision",
+      "status": "completed",
+      "headline": "Cash collision on 2026-11-10: checking account short by 70000 cents for rent despite 160000 cents total cash across accounts",
+      "findings": [
+        {
+          "id": "cash-collision-2026-11-10",
+          "severity": "warning",
+          "summary": "On 2026-11-10, the checking account balance drops to -70000 cents when the 120000 cent rent is due, while total cash across accounts is 160000 cents. Income of 200000 cents does not arrive until 2026-11-15. The shortage is account-specific (checking), not a total cash shortfall.",
+          "evidence_ids": [
+            "calc-a6945a286c9c98fd7de36f71",
+            "calc-f388156b2d38f6d104b9c6fe",
+            "calc-9446ff959b6e1312a05f4abe"
+          ],
+          "amount_cents": -70000
+        }
+      ],
+      "evidence_ids": [
+        "calc-a6945a286c9c98fd7de36f71",
+        "calc-f388156b2d38f6d104b9c6fe",
+        "calc-9446ff959b6e1312a05f4abe"
+      ],
+      "assumptions": [
+        "Snapshot balances already include historical transactions.",
+        "Transfers are not income or spending.",
+        "Only checking, savings and wallet accounts are spendable.",
+        "Same-day expenses precede income conservatively.",
+        "The savings account balance is stale and may not reflect current cash; do not treat it as guaranteed available.",
+        "The checking account has a 2000 cent reconciliation mismatch; actual balance may differ from forecast."
+      ],
+      "missing_data": [],
+      "proposed_actions": [
+        {
+          "id": "move-rent-to-after-income",
+          "type": "review_payment",
+          "description": "Move the 120000 cent rent payment from 2026-11-10 to 2026-11-15 or later, after the 200000 cent income arrives in checking.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "transfer-savings-to-checking",
+          "type": "review_payment",
+          "description": "Transfer funds from savings to checking before 2026-11-10 to cover the rent. Note: savings account is stale and should be resynced first before relying on its balance.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "move-income-earlier",
+          "type": "review_payment",
+          "description": "Move the 200000 cent income deposit earlier than 2026-11-10 so it is available before the rent is due.",
+          "requires_confirmation": true
+        }
+      ],
+      "snapshot_version": 1
+    },
+    "evidence": [
+      {
+        "id": "calc-32d210652c8e12d23f223e67",
+        "kind": "calculation",
+        "source_id": "get_connection_status",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-42f63b8582fd6316699d6c5f",
+        "kind": "calculation",
+        "source_id": "reconcile_ledger",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-1e2c25d3b67c83403a6c9f2c",
+        "kind": "calculation",
+        "source_id": "find_transfer_pairs",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-f388156b2d38f6d104b9c6fe",
+        "kind": "calculation",
+        "source_id": "get_cash_calendar",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-a6945a286c9c98fd7de36f71",
+        "kind": "calculation",
+        "source_id": "forecast_cash",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-9446ff959b6e1312a05f4abe",
+        "kind": "calculation",
+        "source_id": "compare_cash_scenarios",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      }
+    ],
+    "trace": [
+      {
+        "tool": "get_cash_calendar",
+        "evidence_ids": [
+          "calc-f388156b2d38f6d104b9c6fe"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "forecast_cash",
+        "evidence_ids": [
+          "calc-a6945a286c9c98fd7de36f71"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "compare_cash_scenarios",
+        "evidence_ids": [
+          "calc-9446ff959b6e1312a05f4abe"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "3f1b2b09-97b8-4d1e-871b-76324889b228",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "started",
+        "at": "2026-11-08T01:06:30.093Z",
+        "message": "Agent started."
+      },
+      {
+        "id": "9def139a-daec-4fdc-8f8a-15fbb229e1d8",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "tool_started",
+        "at": "2026-11-08T01:06:31.080Z",
+        "message": "get_cash_calendar"
+      },
+      {
+        "id": "e637b48d-e166-4150-9ee5-1fa59c6f5b69",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "tool_completed",
+        "at": "2026-11-08T01:06:31.081Z",
+        "message": "get_cash_calendar"
+      },
+      {
+        "id": "a49d7815-75ec-4c3b-96bc-5de2d22ff3dd",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "tool_started",
+        "at": "2026-11-08T01:06:32.319Z",
+        "message": "forecast_cash"
+      },
+      {
+        "id": "9e5062d6-b09b-4289-b57d-f775f6578994",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "tool_completed",
+        "at": "2026-11-08T01:06:32.340Z",
+        "message": "forecast_cash"
+      },
+      {
+        "id": "c1893d33-2697-4ddd-8e88-757d17028f86",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "tool_started",
+        "at": "2026-11-08T01:06:36.861Z",
+        "message": "compare_cash_scenarios"
+      },
+      {
+        "id": "35beecf1-8b38-4724-a6b3-5213b7511625",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "tool_completed",
+        "at": "2026-11-08T01:06:36.862Z",
+        "message": "compare_cash_scenarios"
+      },
+      {
+        "id": "acb976e4-d196-45f5-9645-e0378e4e091b",
+        "run_id": "fp18-acceptance",
+        "agent_id": "cash-collision",
+        "type": "completed",
+        "at": "2026-11-08T01:06:50.072Z",
+        "message": "Validated agent result."
+      }
+    ]
+  },
+  "dependency": "cash consumes integrity result for the same user, run, snapshot and accounts"
+}

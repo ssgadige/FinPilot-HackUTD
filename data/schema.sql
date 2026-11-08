@@ -26,3 +26,4 @@ CREATE TABLE demo_events(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES us
 CREATE TABLE subscription_actions(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),subscription_id TEXT NOT NULL REFERENCES subscriptions(id),kind TEXT NOT NULL,status TEXT NOT NULL,payload_json TEXT NOT NULL,created_at TEXT NOT NULL);
 CREATE TABLE conversations(id TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),created_at TEXT NOT NULL,UNIQUE(id,user_id));
 CREATE TABLE chat_messages(id TEXT PRIMARY KEY,conversation_id TEXT NOT NULL,user_id TEXT NOT NULL,role TEXT NOT NULL,content TEXT NOT NULL,created_at TEXT NOT NULL,FOREIGN KEY(conversation_id,user_id) REFERENCES conversations(id,user_id));
+

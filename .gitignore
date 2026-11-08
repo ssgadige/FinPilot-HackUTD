@@ -1,5 +1,8 @@
 node_modules/
 .next/
+*.tsbuildinfo
+playwright-report/
+test-results/
 out/
 coverage/
 .env
@@ -9,6 +12,7 @@ data/*.sqlite*
 data/demo-credentials.json
 data/seed-manifest.json
 __pycache__/
+.venv/
 *.pyc
 *.log
 .DS_Store

@@ -15,7 +15,7 @@ def validate(path):
   assert n==30,(uid,n)
   assert db.execute('SELECT count(DISTINCT institution_id) FROM institution_logins WHERE user_id=?',(uid,)).fetchone()[0]==3
  assert db.execute('SELECT count(*) FROM (SELECT transfer_group FROM transactions WHERE transfer_group IS NOT NULL GROUP BY transfer_group HAVING count(*)!=2)').fetchone()[0]==0
- assert db.execute("SELECT count(*) FROM users WHERE email NOT LIKE '%@example.test'").fetchone()[0]==0
+ assert db.execute("SELECT count(*) FROM users WHERE email NOT LIKE '%@mail.finpilot.test'").fetchone()[0]==0
  result={'users':10,'institution_logins':30,'accounts':db.execute('SELECT count(*) FROM accounts').fetchone()[0],'transactions':db.execute('SELECT count(*) FROM transactions').fetchone()[0],'history_months_per_user':30,'reconciled':True,'connections_initially_unlinked':True}
  db.close();return result
 if __name__=='__main__':print(json.dumps(validate(ROOT/'data/finpilot-demo.sqlite')))

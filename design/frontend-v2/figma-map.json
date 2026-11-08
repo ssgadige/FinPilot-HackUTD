@@ -1,0 +1,6356 @@
+{
+  "fileKey": "ZivHogk7C4OSm6uoscYegQ",
+  "url": "https://www.figma.com/design/ZivHogk7C4OSm6uoscYegQ",
+  "sessionId": "6c26b0f6-8269-49df-ada8-ca58fa27d772",
+  "state": {
+    "createdNodeIds": [
+      "2:2",
+      "2:3",
+      "2:4",
+      "2:5",
+      "2:6",
+      "2:7",
+      "2:8",
+      "2:9",
+      "2:10",
+      "2:11",
+      "2:12",
+      "2:13",
+      "2:14",
+      "2:15",
+      "2:16",
+      "2:17",
+      "2:18",
+      "2:19",
+      "2:20",
+      "2:21",
+      "2:22",
+      "2:23",
+      "2:24",
+      "2:25",
+      "2:26",
+      "2:27",
+      "2:67",
+      "2:68",
+      "2:69",
+      "2:70",
+      "2:71",
+      "2:72",
+      "2:73",
+      "2:74",
+      "2:75"
+    ],
+    "mutatedNodeIds": [
+      "0:1"
+    ],
+    "pages": {
+      "00": "0:1",
+      "01": "2:2",
+      "02": "2:3",
+      "FP-01": "2:4",
+      "FP-02": "2:5",
+      "FP-03": "2:6",
+      "FP-04": "2:7",
+      "FP-05": "2:8",
+      "FP-06": "2:9",
+      "FP-07": "2:10",
+      "FP-08": "2:11",
+      "FP-09": "2:12",
+      "FP-10": "2:13",
+      "FP-11": "2:14",
+      "FP-12": "2:15",
+      "FP-13": "2:16",
+      "FP-14": "2:17",
+      "FP-15": "2:18",
+      "FP-16": "2:19",
+      "FP-17": "2:20",
+      "FP-18": "2:21",
+      "FP-19": "2:22",
+      "FP-20": "2:23",
+      "FP-21": "2:24",
+      "FP-22": "2:25",
+      "FP-23": "2:26",
+      "FP-24": "2:27"
+    },
+    "variables": {
+      "nav": "VariableID:2:32",
+      "ink": "VariableID:2:34",
+      "muted": "VariableID:2:36",
+      "teal": "VariableID:2:38",
+      "mint": "VariableID:2:40",
+      "canvas": "VariableID:2:42",
+      "surface": "VariableID:2:44",
+      "border": "VariableID:2:46",
+      "caution": "VariableID:2:48",
+      "cautionText": "VariableID:2:50",
+      "danger": "VariableID:2:52",
+      "blue": "VariableID:2:54",
+      "xs": "VariableID:2:55",
+      "sm": "VariableID:2:56",
+      "md": "VariableID:2:57",
+      "lg": "VariableID:2:58",
+      "xl": "VariableID:2:59",
+      "radius": "VariableID:2:60"
+    },
+    "styles": {
+      "display": "S:faaae3f6219cf76a30e61dbada6e93d1a16e5c61,",
+      "title": "S:ef0c827a1d8ac6d5f98b40b95f3f213ed95ad4e5,",
+      "heading": "S:9689b5abce4b126d7aefa999bfba9a59a0dcfc59,",
+      "body": "S:d2ef37cbf58fd0022825cba8841f5e117f331775,",
+      "small": "S:f002577eabf84ab81e445a31bab1c088e08106e8,",
+      "number": "S:b8bfcb5b184335da4cde6f667541ec74dd1595c3,"
+    },
+    "components": {
+      "Metric": "2:67",
+      "Insight": "2:71",
+      "Status": "2:74"
+    },
+    "collections": [
+      "VariableCollectionId:2:28",
+      "VariableCollectionId:2:29",
+      "VariableCollectionId:2:30"
+    ],
+    "counts": {
+      "taskPages": 24,
+      "components": 3,
+      "semanticColors": 12
+    },
+    "font": "Inter"
+  },
+  "screenPages": {
+    "FP-01": {
+      "frames": [
+        {
+          "key": "shell",
+          "id": "3:825",
+          "name": "Your financial command center"
+        },
+        {
+          "key": "components",
+          "id": "3:932",
+          "name": "Shared interaction patterns"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:833",
+          "target": "overview"
+        },
+        {
+          "id": "3:834",
+          "target": "institutions"
+        },
+        {
+          "id": "3:835",
+          "target": "accounts"
+        },
+        {
+          "id": "3:836",
+          "target": "transactions"
+        },
+        {
+          "id": "3:837",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:838",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:839",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:840",
+          "target": "goals"
+        },
+        {
+          "id": "3:841",
+          "target": "assets"
+        },
+        {
+          "id": "3:842",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:843",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:844",
+          "target": "settings"
+        },
+        {
+          "id": "3:854",
+          "target": "overview"
+        },
+        {
+          "id": "3:917",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:923",
+          "target": "chat"
+        },
+        {
+          "id": "3:940",
+          "target": "overview"
+        },
+        {
+          "id": "3:941",
+          "target": "institutions"
+        },
+        {
+          "id": "3:942",
+          "target": "accounts"
+        },
+        {
+          "id": "3:943",
+          "target": "transactions"
+        },
+        {
+          "id": "3:944",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:945",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:946",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:947",
+          "target": "goals"
+        },
+        {
+          "id": "3:948",
+          "target": "assets"
+        },
+        {
+          "id": "3:949",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:950",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:951",
+          "target": "settings"
+        },
+        {
+          "id": "3:961",
+          "target": "login"
+        },
+        {
+          "id": "3:1017",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1023",
+          "target": "chat"
+        }
+      ],
+      "pageId": "2:4"
+    },
+    "FP-02": {
+      "frames": [
+        {
+          "key": "login",
+          "id": "3:1032",
+          "name": "Welcome back"
+        },
+        {
+          "key": "verify",
+          "id": "3:1116",
+          "name": "Check your email"
+        },
+        {
+          "key": "verify-error",
+          "id": "3:1198",
+          "name": "That code has expired"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:1040",
+          "target": "overview"
+        },
+        {
+          "id": "3:1041",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1042",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1043",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1044",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1045",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1046",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1047",
+          "target": "goals"
+        },
+        {
+          "id": "3:1048",
+          "target": "assets"
+        },
+        {
+          "id": "3:1049",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1050",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1051",
+          "target": "settings"
+        },
+        {
+          "id": "3:1061",
+          "target": "verify"
+        },
+        {
+          "id": "3:1101",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1107",
+          "target": "chat"
+        },
+        {
+          "id": "3:1124",
+          "target": "overview"
+        },
+        {
+          "id": "3:1125",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1126",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1127",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1128",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1129",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1130",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1131",
+          "target": "goals"
+        },
+        {
+          "id": "3:1132",
+          "target": "assets"
+        },
+        {
+          "id": "3:1133",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1134",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1135",
+          "target": "settings"
+        },
+        {
+          "id": "3:1145",
+          "target": "overview"
+        },
+        {
+          "id": "3:1183",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1189",
+          "target": "chat"
+        },
+        {
+          "id": "3:1206",
+          "target": "overview"
+        },
+        {
+          "id": "3:1207",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1208",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1209",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1210",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1211",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1212",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1213",
+          "target": "goals"
+        },
+        {
+          "id": "3:1214",
+          "target": "assets"
+        },
+        {
+          "id": "3:1215",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1216",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1217",
+          "target": "settings"
+        },
+        {
+          "id": "3:1227",
+          "target": "verify"
+        },
+        {
+          "id": "3:1259",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1265",
+          "target": "chat"
+        }
+      ],
+      "pageId": "2:5"
+    },
+    "FP-03": {
+      "frames": [
+        {
+          "key": "institutions",
+          "id": "3:1274",
+          "name": "Connect your financial picture"
+        },
+        {
+          "key": "provider-categories",
+          "id": "3:1381",
+          "name": "More financial institutions"
+        },
+        {
+          "key": "link-login",
+          "id": "3:1484",
+          "name": "Connect Chase"
+        },
+        {
+          "key": "consent",
+          "id": "3:1563",
+          "name": "Choose the accounts to connect"
+        },
+        {
+          "key": "connected",
+          "id": "3:1657",
+          "name": "Your accounts are connected"
+        },
+        {
+          "key": "syncing",
+          "id": "5:96",
+          "name": "Bringing your records together"
+        },
+        {
+          "key": "connection-error",
+          "id": "5:193",
+          "name": "The connection needs another try"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:1282",
+          "target": "overview"
+        },
+        {
+          "id": "3:1283",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1284",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1285",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1286",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1287",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1288",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1289",
+          "target": "goals"
+        },
+        {
+          "id": "3:1290",
+          "target": "assets"
+        },
+        {
+          "id": "3:1291",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1292",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1293",
+          "target": "settings"
+        },
+        {
+          "id": "3:1303",
+          "target": "link-login"
+        },
+        {
+          "id": "3:1312",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1314",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1316",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1318",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1366",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1372",
+          "target": "chat"
+        },
+        {
+          "id": "3:1389",
+          "target": "overview"
+        },
+        {
+          "id": "3:1390",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1391",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1392",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1393",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1394",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1395",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1396",
+          "target": "goals"
+        },
+        {
+          "id": "3:1397",
+          "target": "assets"
+        },
+        {
+          "id": "3:1398",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1399",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1400",
+          "target": "settings"
+        },
+        {
+          "id": "3:1410",
+          "target": "link-login"
+        },
+        {
+          "id": "3:1419",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1421",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1423",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1425",
+          "target": "provider-categories"
+        },
+        {
+          "id": "3:1469",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1475",
+          "target": "chat"
+        },
+        {
+          "id": "3:1492",
+          "target": "overview"
+        },
+        {
+          "id": "3:1493",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1494",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1495",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1496",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1497",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1498",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1499",
+          "target": "goals"
+        },
+        {
+          "id": "3:1500",
+          "target": "assets"
+        },
+        {
+          "id": "3:1501",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1502",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1503",
+          "target": "settings"
+        },
+        {
+          "id": "3:1513",
+          "target": "consent"
+        },
+        {
+          "id": "3:1548",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1554",
+          "target": "chat"
+        },
+        {
+          "id": "3:1571",
+          "target": "overview"
+        },
+        {
+          "id": "3:1572",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1573",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1574",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1575",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1576",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1577",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1578",
+          "target": "goals"
+        },
+        {
+          "id": "3:1579",
+          "target": "assets"
+        },
+        {
+          "id": "3:1580",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1581",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1582",
+          "target": "settings"
+        },
+        {
+          "id": "3:1592",
+          "target": "connected"
+        },
+        {
+          "id": "3:1642",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1648",
+          "target": "chat"
+        },
+        {
+          "id": "3:1665",
+          "target": "overview"
+        },
+        {
+          "id": "3:1666",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1667",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1668",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1669",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1670",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1671",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1672",
+          "target": "goals"
+        },
+        {
+          "id": "3:1673",
+          "target": "assets"
+        },
+        {
+          "id": "3:1674",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1675",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1676",
+          "target": "settings"
+        },
+        {
+          "id": "3:1686",
+          "target": "overview"
+        },
+        {
+          "id": "3:1731",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1737",
+          "target": "chat"
+        },
+        {
+          "id": "5:104",
+          "target": "overview"
+        },
+        {
+          "id": "5:105",
+          "target": "institutions"
+        },
+        {
+          "id": "5:106",
+          "target": "accounts"
+        },
+        {
+          "id": "5:107",
+          "target": "transactions"
+        },
+        {
+          "id": "5:108",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "5:109",
+          "target": "subscriptions"
+        },
+        {
+          "id": "5:110",
+          "target": "debt-planner"
+        },
+        {
+          "id": "5:111",
+          "target": "goals"
+        },
+        {
+          "id": "5:112",
+          "target": "assets"
+        },
+        {
+          "id": "5:113",
+          "target": "agent-results"
+        },
+        {
+          "id": "5:114",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "5:115",
+          "target": "settings"
+        },
+        {
+          "id": "5:125",
+          "target": "connected"
+        },
+        {
+          "id": "5:178",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "5:184",
+          "target": "chat"
+        },
+        {
+          "id": "5:201",
+          "target": "overview"
+        },
+        {
+          "id": "5:202",
+          "target": "institutions"
+        },
+        {
+          "id": "5:203",
+          "target": "accounts"
+        },
+        {
+          "id": "5:204",
+          "target": "transactions"
+        },
+        {
+          "id": "5:205",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "5:206",
+          "target": "subscriptions"
+        },
+        {
+          "id": "5:207",
+          "target": "debt-planner"
+        },
+        {
+          "id": "5:208",
+          "target": "goals"
+        },
+        {
+          "id": "5:209",
+          "target": "assets"
+        },
+        {
+          "id": "5:210",
+          "target": "agent-results"
+        },
+        {
+          "id": "5:211",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "5:212",
+          "target": "settings"
+        },
+        {
+          "id": "5:222",
+          "target": "link-login"
+        },
+        {
+          "id": "5:257",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "5:263",
+          "target": "chat"
+        }
+      ],
+      "pageId": "2:6"
+    },
+    "FP-04": {
+      "frames": [
+        {
+          "key": "overview",
+          "id": "3:208",
+          "name": "A clearer next move starts here"
+        },
+        {
+          "key": "accounts",
+          "id": "3:321",
+          "name": "Accounts with context"
+        },
+        {
+          "key": "transactions",
+          "id": "3:421",
+          "name": "Every transaction, in its place"
+        },
+        {
+          "key": "transaction-detail",
+          "id": "3:529",
+          "name": "Transaction evidence"
+        },
+        {
+          "key": "cash-calendar",
+          "id": "3:614",
+          "name": "Your month, before it happens"
+        },
+        {
+          "key": "cash-collision",
+          "id": "3:721",
+          "name": "The timing conflict, explained"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:216",
+          "target": "overview"
+        },
+        {
+          "id": "3:217",
+          "target": "institutions"
+        },
+        {
+          "id": "3:218",
+          "target": "accounts"
+        },
+        {
+          "id": "3:219",
+          "target": "transactions"
+        },
+        {
+          "id": "3:220",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:221",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:222",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:223",
+          "target": "goals"
+        },
+        {
+          "id": "3:224",
+          "target": "assets"
+        },
+        {
+          "id": "3:225",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:226",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:227",
+          "target": "settings"
+        },
+        {
+          "id": "3:237",
+          "target": "cash-collision"
+        },
+        {
+          "id": "3:306",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:312",
+          "target": "chat"
+        },
+        {
+          "id": "3:329",
+          "target": "overview"
+        },
+        {
+          "id": "3:330",
+          "target": "institutions"
+        },
+        {
+          "id": "3:331",
+          "target": "accounts"
+        },
+        {
+          "id": "3:332",
+          "target": "transactions"
+        },
+        {
+          "id": "3:333",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:334",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:335",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:336",
+          "target": "goals"
+        },
+        {
+          "id": "3:337",
+          "target": "assets"
+        },
+        {
+          "id": "3:338",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:339",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:340",
+          "target": "settings"
+        },
+        {
+          "id": "3:350",
+          "target": "transactions"
+        },
+        {
+          "id": "3:406",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:412",
+          "target": "chat"
+        },
+        {
+          "id": "3:429",
+          "target": "overview"
+        },
+        {
+          "id": "3:430",
+          "target": "institutions"
+        },
+        {
+          "id": "3:431",
+          "target": "accounts"
+        },
+        {
+          "id": "3:432",
+          "target": "transactions"
+        },
+        {
+          "id": "3:433",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:434",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:435",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:436",
+          "target": "goals"
+        },
+        {
+          "id": "3:437",
+          "target": "assets"
+        },
+        {
+          "id": "3:438",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:439",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:440",
+          "target": "settings"
+        },
+        {
+          "id": "3:450",
+          "target": "transaction-detail"
+        },
+        {
+          "id": "3:514",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:520",
+          "target": "chat"
+        },
+        {
+          "id": "3:537",
+          "target": "overview"
+        },
+        {
+          "id": "3:538",
+          "target": "institutions"
+        },
+        {
+          "id": "3:539",
+          "target": "accounts"
+        },
+        {
+          "id": "3:540",
+          "target": "transactions"
+        },
+        {
+          "id": "3:541",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:542",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:543",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:544",
+          "target": "goals"
+        },
+        {
+          "id": "3:545",
+          "target": "assets"
+        },
+        {
+          "id": "3:546",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:547",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:548",
+          "target": "settings"
+        },
+        {
+          "id": "3:558",
+          "target": "transactions"
+        },
+        {
+          "id": "3:599",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:605",
+          "target": "chat"
+        },
+        {
+          "id": "3:622",
+          "target": "overview"
+        },
+        {
+          "id": "3:623",
+          "target": "institutions"
+        },
+        {
+          "id": "3:624",
+          "target": "accounts"
+        },
+        {
+          "id": "3:625",
+          "target": "transactions"
+        },
+        {
+          "id": "3:626",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:627",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:628",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:629",
+          "target": "goals"
+        },
+        {
+          "id": "3:630",
+          "target": "assets"
+        },
+        {
+          "id": "3:631",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:632",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:633",
+          "target": "settings"
+        },
+        {
+          "id": "3:643",
+          "target": "cash-collision"
+        },
+        {
+          "id": "3:706",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:712",
+          "target": "chat"
+        },
+        {
+          "id": "3:729",
+          "target": "overview"
+        },
+        {
+          "id": "3:730",
+          "target": "institutions"
+        },
+        {
+          "id": "3:731",
+          "target": "accounts"
+        },
+        {
+          "id": "3:732",
+          "target": "transactions"
+        },
+        {
+          "id": "3:733",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:734",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:735",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:736",
+          "target": "goals"
+        },
+        {
+          "id": "3:737",
+          "target": "assets"
+        },
+        {
+          "id": "3:738",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:739",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:740",
+          "target": "settings"
+        },
+        {
+          "id": "3:750",
+          "target": "plan-compare"
+        },
+        {
+          "id": "3:810",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:816",
+          "target": "chat"
+        }
+      ],
+      "pageId": "2:7"
+    },
+    "FP-05": {
+      "frames": [
+        {
+          "key": "subscriptions",
+          "id": "3:1746",
+          "name": "Your recurring costs, made visible"
+        },
+        {
+          "key": "subscription-preferences",
+          "id": "3:1850",
+          "name": "Tell us what you want to keep"
+        },
+        {
+          "key": "offers",
+          "id": "3:1946",
+          "name": "Compare the full cost"
+        },
+        {
+          "key": "offer-detail",
+          "id": "3:2042",
+          "name": "Is the annual option worth it?"
+        },
+        {
+          "key": "subscription-confirm",
+          "id": "3:2140",
+          "name": "Review your subscription action"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:1754",
+          "target": "overview"
+        },
+        {
+          "id": "3:1755",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1756",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1757",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1758",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1759",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1760",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1761",
+          "target": "goals"
+        },
+        {
+          "id": "3:1762",
+          "target": "assets"
+        },
+        {
+          "id": "3:1763",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1764",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1765",
+          "target": "settings"
+        },
+        {
+          "id": "3:1775",
+          "target": "subscription-preferences"
+        },
+        {
+          "id": "3:1835",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1841",
+          "target": "chat"
+        },
+        {
+          "id": "3:1858",
+          "target": "overview"
+        },
+        {
+          "id": "3:1859",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1860",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1861",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1862",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1863",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1864",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1865",
+          "target": "goals"
+        },
+        {
+          "id": "3:1866",
+          "target": "assets"
+        },
+        {
+          "id": "3:1867",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1868",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1869",
+          "target": "settings"
+        },
+        {
+          "id": "3:1879",
+          "target": "offers"
+        },
+        {
+          "id": "3:1931",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:1937",
+          "target": "chat"
+        },
+        {
+          "id": "3:1954",
+          "target": "overview"
+        },
+        {
+          "id": "3:1955",
+          "target": "institutions"
+        },
+        {
+          "id": "3:1956",
+          "target": "accounts"
+        },
+        {
+          "id": "3:1957",
+          "target": "transactions"
+        },
+        {
+          "id": "3:1958",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:1959",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:1960",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:1961",
+          "target": "goals"
+        },
+        {
+          "id": "3:1962",
+          "target": "assets"
+        },
+        {
+          "id": "3:1963",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:1964",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:1965",
+          "target": "settings"
+        },
+        {
+          "id": "3:1975",
+          "target": "offer-detail"
+        },
+        {
+          "id": "3:2027",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2033",
+          "target": "chat"
+        },
+        {
+          "id": "3:2050",
+          "target": "overview"
+        },
+        {
+          "id": "3:2051",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2052",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2053",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2054",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2055",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2056",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2057",
+          "target": "goals"
+        },
+        {
+          "id": "3:2058",
+          "target": "assets"
+        },
+        {
+          "id": "3:2059",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2060",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2061",
+          "target": "settings"
+        },
+        {
+          "id": "3:2071",
+          "target": "subscription-confirm"
+        },
+        {
+          "id": "3:2125",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2131",
+          "target": "chat"
+        },
+        {
+          "id": "3:2148",
+          "target": "overview"
+        },
+        {
+          "id": "3:2149",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2150",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2151",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2152",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2153",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2154",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2155",
+          "target": "goals"
+        },
+        {
+          "id": "3:2156",
+          "target": "assets"
+        },
+        {
+          "id": "3:2157",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2158",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2159",
+          "target": "settings"
+        },
+        {
+          "id": "3:2169",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2213",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2219",
+          "target": "chat"
+        }
+      ],
+      "pageId": "2:8"
+    },
+    "FP-06": {
+      "frames": [
+        {
+          "key": "debt-planner",
+          "id": "3:2228",
+          "name": "Give every payment a purpose"
+        },
+        {
+          "key": "loan-calculator",
+          "id": "3:2337",
+          "name": "Payoff calculator"
+        },
+        {
+          "key": "savings-calculator",
+          "id": "3:2461",
+          "name": "Make the goal concrete"
+        },
+        {
+          "key": "goals",
+          "id": "3:2571",
+          "name": "Your priorities, coordinated"
+        },
+        {
+          "key": "goal-editor",
+          "id": "3:2664",
+          "name": "Set a goal that fits your life"
+        },
+        {
+          "key": "plan-compare",
+          "id": "3:2767",
+          "name": "Choose your next move"
+        },
+        {
+          "key": "accept-plan",
+          "id": "3:2863",
+          "name": "Review before accepting"
+        },
+        {
+          "key": "assets",
+          "id": "3:2953",
+          "name": "Assets, with their limitations"
+        },
+        {
+          "key": "scenario-lab",
+          "id": "3:3070",
+          "name": "Rehearse the unexpected"
+        },
+        {
+          "key": "stress-result",
+          "id": "3:3182",
+          "name": "This plan needs more breathing room"
+        },
+        {
+          "key": "plan-repair",
+          "id": "3:3290",
+          "name": "Your situation changed. Your plan can adapt."
+        },
+        {
+          "key": "loan-result",
+          "id": "5:603",
+          "name": "Your payoff result, line by line"
+        },
+        {
+          "key": "savings-result",
+          "id": "5:699",
+          "name": "A savings contribution you can verify"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:2236",
+          "target": "overview"
+        },
+        {
+          "id": "3:2237",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2238",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2239",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2240",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2241",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2242",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2243",
+          "target": "goals"
+        },
+        {
+          "id": "3:2244",
+          "target": "assets"
+        },
+        {
+          "id": "3:2245",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2246",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2247",
+          "target": "settings"
+        },
+        {
+          "id": "3:2257",
+          "target": "loan-calculator"
+        },
+        {
+          "id": "3:2322",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2328",
+          "target": "chat"
+        },
+        {
+          "id": "3:2345",
+          "target": "overview"
+        },
+        {
+          "id": "3:2346",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2347",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2348",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2349",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2350",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2351",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2352",
+          "target": "goals"
+        },
+        {
+          "id": "3:2353",
+          "target": "assets"
+        },
+        {
+          "id": "3:2354",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2355",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2356",
+          "target": "settings"
+        },
+        {
+          "id": "3:2366",
+          "target": "loan-result"
+        },
+        {
+          "id": "3:2446",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2452",
+          "target": "chat"
+        },
+        {
+          "id": "3:2469",
+          "target": "overview"
+        },
+        {
+          "id": "3:2470",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2471",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2472",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2473",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2474",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2475",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2476",
+          "target": "goals"
+        },
+        {
+          "id": "3:2477",
+          "target": "assets"
+        },
+        {
+          "id": "3:2478",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2479",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2480",
+          "target": "settings"
+        },
+        {
+          "id": "3:2490",
+          "target": "savings-result"
+        },
+        {
+          "id": "3:2556",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2562",
+          "target": "chat"
+        },
+        {
+          "id": "3:2579",
+          "target": "overview"
+        },
+        {
+          "id": "3:2580",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2581",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2582",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2583",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2584",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2585",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2586",
+          "target": "goals"
+        },
+        {
+          "id": "3:2587",
+          "target": "assets"
+        },
+        {
+          "id": "3:2588",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2589",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2590",
+          "target": "settings"
+        },
+        {
+          "id": "3:2600",
+          "target": "goal-editor"
+        },
+        {
+          "id": "3:2649",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2655",
+          "target": "chat"
+        },
+        {
+          "id": "3:2672",
+          "target": "overview"
+        },
+        {
+          "id": "3:2673",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2674",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2675",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2676",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2677",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2678",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2679",
+          "target": "goals"
+        },
+        {
+          "id": "3:2680",
+          "target": "assets"
+        },
+        {
+          "id": "3:2681",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2682",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2683",
+          "target": "settings"
+        },
+        {
+          "id": "3:2693",
+          "target": "plan-compare"
+        },
+        {
+          "id": "3:2752",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2758",
+          "target": "chat"
+        },
+        {
+          "id": "3:2775",
+          "target": "overview"
+        },
+        {
+          "id": "3:2776",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2777",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2778",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2779",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2780",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2781",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2782",
+          "target": "goals"
+        },
+        {
+          "id": "3:2783",
+          "target": "assets"
+        },
+        {
+          "id": "3:2784",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2785",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2786",
+          "target": "settings"
+        },
+        {
+          "id": "3:2796",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2848",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2854",
+          "target": "chat"
+        },
+        {
+          "id": "3:2871",
+          "target": "overview"
+        },
+        {
+          "id": "3:2872",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2873",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2874",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2875",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2876",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2877",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2878",
+          "target": "goals"
+        },
+        {
+          "id": "3:2879",
+          "target": "assets"
+        },
+        {
+          "id": "3:2880",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2881",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2882",
+          "target": "settings"
+        },
+        {
+          "id": "3:2892",
+          "target": "goals"
+        },
+        {
+          "id": "3:2938",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:2944",
+          "target": "chat"
+        },
+        {
+          "id": "3:2961",
+          "target": "overview"
+        },
+        {
+          "id": "3:2962",
+          "target": "institutions"
+        },
+        {
+          "id": "3:2963",
+          "target": "accounts"
+        },
+        {
+          "id": "3:2964",
+          "target": "transactions"
+        },
+        {
+          "id": "3:2965",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:2966",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:2967",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:2968",
+          "target": "goals"
+        },
+        {
+          "id": "3:2969",
+          "target": "assets"
+        },
+        {
+          "id": "3:2970",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:2971",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:2972",
+          "target": "settings"
+        },
+        {
+          "id": "3:2982",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3055",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3061",
+          "target": "chat"
+        },
+        {
+          "id": "3:3078",
+          "target": "overview"
+        },
+        {
+          "id": "3:3079",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3080",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3081",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3082",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3083",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3084",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3085",
+          "target": "goals"
+        },
+        {
+          "id": "3:3086",
+          "target": "assets"
+        },
+        {
+          "id": "3:3087",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3088",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3089",
+          "target": "settings"
+        },
+        {
+          "id": "3:3099",
+          "target": "stress-result"
+        },
+        {
+          "id": "3:3167",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3173",
+          "target": "chat"
+        },
+        {
+          "id": "3:3190",
+          "target": "overview"
+        },
+        {
+          "id": "3:3191",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3192",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3193",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3194",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3195",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3196",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3197",
+          "target": "goals"
+        },
+        {
+          "id": "3:3198",
+          "target": "assets"
+        },
+        {
+          "id": "3:3199",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3200",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3201",
+          "target": "settings"
+        },
+        {
+          "id": "3:3211",
+          "target": "plan-repair"
+        },
+        {
+          "id": "3:3275",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3281",
+          "target": "chat"
+        },
+        {
+          "id": "3:3298",
+          "target": "overview"
+        },
+        {
+          "id": "3:3299",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3300",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3301",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3302",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3303",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3304",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3305",
+          "target": "goals"
+        },
+        {
+          "id": "3:3306",
+          "target": "assets"
+        },
+        {
+          "id": "3:3307",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3308",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3309",
+          "target": "settings"
+        },
+        {
+          "id": "3:3319",
+          "target": "accept-plan"
+        },
+        {
+          "id": "3:3371",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3377",
+          "target": "chat"
+        },
+        {
+          "id": "5:611",
+          "target": "overview"
+        },
+        {
+          "id": "5:612",
+          "target": "institutions"
+        },
+        {
+          "id": "5:613",
+          "target": "accounts"
+        },
+        {
+          "id": "5:614",
+          "target": "transactions"
+        },
+        {
+          "id": "5:615",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "5:616",
+          "target": "subscriptions"
+        },
+        {
+          "id": "5:617",
+          "target": "debt-planner"
+        },
+        {
+          "id": "5:618",
+          "target": "goals"
+        },
+        {
+          "id": "5:619",
+          "target": "assets"
+        },
+        {
+          "id": "5:620",
+          "target": "agent-results"
+        },
+        {
+          "id": "5:621",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "5:622",
+          "target": "settings"
+        },
+        {
+          "id": "5:632",
+          "target": "loan-calculator"
+        },
+        {
+          "id": "5:684",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "5:690",
+          "target": "chat"
+        },
+        {
+          "id": "5:707",
+          "target": "overview"
+        },
+        {
+          "id": "5:708",
+          "target": "institutions"
+        },
+        {
+          "id": "5:709",
+          "target": "accounts"
+        },
+        {
+          "id": "5:710",
+          "target": "transactions"
+        },
+        {
+          "id": "5:711",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "5:712",
+          "target": "subscriptions"
+        },
+        {
+          "id": "5:713",
+          "target": "debt-planner"
+        },
+        {
+          "id": "5:714",
+          "target": "goals"
+        },
+        {
+          "id": "5:715",
+          "target": "assets"
+        },
+        {
+          "id": "5:716",
+          "target": "agent-results"
+        },
+        {
+          "id": "5:717",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "5:718",
+          "target": "settings"
+        },
+        {
+          "id": "5:728",
+          "target": "goal-editor"
+        },
+        {
+          "id": "5:780",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "5:786",
+          "target": "chat"
+        }
+      ],
+      "pageId": "2:9"
+    },
+    "FP-07": {
+      "frames": [
+        {
+          "key": "agent-running",
+          "id": "3:3386",
+          "name": "Your financial team is at work"
+        },
+        {
+          "key": "agent-results",
+          "id": "3:3494",
+          "name": "A plan, backed by evidence"
+        },
+        {
+          "key": "finding-evidence",
+          "id": "3:3604",
+          "name": "Why this finding exists"
+        },
+        {
+          "key": "chat",
+          "id": "3:3691",
+          "name": "Ask about your next move"
+        },
+        {
+          "key": "agent-partial",
+          "id": "3:3775",
+          "name": "Some results are ready"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:3394",
+          "target": "overview"
+        },
+        {
+          "id": "3:3395",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3396",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3397",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3398",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3399",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3400",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3401",
+          "target": "goals"
+        },
+        {
+          "id": "3:3402",
+          "target": "assets"
+        },
+        {
+          "id": "3:3403",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3404",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3405",
+          "target": "settings"
+        },
+        {
+          "id": "3:3415",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3479",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3485",
+          "target": "chat"
+        },
+        {
+          "id": "3:3502",
+          "target": "overview"
+        },
+        {
+          "id": "3:3503",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3504",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3505",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3506",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3507",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3508",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3509",
+          "target": "goals"
+        },
+        {
+          "id": "3:3510",
+          "target": "assets"
+        },
+        {
+          "id": "3:3511",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3512",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3513",
+          "target": "settings"
+        },
+        {
+          "id": "3:3523",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3589",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3595",
+          "target": "chat"
+        },
+        {
+          "id": "3:3612",
+          "target": "overview"
+        },
+        {
+          "id": "3:3613",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3614",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3615",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3616",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3617",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3618",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3619",
+          "target": "goals"
+        },
+        {
+          "id": "3:3620",
+          "target": "assets"
+        },
+        {
+          "id": "3:3621",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3622",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3623",
+          "target": "settings"
+        },
+        {
+          "id": "3:3633",
+          "target": "chat"
+        },
+        {
+          "id": "3:3676",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3682",
+          "target": "chat"
+        },
+        {
+          "id": "3:3699",
+          "target": "overview"
+        },
+        {
+          "id": "3:3700",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3701",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3702",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3703",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3704",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3705",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3706",
+          "target": "goals"
+        },
+        {
+          "id": "3:3707",
+          "target": "assets"
+        },
+        {
+          "id": "3:3708",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3709",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3710",
+          "target": "settings"
+        },
+        {
+          "id": "3:3720",
+          "target": "agent-running"
+        },
+        {
+          "id": "3:3760",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3766",
+          "target": "chat"
+        },
+        {
+          "id": "3:3783",
+          "target": "overview"
+        },
+        {
+          "id": "3:3784",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3785",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3786",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3787",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3788",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3789",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3790",
+          "target": "goals"
+        },
+        {
+          "id": "3:3791",
+          "target": "assets"
+        },
+        {
+          "id": "3:3792",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3793",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3794",
+          "target": "settings"
+        },
+        {
+          "id": "3:3804",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3840",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3846",
+          "target": "chat"
+        }
+      ],
+      "pageId": "2:10"
+    },
+    "FP-08": {
+      "frames": [
+        {
+          "key": "settings",
+          "id": "3:3855",
+          "name": "Your workspace, your access"
+        },
+        {
+          "key": "disconnect",
+          "id": "3:3948",
+          "name": "Disconnect Chase?"
+        },
+        {
+          "key": "empty-state",
+          "id": "3:4021",
+          "name": "Start with your first connection"
+        },
+        {
+          "key": "responsive",
+          "id": "3:4097",
+          "name": "The same decisions, on a smaller screen"
+        },
+        {
+          "key": "mobile-overview",
+          "id": "7:42",
+          "name": "Your financial picture"
+        },
+        {
+          "key": "mobile-agents",
+          "id": "7:78",
+          "name": "Your financial team"
+        }
+      ],
+      "links": [
+        {
+          "id": "3:3863",
+          "target": "overview"
+        },
+        {
+          "id": "3:3864",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3865",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3866",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3867",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3868",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3869",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3870",
+          "target": "goals"
+        },
+        {
+          "id": "3:3871",
+          "target": "assets"
+        },
+        {
+          "id": "3:3872",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3873",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3874",
+          "target": "settings"
+        },
+        {
+          "id": "3:3884",
+          "target": "disconnect"
+        },
+        {
+          "id": "3:3933",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:3939",
+          "target": "chat"
+        },
+        {
+          "id": "3:3956",
+          "target": "overview"
+        },
+        {
+          "id": "3:3957",
+          "target": "institutions"
+        },
+        {
+          "id": "3:3958",
+          "target": "accounts"
+        },
+        {
+          "id": "3:3959",
+          "target": "transactions"
+        },
+        {
+          "id": "3:3960",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:3961",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:3962",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:3963",
+          "target": "goals"
+        },
+        {
+          "id": "3:3964",
+          "target": "assets"
+        },
+        {
+          "id": "3:3965",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:3966",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:3967",
+          "target": "settings"
+        },
+        {
+          "id": "3:3977",
+          "target": "empty-state"
+        },
+        {
+          "id": "3:4006",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:4012",
+          "target": "chat"
+        },
+        {
+          "id": "3:4029",
+          "target": "overview"
+        },
+        {
+          "id": "3:4030",
+          "target": "institutions"
+        },
+        {
+          "id": "3:4031",
+          "target": "accounts"
+        },
+        {
+          "id": "3:4032",
+          "target": "transactions"
+        },
+        {
+          "id": "3:4033",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:4034",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:4035",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:4036",
+          "target": "goals"
+        },
+        {
+          "id": "3:4037",
+          "target": "assets"
+        },
+        {
+          "id": "3:4038",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:4039",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:4040",
+          "target": "settings"
+        },
+        {
+          "id": "3:4050",
+          "target": "institutions"
+        },
+        {
+          "id": "3:4082",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:4088",
+          "target": "chat"
+        },
+        {
+          "id": "3:4105",
+          "target": "overview"
+        },
+        {
+          "id": "3:4106",
+          "target": "institutions"
+        },
+        {
+          "id": "3:4107",
+          "target": "accounts"
+        },
+        {
+          "id": "3:4108",
+          "target": "transactions"
+        },
+        {
+          "id": "3:4109",
+          "target": "cash-calendar"
+        },
+        {
+          "id": "3:4110",
+          "target": "subscriptions"
+        },
+        {
+          "id": "3:4111",
+          "target": "debt-planner"
+        },
+        {
+          "id": "3:4112",
+          "target": "goals"
+        },
+        {
+          "id": "3:4113",
+          "target": "assets"
+        },
+        {
+          "id": "3:4114",
+          "target": "agent-results"
+        },
+        {
+          "id": "3:4115",
+          "target": "scenario-lab"
+        },
+        {
+          "id": "3:4116",
+          "target": "settings"
+        },
+        {
+          "id": "3:4126",
+          "target": "overview"
+        },
+        {
+          "id": "3:4167",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "3:4173",
+          "target": "chat"
+        },
+        {
+          "id": "7:45",
+          "target": "institutions"
+        },
+        {
+          "id": "7:56",
+          "target": "cash-collision"
+        },
+        {
+          "id": "7:72",
+          "target": "mobile-agents"
+        },
+        {
+          "id": "7:81",
+          "target": "institutions"
+        },
+        {
+          "id": "7:102",
+          "target": "finding-evidence"
+        },
+        {
+          "id": "7:108",
+          "target": "mobile-overview"
+        }
+      ],
+      "pageId": "2:11"
+    }
+  },
+  "handoffs": {
+    "FP-01": {
+      "id": "4:46",
+      "key": "FP-01-handoff",
+      "name": "FP-01 - Implementation handoff"
+    },
+    "FP-02": {
+      "id": "4:163",
+      "key": "FP-02-handoff",
+      "name": "FP-02 - Implementation handoff"
+    },
+    "FP-03": {
+      "id": "4:310",
+      "key": "FP-03-handoff",
+      "name": "FP-03 - Implementation handoff"
+    },
+    "FP-04": {
+      "id": "4:479",
+      "key": "FP-04-handoff",
+      "name": "FP-04 - Implementation handoff"
+    },
+    "FP-05": {
+      "id": "4:652",
+      "key": "FP-05-handoff",
+      "name": "FP-05 - Implementation handoff"
+    },
+    "FP-06": {
+      "id": "4:1038",
+      "key": "FP-06-handoff",
+      "name": "FP-06 - Implementation handoff"
+    },
+    "FP-07": {
+      "id": "4:1175",
+      "key": "FP-07-handoff",
+      "name": "FP-07 - Implementation handoff"
+    },
+    "FP-08": {
+      "id": "4:1270",
+      "key": "FP-08-handoff",
+      "name": "FP-08 - Implementation handoff"
+    },
+    "FP-09": {
+      "id": "4:1330",
+      "key": "FP-09-handoff",
+      "name": "FP-09 - Implementation handoff"
+    },
+    "FP-10": {
+      "id": "4:1382",
+      "key": "FP-10-handoff",
+      "name": "FP-10 - Implementation handoff"
+    },
+    "FP-11": {
+      "id": "4:1439",
+      "key": "FP-11-handoff",
+      "name": "FP-11 - Implementation handoff"
+    },
+    "FP-12": {
+      "id": "4:1496",
+      "key": "FP-12-handoff",
+      "name": "FP-12 - Implementation handoff"
+    },
+    "FP-13": {
+      "id": "4:1551",
+      "key": "FP-13-handoff",
+      "name": "FP-13 - Implementation handoff"
+    },
+    "FP-14": {
+      "id": "4:1606",
+      "key": "FP-14-handoff",
+      "name": "FP-14 - Implementation handoff"
+    },
+    "FP-15": {
+      "id": "4:1660",
+      "key": "FP-15-handoff",
+      "name": "FP-15 - Implementation handoff"
+    },
+    "FP-16": {
+      "id": "4:1717",
+      "key": "FP-16-handoff",
+      "name": "FP-16 - Implementation handoff"
+    },
+    "FP-17": {
+      "id": "4:1774",
+      "key": "FP-17-handoff",
+      "name": "FP-17 - Implementation handoff"
+    },
+    "FP-18": {
+      "id": "4:1826",
+      "key": "FP-18-handoff",
+      "name": "FP-18 - Implementation handoff"
+    },
+    "FP-19": {
+      "id": "4:1881",
+      "key": "FP-19-handoff",
+      "name": "FP-19 - Implementation handoff"
+    },
+    "FP-20": {
+      "id": "4:1938",
+      "key": "FP-20-handoff",
+      "name": "FP-20 - Implementation handoff"
+    },
+    "FP-21": {
+      "id": "4:1991",
+      "key": "FP-21-handoff",
+      "name": "FP-21 - Implementation handoff"
+    },
+    "FP-22": {
+      "id": "4:2043",
+      "key": "FP-22-handoff",
+      "name": "FP-22 - Implementation handoff"
+    },
+    "FP-23": {
+      "id": "4:2094",
+      "key": "FP-23-handoff",
+      "name": "FP-23 - Implementation handoff"
+    },
+    "FP-24": {
+      "id": "4:2150",
+      "key": "FP-24-handoff",
+      "name": "FP-24 - Implementation handoff"
+    }
+  },
+  "walkthrough": {
+    "copies": [
+      {
+        "key": "shell",
+        "id": "8:2",
+        "source": "3:825"
+      },
+      {
+        "key": "components",
+        "id": "8:535",
+        "source": "3:932"
+      },
+      {
+        "key": "login",
+        "id": "8:629",
+        "source": "3:1032"
+      },
+      {
+        "key": "verify",
+        "id": "8:707",
+        "source": "3:1116"
+      },
+      {
+        "key": "verify-error",
+        "id": "8:783",
+        "source": "3:1198"
+      },
+      {
+        "key": "institutions",
+        "id": "8:853",
+        "source": "3:1274"
+      },
+      {
+        "key": "provider-categories",
+        "id": "8:954",
+        "source": "3:1381"
+      },
+      {
+        "key": "link-login",
+        "id": "8:1051",
+        "source": "3:1484"
+      },
+      {
+        "key": "consent",
+        "id": "8:1124",
+        "source": "3:1563"
+      },
+      {
+        "key": "connected",
+        "id": "8:1212",
+        "source": "3:1657"
+      },
+      {
+        "key": "syncing",
+        "id": "8:1295",
+        "source": "5:96"
+      },
+      {
+        "key": "connection-error",
+        "id": "8:1384",
+        "source": "5:193"
+      },
+      {
+        "key": "overview",
+        "id": "8:1457",
+        "source": "3:208"
+      },
+      {
+        "key": "accounts",
+        "id": "8:1562",
+        "source": "3:321"
+      },
+      {
+        "key": "transactions",
+        "id": "8:1656",
+        "source": "3:421"
+      },
+      {
+        "key": "transaction-detail",
+        "id": "8:1758",
+        "source": "3:529"
+      },
+      {
+        "key": "cash-calendar",
+        "id": "8:1837",
+        "source": "3:614"
+      },
+      {
+        "key": "cash-collision",
+        "id": "8:1938",
+        "source": "3:721"
+      },
+      {
+        "key": "subscriptions",
+        "id": "8:2036",
+        "source": "3:1746"
+      },
+      {
+        "key": "subscription-preferences",
+        "id": "8:2134",
+        "source": "3:1850"
+      },
+      {
+        "key": "offers",
+        "id": "8:2224",
+        "source": "3:1946"
+      },
+      {
+        "key": "offer-detail",
+        "id": "8:2314",
+        "source": "3:2042"
+      },
+      {
+        "key": "subscription-confirm",
+        "id": "8:2406",
+        "source": "3:2140"
+      },
+      {
+        "key": "debt-planner",
+        "id": "8:2488",
+        "source": "3:2228"
+      },
+      {
+        "key": "loan-calculator",
+        "id": "8:2591",
+        "source": "3:2337"
+      },
+      {
+        "key": "savings-calculator",
+        "id": "8:2709",
+        "source": "3:2461"
+      },
+      {
+        "key": "goals",
+        "id": "8:2813",
+        "source": "3:2571"
+      },
+      {
+        "key": "goal-editor",
+        "id": "8:2900",
+        "source": "3:2664"
+      },
+      {
+        "key": "plan-compare",
+        "id": "8:2997",
+        "source": "3:2767"
+      },
+      {
+        "key": "accept-plan",
+        "id": "8:3087",
+        "source": "3:2863"
+      },
+      {
+        "key": "assets",
+        "id": "8:3171",
+        "source": "3:2953"
+      },
+      {
+        "key": "scenario-lab",
+        "id": "8:3282",
+        "source": "3:3070"
+      },
+      {
+        "key": "stress-result",
+        "id": "8:3388",
+        "source": "3:3182"
+      },
+      {
+        "key": "plan-repair",
+        "id": "8:3490",
+        "source": "3:3290"
+      },
+      {
+        "key": "loan-result",
+        "id": "8:3580",
+        "source": "5:603"
+      },
+      {
+        "key": "savings-result",
+        "id": "8:3670",
+        "source": "5:699"
+      },
+      {
+        "key": "agent-running",
+        "id": "8:3760",
+        "source": "3:3386"
+      },
+      {
+        "key": "agent-results",
+        "id": "8:3862",
+        "source": "3:3494"
+      },
+      {
+        "key": "finding-evidence",
+        "id": "8:3966",
+        "source": "3:3604"
+      },
+      {
+        "key": "chat",
+        "id": "8:4047",
+        "source": "3:3691"
+      },
+      {
+        "key": "agent-partial",
+        "id": "8:4125",
+        "source": "3:3775"
+      },
+      {
+        "key": "settings",
+        "id": "8:4199",
+        "source": "3:3855"
+      },
+      {
+        "key": "disconnect",
+        "id": "8:4286",
+        "source": "3:3948"
+      },
+      {
+        "key": "empty-state",
+        "id": "8:4353",
+        "source": "3:4021"
+      },
+      {
+        "key": "responsive",
+        "id": "8:4423",
+        "source": "3:4097"
+      },
+      {
+        "key": "mobile-overview",
+        "id": "8:4502",
+        "source": "7:42"
+      },
+      {
+        "key": "mobile-agents",
+        "id": "8:4532",
+        "source": "7:78"
+      }
+    ],
+    "links": [
+      {
+        "id": "8:10",
+        "target": "overview"
+      },
+      {
+        "id": "8:11",
+        "target": "institutions"
+      },
+      {
+        "id": "8:12",
+        "target": "accounts"
+      },
+      {
+        "id": "8:13",
+        "target": "transactions"
+      },
+      {
+        "id": "8:14",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:15",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:16",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:17",
+        "target": "goals"
+      },
+      {
+        "id": "8:18",
+        "target": "assets"
+      },
+      {
+        "id": "8:19",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:20",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:21",
+        "target": "settings"
+      },
+      {
+        "id": "8:30",
+        "target": "overview"
+      },
+      {
+        "id": "8:79",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:80",
+        "target": "chat"
+      },
+      {
+        "id": "8:543",
+        "target": "overview"
+      },
+      {
+        "id": "8:544",
+        "target": "institutions"
+      },
+      {
+        "id": "8:545",
+        "target": "accounts"
+      },
+      {
+        "id": "8:546",
+        "target": "transactions"
+      },
+      {
+        "id": "8:547",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:548",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:549",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:550",
+        "target": "goals"
+      },
+      {
+        "id": "8:551",
+        "target": "assets"
+      },
+      {
+        "id": "8:552",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:553",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:554",
+        "target": "settings"
+      },
+      {
+        "id": "8:563",
+        "target": "login"
+      },
+      {
+        "id": "8:599",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:600",
+        "target": "chat"
+      },
+      {
+        "id": "8:637",
+        "target": "overview"
+      },
+      {
+        "id": "8:638",
+        "target": "institutions"
+      },
+      {
+        "id": "8:639",
+        "target": "accounts"
+      },
+      {
+        "id": "8:640",
+        "target": "transactions"
+      },
+      {
+        "id": "8:641",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:642",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:643",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:644",
+        "target": "goals"
+      },
+      {
+        "id": "8:645",
+        "target": "assets"
+      },
+      {
+        "id": "8:646",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:647",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:648",
+        "target": "settings"
+      },
+      {
+        "id": "8:657",
+        "target": "verify"
+      },
+      {
+        "id": "8:682",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:683",
+        "target": "chat"
+      },
+      {
+        "id": "8:715",
+        "target": "overview"
+      },
+      {
+        "id": "8:716",
+        "target": "institutions"
+      },
+      {
+        "id": "8:717",
+        "target": "accounts"
+      },
+      {
+        "id": "8:718",
+        "target": "transactions"
+      },
+      {
+        "id": "8:719",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:720",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:721",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:722",
+        "target": "goals"
+      },
+      {
+        "id": "8:723",
+        "target": "assets"
+      },
+      {
+        "id": "8:724",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:725",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:726",
+        "target": "settings"
+      },
+      {
+        "id": "8:735",
+        "target": "overview"
+      },
+      {
+        "id": "8:753",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:754",
+        "target": "chat"
+      },
+      {
+        "id": "8:791",
+        "target": "overview"
+      },
+      {
+        "id": "8:792",
+        "target": "institutions"
+      },
+      {
+        "id": "8:793",
+        "target": "accounts"
+      },
+      {
+        "id": "8:794",
+        "target": "transactions"
+      },
+      {
+        "id": "8:795",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:796",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:797",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:798",
+        "target": "goals"
+      },
+      {
+        "id": "8:799",
+        "target": "assets"
+      },
+      {
+        "id": "8:800",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:801",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:802",
+        "target": "settings"
+      },
+      {
+        "id": "8:811",
+        "target": "verify"
+      },
+      {
+        "id": "8:828",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:829",
+        "target": "chat"
+      },
+      {
+        "id": "8:861",
+        "target": "overview"
+      },
+      {
+        "id": "8:862",
+        "target": "institutions"
+      },
+      {
+        "id": "8:863",
+        "target": "accounts"
+      },
+      {
+        "id": "8:864",
+        "target": "transactions"
+      },
+      {
+        "id": "8:865",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:866",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:867",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:868",
+        "target": "goals"
+      },
+      {
+        "id": "8:869",
+        "target": "assets"
+      },
+      {
+        "id": "8:870",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:871",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:872",
+        "target": "settings"
+      },
+      {
+        "id": "8:881",
+        "target": "link-login"
+      },
+      {
+        "id": "8:884",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:885",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:886",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:887",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:929",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:930",
+        "target": "chat"
+      },
+      {
+        "id": "8:962",
+        "target": "overview"
+      },
+      {
+        "id": "8:963",
+        "target": "institutions"
+      },
+      {
+        "id": "8:964",
+        "target": "accounts"
+      },
+      {
+        "id": "8:965",
+        "target": "transactions"
+      },
+      {
+        "id": "8:966",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:967",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:968",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:969",
+        "target": "goals"
+      },
+      {
+        "id": "8:970",
+        "target": "assets"
+      },
+      {
+        "id": "8:971",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:972",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:973",
+        "target": "settings"
+      },
+      {
+        "id": "8:982",
+        "target": "link-login"
+      },
+      {
+        "id": "8:985",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:986",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:987",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:988",
+        "target": "provider-categories"
+      },
+      {
+        "id": "8:1031",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1032",
+        "target": "chat"
+      },
+      {
+        "id": "8:1059",
+        "target": "overview"
+      },
+      {
+        "id": "8:1060",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1061",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1062",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1063",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1064",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1065",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1066",
+        "target": "goals"
+      },
+      {
+        "id": "8:1067",
+        "target": "assets"
+      },
+      {
+        "id": "8:1068",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1069",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1070",
+        "target": "settings"
+      },
+      {
+        "id": "8:1079",
+        "target": "consent"
+      },
+      {
+        "id": "8:1099",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1100",
+        "target": "chat"
+      },
+      {
+        "id": "8:1132",
+        "target": "overview"
+      },
+      {
+        "id": "8:1133",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1134",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1135",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1136",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1137",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1138",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1139",
+        "target": "goals"
+      },
+      {
+        "id": "8:1140",
+        "target": "assets"
+      },
+      {
+        "id": "8:1141",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1142",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1143",
+        "target": "settings"
+      },
+      {
+        "id": "8:1152",
+        "target": "connected"
+      },
+      {
+        "id": "8:1187",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1188",
+        "target": "chat"
+      },
+      {
+        "id": "8:1220",
+        "target": "overview"
+      },
+      {
+        "id": "8:1221",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1222",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1223",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1224",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1225",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1226",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1227",
+        "target": "goals"
+      },
+      {
+        "id": "8:1228",
+        "target": "assets"
+      },
+      {
+        "id": "8:1229",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1230",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1231",
+        "target": "settings"
+      },
+      {
+        "id": "8:1240",
+        "target": "overview"
+      },
+      {
+        "id": "8:1271",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1272",
+        "target": "chat"
+      },
+      {
+        "id": "8:1303",
+        "target": "overview"
+      },
+      {
+        "id": "8:1304",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1305",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1306",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1307",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1308",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1309",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1310",
+        "target": "goals"
+      },
+      {
+        "id": "8:1311",
+        "target": "assets"
+      },
+      {
+        "id": "8:1312",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1313",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1314",
+        "target": "settings"
+      },
+      {
+        "id": "8:1323",
+        "target": "connected"
+      },
+      {
+        "id": "8:1360",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1361",
+        "target": "chat"
+      },
+      {
+        "id": "8:1392",
+        "target": "overview"
+      },
+      {
+        "id": "8:1393",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1394",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1395",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1396",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1397",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1398",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1399",
+        "target": "goals"
+      },
+      {
+        "id": "8:1400",
+        "target": "assets"
+      },
+      {
+        "id": "8:1401",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1402",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1403",
+        "target": "settings"
+      },
+      {
+        "id": "8:1412",
+        "target": "link-login"
+      },
+      {
+        "id": "8:1442",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1443",
+        "target": "chat"
+      },
+      {
+        "id": "8:1465",
+        "target": "overview"
+      },
+      {
+        "id": "8:1466",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1467",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1468",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1469",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1470",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1471",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1472",
+        "target": "goals"
+      },
+      {
+        "id": "8:1473",
+        "target": "assets"
+      },
+      {
+        "id": "8:1474",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1475",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1476",
+        "target": "settings"
+      },
+      {
+        "id": "8:1485",
+        "target": "cash-collision"
+      },
+      {
+        "id": "8:1538",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1539",
+        "target": "chat"
+      },
+      {
+        "id": "8:1570",
+        "target": "overview"
+      },
+      {
+        "id": "8:1571",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1572",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1573",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1574",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1575",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1576",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1577",
+        "target": "goals"
+      },
+      {
+        "id": "8:1578",
+        "target": "assets"
+      },
+      {
+        "id": "8:1579",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1580",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1581",
+        "target": "settings"
+      },
+      {
+        "id": "8:1590",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1632",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1633",
+        "target": "chat"
+      },
+      {
+        "id": "8:1664",
+        "target": "overview"
+      },
+      {
+        "id": "8:1665",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1666",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1667",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1668",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1669",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1670",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1671",
+        "target": "goals"
+      },
+      {
+        "id": "8:1672",
+        "target": "assets"
+      },
+      {
+        "id": "8:1673",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1674",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1675",
+        "target": "settings"
+      },
+      {
+        "id": "8:1684",
+        "target": "transaction-detail"
+      },
+      {
+        "id": "8:1728",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1729",
+        "target": "chat"
+      },
+      {
+        "id": "8:1766",
+        "target": "overview"
+      },
+      {
+        "id": "8:1767",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1768",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1769",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1770",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1771",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1772",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1773",
+        "target": "goals"
+      },
+      {
+        "id": "8:1774",
+        "target": "assets"
+      },
+      {
+        "id": "8:1775",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1776",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1777",
+        "target": "settings"
+      },
+      {
+        "id": "8:1786",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1822",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1823",
+        "target": "chat"
+      },
+      {
+        "id": "8:1845",
+        "target": "overview"
+      },
+      {
+        "id": "8:1846",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1847",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1848",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1849",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1850",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1851",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1852",
+        "target": "goals"
+      },
+      {
+        "id": "8:1853",
+        "target": "assets"
+      },
+      {
+        "id": "8:1854",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1855",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1856",
+        "target": "settings"
+      },
+      {
+        "id": "8:1865",
+        "target": "cash-collision"
+      },
+      {
+        "id": "8:1914",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:1915",
+        "target": "chat"
+      },
+      {
+        "id": "8:1946",
+        "target": "overview"
+      },
+      {
+        "id": "8:1947",
+        "target": "institutions"
+      },
+      {
+        "id": "8:1948",
+        "target": "accounts"
+      },
+      {
+        "id": "8:1949",
+        "target": "transactions"
+      },
+      {
+        "id": "8:1950",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:1951",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:1952",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:1953",
+        "target": "goals"
+      },
+      {
+        "id": "8:1954",
+        "target": "assets"
+      },
+      {
+        "id": "8:1955",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:1956",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:1957",
+        "target": "settings"
+      },
+      {
+        "id": "8:1966",
+        "target": "plan-compare"
+      },
+      {
+        "id": "8:2012",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2013",
+        "target": "chat"
+      },
+      {
+        "id": "8:2044",
+        "target": "overview"
+      },
+      {
+        "id": "8:2045",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2046",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2047",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2048",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2049",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2050",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2051",
+        "target": "goals"
+      },
+      {
+        "id": "8:2052",
+        "target": "assets"
+      },
+      {
+        "id": "8:2053",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2054",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2055",
+        "target": "settings"
+      },
+      {
+        "id": "8:2064",
+        "target": "subscription-preferences"
+      },
+      {
+        "id": "8:2110",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2111",
+        "target": "chat"
+      },
+      {
+        "id": "8:2142",
+        "target": "overview"
+      },
+      {
+        "id": "8:2143",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2144",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2145",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2146",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2147",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2148",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2149",
+        "target": "goals"
+      },
+      {
+        "id": "8:2150",
+        "target": "assets"
+      },
+      {
+        "id": "8:2151",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2152",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2153",
+        "target": "settings"
+      },
+      {
+        "id": "8:2162",
+        "target": "offers"
+      },
+      {
+        "id": "8:2189",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2190",
+        "target": "chat"
+      },
+      {
+        "id": "8:2232",
+        "target": "overview"
+      },
+      {
+        "id": "8:2233",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2234",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2235",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2236",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2237",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2238",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2239",
+        "target": "goals"
+      },
+      {
+        "id": "8:2240",
+        "target": "assets"
+      },
+      {
+        "id": "8:2241",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2242",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2243",
+        "target": "settings"
+      },
+      {
+        "id": "8:2252",
+        "target": "offer-detail"
+      },
+      {
+        "id": "8:2290",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2291",
+        "target": "chat"
+      },
+      {
+        "id": "8:2322",
+        "target": "overview"
+      },
+      {
+        "id": "8:2323",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2324",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2325",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2326",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2327",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2328",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2329",
+        "target": "goals"
+      },
+      {
+        "id": "8:2330",
+        "target": "assets"
+      },
+      {
+        "id": "8:2331",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2332",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2333",
+        "target": "settings"
+      },
+      {
+        "id": "8:2342",
+        "target": "subscription-confirm"
+      },
+      {
+        "id": "8:2382",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2383",
+        "target": "chat"
+      },
+      {
+        "id": "8:2414",
+        "target": "overview"
+      },
+      {
+        "id": "8:2415",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2416",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2417",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2418",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2419",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2420",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2421",
+        "target": "goals"
+      },
+      {
+        "id": "8:2422",
+        "target": "assets"
+      },
+      {
+        "id": "8:2423",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2424",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2425",
+        "target": "settings"
+      },
+      {
+        "id": "8:2434",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2453",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2454",
+        "target": "chat"
+      },
+      {
+        "id": "8:2496",
+        "target": "overview"
+      },
+      {
+        "id": "8:2497",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2498",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2499",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2500",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2501",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2502",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2503",
+        "target": "goals"
+      },
+      {
+        "id": "8:2504",
+        "target": "assets"
+      },
+      {
+        "id": "8:2505",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2506",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2507",
+        "target": "settings"
+      },
+      {
+        "id": "8:2516",
+        "target": "loan-calculator"
+      },
+      {
+        "id": "8:2552",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2553",
+        "target": "chat"
+      },
+      {
+        "id": "8:2599",
+        "target": "overview"
+      },
+      {
+        "id": "8:2600",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2601",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2602",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2603",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2604",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2605",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2606",
+        "target": "goals"
+      },
+      {
+        "id": "8:2607",
+        "target": "assets"
+      },
+      {
+        "id": "8:2608",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2609",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2610",
+        "target": "settings"
+      },
+      {
+        "id": "8:2619",
+        "target": "loan-result"
+      },
+      {
+        "id": "8:2660",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2661",
+        "target": "chat"
+      },
+      {
+        "id": "8:2717",
+        "target": "overview"
+      },
+      {
+        "id": "8:2718",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2719",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2720",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2721",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2722",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2723",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2724",
+        "target": "goals"
+      },
+      {
+        "id": "8:2725",
+        "target": "assets"
+      },
+      {
+        "id": "8:2726",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2727",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2728",
+        "target": "settings"
+      },
+      {
+        "id": "8:2737",
+        "target": "savings-result"
+      },
+      {
+        "id": "8:2764",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2765",
+        "target": "chat"
+      },
+      {
+        "id": "8:2821",
+        "target": "overview"
+      },
+      {
+        "id": "8:2822",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2823",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2824",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2825",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2826",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2827",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2828",
+        "target": "goals"
+      },
+      {
+        "id": "8:2829",
+        "target": "assets"
+      },
+      {
+        "id": "8:2830",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2831",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2832",
+        "target": "settings"
+      },
+      {
+        "id": "8:2841",
+        "target": "goal-editor"
+      },
+      {
+        "id": "8:2876",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2877",
+        "target": "chat"
+      },
+      {
+        "id": "8:2908",
+        "target": "overview"
+      },
+      {
+        "id": "8:2909",
+        "target": "institutions"
+      },
+      {
+        "id": "8:2910",
+        "target": "accounts"
+      },
+      {
+        "id": "8:2911",
+        "target": "transactions"
+      },
+      {
+        "id": "8:2912",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:2913",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:2914",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:2915",
+        "target": "goals"
+      },
+      {
+        "id": "8:2916",
+        "target": "assets"
+      },
+      {
+        "id": "8:2917",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:2918",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:2919",
+        "target": "settings"
+      },
+      {
+        "id": "8:2928",
+        "target": "plan-compare"
+      },
+      {
+        "id": "8:2952",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:2953",
+        "target": "chat"
+      },
+      {
+        "id": "8:3005",
+        "target": "overview"
+      },
+      {
+        "id": "8:3006",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3007",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3008",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3009",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3010",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3011",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3012",
+        "target": "goals"
+      },
+      {
+        "id": "8:3013",
+        "target": "assets"
+      },
+      {
+        "id": "8:3014",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3015",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3016",
+        "target": "settings"
+      },
+      {
+        "id": "8:3025",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3063",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3064",
+        "target": "chat"
+      },
+      {
+        "id": "8:3095",
+        "target": "overview"
+      },
+      {
+        "id": "8:3096",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3097",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3098",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3099",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3100",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3101",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3102",
+        "target": "goals"
+      },
+      {
+        "id": "8:3103",
+        "target": "assets"
+      },
+      {
+        "id": "8:3104",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3105",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3106",
+        "target": "settings"
+      },
+      {
+        "id": "8:3115",
+        "target": "goals"
+      },
+      {
+        "id": "8:3146",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3147",
+        "target": "chat"
+      },
+      {
+        "id": "8:3179",
+        "target": "overview"
+      },
+      {
+        "id": "8:3180",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3181",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3182",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3183",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3184",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3185",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3186",
+        "target": "goals"
+      },
+      {
+        "id": "8:3187",
+        "target": "assets"
+      },
+      {
+        "id": "8:3188",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3189",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3190",
+        "target": "settings"
+      },
+      {
+        "id": "8:3199",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3243",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3244",
+        "target": "chat"
+      },
+      {
+        "id": "8:3290",
+        "target": "overview"
+      },
+      {
+        "id": "8:3291",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3292",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3293",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3294",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3295",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3296",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3297",
+        "target": "goals"
+      },
+      {
+        "id": "8:3298",
+        "target": "assets"
+      },
+      {
+        "id": "8:3299",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3300",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3301",
+        "target": "settings"
+      },
+      {
+        "id": "8:3310",
+        "target": "stress-result"
+      },
+      {
+        "id": "8:3344",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3345",
+        "target": "chat"
+      },
+      {
+        "id": "8:3396",
+        "target": "overview"
+      },
+      {
+        "id": "8:3397",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3398",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3399",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3400",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3401",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3402",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3403",
+        "target": "goals"
+      },
+      {
+        "id": "8:3404",
+        "target": "assets"
+      },
+      {
+        "id": "8:3405",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3406",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3407",
+        "target": "settings"
+      },
+      {
+        "id": "8:3416",
+        "target": "plan-repair"
+      },
+      {
+        "id": "8:3466",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3467",
+        "target": "chat"
+      },
+      {
+        "id": "8:3498",
+        "target": "overview"
+      },
+      {
+        "id": "8:3499",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3500",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3501",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3502",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3503",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3504",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3505",
+        "target": "goals"
+      },
+      {
+        "id": "8:3506",
+        "target": "assets"
+      },
+      {
+        "id": "8:3507",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3508",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3509",
+        "target": "settings"
+      },
+      {
+        "id": "8:3518",
+        "target": "accept-plan"
+      },
+      {
+        "id": "8:3556",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3557",
+        "target": "chat"
+      },
+      {
+        "id": "8:3588",
+        "target": "overview"
+      },
+      {
+        "id": "8:3589",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3590",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3591",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3592",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3593",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3594",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3595",
+        "target": "goals"
+      },
+      {
+        "id": "8:3596",
+        "target": "assets"
+      },
+      {
+        "id": "8:3597",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3598",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3599",
+        "target": "settings"
+      },
+      {
+        "id": "8:3608",
+        "target": "loan-calculator"
+      },
+      {
+        "id": "8:3646",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3647",
+        "target": "chat"
+      },
+      {
+        "id": "8:3678",
+        "target": "overview"
+      },
+      {
+        "id": "8:3679",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3680",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3681",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3682",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3683",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3684",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3685",
+        "target": "goals"
+      },
+      {
+        "id": "8:3686",
+        "target": "assets"
+      },
+      {
+        "id": "8:3687",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3688",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3689",
+        "target": "settings"
+      },
+      {
+        "id": "8:3698",
+        "target": "goal-editor"
+      },
+      {
+        "id": "8:3736",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3737",
+        "target": "chat"
+      },
+      {
+        "id": "8:3768",
+        "target": "overview"
+      },
+      {
+        "id": "8:3769",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3770",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3771",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3772",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3773",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3774",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3775",
+        "target": "goals"
+      },
+      {
+        "id": "8:3776",
+        "target": "assets"
+      },
+      {
+        "id": "8:3777",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3778",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3779",
+        "target": "settings"
+      },
+      {
+        "id": "8:3788",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3838",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3839",
+        "target": "chat"
+      },
+      {
+        "id": "8:3870",
+        "target": "overview"
+      },
+      {
+        "id": "8:3871",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3872",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3873",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3874",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3875",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3876",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3877",
+        "target": "goals"
+      },
+      {
+        "id": "8:3878",
+        "target": "assets"
+      },
+      {
+        "id": "8:3879",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3880",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3881",
+        "target": "settings"
+      },
+      {
+        "id": "8:3890",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3942",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:3943",
+        "target": "chat"
+      },
+      {
+        "id": "8:3974",
+        "target": "overview"
+      },
+      {
+        "id": "8:3975",
+        "target": "institutions"
+      },
+      {
+        "id": "8:3976",
+        "target": "accounts"
+      },
+      {
+        "id": "8:3977",
+        "target": "transactions"
+      },
+      {
+        "id": "8:3978",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:3979",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:3980",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:3981",
+        "target": "goals"
+      },
+      {
+        "id": "8:3982",
+        "target": "assets"
+      },
+      {
+        "id": "8:3983",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:3984",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:3985",
+        "target": "settings"
+      },
+      {
+        "id": "8:3994",
+        "target": "chat"
+      },
+      {
+        "id": "8:4032",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4033",
+        "target": "chat"
+      },
+      {
+        "id": "8:4055",
+        "target": "overview"
+      },
+      {
+        "id": "8:4056",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4057",
+        "target": "accounts"
+      },
+      {
+        "id": "8:4058",
+        "target": "transactions"
+      },
+      {
+        "id": "8:4059",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:4060",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:4061",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:4062",
+        "target": "goals"
+      },
+      {
+        "id": "8:4063",
+        "target": "assets"
+      },
+      {
+        "id": "8:4064",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:4065",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:4066",
+        "target": "settings"
+      },
+      {
+        "id": "8:4075",
+        "target": "agent-running"
+      },
+      {
+        "id": "8:4105",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4106",
+        "target": "chat"
+      },
+      {
+        "id": "8:4133",
+        "target": "overview"
+      },
+      {
+        "id": "8:4134",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4135",
+        "target": "accounts"
+      },
+      {
+        "id": "8:4136",
+        "target": "transactions"
+      },
+      {
+        "id": "8:4137",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:4138",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:4139",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:4140",
+        "target": "goals"
+      },
+      {
+        "id": "8:4141",
+        "target": "assets"
+      },
+      {
+        "id": "8:4142",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:4143",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:4144",
+        "target": "settings"
+      },
+      {
+        "id": "8:4153",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:4184",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4185",
+        "target": "chat"
+      },
+      {
+        "id": "8:4207",
+        "target": "overview"
+      },
+      {
+        "id": "8:4208",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4209",
+        "target": "accounts"
+      },
+      {
+        "id": "8:4210",
+        "target": "transactions"
+      },
+      {
+        "id": "8:4211",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:4212",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:4213",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:4214",
+        "target": "goals"
+      },
+      {
+        "id": "8:4215",
+        "target": "assets"
+      },
+      {
+        "id": "8:4216",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:4217",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:4218",
+        "target": "settings"
+      },
+      {
+        "id": "8:4227",
+        "target": "disconnect"
+      },
+      {
+        "id": "8:4271",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4272",
+        "target": "chat"
+      },
+      {
+        "id": "8:4294",
+        "target": "overview"
+      },
+      {
+        "id": "8:4295",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4296",
+        "target": "accounts"
+      },
+      {
+        "id": "8:4297",
+        "target": "transactions"
+      },
+      {
+        "id": "8:4298",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:4299",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:4300",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:4301",
+        "target": "goals"
+      },
+      {
+        "id": "8:4302",
+        "target": "assets"
+      },
+      {
+        "id": "8:4303",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:4304",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:4305",
+        "target": "settings"
+      },
+      {
+        "id": "8:4314",
+        "target": "empty-state"
+      },
+      {
+        "id": "8:4338",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4339",
+        "target": "chat"
+      },
+      {
+        "id": "8:4361",
+        "target": "overview"
+      },
+      {
+        "id": "8:4362",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4363",
+        "target": "accounts"
+      },
+      {
+        "id": "8:4364",
+        "target": "transactions"
+      },
+      {
+        "id": "8:4365",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:4366",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:4367",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:4368",
+        "target": "goals"
+      },
+      {
+        "id": "8:4369",
+        "target": "assets"
+      },
+      {
+        "id": "8:4370",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:4371",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:4372",
+        "target": "settings"
+      },
+      {
+        "id": "8:4381",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4408",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4409",
+        "target": "chat"
+      },
+      {
+        "id": "8:4431",
+        "target": "overview"
+      },
+      {
+        "id": "8:4432",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4433",
+        "target": "accounts"
+      },
+      {
+        "id": "8:4434",
+        "target": "transactions"
+      },
+      {
+        "id": "8:4435",
+        "target": "cash-calendar"
+      },
+      {
+        "id": "8:4436",
+        "target": "subscriptions"
+      },
+      {
+        "id": "8:4437",
+        "target": "debt-planner"
+      },
+      {
+        "id": "8:4438",
+        "target": "goals"
+      },
+      {
+        "id": "8:4439",
+        "target": "assets"
+      },
+      {
+        "id": "8:4440",
+        "target": "agent-results"
+      },
+      {
+        "id": "8:4441",
+        "target": "scenario-lab"
+      },
+      {
+        "id": "8:4442",
+        "target": "settings"
+      },
+      {
+        "id": "8:4451",
+        "target": "overview"
+      },
+      {
+        "id": "8:4487",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4488",
+        "target": "chat"
+      },
+      {
+        "id": "8:4505",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4512",
+        "target": "cash-collision"
+      },
+      {
+        "id": "8:4521",
+        "target": "mobile-agents"
+      },
+      {
+        "id": "8:4535",
+        "target": "institutions"
+      },
+      {
+        "id": "8:4555",
+        "target": "finding-evidence"
+      },
+      {
+        "id": "8:4556",
+        "target": "mobile-overview"
+      }
+    ]
+  },
+  "calculators": [
+    {
+      "key": "CALC-01",
+      "id": "6:2",
+      "name": "Net worth"
+    },
+    {
+      "key": "CALC-02",
+      "id": "6:21",
+      "name": "Cash buffer"
+    },
+    {
+      "key": "CALC-03",
+      "id": "6:40",
+      "name": "Debt-to-income indicator"
+    },
+    {
+      "key": "CALC-04",
+      "id": "6:59",
+      "name": "Card utilization"
+    },
+    {
+      "key": "CALC-05",
+      "id": "6:78",
+      "name": "Fixed-rate loan payment"
+    },
+    {
+      "key": "CALC-06",
+      "id": "6:97",
+      "name": "Amortization and extra payments"
+    },
+    {
+      "key": "CALC-07",
+      "id": "6:116",
+      "name": "Savings goal contribution"
+    },
+    {
+      "key": "CALC-08",
+      "id": "6:135",
+      "name": "APY / CD illustration"
+    },
+    {
+      "key": "CALC-09",
+      "id": "6:154",
+      "name": "Subscription normalization"
+    },
+    {
+      "key": "CALC-10",
+      "id": "6:173",
+      "name": "Offer comparison / first-year cost"
+    },
+    {
+      "key": "CALC-11",
+      "id": "6:192",
+      "name": "Budget allocation conservation"
+    },
+    {
+      "key": "CALC-12",
+      "id": "6:211",
+      "name": "Dated forecast and stress test"
+    }
+  ],
+  "prototype": {
+    "launcher": "11:1076",
+    "url": "https://www.figma.com/proto/ZivHogk7C4OSm6uoscYegQ/FinPilot?node-id=11-1076&starting-point-node-id=11-1076",
+    "screenLinks": 671,
+    "launcherJourneys": 11
+  }
+}

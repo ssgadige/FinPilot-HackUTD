@@ -134,3 +134,4 @@ def seed(destination,reset=False):
  return manifest
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--database',default=str(ROOT/'data/finpilot-demo.sqlite'));p.add_argument('--reset',action='store_true');a=p.parse_args();seed(a.database,a.reset)
+
