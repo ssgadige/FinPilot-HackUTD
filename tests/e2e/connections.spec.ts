@@ -132,7 +132,7 @@ test("test-only provider dialog clears secrets and cannot expose account selecti
     false,
   );
   await page.goto("http://127.0.0.1:3000/institutions");
-  await expect(page).toHaveURL(/\/login\?reason=unavailable/);
+  await expect(page).toHaveURL(/\/login\?reason=expired/);
   await expect(
     page.getByRole("heading", { name: "Connect your financial picture" }),
   ).toHaveCount(0);

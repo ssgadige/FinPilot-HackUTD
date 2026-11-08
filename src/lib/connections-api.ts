@@ -160,8 +160,15 @@ export const connectionsApi = {
   async institutions(options: Options = {}): Promise<Institution[]> {
     const response = await request("/institutions", "GET", options);
     const data: unknown = await response.json().catch(() => null);
-    if (!Array.isArray(data)) unavailable();
-    const result = data.map((item: unknown) => {
+    // Current authenticated FP-11 handler returns {items}; retain legacy array
+    // support for existing catalog fixtures without changing verification gates.
+    const rows = Array.isArray(data)
+      ? data
+      : object(data) && Array.isArray(data.items)
+        ? data.items
+        : null;
+    if (!rows) unavailable();
+    const result = rows.map((item: unknown) => {
       if (
         !object(item) ||
         !identifier(item.id) ||

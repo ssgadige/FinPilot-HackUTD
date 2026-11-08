@@ -1,6 +1,12 @@
 // Test adapter for isolated component rendering, not production Next.js navigation.
 export const usePathname = () =>
   ({
+    subscriptions: "/subscriptions",
+    goals: "/goals-and-plans",
+    debts: "/debt-and-readiness",
+    assets: "/assets",
+    scenarios: "/scenario-lab",
+    agents: "/agent-workspace",
     overview: "/overview",
     transactions: "/transactions",
     cash: "/cash-and-bills",
