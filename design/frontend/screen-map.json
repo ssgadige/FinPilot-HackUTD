@@ -1,0 +1,282 @@
+[
+  {
+    "screen_id": "00",
+    "title": "Design system",
+    "svg": "screens/00-design-system.svg",
+    "frontend_task": "#1 / FP-01",
+    "backend_tasks": "Shared contracts",
+    "agent_tasks": "All roles",
+    "route": "/design-system",
+    "interaction": "Use these tokens and patterns across tasks #1-#8. Financial figures and states are illustrative only."
+  },
+  {
+    "screen_id": "01",
+    "title": "Sign in",
+    "svg": "screens/01-sign-in.svg",
+    "frontend_task": "#2 / FP-02",
+    "backend_tasks": "#10",
+    "agent_tasks": "None",
+    "route": "/login",
+    "interaction": "Continue -> verification challenge. No authenticated financial session before email-code verification."
+  },
+  {
+    "screen_id": "02",
+    "title": "Verify your email",
+    "svg": "screens/02-verify-your-email.svg",
+    "frontend_task": "#2 / FP-02",
+    "backend_tasks": "#10",
+    "agent_tasks": "None",
+    "route": "/verify",
+    "interaction": "Wrong/expired code -> inline error. Resend cooldown; codes single-use. Local Mailpit receives demo email."
+  },
+  {
+    "screen_id": "03",
+    "title": "Overview",
+    "svg": "screens/03-overview.svg",
+    "frontend_task": "#4 / FP-04",
+    "backend_tasks": "#12, #13",
+    "agent_tasks": "#18, #23",
+    "route": "/overview",
+    "interaction": "Run checkup -> #7 workspace. Each metric opens its source account or calculation. Chat opens from the shared header."
+  },
+  {
+    "screen_id": "04",
+    "title": "Connected institutions",
+    "svg": "screens/04-connected-institutions.svg",
+    "frontend_task": "#3 / FP-03",
+    "backend_tasks": "#11, #12",
+    "agent_tasks": "Integrity #18",
+    "route": "/institutions",
+    "interaction": "Category -> provider -> simulation login -> consent/account selection -> dashboard. Each connection can be synced or disconnected."
+  },
+  {
+    "screen_id": "05",
+    "title": "Link institution",
+    "svg": "screens/05-link-institution.svg",
+    "frontend_task": "#3 / FP-03",
+    "backend_tasks": "#11",
+    "agent_tasks": "None",
+    "route": "/institutions/link",
+    "interaction": "Continue validates fictional institution credentials; wrong credentials stay on this screen. No call to the actual bank."
+  },
+  {
+    "screen_id": "06",
+    "title": "Consent & selection",
+    "svg": "screens/06-consent-selection.svg",
+    "frontend_task": "#3 / FP-03",
+    "backend_tasks": "#11",
+    "agent_tasks": "Integrity #18",
+    "route": "/institutions/consent",
+    "interaction": "Connect selected -> scoped connection. Unselected accounts are invisible to agents. Disconnect revokes future access."
+  },
+  {
+    "screen_id": "07",
+    "title": "Accounts",
+    "svg": "screens/07-accounts.svg",
+    "frontend_task": "#4 / FP-04",
+    "backend_tasks": "#12",
+    "agent_tasks": "Integrity #18",
+    "route": "/accounts",
+    "interaction": "Select an account -> filtered transaction history. Manage -> connection flow. Liquid assets stay separate from retirement accounts."
+  },
+  {
+    "screen_id": "08",
+    "title": "Transactions",
+    "svg": "screens/08-transactions.svg",
+    "frontend_task": "#4 / FP-04",
+    "backend_tasks": "#12",
+    "agent_tasks": "Integrity #18",
+    "route": "/transactions",
+    "interaction": "Filter and paginate on the server; row -> evidence drawer. Paired transfers are labeled, not counted as new income/spending."
+  },
+  {
+    "screen_id": "09",
+    "title": "Cash & bills",
+    "svg": "screens/09-cash-bills.svg",
+    "frontend_task": "#4 / FP-04",
+    "backend_tasks": "#12, #13",
+    "agent_tasks": "#18",
+    "route": "/cash",
+    "interaction": "Date selection highlights responsible accounts and bills. Review adjustment -> plan comparison; no real transfers."
+  },
+  {
+    "screen_id": "10",
+    "title": "Subscriptions",
+    "svg": "screens/10-subscriptions.svg",
+    "frontend_task": "#5 / FP-05",
+    "backend_tasks": "#13, #14",
+    "agent_tasks": "#19",
+    "route": "/subscriptions",
+    "interaction": "Confirm recurrence/usage preferences first. Transaction history alone cannot prove a service is unused. Compare -> offer detail."
+  },
+  {
+    "screen_id": "11",
+    "title": "Offer comparison",
+    "svg": "screens/11-offer-comparison.svg",
+    "frontend_task": "#5 / FP-05",
+    "backend_tasks": "#13, #14",
+    "agent_tasks": "#19",
+    "route": "/subscriptions/streamplus/offers",
+    "interaction": "Choose an option -> save proposed action with confirmation. This does not cancel or purchase anything; fixtures must stay labeled."
+  },
+  {
+    "screen_id": "12",
+    "title": "Debt & readiness",
+    "svg": "screens/12-debt-readiness.svg",
+    "frontend_task": "#6 / FP-06",
+    "backend_tasks": "#13, #14",
+    "agent_tasks": "#20",
+    "route": "/debts",
+    "interaction": "Run payoff scenario -> calculation evidence. Purchase readiness is planning, not a score-point prediction or loan approval."
+  },
+  {
+    "screen_id": "13",
+    "title": "Goals & plans",
+    "svg": "screens/13-goals-plans.svg",
+    "frontend_task": "#6 / FP-06",
+    "backend_tasks": "#14",
+    "agent_tasks": "#20",
+    "route": "/goals",
+    "interaction": "Create/edit goal -> target, deadline, priority and buffer. Compare plans -> explicit tradeoffs; acceptance is server-confirmed."
+  },
+  {
+    "screen_id": "14",
+    "title": "Plan comparison",
+    "svg": "screens/14-plan-comparison.svg",
+    "frontend_task": "#6 / FP-06",
+    "backend_tasks": "#14",
+    "agent_tasks": "#20, #21",
+    "route": "/plans/compare",
+    "interaction": "Select -> accept dialog with expected plan version. Stale-version conflict -> refresh comparison. No automatic execution."
+  },
+  {
+    "screen_id": "15",
+    "title": "Assets",
+    "svg": "screens/15-assets.svg",
+    "frontend_task": "#6 / FP-06",
+    "backend_tasks": "#12",
+    "agent_tasks": "#20",
+    "route": "/assets",
+    "interaction": "Asset snapshots contribute to net worth; investments and retirement accounts are not spendable cash by default."
+  },
+  {
+    "screen_id": "16",
+    "title": "Agent workspace",
+    "svg": "screens/16-agent-workspace.svg",
+    "frontend_task": "#7 / FP-07",
+    "backend_tasks": "#15",
+    "agent_tasks": "#17-#24",
+    "route": "/agents",
+    "interaction": "Run -> poll actual events. Expand findings -> source evidence. Completed/skipped/failed labels come from real run state, never timers."
+  },
+  {
+    "screen_id": "17",
+    "title": "Evidence drawer",
+    "svg": "screens/17-evidence-drawer.svg",
+    "frontend_task": "#4, #7 / FP-04,07",
+    "backend_tasks": "#12, #15",
+    "agent_tasks": "#18, #23",
+    "route": "/agents/findings/:id",
+    "interaction": "Finding -> evidence references and calculation assumptions. Only records owned by this user and authorized connection are accessible."
+  },
+  {
+    "screen_id": "18",
+    "title": "Scenario lab",
+    "svg": "screens/18-scenario-lab.svg",
+    "frontend_task": "#6 / FP-06",
+    "backend_tasks": "#13, #14",
+    "agent_tasks": "#21",
+    "route": "/scenarios",
+    "interaction": "Preset/input -> deterministic stress results. Baseline stays unchanged. Show first failure date and tested horizon, not a guarantee."
+  },
+  {
+    "screen_id": "19",
+    "title": "Plan repair",
+    "svg": "screens/19-plan-repair.svg",
+    "frontend_task": "#6, #7 / FP-06,07",
+    "backend_tasks": "#14, #15",
+    "agent_tasks": "#22, #23",
+    "route": "/plans/revision",
+    "interaction": "Demo event -> new snapshot -> tool rerun -> proposed revision. Accept explicitly or retain previous accepted plan."
+  },
+  {
+    "screen_id": "20",
+    "title": "Settings",
+    "svg": "screens/20-settings.svg",
+    "frontend_task": "#8 / FP-08",
+    "backend_tasks": "#10, #11, #12",
+    "agent_tasks": "None",
+    "route": "/settings",
+    "interaction": "Logout invalidates session. Disconnect -> explicit confirmation and stale affected findings. Email/security edits are out of scope unless safely implemented."
+  },
+  {
+    "screen_id": "21",
+    "title": "Chat interface",
+    "svg": "screens/21-chat-interface.svg",
+    "frontend_task": "#7 / FP-07",
+    "backend_tasks": "#15",
+    "agent_tasks": "#17, #23",
+    "route": "/overview?chat=open",
+    "interaction": "Chat can read current scoped findings and request runs. It cannot authorize money movement or fabricate completion; richer chat features come later."
+  },
+  {
+    "screen_id": "22",
+    "title": "State patterns",
+    "svg": "screens/22-state-patterns.svg",
+    "frontend_task": "#1, #8 / FP-01,08",
+    "backend_tasks": "All endpoints",
+    "agent_tasks": "All roles",
+    "route": "/design-system/states",
+    "interaction": "Apply these states to each data screen. Preserve context and safe retry behavior; never display a fabricated successful result."
+  },
+  {
+    "screen_id": "23",
+    "title": "Mobile layouts",
+    "svg": "screens/23-mobile-layouts.svg",
+    "frontend_task": "#1, #4, #7, #8",
+    "backend_tasks": "Same APIs",
+    "agent_tasks": "Same roles",
+    "route": "390px responsive reference",
+    "interaction": "Mobile stacks cards; navigation opens as a drawer; chat is a separate drawer. Tables retain usable horizontal scroll. Reference screens are not runtime code."
+  },
+  {
+    "screen_id": "24",
+    "title": "Goal editor",
+    "svg": "screens/24-goal-editor.svg",
+    "frontend_task": "#6 / FP-06",
+    "backend_tasks": "#14",
+    "agent_tasks": "#20",
+    "route": "/goals/new",
+    "interaction": "Save -> validated goal endpoint. Cancel discards unsaved edits. Amount/date errors are inline; changes make dependent proposals stale."
+  },
+  {
+    "screen_id": "25",
+    "title": "Subscription preferences",
+    "svg": "screens/25-subscription-preferences.svg",
+    "frontend_task": "#5 / FP-05",
+    "backend_tasks": "#14",
+    "agent_tasks": "#19",
+    "route": "/subscriptions/:id/preferences",
+    "interaction": "Save preferences -> Deal Scout receives confirmed constraints. Unknown usage remains unknown; a planned change is not realized savings."
+  },
+  {
+    "screen_id": "26",
+    "title": "Accept plan",
+    "svg": "screens/26-accept-plan.svg",
+    "frontend_task": "#6 / FP-06",
+    "backend_tasks": "#14",
+    "agent_tasks": "#20, #21",
+    "route": "/plans/:id/accept",
+    "interaction": "Accept uses expected_version and idempotency key. A stale response shows conflict and refresh; it never silently overwrites a newer version."
+  },
+  {
+    "screen_id": "27",
+    "title": "Disconnect institution",
+    "svg": "screens/27-disconnect-institution.svg",
+    "frontend_task": "#3, #8 / FP-03,08",
+    "backend_tasks": "#11",
+    "agent_tasks": "#18, #22",
+    "route": "/settings/connections/:id",
+    "interaction": "Disconnect -> revoke access and mark affected findings/plans stale. Cancellation preserves connection; no real bank account is closed."
+  }
+]

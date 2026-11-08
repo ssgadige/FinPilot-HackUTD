@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1440" height="1000" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1440 1000" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1440" height="1000"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-1000)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1440" height="1000" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,96%,98%); fill-rule: evenodd;"/>
+			<text x="32" y="971" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,1942) scale(1,-1)">FINPILOT / FRONTEND BLUEPRINT</text>
+			<text x="32" y="940" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1880) scale(1,-1)">00  Design system</text>
+			<text x="1130" y="968" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1936) scale(1,-1)">#1 / FP-01</text>
+			<text x="1130" y="943" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1886) scale(1,-1)">Design reference / v1</text>
+			<rect x="32" y="108" width="1376" height="800" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<rect x="32" y="108" width="220" height="800" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(6%,16%,26%); fill-rule: evenodd;"/>
+			<text x="57" y="865" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1730) scale(1,-1)">finpilot</text>
+			<text x="58" y="841" style="font-family: DejaVu Sans; font-size: 10px;fill: rgb(68%,76%,83%); stroke:none;" transform="translate(0,1682) scale(1,-1)">Financial command center</text>
+			<text x="60" y="808" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1616) scale(1,-1)">Overview</text>
+			<text x="60" y="765" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1530) scale(1,-1)">Institutions</text>
+			<text x="60" y="722" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1444) scale(1,-1)">Accounts</text>
+			<text x="60" y="679" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1358) scale(1,-1)">Transactions</text>
+			<text x="60" y="636" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1272) scale(1,-1)">Cash &amp; bills</text>
+			<text x="60" y="593" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1186) scale(1,-1)">Subscriptions</text>
+			<text x="60" y="550" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1100) scale(1,-1)">Debt &amp; readiness</text>
+			<text x="60" y="507" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,1014) scale(1,-1)">Goals &amp; plans</text>
+			<text x="60" y="464" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,928) scale(1,-1)">Assets</text>
+			<text x="60" y="421" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,842) scale(1,-1)">Agent workspace</text>
+			<text x="60" y="378" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,756) scale(1,-1)">Scenario lab</text>
+			<text x="60" y="335" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(74%,81%,86%); stroke:none;" transform="translate(0,670) scale(1,-1)">Settings</text>
+			<rect x="54" y="150" width="165" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="65" y="158" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,316) scale(1,-1)">SIMULATED DATA</text>
+			<path d="M 252,833 L 1408,833 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="282" y="872" style="font-family: DejaVu Sans; font-size: 11px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1744) scale(1,-1)">/design-system</text>
+			<text x="282" y="849" style="font-family: DejaVu Sans; font-weight: bold; font-size: 14px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1698) scale(1,-1)">Maya Chen / Personal finances</text>
+			<rect x="1117" y="861" width="130" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="1128" y="869" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,1738) scale(1,-1)">Demo workspace</text>
+			<text x="1272" y="860" style="font-family: DejaVu Sans; font-weight: bold; font-size: 14px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1720) scale(1,-1)">MC</text>
+			<text x="282" y="792" style="font-family: DejaVu Sans; font-weight: bold; font-size: 26px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1584) scale(1,-1)">Design system</text>
+			<text x="282" y="767" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1534) scale(1,-1)">Shared components for every application section.</text>
+			<path d="M 32,82 L 1408,82 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="32" y="56" style="font-family: DejaVu Sans; font-weight: bold; font-size: 12px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,112) scale(1,-1)">FRONTEND  #1 / FP-01</text>
+			<text x="300" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">BACKEND  Shared contracts</text>
+			<text x="795" y="56" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,112) scale(1,-1)">AGENTS  All roles</text>
+			<text x="32" y="35" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,70) scale(1,-1)">Use these tokens and patterns across tasks #1-#8. Financial figures and states are illustrative only.</text>
+			<rect x="282" y="650" width="194" height="85" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(6%,16%,26%); fill-rule: evenodd;"/>
+			<text x="282" y="626" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1252) scale(1,-1)">Navigation</text>
+			<text x="282" y="605" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1210) scale(1,-1)">#102A43</text>
+			<rect x="496" y="650" width="194" height="85" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(3%,49%,54%); fill-rule: evenodd;"/>
+			<text x="496" y="626" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1252) scale(1,-1)">Primary</text>
+			<text x="496" y="605" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1210) scale(1,-1)">#087F8C</text>
+			<rect x="710" y="650" width="194" height="85" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,96%,98%); fill-rule: evenodd;"/>
+			<text x="710" y="626" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1252) scale(1,-1)">Canvas</text>
+			<text x="710" y="605" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1210) scale(1,-1)">#F3F6FA</text>
+			<rect x="924" y="650" width="194" height="85" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(90%,96%,95%); fill-rule: evenodd;"/>
+			<text x="924" y="626" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1252) scale(1,-1)">Opportunity</text>
+			<text x="924" y="605" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1210) scale(1,-1)">#E6F5F3</text>
+			<rect x="1138" y="650" width="194" height="85" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="1138" y="626" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1252) scale(1,-1)">Caution</text>
+			<text x="1138" y="605" style="font-family: DejaVu Sans; font-size: 12px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,1210) scale(1,-1)">#FFF4DF</text>
+			<rect x="282" y="380" width="520" height="190" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="304" y="538" style="font-family: DejaVu Sans; font-weight: bold; font-size: 16px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1076) scale(1,-1)">Typography &amp; layout</text>
+			<text x="305" y="510" style="font-family: DejaVu Sans; font-weight: bold; font-size: 27px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1020) scale(1,-1)">Your financial picture</text>
+			<text x="305" y="472" style="font-family: DejaVu Sans; font-weight: bold; font-size: 28px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,944) scale(1,-1)">$5,400.00</text>
+			<text x="305" y="437" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,874) scale(1,-1)">8px spacing / 12px corners / tabular numerals</text>
+			<rect x="824" y="380" width="552" height="190" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="846" y="538" style="font-family: DejaVu Sans; font-weight: bold; font-size: 16px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,1076) scale(1,-1)">Actions &amp; status</text>
+			<rect x="845" y="477" width="170" height="40" rx="7" ry="7" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(3%,49%,54%); fill-rule: evenodd;"/>
+			<text x="861" y="492" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,984) scale(1,-1)">Run checkup</text>
+			<rect x="1030" y="477" width="170" height="40" rx="7" ry="7" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="1046" y="492" style="font-family: DejaVu Sans; font-weight: bold; font-size: 13px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,984) scale(1,-1)">View evidence</text>
+			<rect x="845" y="425" width="88.78955078125" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(90%,96%,95%); fill-rule: evenodd;"/>
+			<text x="856" y="433" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,866) scale(1,-1)">Completed</text>
+			<rect x="975" y="425" width="105.82666015625" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="986" y="433" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,866) scale(1,-1)">Needs review</text>
+			<rect x="1115" y="425" width="101.75537109375" height="25" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,95%,87%); fill-rule: evenodd;"/>
+			<text x="1126" y="433" style="font-family: DejaVu Sans; font-weight: bold; font-size: 11px;fill: rgb(60%,36%,0%); stroke:none;" transform="translate(0,866) scale(1,-1)">Sample offer</text>
+			<rect x="282" y="148" width="1094" height="210" rx="10" ry="10" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="304" y="326" style="font-family: DejaVu Sans; font-weight: bold; font-size: 16px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,652) scale(1,-1)">Component inventory</text>
+			<text x="305" y="302" style="font-family: DejaVu Sans; font-size: 18px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,604) scale(1,-1)">Account cards / metric cards / transaction table / institution tiles / evidence drawer / offer comparison / goal</text>
+			<text x="305" y="272" style="font-family: DejaVu Sans; font-size: 18px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,544) scale(1,-1)">progress / plan versions / OTP field / inline notices / empty states / chart wrapper</text>
+			<text x="305" y="188" style="font-family: DejaVu Sans; font-size: 13px;fill: rgb(37%,45%,54%); stroke:none;" transform="translate(0,376) scale(1,-1)">Desktop: 1440px reference. Mobile: 390px. All screens share the same visual system.</text>
+		</g>
+	</g>
+</svg>
