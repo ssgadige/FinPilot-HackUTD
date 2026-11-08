@@ -10,7 +10,16 @@ import { buttonClass } from "@/components/ui/button";
 
 export function generateStaticParams() {
   return navigation
-    .filter((item) => item.href !== "/institutions")
+    .filter(
+      (item) =>
+        ![
+          "/institutions",
+          "/overview",
+          "/accounts",
+          "/transactions",
+          "/cash-and-bills",
+        ].includes(item.href),
+    )
     .map((item) => ({ section: item.href.slice(1) }));
 }
 export async function generateMetadata({
