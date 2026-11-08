@@ -1,0 +1,52 @@
+import unittest
+from decimal import Decimal
+from calculators import *
+class ReferenceMath(unittest.TestCase):
+ def test_net_worth(self):self.assertEqual(net_worth([540000,1400000,740000],[1760000]),920000)
+ def test_negative_asset(self):self.assertEqual(net_worth([-10000],[20000]),-30000)
+ def test_buffer(self):self.assertEqual(buffer_months(540000,300000),Decimal('1.80'))
+ def test_missing_essentials(self):self.assertIsNone(buffer_months(540000,0))
+ def test_negative_cash_buffer(self):self.assertEqual(buffer_months(-30000,300000),Decimal('-.10'))
+ def test_dti(self):self.assertEqual(ratio(90000,500000),Decimal('18.00'))
+ def test_utilization(self):self.assertEqual(ratio(360000,1125000),Decimal('32.00'))
+ def test_zero_limit(self):self.assertIsNone(ratio(10000,0))
+ def test_over_limit(self):self.assertEqual(ratio(125000,100000),Decimal('125.00'))
+ def test_negative_ratio(self):
+  with self.assertRaises(ValueError):ratio(1,-2)
+ def test_payment(self):self.assertEqual(loan_payment(10000,6,36),30422)
+ def test_zero_apr(self):self.assertEqual(loan_payment(1200,0,12),10000)
+ def test_zero_principal(self):self.assertEqual(loan_payment(0,6,36),0)
+ def test_invalid_term(self):
+  with self.assertRaises(ValueError):loan_payment(1000,6,0)
+ def test_negative_apr(self):
+  with self.assertRaises(ValueError):loan_payment(1000,-1,12)
+ def test_schedule_conserves_principal(self):self.assertEqual(sum(r['principal_cents'] for r in loan_schedule(10000,6,36)),1000000)
+ def test_schedule_closes(self):self.assertEqual(loan_schedule(10000,6,36)[-1]['balance_cents'],0)
+ def test_extra_payment_shortens(self):self.assertLess(len(loan_schedule(10000,6,36,100)),36)
+ def test_extra_reduces_interest(self):self.assertLess(sum(r['interest_cents'] for r in loan_schedule(10000,6,36,100)),sum(r['interest_cents'] for r in loan_schedule(10000,6,36)))
+ def test_goal(self):self.assertEqual(goal_contribution(8000,2400,12),46667)
+ def test_goal_already_funded(self):self.assertEqual(goal_contribution(500,600,12),0)
+ def test_goal_overflow(self):
+  with self.assertRaises(ValueError):goal_contribution(8000,2400,0)
+ def test_goal_yield_reduces_contribution(self):self.assertLess(goal_contribution(8000,2400,12,5),46667)
+ def test_apy(self):self.assertEqual(future_apy(1000,5,1),105000)
+ def test_zero_yield(self):self.assertEqual(future_apy(1000,0,2),100000)
+ def test_annual(self):self.assertEqual(monthly_equivalent(189.96,'annual'),1583)
+ def test_quarterly(self):self.assertEqual(monthly_equivalent(30,'quarterly'),1000)
+ def test_weekly(self):self.assertEqual(monthly_equivalent(12,'weekly'),5200)
+ def test_current_subscription(self):self.assertEqual(first_year_cost(18.99),22788)
+ def test_promo(self):self.assertEqual(first_year_cost(10,3,5),10500)
+ def test_fees(self):self.assertEqual(first_year_cost(10,0,0,20,5),14500)
+ def test_invalid_promo(self):
+  with self.assertRaises(ValueError):first_year_cost(10,13,5)
+ def test_allocation(self):self.assertTrue(budget(520000,[350000,30000],[40000,100000])['feasible'])
+ def test_overallocated(self):self.assertFalse(budget(520000,[350000,30000],[60000,100000])['feasible'])
+ def test_negative_budget(self):self.assertEqual(budget(10000,[20000],[])['remainder_cents'],-10000)
+ def test_collision(self):self.assertEqual(forecast(35000,[('2026-11-10',-125000),('2026-11-15',260000)])['first_shortfall'],'2026-11-10')
+ def test_cash_result(self):self.assertEqual(forecast(35000,[('2026-11-10',-125000),('2026-11-15',260000)])['closing_cents'],170000)
+ def test_same_day_aggregation(self):self.assertIsNone(forecast(35000,[('2026-11-10',-125000),('2026-11-10',260000)])['first_shortfall'])
+ def test_empty_events(self):self.assertEqual(forecast(35000,[])['minimum_cents'],35000)
+ def test_stress_delta(self):self.assertEqual(forecast(120000,[('2026-11-10',-90000)])['minimum_cents'],30000)
+ def test_nonfinite(self):
+  with self.assertRaises(ValueError):loan_payment('NaN',6,12)
+if __name__=='__main__':unittest.main()
