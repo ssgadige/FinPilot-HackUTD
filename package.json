@@ -51,6 +51,7 @@
     "eslint-config-next": "16.4.5",
     "jsdom": "31.0.0",
     "typescript": "6.0.3",
+    "vite": "8.3.6",
     "vitest": "5.1.0",
     "tsx": "^4.20.0",
     "@types/nodemailer": "^7.0.0"
