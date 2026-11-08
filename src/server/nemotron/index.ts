@@ -23,6 +23,7 @@ export interface Tool {
 }
 export interface Config {
   apiKey: string; baseUrl: string; model: string; timeoutMs: number;
+  maxTokens?: number;
 }
 export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
   if (!env.NVIDIA_API_KEY?.trim() || !env.NEMOTRON_MODEL?.trim())
@@ -48,11 +49,14 @@ export async function complete(config: Config, messages: Message[], tools: Tool[
   const timeout = AbortSignal.timeout(config.timeoutMs);
   const combined = signal ? AbortSignal.any([timeout, signal]) : timeout;
   try {
+    const maxTokens = config.maxTokens ?? 1024;
+    if (!Number.isInteger(maxTokens) || maxTokens < 1 || maxTokens > 4096)
+      throw new NemotronError('NEMOTRON_CONFIG', 503);
     const response = await transport(`${config.baseUrl}/chat/completions`, {
       method: 'POST', redirect: 'error', signal: combined,
       headers: { Authorization: `Bearer ${config.apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ model: config.model, messages, stream: false,
-        max_tokens: 1024, temperature: 0,
+        max_tokens: maxTokens, temperature: 0,
         ...(tools.length ? { tools, tool_choice: toolChoice, parallel_tool_calls: false } : {}) }),
     });
     if (response.status !== 200) {

@@ -94,3 +94,14 @@ test('smoke rejects disallowed tools, identity injection, and unconsumed results
     assert.equal(calls, code === 'SMOKE_RESULT_NOT_CONSUMED' ? 2 : 1);
   }
 });
+
+test('agent token override is bounded and default probe settings are preserved', async () => {
+  for (const maxTokens of [4096, undefined]) {
+    const transport: typeof fetch = async (_url, options) => {
+      assert.equal(JSON.parse(options?.body as string).max_tokens, maxTokens ?? 1024);
+      return response({ role: 'assistant', content: 'ok' });
+    };
+    await complete({ ...config, maxTokens }, messages, [], 'auto', undefined, transport);
+  }
+  await assert.rejects(complete({ ...config, maxTokens: 4097 }, messages), { code: 'NEMOTRON_CONFIG' });
+});
