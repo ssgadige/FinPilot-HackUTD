@@ -26,7 +26,7 @@ export interface Config {
   maxTokens?: number;
   reasoningEffort?: 'none' | 'low' | 'high';
 }
-export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
+export function readConfig(env: Record<string, string | undefined> = process.env): Config {
   if (!env.NVIDIA_API_KEY?.trim() || !env.NEMOTRON_MODEL?.trim())
     throw new NemotronError('NEMOTRON_UNAVAILABLE', 503);
   const model = env.NEMOTRON_MODEL.trim();
