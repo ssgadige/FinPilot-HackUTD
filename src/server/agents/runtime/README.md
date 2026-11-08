@@ -119,3 +119,12 @@ enforced in final result status and missing_data. The two new roles also validat
 dollar prose against integer-cent evidence and receive deterministic currency
 displays. Their source adapter, fixture/live configuration and current acceptance
 trace are documented in [the offers README](../../offers/README.md).
+
+## FP-20 extension
+
+`debt-readiness` and `goal-allocator` use `createPlanningTools` from
+`../planning/tools.ts`. Goal Allocator requires a scoped Debt Readiness dependency
+and produces fresh alternatives from its own tools. Missing APR/minimum/card limit
+forces needs_information; numerical score and affirmative approval claims are
+rejected. Existing currency, ownership and budget checks are preserved. See
+[planning assumptions and acceptance evidence](../planning/README.md).

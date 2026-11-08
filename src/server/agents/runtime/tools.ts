@@ -18,6 +18,8 @@ export const allowlists = {
   'cash-collision': ['get_cash_calendar', 'forecast_cash', 'compare_cash_scenarios'],
   'subscription-detective': ['detect_recurring', 'get_merchant_history', 'normalize_subscription_cost'],
   'deal-scout': ['get_subscription_preferences', 'fetch_allowlisted_offers', 'compare_offer_costs'],
+  'debt-readiness': ['get_debt_summary', 'simulate_debt_payoff', 'calculate_utilization'],
+  'goal-allocator': ['get_goals', 'allocate_budget', 'compare_plans'],
 } as const;
 export type Role = keyof typeof allowlists;
 export type SnapshotLoader = (context: Context, signal: AbortSignal) => Promise<Snapshot>;

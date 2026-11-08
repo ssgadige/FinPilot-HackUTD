@@ -1,0 +1,894 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-08T03:03:35.330Z",
+  "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "inference_source_mode": "live",
+  "financial_source_mode": "fixture",
+  "total_latency_ms": 31090,
+  "model_calls": 8,
+  "request_latency_ms": [
+    2695,
+    991,
+    769,
+    7798,
+    1619,
+    1330,
+    9664,
+    6203
+  ],
+  "debt": {
+    "result": {
+      "agent_id": "debt-readiness",
+      "status": "completed",
+      "headline": "You have $3000.00 credit card debt at 24.00% APR with 50.00% utilization. Paying it off first saves $1491.55 in interest and clears the debt in 10 months, but leaves $0 toward your purchase goal.",
+      "findings": [
+        {
+          "id": "f1",
+          "severity": "warning",
+          "summary": "Credit card balance of $3000.00 at 24.00% APR with a $100.00 minimum payment. At minimum-only payments, payoff takes 47 months with $1627.30 total interest.",
+          "evidence_ids": [
+            "calc-33f08dd07418d29a5be96bd5",
+            "calc-5e11b746c656f0729550a6ef"
+          ],
+          "amount_cents": 300000
+        },
+        {
+          "id": "f2",
+          "severity": "warning",
+          "summary": "Card utilization is 50.00% ($3000.00 balance on a $6000.00 limit). No credit-score prediction or lending approval is calculated.",
+          "evidence_ids": [
+            "calc-2109ec852319d66810abeda3"
+          ],
+          "amount_cents": 300000
+        },
+        {
+          "id": "f3",
+          "severity": "opportunity",
+          "summary": "Debt-first alternative: apply $2185.00 extra to the card. Estimated payoff in 10 months (2027-08-20), total interest $135.75, saving $1491.55 versus baseline. $0.00 goes to the purchase goal.",
+          "evidence_ids": [
+            "calc-5e11b746c656f0729550a6ef"
+          ],
+          "amount_cents": 218500
+        },
+        {
+          "id": "f4",
+          "severity": "opportunity",
+          "summary": "Goal-first alternative: apply $2185.00 to the purchase goal. Debt payoff remains 47 months (2030-09-20) with $1627.30 interest; no interest saved.",
+          "evidence_ids": [
+            "calc-5e11b746c656f0729550a6ef"
+          ],
+          "amount_cents": 218500
+        },
+        {
+          "id": "f5",
+          "severity": "opportunity",
+          "summary": "Balanced alternative: split $2185.00 as $1092.50 extra debt and $1092.50 toward the goal. Estimated payoff in 25 months (2028-11-20), total interest $554.13, saving $1073.17 versus baseline.",
+          "evidence_ids": [
+            "calc-5e11b746c656f0729550a6ef"
+          ],
+          "amount_cents": 109250
+        },
+        {
+          "id": "f6",
+          "severity": "info",
+          "summary": "Budget snapshot: $5000.00 starting cash, $1215.00 bills reserved, $100.00 minimum payment reserved, $1000.00 buffer reserved, $500.00 existing goal savings reserved, leaving $2185.00 available for discretionary allocation.",
+          "evidence_ids": [
+            "calc-33f08dd07418d29a5be96bd5"
+          ],
+          "amount_cents": 218500
+        }
+      ],
+      "evidence_ids": [
+        "calc-33f08dd07418d29a5be96bd5",
+        "calc-5e11b746c656f0729550a6ef",
+        "calc-2109ec852319d66810abeda3"
+      ],
+      "assumptions": [
+        "All amounts are integer USD cents; currency_display values are used for dollar prose.",
+        "Only current checking/savings/wallet cash is spendable; no future income, CD maturity, or investments are counted.",
+        "Bills, required minimums, cash buffers, and already-saved goal money are reserved before discretionary allocation.",
+        "Each payoff alternative is mutually exclusive; allocations from different alternatives are not combined.",
+        "Payoff estimates use fixed nominal APR/12 and half-up monthly interest; interest accrues before payment, with no fees or new charges.",
+        "Extra debt payment is one-time in the first period; future fixed minimums are an assumption, not verified future affordability.",
+        "Payoff dates are conditional estimates under tool assumptions, not credit-score predictions or lending approvals.",
+        "No credit-score prediction, score-point gain, or lending approval is calculated.",
+        "All proposed actions require confirmation."
+      ],
+      "missing_data": [],
+      "proposed_actions": [
+        {
+          "id": "pa1",
+          "type": "save_plan",
+          "description": "Confirm debt-first allocation: apply $2185.00 extra to the credit card, targeting payoff by 2027-08-20 with $135.75 estimated interest.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa2",
+          "type": "save_plan",
+          "description": "Confirm balanced allocation: apply $1092.50 extra to the card and $1092.50 toward the purchase goal, targeting payoff by 2028-11-20 with $554.13 estimated interest.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa3",
+          "type": "adjust_goal",
+          "description": "Confirm goal-first allocation: apply $2185.00 to the purchase goal while continuing $100.00 minimum card payments.",
+          "requires_confirmation": true
+        }
+      ],
+      "snapshot_version": 1
+    },
+    "evidence": [
+      {
+        "id": "calc-33f08dd07418d29a5be96bd5",
+        "kind": "calculation",
+        "source_id": "get_debt_summary",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-5e11b746c656f0729550a6ef",
+        "kind": "calculation",
+        "source_id": "simulate_debt_payoff",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-2109ec852319d66810abeda3",
+        "kind": "calculation",
+        "source_id": "calculate_utilization",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      }
+    ],
+    "events": [
+      {
+        "id": "9b8a386c-4064-4b39-bf7a-3dd9395254e5",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "started",
+        "at": "2026-11-08T03:03:04.240Z",
+        "message": "Agent started."
+      },
+      {
+        "id": "87f83dc8-cdb1-436d-bf6b-f78716a49c9a",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_started",
+        "at": "2026-11-08T03:03:06.936Z",
+        "message": "get_debt_summary"
+      },
+      {
+        "id": "25b4fc41-78b8-490b-b07d-61dbdd2ee3e8",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_completed",
+        "at": "2026-11-08T03:03:06.939Z",
+        "message": "get_debt_summary"
+      },
+      {
+        "id": "eabbeef0-ce37-426b-8a5f-c21b190790a5",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_started",
+        "at": "2026-11-08T03:03:07.930Z",
+        "message": "simulate_debt_payoff"
+      },
+      {
+        "id": "56ccd531-ebac-4bec-81b1-2927ec2e52d8",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_completed",
+        "at": "2026-11-08T03:03:07.933Z",
+        "message": "simulate_debt_payoff"
+      },
+      {
+        "id": "381c45db-6cf6-4bbe-89f2-cda1d424bc4e",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_started",
+        "at": "2026-11-08T03:03:08.702Z",
+        "message": "calculate_utilization"
+      },
+      {
+        "id": "f313d324-456f-4a3f-a641-f81e1424373c",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "tool_completed",
+        "at": "2026-11-08T03:03:08.703Z",
+        "message": "calculate_utilization"
+      },
+      {
+        "id": "47c0ef99-f68c-4edc-9fd4-a0968f84a2c8",
+        "run_id": "fp20-acceptance",
+        "agent_id": "debt-readiness",
+        "type": "completed",
+        "at": "2026-11-08T03:03:16.504Z",
+        "message": "Validated agent result."
+      }
+    ],
+    "trace": [
+      {
+        "tool": "get_debt_summary",
+        "evidence_ids": [
+          "calc-33f08dd07418d29a5be96bd5"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "simulate_debt_payoff",
+        "evidence_ids": [
+          "calc-5e11b746c656f0729550a6ef"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "calculate_utilization",
+        "evidence_ids": [
+          "calc-2109ec852319d66810abeda3"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      }
+    ]
+  },
+  "goals": {
+    "result": {
+      "agent_id": "goal-allocator",
+      "status": "completed",
+      "headline": "Three mutually exclusive allocation options are available for your $2185.00 discretionary cash: debt-first, goal-first, and balanced. Each preserves your $1000.00 buffer, $1215.00 bills, $100.00 minimum payment, and $500.00 existing car-goal savings.",
+      "findings": [
+        {
+          "id": "debt_first",
+          "severity": "opportunity",
+          "summary": "Debt-first option: apply $2185.00 extra to the credit card. Estimated payoff in 10 months by 2027-08-20 with $135.75 total interest, saving $1491.55 versus baseline. $0.00 goes to the car goal, leaving $2500.00 remaining.",
+          "evidence_ids": [
+            "calc-8418eaeba20d4084317d6873"
+          ],
+          "amount_cents": 0
+        },
+        {
+          "id": "goal_first",
+          "severity": "opportunity",
+          "summary": "Goal-first option: apply $2185.00 to the car goal. Saved balance becomes $2685.00, leaving $315.00 remaining. Debt payoff remains 47 months by 2030-09-20 with $1627.30 total interest; no interest saved.",
+          "evidence_ids": [
+            "calc-8418eaeba20d4084317d6873"
+          ],
+          "amount_cents": 218500
+        },
+        {
+          "id": "balanced",
+          "severity": "opportunity",
+          "summary": "Balanced option: split $2185.00 as $1092.50 extra debt and $1092.50 toward the car goal. Estimated payoff in 25 months by 2028-11-20 with $554.13 total interest, saving $1073.17 versus baseline. Goal remaining balance is $1407.50.",
+          "evidence_ids": [
+            "calc-8418eaeba20d4084317d6873"
+          ],
+          "amount_cents": 109250
+        },
+        {
+          "id": "budget_reserves",
+          "severity": "info",
+          "summary": "Budget snapshot: $5000.00 starting cash, $1215.00 bills reserved, $100.00 minimum payment reserved, $1000.00 buffer reserved, $500.00 existing goal savings reserved, leaving $2185.00 available for discretionary allocation.",
+          "evidence_ids": [
+            "calc-0ecdac73ae28d31496095207"
+          ],
+          "amount_cents": null
+        }
+      ],
+      "evidence_ids": [
+        "calc-8418eaeba20d4084317d6873",
+        "calc-0ecdac73ae28d31496095207"
+      ],
+      "assumptions": [
+        "All amounts are integer USD cents; currency_display values are used for dollar prose.",
+        "Only current checking/savings/wallet cash is spendable; no future income, CD maturity, or investments are counted.",
+        "Bills, required minimums, cash buffers, and already-saved goal money are reserved before discretionary allocation.",
+        "Each alternative is mutually exclusive; allocations from different alternatives are not combined.",
+        "Payoff estimates use fixed nominal APR/12 and half-up monthly interest; interest accrues before payment, with no fees or new charges.",
+        "Extra debt payment is one-time in the first period; future fixed minimums are an assumption, not verified future affordability.",
+        "Payoff dates are conditional estimates under tool assumptions, not credit-score predictions or lending approvals.",
+        "No credit-score prediction, score-point gain, or lending approval is calculated.",
+        "All proposed actions require confirmation."
+      ],
+      "missing_data": [],
+      "proposed_actions": [
+        {
+          "id": "pa_debt_first",
+          "type": "save_plan",
+          "description": "Confirm debt-first allocation: apply $2185.00 extra to the credit card, targeting payoff by 2027-08-20 with $135.75 estimated interest.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa_goal_first",
+          "type": "save_plan",
+          "description": "Confirm goal-first allocation: apply $2185.00 to the car goal while continuing $100.00 minimum card payments.",
+          "requires_confirmation": true
+        },
+        {
+          "id": "pa_balanced",
+          "type": "save_plan",
+          "description": "Confirm balanced allocation: apply $1092.50 extra to the card and $1092.50 toward the car goal, targeting payoff by 2028-11-20 with $554.13 estimated interest.",
+          "requires_confirmation": true
+        }
+      ],
+      "snapshot_version": 1
+    },
+    "evidence": [
+      {
+        "id": "calc-33f08dd07418d29a5be96bd5",
+        "kind": "calculation",
+        "source_id": "get_debt_summary",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-5e11b746c656f0729550a6ef",
+        "kind": "calculation",
+        "source_id": "simulate_debt_payoff",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-2109ec852319d66810abeda3",
+        "kind": "calculation",
+        "source_id": "calculate_utilization",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-3c1c304f815b41ae3aa69d0b",
+        "kind": "calculation",
+        "source_id": "get_goals",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-0ecdac73ae28d31496095207",
+        "kind": "calculation",
+        "source_id": "allocate_budget",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      },
+      {
+        "id": "calc-8418eaeba20d4084317d6873",
+        "kind": "calculation",
+        "source_id": "compare_plans",
+        "source_mode": "fixture",
+        "observed_at": "2026-11-07T00:00:00.000Z"
+      }
+    ],
+    "events": [
+      {
+        "id": "7c8cd7d6-4320-415e-a382-64c655e61f98",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "started",
+        "at": "2026-11-08T03:03:16.504Z",
+        "message": "Agent started."
+      },
+      {
+        "id": "ba96e324-361d-47e3-9527-979b509c498c",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_started",
+        "at": "2026-11-08T03:03:18.124Z",
+        "message": "get_goals"
+      },
+      {
+        "id": "04c939b0-876b-44ee-8bc1-089d4e480258",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_completed",
+        "at": "2026-11-08T03:03:18.125Z",
+        "message": "get_goals"
+      },
+      {
+        "id": "50d605a0-e72e-4e45-82df-f89abbabdb54",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_started",
+        "at": "2026-11-08T03:03:19.456Z",
+        "message": "allocate_budget"
+      },
+      {
+        "id": "5fb27613-ca89-44c4-abca-dff3765c41c0",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_completed",
+        "at": "2026-11-08T03:03:19.458Z",
+        "message": "allocate_budget"
+      },
+      {
+        "id": "3e28abf2-26e5-463a-8211-06fedea8918f",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_started",
+        "at": "2026-11-08T03:03:29.123Z",
+        "message": "compare_plans"
+      },
+      {
+        "id": "e8e6621c-d288-416e-8a4e-bd9380c81e2a",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "tool_completed",
+        "at": "2026-11-08T03:03:29.125Z",
+        "message": "compare_plans"
+      },
+      {
+        "id": "890ac335-bba4-4fcb-a3f2-a4581a072548",
+        "run_id": "fp20-acceptance",
+        "agent_id": "goal-allocator",
+        "type": "completed",
+        "at": "2026-11-08T03:03:35.329Z",
+        "message": "Validated agent result."
+      }
+    ],
+    "trace": [
+      {
+        "tool": "get_goals",
+        "evidence_ids": [
+          "calc-3c1c304f815b41ae3aa69d0b"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "allocate_budget",
+        "evidence_ids": [
+          "calc-0ecdac73ae28d31496095207"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      },
+      {
+        "tool": "compare_plans",
+        "evidence_ids": [
+          "calc-8418eaeba20d4084317d6873"
+        ],
+        "source_modes": [
+          "fixture"
+        ]
+      }
+    ]
+  },
+  "planning": {
+    "budget": {
+      "as_of": "2026-11-07",
+      "horizon_end": "2026-12-07",
+      "feasible": true,
+      "accounts": [
+        {
+          "account_id": "checking",
+          "starting_cash_cents": 500000,
+          "obligations_reserved_cents": 131500,
+          "buffer_reserved_cents": 100000,
+          "existing_goal_savings_reserved_cents": 50000,
+          "protected_after_obligations_cents": 150000,
+          "unreserved_cents": 218500,
+          "available_cents": 218500,
+          "deficit_cents": 0,
+          "currency_display": {
+            "starting_cash_cents": "$5000.00",
+            "obligations_reserved_cents": "$1315.00",
+            "buffer_reserved_cents": "$1000.00",
+            "existing_goal_savings_reserved_cents": "$500.00",
+            "protected_after_obligations_cents": "$1500.00",
+            "unreserved_cents": "$2185.00",
+            "available_cents": "$2185.00",
+            "deficit_cents": "$0.00"
+          }
+        }
+      ],
+      "liquid_cash_cents": 500000,
+      "bills_reserved_cents": 121500,
+      "minimum_payments_reserved_cents": 10000,
+      "buffer_reserved_cents": 100000,
+      "existing_goal_savings_reserved_cents": 50000,
+      "total_reserved_cents": 281500,
+      "protected_after_obligations_cents": 150000,
+      "available_cents": 218500,
+      "confirmed_future_cost_reduction_cents": 500,
+      "ignored_unconfirmed_change_ids": [
+        "unconfirmed-rent"
+      ],
+      "realized_savings_cents": 0,
+      "future_income_counted_cents": 0,
+      "committed_debt_payments": [
+        {
+          "debt_id": "card-debt",
+          "committed_cents": 10000,
+          "currency_display": {
+            "committed_cents": "$100.00"
+          }
+        }
+      ],
+      "reason": null,
+      "currency_display": {
+        "liquid_cash_cents": "$5000.00",
+        "bills_reserved_cents": "$1215.00",
+        "minimum_payments_reserved_cents": "$100.00",
+        "buffer_reserved_cents": "$1000.00",
+        "existing_goal_savings_reserved_cents": "$500.00",
+        "total_reserved_cents": "$2815.00",
+        "protected_after_obligations_cents": "$1500.00",
+        "available_cents": "$2185.00",
+        "confirmed_future_cost_reduction_cents": "$5.00",
+        "realized_savings_cents": "$0.00",
+        "future_income_counted_cents": "$0.00"
+      }
+    },
+    "alternatives": [
+      {
+        "id": "debt_first",
+        "account_allocations": [
+          {
+            "account_id": "checking",
+            "starting_cash_cents": 500000,
+            "obligations_reserved_cents": 131500,
+            "buffer_reserved_cents": 100000,
+            "existing_goal_savings_reserved_cents": 50000,
+            "protected_after_obligations_cents": 150000,
+            "unreserved_cents": 218500,
+            "available_cents": 218500,
+            "deficit_cents": 0,
+            "extra_debt_cents": 218500,
+            "new_goal_contribution_cents": 0,
+            "unallocated_cents": 0,
+            "projected_closing_cash_cents": 150000,
+            "currency_display": {
+              "starting_cash_cents": "$5000.00",
+              "obligations_reserved_cents": "$1315.00",
+              "buffer_reserved_cents": "$1000.00",
+              "existing_goal_savings_reserved_cents": "$500.00",
+              "protected_after_obligations_cents": "$1500.00",
+              "unreserved_cents": "$2185.00",
+              "available_cents": "$2185.00",
+              "deficit_cents": "$0.00",
+              "extra_debt_cents": "$2185.00",
+              "new_goal_contribution_cents": "$0.00",
+              "unallocated_cents": "$0.00",
+              "projected_closing_cash_cents": "$1500.00"
+            }
+          }
+        ],
+        "debt_allocations": [
+          {
+            "debt_id": "card-debt",
+            "payment_account_id": "checking",
+            "minimum_reserved_cents": 10000,
+            "committed_payment_cents": 10000,
+            "extra_payment_cents": 218500,
+            "first_period_payment_budget_cents": 228500,
+            "projection": {
+              "starting_balance_cents": 300000,
+              "apr_bps": 2400,
+              "monthly_payment_cents": 10000,
+              "first_extra_cents": 218500,
+              "max_months": 360,
+              "apr_percent_display": "24.00%",
+              "status": "paid_off",
+              "payoff_months": 10,
+              "total_interest_cents": 13575,
+              "total_paid_cents": 313575,
+              "ending_balance_cents": 0,
+              "currency_display": {
+                "starting_balance_cents": "$3000.00",
+                "monthly_payment_cents": "$100.00",
+                "first_extra_cents": "$2185.00",
+                "total_interest_cents": "$135.75",
+                "total_paid_cents": "$3135.75",
+                "ending_balance_cents": "$0.00"
+              }
+            },
+            "estimated_payoff_date": "2027-08-20",
+            "currency_display": {
+              "minimum_reserved_cents": "$100.00",
+              "committed_payment_cents": "$100.00",
+              "extra_payment_cents": "$2185.00",
+              "first_period_payment_budget_cents": "$2285.00"
+            }
+          }
+        ],
+        "goal_allocations": [
+          {
+            "goal_id": "car-goal",
+            "account_id": "checking",
+            "priority": 1,
+            "deadline": "2027-11-07",
+            "existing_saved_cents": 50000,
+            "contribution_cents": 0,
+            "saved_after_contribution_cents": 50000,
+            "remaining_cents": 250000,
+            "deadline_met_now": false,
+            "months_remaining": 12,
+            "required_future_monthly_cents": 20834,
+            "projected_completion_date": null,
+            "currency_display": {
+              "existing_saved_cents": "$500.00",
+              "contribution_cents": "$0.00",
+              "saved_after_contribution_cents": "$500.00",
+              "remaining_cents": "$2500.00",
+              "required_future_monthly_cents": "$208.34"
+            }
+          }
+        ],
+        "extra_debt_cents": 218500,
+        "new_goal_contribution_cents": 0,
+        "unallocated_cents": 0,
+        "total_accounted_cents": 500000,
+        "projected_closing_cash_cents": 150000,
+        "baseline_total_interest_cents": 162730,
+        "estimated_interest_reduction_cents": 149155,
+        "estimated_total_interest_cents": 13575,
+        "estimated_debt_free_date": "2027-08-20",
+        "total_remaining_goal_cents": 250000,
+        "proposal_only": true,
+        "requires_confirmation": true,
+        "currency_display": {
+          "extra_debt_cents": "$2185.00",
+          "new_goal_contribution_cents": "$0.00",
+          "unallocated_cents": "$0.00",
+          "total_accounted_cents": "$5000.00",
+          "projected_closing_cash_cents": "$1500.00",
+          "baseline_total_interest_cents": "$1627.30",
+          "estimated_interest_reduction_cents": "$1491.55",
+          "estimated_total_interest_cents": "$135.75",
+          "total_remaining_goal_cents": "$2500.00"
+        }
+      },
+      {
+        "id": "goal_first",
+        "account_allocations": [
+          {
+            "account_id": "checking",
+            "starting_cash_cents": 500000,
+            "obligations_reserved_cents": 131500,
+            "buffer_reserved_cents": 100000,
+            "existing_goal_savings_reserved_cents": 50000,
+            "protected_after_obligations_cents": 150000,
+            "unreserved_cents": 218500,
+            "available_cents": 218500,
+            "deficit_cents": 0,
+            "extra_debt_cents": 0,
+            "new_goal_contribution_cents": 218500,
+            "unallocated_cents": 0,
+            "projected_closing_cash_cents": 368500,
+            "currency_display": {
+              "starting_cash_cents": "$5000.00",
+              "obligations_reserved_cents": "$1315.00",
+              "buffer_reserved_cents": "$1000.00",
+              "existing_goal_savings_reserved_cents": "$500.00",
+              "protected_after_obligations_cents": "$1500.00",
+              "unreserved_cents": "$2185.00",
+              "available_cents": "$2185.00",
+              "deficit_cents": "$0.00",
+              "extra_debt_cents": "$0.00",
+              "new_goal_contribution_cents": "$2185.00",
+              "unallocated_cents": "$0.00",
+              "projected_closing_cash_cents": "$3685.00"
+            }
+          }
+        ],
+        "debt_allocations": [
+          {
+            "debt_id": "card-debt",
+            "payment_account_id": "checking",
+            "minimum_reserved_cents": 10000,
+            "committed_payment_cents": 10000,
+            "extra_payment_cents": 0,
+            "first_period_payment_budget_cents": 10000,
+            "projection": {
+              "starting_balance_cents": 300000,
+              "apr_bps": 2400,
+              "monthly_payment_cents": 10000,
+              "first_extra_cents": 0,
+              "max_months": 360,
+              "apr_percent_display": "24.00%",
+              "status": "paid_off",
+              "payoff_months": 47,
+              "total_interest_cents": 162730,
+              "total_paid_cents": 462730,
+              "ending_balance_cents": 0,
+              "currency_display": {
+                "starting_balance_cents": "$3000.00",
+                "monthly_payment_cents": "$100.00",
+                "first_extra_cents": "$0.00",
+                "total_interest_cents": "$1627.30",
+                "total_paid_cents": "$4627.30",
+                "ending_balance_cents": "$0.00"
+              }
+            },
+            "estimated_payoff_date": "2030-09-20",
+            "currency_display": {
+              "minimum_reserved_cents": "$100.00",
+              "committed_payment_cents": "$100.00",
+              "extra_payment_cents": "$0.00",
+              "first_period_payment_budget_cents": "$100.00"
+            }
+          }
+        ],
+        "goal_allocations": [
+          {
+            "goal_id": "car-goal",
+            "account_id": "checking",
+            "priority": 1,
+            "deadline": "2027-11-07",
+            "existing_saved_cents": 50000,
+            "contribution_cents": 218500,
+            "saved_after_contribution_cents": 268500,
+            "remaining_cents": 31500,
+            "deadline_met_now": false,
+            "months_remaining": 12,
+            "required_future_monthly_cents": 2625,
+            "projected_completion_date": null,
+            "currency_display": {
+              "existing_saved_cents": "$500.00",
+              "contribution_cents": "$2185.00",
+              "saved_after_contribution_cents": "$2685.00",
+              "remaining_cents": "$315.00",
+              "required_future_monthly_cents": "$26.25"
+            }
+          }
+        ],
+        "extra_debt_cents": 0,
+        "new_goal_contribution_cents": 218500,
+        "unallocated_cents": 0,
+        "total_accounted_cents": 500000,
+        "projected_closing_cash_cents": 368500,
+        "baseline_total_interest_cents": 162730,
+        "estimated_interest_reduction_cents": 0,
+        "estimated_total_interest_cents": 162730,
+        "estimated_debt_free_date": "2030-09-20",
+        "total_remaining_goal_cents": 31500,
+        "proposal_only": true,
+        "requires_confirmation": true,
+        "currency_display": {
+          "extra_debt_cents": "$0.00",
+          "new_goal_contribution_cents": "$2185.00",
+          "unallocated_cents": "$0.00",
+          "total_accounted_cents": "$5000.00",
+          "projected_closing_cash_cents": "$3685.00",
+          "baseline_total_interest_cents": "$1627.30",
+          "estimated_interest_reduction_cents": "$0.00",
+          "estimated_total_interest_cents": "$1627.30",
+          "total_remaining_goal_cents": "$315.00"
+        }
+      },
+      {
+        "id": "balanced",
+        "account_allocations": [
+          {
+            "account_id": "checking",
+            "starting_cash_cents": 500000,
+            "obligations_reserved_cents": 131500,
+            "buffer_reserved_cents": 100000,
+            "existing_goal_savings_reserved_cents": 50000,
+            "protected_after_obligations_cents": 150000,
+            "unreserved_cents": 218500,
+            "available_cents": 218500,
+            "deficit_cents": 0,
+            "extra_debt_cents": 109250,
+            "new_goal_contribution_cents": 109250,
+            "unallocated_cents": 0,
+            "projected_closing_cash_cents": 259250,
+            "currency_display": {
+              "starting_cash_cents": "$5000.00",
+              "obligations_reserved_cents": "$1315.00",
+              "buffer_reserved_cents": "$1000.00",
+              "existing_goal_savings_reserved_cents": "$500.00",
+              "protected_after_obligations_cents": "$1500.00",
+              "unreserved_cents": "$2185.00",
+              "available_cents": "$2185.00",
+              "deficit_cents": "$0.00",
+              "extra_debt_cents": "$1092.50",
+              "new_goal_contribution_cents": "$1092.50",
+              "unallocated_cents": "$0.00",
+              "projected_closing_cash_cents": "$2592.50"
+            }
+          }
+        ],
+        "debt_allocations": [
+          {
+            "debt_id": "card-debt",
+            "payment_account_id": "checking",
+            "minimum_reserved_cents": 10000,
+            "committed_payment_cents": 10000,
+            "extra_payment_cents": 109250,
+            "first_period_payment_budget_cents": 119250,
+            "projection": {
+              "starting_balance_cents": 300000,
+              "apr_bps": 2400,
+              "monthly_payment_cents": 10000,
+              "first_extra_cents": 109250,
+              "max_months": 360,
+              "apr_percent_display": "24.00%",
+              "status": "paid_off",
+              "payoff_months": 25,
+              "total_interest_cents": 55413,
+              "total_paid_cents": 355413,
+              "ending_balance_cents": 0,
+              "currency_display": {
+                "starting_balance_cents": "$3000.00",
+                "monthly_payment_cents": "$100.00",
+                "first_extra_cents": "$1092.50",
+                "total_interest_cents": "$554.13",
+                "total_paid_cents": "$3554.13",
+                "ending_balance_cents": "$0.00"
+              }
+            },
+            "estimated_payoff_date": "2028-11-20",
+            "currency_display": {
+              "minimum_reserved_cents": "$100.00",
+              "committed_payment_cents": "$100.00",
+              "extra_payment_cents": "$1092.50",
+              "first_period_payment_budget_cents": "$1192.50"
+            }
+          }
+        ],
+        "goal_allocations": [
+          {
+            "goal_id": "car-goal",
+            "account_id": "checking",
+            "priority": 1,
+            "deadline": "2027-11-07",
+            "existing_saved_cents": 50000,
+            "contribution_cents": 109250,
+            "saved_after_contribution_cents": 159250,
+            "remaining_cents": 140750,
+            "deadline_met_now": false,
+            "months_remaining": 12,
+            "required_future_monthly_cents": 11730,
+            "projected_completion_date": null,
+            "currency_display": {
+              "existing_saved_cents": "$500.00",
+              "contribution_cents": "$1092.50",
+              "saved_after_contribution_cents": "$1592.50",
+              "remaining_cents": "$1407.50",
+              "required_future_monthly_cents": "$117.30"
+            }
+          }
+        ],
+        "extra_debt_cents": 109250,
+        "new_goal_contribution_cents": 109250,
+        "unallocated_cents": 0,
+        "total_accounted_cents": 500000,
+        "projected_closing_cash_cents": 259250,
+        "baseline_total_interest_cents": 162730,
+        "estimated_interest_reduction_cents": 107317,
+        "estimated_total_interest_cents": 55413,
+        "estimated_debt_free_date": "2028-11-20",
+        "total_remaining_goal_cents": 140750,
+        "proposal_only": true,
+        "requires_confirmation": true,
+        "currency_display": {
+          "extra_debt_cents": "$1092.50",
+          "new_goal_contribution_cents": "$1092.50",
+          "unallocated_cents": "$0.00",
+          "total_accounted_cents": "$5000.00",
+          "projected_closing_cash_cents": "$2592.50",
+          "baseline_total_interest_cents": "$1627.30",
+          "estimated_interest_reduction_cents": "$1073.17",
+          "estimated_total_interest_cents": "$554.13",
+          "total_remaining_goal_cents": "$1407.50"
+        }
+      }
+    ],
+    "reason": null,
+    "missing_data": [],
+    "selection": "Choose one mutually exclusive alternative; no automatic acceptance.",
+    "timelines": "Only returned payoff dates are estimates under fixed-payment assumptions; no lending approval or credit score can be inferred."
+  },
+  "dependency": "Goal Allocator consumes Debt Readiness for the same user, run, snapshot and accounts",
+  "limits": {
+    "max_tokens": 4096,
+    "max_model_calls": 24,
+    "max_tool_rounds": 4,
+    "specialist_timeout_ms": 90000
+  }
+}
