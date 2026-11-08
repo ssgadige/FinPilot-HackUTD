@@ -1,0 +1,75 @@
+FP-16 - backend security and integration verification
+
+Use the Node version in .nvmrc (22.23.4), npm and Python 3.11+.
+From the repository root:
+  npm ci
+  npm run verify:backend
+
+The verification command uses disposable databases and synthetic identities. It
+runs setup twice, checks seed reconciliation/ownership, exercises backend APIs,
+runs the lane C provider/tool security regressions, checks existing UI tests,
+typechecks and builds production code. It scans browser artifacts for generated
+server-secret canaries, then starts the production HTTP server with a real local
+SMTP receiver: password -> delivered code -> verified session -> selected link ->
+scoped finance/scenario reads -> explicit missing-provider result -> disconnect ->
+logout. Private request data is never printed. It verifies reset/reseed/migrations
+and leaves a safe, gitignored artifacts/backend/verification.json report.
+It does not reset an existing application database or change .env.local.
+
+Acceptance coverage:
+- 25 backend checks: password/code expiry/replay/attempts, pending sessions,
+  logout, idle/absolute expiry, origin/CSRF, strict bounded inputs, ownership on
+  reads and mutations, selected accounts, disconnected/stale evidence, plans,
+  scenarios, persisted run steps/events, cancellation/budgets, idempotent events,
+  subscription intentions, and bounded scoped chat.
+- Two independent SQLite worker clients race to accept the same version: one
+  succeeds and one conflicts. A failed revision/acceptance preserves the old plan.
+- The full initial-proposal -> accept -> changed data -> proposed repair flow uses
+  the production adapter/tool loop with a deterministic TEST inference seam.
+  These tests are not evidence of a live provider call.
+- 40 lane C regressions cover role allowlists, injected identity/SQL/merchant
+  instructions, malformed output/repair, cents evidence, source labels, provider
+  failures, DNS pinning, private addresses, redirects, response limits and timeouts.
+- 16 existing UI tests and 5 Python seed checks. No frontend or Markdown edits.
+- Persistent selected connections and data survive reopening; interrupted runs
+  become explicitly failed after restart. Generated DB/credential files are private.
+
+Run the normal local demo:
+  npm ci
+  npm run setup
+  docker compose up -d mailpit
+  npm run dev
+Read only your locally generated data/demo-credentials.json for fictional login
+credentials. Codes arrive in local Mailpit at http://127.0.0.1:8025.
+
+Container setup (after .env.local exists):
+  docker compose build app
+  docker compose run --rm app npm run setup
+  docker compose up -d
+Data persists in the finpilot-data Docker volume. Local ports are loopback-only.
+
+Intentional reset of disposable local demo data; stop the app first:
+  python3 scripts/seed_demo.py --reset
+  npm run db:migrate
+  python3 scripts/validate_seed.py
+For the container volume use the same commands through docker compose run --rm
+app. Reset destroys that synthetic demo history and generates fresh credentials;
+normal npm run setup preserves existing data and configuration.
+
+Live provider verification is separate:
+Configure NVIDIA_API_KEY and an accessible NEMOTRON_MODEL privately in .env.local,
+then run npm run smoke:nemotron. The diagnostic requires a real model tool call
+and consumption of a fresh tool result. Only a successful real call is live
+inference evidence. No live credentials were available for this verification.
+Missing credentials fail visibly (503 / NEMOTRON_UNAVAILABLE); a mocked run is
+never saved as live acceptance. Financial data and fixture offers remain labeled
+fixture even with live inference. OFFERS_MODE=live separately enables the pinned
+public-source adapter; failure or unsupported terms never manufacture an offer.
+
+The current lane C source supplies integrity/cash and subscription/deal roles.
+Coordinator and repair use that same runtime. Uninstalled debt-readiness, goal
+negotiation and standalone stress integrations are explicitly skipped, with
+needs_information, until their separate workstream is available.
+
+No real transfers, purchases, cancellations or changes to banking authorization
+are performed. Public shared SQL/API/type specifications are unchanged.

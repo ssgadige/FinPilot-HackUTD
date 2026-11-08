@@ -70,7 +70,21 @@ export class NemotronRunner implements Runner {
     }});
     tools.route_specialists=meta('route_specialists',()=>({intent:intent.split(':')[0],available_specialists:offered,recommended:defaults,unavailable_specialists:['debt-readiness','goal-allocator','stress-test']}));
     tools.read_run_findings=meta('read_run_findings',()=>({results:results.filter(r=>r.agent_id!=='coordinator'),financial_source_mode:'fixture'}));
-    tools.compare_plans=meta('compare_plans',()=>({candidate: candidate??null,prior_plan_id:parentId??null,proposal_only:true,realized_savings_cents:0}));
+    tools.compare_plans=meta('compare_plans',()=>{
+      if(!candidate&&!intent.startsWith('plan_repair')&&!intent.startsWith('debt')&&!intent.startsWith('goals')) {
+        const existing=parent(),overview=this.finance.overview(context.userId),forecast=this.finance.forecast(context.userId,90);
+        const reserve=existing?planPayload.parse(JSON.parse(existing.payload_json)).reserve_cents:overview.upcoming_bills.filter(b=>b.essential).reduce((sum,b)=>sum+b.amount_cents,0);
+        let capacity=Math.max(0,Math.min(Math.floor((forecast.low_cash_cents-reserve)/3),overview.income_cents-overview.spending_cents));
+        const asOf=this.finance.asOf();
+        const allocations=this.store.all('SELECT id,target_cents,saved_cents,deadline FROM goals WHERE user_id=? ORDER BY priority,id',context.userId).map(goal=>{
+          const months=Math.max(1,(Number(goal.deadline.slice(0,4))-Number(asOf.slice(0,4)))*12+Number(goal.deadline.slice(5,7))-Number(asOf.slice(5,7)));
+          const monthly_cents=Math.min(capacity,Math.max(0,Math.ceil((goal.target_cents-goal.saved_cents)/months)));capacity-=monthly_cents;
+          return {kind:'goal_contribution' as const,target_id:goal.id,monthly_cents,day_of_month:28};
+        });
+        candidate={allocations,reserve_cents:reserve,evidence_ids:[],assumptions:['Conservative server candidate: goal priority order, observed monthly surplus, essential-bill reserve and a 90-day cash bound. Subscription intentions contribute zero realized savings. No money is moved.']};
+      }
+      return {candidate:candidate??null,prior_plan_id:parentId??null,proposal_only:true,realized_savings_cents:0};
+    });
     const parent=()=>{
       const p=this.store.one("SELECT id FROM plans WHERE user_id=? AND status='accepted'",context.userId);parentId=p?.id;
       return p?this.planning.plan(context.userId,p.id):undefined;
@@ -86,9 +100,10 @@ export class NemotronRunner implements Runner {
     tools.propose_plan_revision=meta('propose_plan_revision',()=>{
       const p=parent();if(!p)return {candidate:null,missing_data:['Accept a plan before requesting a revision'],proposal_only:true};
       const old=planPayload.parse(JSON.parse(p.payload_json)),forecast=this.finance.forecast(context.userId,90),flow=this.finance.overview(context.userId);
-      let capacity=Math.max(0,Math.min(Math.floor((forecast.low_cash_cents-old.reserve_cents)/3),flow.income_cents-flow.spending_cents));
+      const occurrences=Math.max(1,...old.allocations.map(a=>forecast.dated_balances.slice(1).filter(row=>Number(row.date.slice(-2))===a.day_of_month).length));
+      let capacity=Math.max(0,Math.min(Math.floor((forecast.low_cash_cents-old.reserve_cents)/occurrences),flow.income_cents-flow.spending_cents));
       const allocations=old.allocations.map(a=>{const monthly_cents=Math.min(a.monthly_cents,capacity);capacity-=monthly_cents;return {...a,monthly_cents};});
-      candidate={...old,allocations,evidence_ids:[],assumptions:[...old.assumptions.slice(0,25),'Revision caps allocations to observed monthly surplus and one third of 90-day cash above reserve; planned subscription savings are excluded.']};
+      candidate={...old,allocations,evidence_ids:[],assumptions:[...old.assumptions.slice(0,25),'Revision caps allocations to observed monthly surplus and 90-day cash above reserve divided by the maximum allocation due-date count; planned subscription savings are excluded.']};
       this.planning.validatePayload(context.userId,candidate);
       return {candidate,parent_plan_id:p.id,prior_allocations:old.allocations,available_monthly_cents:allocations.reduce((sum,a)=>sum+a.monthly_cents,0),proposal_only:true,realized_savings_cents:0};
     });
@@ -122,6 +137,7 @@ export class NemotronRunner implements Runner {
     }
     await run('coordinator','merge');
     const repair=outputs.get('plan-repair');
-    return {results,...(candidate&&parentId&&repair?.result.status==='completed'?{proposal:{payload:{...candidate,evidence_ids:repair.result.evidence_ids},parentId}}:{})};
+    const final=outputs.get('coordinator')!;
+    return {results,...(candidate&&(!intent.startsWith('plan_repair')||repair?.result.status==='completed')?{proposal:{payload:{...candidate,evidence_ids:intent.startsWith('plan_repair')?repair!.result.evidence_ids:final.result.evidence_ids},...(parentId?{parentId}:{})}}:{})};
   }
 }
