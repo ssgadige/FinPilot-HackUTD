@@ -1,0 +1,19 @@
+name: Read-only offer assessment validation
+on:
+  pull_request:
+    paths:
+      - src/server/agents/planning/offer-readiness.ts
+      - tests/backend/offer-readonly.test.ts
+      - .github/workflows/offer-readonly-validation.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test tests/backend/offer-readonly.test.ts
